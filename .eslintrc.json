@@ -1,0 +1,14 @@
+{
+  "extends": ["@html-validate"],
+
+  "overrides": [
+    {
+      "files": "*.ts",
+      "extends": ["@html-validate/eslint-config/typescript"]
+    },
+    {
+      "files": "*.spec.[jt]s",
+      "extends": ["@html-validate/eslint-config/jest"]
+    }
+  ]
+}
