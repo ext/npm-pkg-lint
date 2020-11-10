@@ -79,9 +79,6 @@
   "engines": {
     "node": ">= 12.0"
   },
-  "release": {
-    "extends": "@html-validate/semantic-release-config"
-  },
   "renovate": {
     "extends": [
       "@html-validate"
