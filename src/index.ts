@@ -49,6 +49,13 @@ async function run(): Promise<void> {
 	const results = [await verifyTarball(args.tarball)];
 	const output = stylish(results);
 	process.stdout.write(output);
+
+	const totalErrors = results.reduce((sum, result) => {
+		return sum + result.errorCount;
+	}, 0);
+
+	/* eslint-disable-next-line no-process-exit -- this is a cli tool */
+	process.exit(totalErrors > 0 ? 1 : 0);
 }
 
 run();
