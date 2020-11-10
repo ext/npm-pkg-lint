@@ -20,9 +20,12 @@
     "npm-pkg-lint": "dist/index.js"
   },
   "scripts": {
-    "test": "jest",
     "eslint": "eslint .",
-    "eslint:fix": "eslint --fix ."
+    "eslint:fix": "eslint --fix .",
+    "prettier:check": "prettier . --check",
+    "prettier:write": "prettier . --write",
+    "semantic-release": "semantic-release",
+    "test": "jest"
   },
   "husky": {
     "hooks": {
