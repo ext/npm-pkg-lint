@@ -1,3 +1,5 @@
 *.tgz
+coverage/
 dist/
 node_modules/
+temp/

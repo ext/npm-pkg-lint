@@ -24,6 +24,7 @@ const blacklist: RegExp[] = [
 	extension("[.-]junit.xml"),
 	extension(".spec.[jt]sx?"),
 	extension(".test.[jt]sx?"),
+	filename("junit.xml"),
 
 	/* jest */
 	directory("__tests__"),
