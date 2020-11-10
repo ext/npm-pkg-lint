@@ -19,6 +19,10 @@
   "bin": {
     "npm-pkg-lint": "dist/index.js"
   },
+  "files": [
+    "dist",
+    "!*.d.ts"
+  ],
   "scripts": {
     "eslint": "eslint .",
     "eslint:fix": "eslint --fix .",
