@@ -20,6 +20,7 @@
     "npm-pkg-lint": "index.js"
   },
   "files": [
+    "index.js",
     "dist",
     "!*.d.ts"
   ],
