@@ -1,5 +1,11 @@
 # npm-pkg-lint changelog
 
+### [1.0.2](https://github.com/ext/npm-pkg-lint/compare/v1.0.1...v1.0.2) (2020-11-11)
+
+### Bug Fixes
+
+- shebang ([576f428](https://github.com/ext/npm-pkg-lint/commit/576f428987a90359f472ea03a410d3c1a44c3c25))
+
 ### [1.0.1](https://github.com/ext/npm-pkg-lint/compare/v1.0.0...v1.0.1) (2020-11-11)
 
 ### Bug Fixes
