@@ -24,6 +24,7 @@
     "!*.d.ts"
   ],
   "scripts": {
+    "build": "tsc",
     "eslint": "eslint .",
     "eslint:fix": "eslint --fix .",
     "prettier:check": "prettier . --check",
