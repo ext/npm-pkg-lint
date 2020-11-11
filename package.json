@@ -17,7 +17,7 @@
   "license": "MIT",
   "main": "dist/index.js",
   "bin": {
-    "npm-pkg-lint": "dist/index.js"
+    "npm-pkg-lint": "index.js"
   },
   "files": [
     "dist",
