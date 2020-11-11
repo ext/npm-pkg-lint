@@ -1,5 +1,11 @@
 # npm-pkg-lint changelog
 
+### [1.0.3](https://github.com/ext/npm-pkg-lint/compare/v1.0.2...v1.0.3) (2020-11-11)
+
+### Bug Fixes
+
+- add missing file ([0964b40](https://github.com/ext/npm-pkg-lint/commit/0964b40a7313add135672092d52d116589a919b7))
+
 ### [1.0.2](https://github.com/ext/npm-pkg-lint/compare/v1.0.1...v1.0.2) (2020-11-11)
 
 ### Bug Fixes
