@@ -1,6 +1,6 @@
 {
   "name": "npm-pkg-lint",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Lint NPM package tarball and metadata",
   "keywords": [
     "lint",

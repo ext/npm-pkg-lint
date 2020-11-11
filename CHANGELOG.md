@@ -1,5 +1,11 @@
 # npm-pkg-lint changelog
 
+### [1.0.1](https://github.com/ext/npm-pkg-lint/compare/v1.0.0...v1.0.1) (2020-11-11)
+
+### Bug Fixes
+
+- compile package before release ([a33e5ce](https://github.com/ext/npm-pkg-lint/commit/a33e5ce4e2abf84440b3137abfb07cbb02cc9fa2))
+
 ## 1.0.0 (2020-11-11)
 
 ### Features
