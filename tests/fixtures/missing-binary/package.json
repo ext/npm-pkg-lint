@@ -1,8 +1,9 @@
 {
-  "name": "disallowed-files",
+  "name": "missing-binary",
   "version": "1.0.0",
   "description": "",
-  "main": "my-lib.js",
+  "main": "index.js",
+  "bin": "bin.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

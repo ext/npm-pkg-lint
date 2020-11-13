@@ -59,7 +59,7 @@ async function run(): Promise<void> {
 
 	setupBlacklist(pkg.name);
 
-	const results = [await verifyTarball(tarball)];
+	const results = [await verifyTarball(pkg, tarball)];
 	const output = stylish(results);
 	process.stdout.write(output);
 

@@ -16,13 +16,12 @@
   },
   "license": "MIT",
   "main": "dist/index.js",
-  "bin": {
-    "npm-pkg-lint": "index.js"
-  },
+  "bin": "index.js",
   "files": [
     "index.js",
     "dist",
-    "!*.d.ts"
+    "!*.d.ts",
+    "!*.spec.js"
   ],
   "scripts": {
     "build": "tsc",
@@ -52,6 +51,7 @@
     "preset": "@html-validate/jest-config",
     "testPathIgnorePatterns": [
       "/node_modules/",
+      "dist",
       "tests/fixtures"
     ]
   },

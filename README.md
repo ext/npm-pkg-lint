@@ -24,3 +24,19 @@ Disallows certain files from being included in the package tarball.
 - CI-related files (github actions, gitlab pipelines, etc)
 - Typescript configs (tsconfig)
 - Editor-related files
+
+## Missing files
+
+Requires files specified in `package.json` to be present.
+
+**Why?** These files are required for the end user to use the package.
+
+Verifies the presence of files specified in:
+
+- `main`
+- `browser`
+- `module`
+- `jsnext:main`,
+- `typings`
+- `bin`
+- `man`

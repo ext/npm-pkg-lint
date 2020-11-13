@@ -1,0 +1,123 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should return error if package.json references missing file bin (multiple) 1`] = `
+Array [
+  Object {
+    "column": 1,
+    "line": 1,
+    "message": "dist/foo.js (pkg.bin) is not present in tarball",
+    "ruleId": "no-missing-binary",
+    "severity": 2,
+  },
+  Object {
+    "column": 1,
+    "line": 1,
+    "message": "dist/bar.js (pkg.bin) is not present in tarball",
+    "ruleId": "no-missing-binary",
+    "severity": 2,
+  },
+]
+`;
+
+exports[`should return error if package.json references missing file bin (single) 1`] = `
+Array [
+  Object {
+    "column": 1,
+    "line": 1,
+    "message": "index.js (pkg.bin) is not present in tarball",
+    "ruleId": "no-missing-binary",
+    "severity": 2,
+  },
+]
+`;
+
+exports[`should return error if package.json references missing file browser 1`] = `
+Array [
+  Object {
+    "column": 1,
+    "line": 1,
+    "message": "index.js (pkg.browser) is not present in tarball",
+    "ruleId": "no-missing-main",
+    "severity": 2,
+  },
+]
+`;
+
+exports[`should return error if package.json references missing file jsnext:main 1`] = `
+Array [
+  Object {
+    "column": 1,
+    "line": 1,
+    "message": "index.js (pkg.jsnext:main) is not present in tarball",
+    "ruleId": "no-missing-main",
+    "severity": 2,
+  },
+]
+`;
+
+exports[`should return error if package.json references missing file main 1`] = `
+Array [
+  Object {
+    "column": 1,
+    "line": 1,
+    "message": "index.js (pkg.main) is not present in tarball",
+    "ruleId": "no-missing-main",
+    "severity": 2,
+  },
+]
+`;
+
+exports[`should return error if package.json references missing file man (multiple) 1`] = `
+Array [
+  Object {
+    "column": 1,
+    "line": 1,
+    "message": "man/foo.1 (pkg.man) is not present in tarball",
+    "ruleId": "no-missing-man",
+    "severity": 2,
+  },
+  Object {
+    "column": 1,
+    "line": 1,
+    "message": "man/bar.1 (pkg.man) is not present in tarball",
+    "ruleId": "no-missing-man",
+    "severity": 2,
+  },
+]
+`;
+
+exports[`should return error if package.json references missing file man (single) 1`] = `
+Array [
+  Object {
+    "column": 1,
+    "line": 1,
+    "message": "man/foo.1 (pkg.man) is not present in tarball",
+    "ruleId": "no-missing-man",
+    "severity": 2,
+  },
+]
+`;
+
+exports[`should return error if package.json references missing file module 1`] = `
+Array [
+  Object {
+    "column": 1,
+    "line": 1,
+    "message": "index.js (pkg.module) is not present in tarball",
+    "ruleId": "no-missing-main",
+    "severity": 2,
+  },
+]
+`;
+
+exports[`should return error if package.json references missing file typings 1`] = `
+Array [
+  Object {
+    "column": 1,
+    "line": 1,
+    "message": "index.d.ts (pkg.typings) is not present in tarball",
+    "ruleId": "no-missing-typings",
+    "severity": 2,
+  },
+]
+`;

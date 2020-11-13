@@ -16,3 +16,37 @@ Object {
   "warningCount": 0,
 }
 `;
+
+exports[`missing-binary 1`] = `
+Object {
+  "errorCount": 1,
+  "filePath": "tests/fixtures/missing-binary/missing-binary-1.0.0.tgz",
+  "messages": Array [
+    Object {
+      "column": 1,
+      "line": 1,
+      "message": "bin.js (pkg.bin) is not present in tarball",
+      "ruleId": "no-missing-binary",
+      "severity": 2,
+    },
+  ],
+  "warningCount": 0,
+}
+`;
+
+exports[`missing-main 1`] = `
+Object {
+  "errorCount": 1,
+  "filePath": "tests/fixtures/missing-main/missing-main-1.0.0.tgz",
+  "messages": Array [
+    Object {
+      "column": 1,
+      "line": 1,
+      "message": "index.js (pkg.main) is not present in tarball",
+      "ruleId": "no-missing-main",
+      "severity": 2,
+    },
+  ],
+  "warningCount": 0,
+}
+`;
