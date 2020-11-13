@@ -4,6 +4,7 @@
     "baseUrl": "./src",
     "declaration": true,
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "lib": ["es2017"],
     "module": "commonjs",
     "noImplicitAny": true,

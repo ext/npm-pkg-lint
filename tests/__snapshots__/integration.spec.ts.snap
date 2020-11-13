@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`disallowed-files 1`] = `
+Object {
+  "errorCount": 1,
+  "filePath": "tests/fixtures/disallowed-files/disallowed-files-1.0.0.tgz",
+  "messages": Array [
+    Object {
+      "column": 1,
+      "line": 1,
+      "message": "my-lib.spec.js is not allowed in tarball",
+      "ruleId": "no-disallowed-files",
+      "severity": 2,
+    },
+  ],
+  "warningCount": 0,
+}
+`;
