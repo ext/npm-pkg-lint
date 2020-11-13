@@ -1,36 +1,13 @@
 import { promises as fs } from "fs";
 import { ArgumentParser } from "argparse";
 import { setupBlacklist } from "./blacklist";
-import { blacklistedFiles } from "./tarball";
-import { Message } from "./message";
-import { Result } from "./result";
+import { verifyTarball } from "./tarball";
 
 /* eslint-disable-next-line @typescript-eslint/no-var-requires */
 const stylish = require("eslint/lib/cli-engine/formatters/stylish");
 
 /* eslint-disable-next-line @typescript-eslint/no-var-requires */
 const { version } = require("../package.json");
-
-async function verifyTarball(filePath: string): Promise<Result> {
-	const messages: Message[] = [];
-
-	for (const filename of await blacklistedFiles(filePath)) {
-		messages.push({
-			ruleId: "no-disallowed-files",
-			severity: 2,
-			message: `${filename} is not allowed in tarball`,
-			line: 1,
-			column: 1,
-		});
-	}
-
-	return {
-		messages,
-		filePath,
-		errorCount: messages.length,
-		warningCount: 0,
-	};
-}
 
 async function run(): Promise<void> {
 	const parser = new ArgumentParser({
