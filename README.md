@@ -2,7 +2,14 @@
 
 Performs sanity checks on a package tarball and `package.json`.
 
-> npx npm-pkg-lint -t my-pkg-1.2.3.tgz -p package.json
+> npx npm-pkg-lint
+
+## Usage
+
+> npx npm-pkg-lint [--tarball my-pkg-1.2.3.tgz} [--pkgfile package.json]
+
+Use `--tarball` and `--pkgfile` to specify custom locations.
+Default is to find `package.json` from current directory tree and derive tarball filename from the `name` and `version` field.
 
 ## Disallowed files
 

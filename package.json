@@ -58,6 +58,7 @@
   "dependencies": {
     "argparse": "^2.0.1",
     "eslint": "^7.13.0",
+    "find-up": "^5.0.0",
     "tar": "^6.0.5"
   },
   "devDependencies": {
