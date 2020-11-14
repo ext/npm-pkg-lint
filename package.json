@@ -15,6 +15,7 @@
     "url": "https://github.com/ext/npm-pkg-lint.git"
   },
   "license": "MIT",
+  "author": "David Sveningsson <ext@sidvind.com>",
   "main": "dist/index.js",
   "bin": "index.js",
   "files": [

@@ -1,11 +1,19 @@
 {
   "name": "disallowed-files",
   "version": "1.0.0",
-  "description": "",
+  "description": "test disallowed files",
+  "keywords": [
+    "test"
+  ],
+  "homepage": "https://example.net",
+  "bugs": "https://example.net/bugs",
+  "author": "Fred Flintstone <fred.flintstone@example.net>",
+  "repository": {
+    "url": "https://git.example.net/disallowed-files.git"
+  },
   "main": "my-lib.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
   "license": "ISC"
 }

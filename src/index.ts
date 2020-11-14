@@ -5,7 +5,7 @@ import path from "path";
 import { ArgumentParser } from "argparse";
 import findUp from "find-up";
 import { setupBlacklist } from "./blacklist";
-import { verifyTarball } from "./tarball";
+import { verify } from "./verify";
 import PackageJson from "./types/package-json";
 
 /* eslint-disable-next-line @typescript-eslint/no-var-requires */
@@ -59,7 +59,7 @@ async function run(): Promise<void> {
 
 	setupBlacklist(pkg.name);
 
-	const results = [await verifyTarball(pkg, tarball)];
+	const results = await verify(pkg, pkgPath, tarball);
 	const output = stylish(results);
 	process.stdout.write(output);
 

@@ -1,52 +1,210 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`disallowed-files 1`] = `
-Object {
-  "errorCount": 1,
-  "filePath": "tests/fixtures/disallowed-files/disallowed-files-1.0.0.tgz",
-  "messages": Array [
-    Object {
-      "column": 1,
-      "line": 1,
-      "message": "my-lib.spec.js is not allowed in tarball",
-      "ruleId": "no-disallowed-files",
-      "severity": 2,
-    },
-  ],
-  "warningCount": 0,
-}
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "tests/fixtures/disallowed-files/disallowed-files-1.0.0.tgz",
+    "messages": Array [
+      Object {
+        "column": 1,
+        "line": 1,
+        "message": "my-lib.spec.js is not allowed in tarball",
+        "ruleId": "no-disallowed-files",
+        "severity": 2,
+      },
+    ],
+    "warningCount": 0,
+  },
+  Object {
+    "errorCount": 0,
+    "filePath": "/home/ext/workspace/npm-pkg-lint/tests/fixtures/disallowed-files/package.json",
+    "messages": Array [],
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`empty-fields 1`] = `
+Array [
+  Object {
+    "errorCount": 0,
+    "filePath": "tests/fixtures/empty-fields/empty-fields-1.0.0.tgz",
+    "messages": Array [],
+    "warningCount": 0,
+  },
+  Object {
+    "errorCount": 7,
+    "filePath": "/home/ext/workspace/npm-pkg-lint/tests/fixtures/empty-fields/package.json",
+    "messages": Array [
+      Object {
+        "column": 1,
+        "line": 1,
+        "message": "\\"description\\" must not be empty",
+        "ruleId": "package-json-fields",
+        "severity": 2,
+      },
+      Object {
+        "column": 1,
+        "line": 1,
+        "message": "\\"keywords\\" must not be empty",
+        "ruleId": "package-json-fields",
+        "severity": 2,
+      },
+      Object {
+        "column": 1,
+        "line": 1,
+        "message": "\\"homepage\\" must be a valid url (https only)",
+        "ruleId": "package-json-fields",
+        "severity": 2,
+      },
+      Object {
+        "column": 1,
+        "line": 1,
+        "message": "\\"bugs\\" must be a valid url (https only)",
+        "ruleId": "package-json-fields",
+        "severity": 2,
+      },
+      Object {
+        "column": 1,
+        "line": 1,
+        "message": "\\"license\\" must not be empty",
+        "ruleId": "package-json-fields",
+        "severity": 2,
+      },
+      Object {
+        "column": 1,
+        "line": 1,
+        "message": "\\"author\\" must not be empty",
+        "ruleId": "package-json-fields",
+        "severity": 2,
+      },
+      Object {
+        "column": 1,
+        "line": 1,
+        "message": "\\"repository\\" must be a valid url (https only)",
+        "ruleId": "package-json-fields",
+        "severity": 2,
+      },
+    ],
+    "warningCount": 0,
+  },
+]
 `;
 
 exports[`missing-binary 1`] = `
-Object {
-  "errorCount": 1,
-  "filePath": "tests/fixtures/missing-binary/missing-binary-1.0.0.tgz",
-  "messages": Array [
-    Object {
-      "column": 1,
-      "line": 1,
-      "message": "bin.js (pkg.bin) is not present in tarball",
-      "ruleId": "no-missing-binary",
-      "severity": 2,
-    },
-  ],
-  "warningCount": 0,
-}
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "tests/fixtures/missing-binary/missing-binary-1.0.0.tgz",
+    "messages": Array [
+      Object {
+        "column": 1,
+        "line": 1,
+        "message": "bin.js (pkg.bin) is not present in tarball",
+        "ruleId": "no-missing-binary",
+        "severity": 2,
+      },
+    ],
+    "warningCount": 0,
+  },
+  Object {
+    "errorCount": 0,
+    "filePath": "/home/ext/workspace/npm-pkg-lint/tests/fixtures/missing-binary/package.json",
+    "messages": Array [],
+    "warningCount": 0,
+  },
+]
+`;
+
+exports[`missing-fields 1`] = `
+Array [
+  Object {
+    "errorCount": 0,
+    "filePath": "tests/fixtures/missing-fields/missing-fields-1.0.0.tgz",
+    "messages": Array [],
+    "warningCount": 0,
+  },
+  Object {
+    "errorCount": 7,
+    "filePath": "/home/ext/workspace/npm-pkg-lint/tests/fixtures/missing-fields/package.json",
+    "messages": Array [
+      Object {
+        "column": 1,
+        "line": 1,
+        "message": "\\"description\\" must be set",
+        "ruleId": "package-json-fields",
+        "severity": 2,
+      },
+      Object {
+        "column": 1,
+        "line": 1,
+        "message": "\\"keywords\\" must be set",
+        "ruleId": "package-json-fields",
+        "severity": 2,
+      },
+      Object {
+        "column": 1,
+        "line": 1,
+        "message": "\\"homepage\\" must be set",
+        "ruleId": "package-json-fields",
+        "severity": 2,
+      },
+      Object {
+        "column": 1,
+        "line": 1,
+        "message": "\\"bugs\\" must be set",
+        "ruleId": "package-json-fields",
+        "severity": 2,
+      },
+      Object {
+        "column": 1,
+        "line": 1,
+        "message": "\\"license\\" must be set",
+        "ruleId": "package-json-fields",
+        "severity": 2,
+      },
+      Object {
+        "column": 1,
+        "line": 1,
+        "message": "\\"author\\" must be set",
+        "ruleId": "package-json-fields",
+        "severity": 2,
+      },
+      Object {
+        "column": 1,
+        "line": 1,
+        "message": "\\"repository\\" must be set",
+        "ruleId": "package-json-fields",
+        "severity": 2,
+      },
+    ],
+    "warningCount": 0,
+  },
+]
 `;
 
 exports[`missing-main 1`] = `
-Object {
-  "errorCount": 1,
-  "filePath": "tests/fixtures/missing-main/missing-main-1.0.0.tgz",
-  "messages": Array [
-    Object {
-      "column": 1,
-      "line": 1,
-      "message": "index.js (pkg.main) is not present in tarball",
-      "ruleId": "no-missing-main",
-      "severity": 2,
-    },
-  ],
-  "warningCount": 0,
-}
+Array [
+  Object {
+    "errorCount": 1,
+    "filePath": "tests/fixtures/missing-main/missing-main-1.0.0.tgz",
+    "messages": Array [
+      Object {
+        "column": 1,
+        "line": 1,
+        "message": "index.js (pkg.main) is not present in tarball",
+        "ruleId": "no-missing-main",
+        "severity": 2,
+      },
+    ],
+    "warningCount": 0,
+  },
+  Object {
+    "errorCount": 0,
+    "filePath": "/home/ext/workspace/npm-pkg-lint/tests/fixtures/missing-main/package.json",
+    "messages": Array [],
+    "warningCount": 0,
+  },
+]
 `;

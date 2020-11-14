@@ -1,11 +1,19 @@
 {
   "name": "missing-main",
   "version": "1.0.0",
-  "description": "",
+  "description": "test missing main",
+  "keywords": [
+    "test"
+  ],
+  "homepage": "https://example.net",
+  "bugs": "https://example.net/bugs",
+  "author": "Fred Flintstone <fred.flintstone@example.net>",
+  "repository": {
+    "url": "https://git.example.net/missing-main.git"
+  },
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
   "license": "ISC"
 }

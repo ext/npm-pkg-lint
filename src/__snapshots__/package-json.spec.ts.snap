@@ -1,0 +1,241 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`author should return error if empty object 1`] = `
+Array [
+  Object {
+    "column": 1,
+    "line": 1,
+    "message": "\\"author\\" must not be empty",
+    "ruleId": "package-json-fields",
+    "severity": 2,
+  },
+]
+`;
+
+exports[`author should return error if empty string 1`] = `
+Array [
+  Object {
+    "column": 1,
+    "line": 1,
+    "message": "\\"author\\" must not be empty",
+    "ruleId": "package-json-fields",
+    "severity": 2,
+  },
+]
+`;
+
+exports[`author should return error if not set 1`] = `
+Array [
+  Object {
+    "column": 1,
+    "line": 1,
+    "message": "\\"author\\" must be set",
+    "ruleId": "package-json-fields",
+    "severity": 2,
+  },
+]
+`;
+
+exports[`bugs should return error if not set 1`] = `
+Array [
+  Object {
+    "column": 1,
+    "line": 1,
+    "message": "\\"bugs\\" must be set",
+    "ruleId": "package-json-fields",
+    "severity": 2,
+  },
+]
+`;
+
+exports[`bugs should return error if not valid url 1`] = `
+Array [
+  Object {
+    "column": 1,
+    "line": 1,
+    "message": "\\"bugs\\" must be a valid url (https only)",
+    "ruleId": "package-json-fields",
+    "severity": 2,
+  },
+]
+`;
+
+exports[`description should return error if empty 1`] = `
+Array [
+  Object {
+    "column": 1,
+    "line": 1,
+    "message": "\\"description\\" must not be empty",
+    "ruleId": "package-json-fields",
+    "severity": 2,
+  },
+]
+`;
+
+exports[`description should return error if not set 1`] = `
+Array [
+  Object {
+    "column": 1,
+    "line": 1,
+    "message": "\\"description\\" must be set",
+    "ruleId": "package-json-fields",
+    "severity": 2,
+  },
+]
+`;
+
+exports[`description should return error if not string 1`] = `
+Array [
+  Object {
+    "column": 1,
+    "line": 1,
+    "message": "\\"description\\" must be string",
+    "ruleId": "package-json-fields",
+    "severity": 2,
+  },
+]
+`;
+
+exports[`homepage should return error if not set 1`] = `
+Array [
+  Object {
+    "column": 1,
+    "line": 1,
+    "message": "\\"homepage\\" must be set",
+    "ruleId": "package-json-fields",
+    "severity": 2,
+  },
+]
+`;
+
+exports[`homepage should return error if not string 1`] = `
+Array [
+  Object {
+    "column": 1,
+    "line": 1,
+    "message": "\\"homepage\\" must be string",
+    "ruleId": "package-json-fields",
+    "severity": 2,
+  },
+]
+`;
+
+exports[`homepage should return error if not valid url 1`] = `
+Array [
+  Object {
+    "column": 1,
+    "line": 1,
+    "message": "\\"homepage\\" must be a valid url (https only)",
+    "ruleId": "package-json-fields",
+    "severity": 2,
+  },
+]
+`;
+
+exports[`keywords should return error if empty 1`] = `
+Array [
+  Object {
+    "column": 1,
+    "line": 1,
+    "message": "\\"keywords\\" must not be empty",
+    "ruleId": "package-json-fields",
+    "severity": 2,
+  },
+]
+`;
+
+exports[`keywords should return error if items are empty 1`] = `
+Array [
+  Object {
+    "column": 1,
+    "line": 1,
+    "message": "\\"keywords[0]\\" must not be empty",
+    "ruleId": "package-json-fields",
+    "severity": 2,
+  },
+]
+`;
+
+exports[`keywords should return error if not set 1`] = `
+Array [
+  Object {
+    "column": 1,
+    "line": 1,
+    "message": "\\"keywords\\" must be set",
+    "ruleId": "package-json-fields",
+    "severity": 2,
+  },
+]
+`;
+
+exports[`keywords should return error if not string 1`] = `
+Array [
+  Object {
+    "column": 1,
+    "line": 1,
+    "message": "\\"keywords\\" must be array",
+    "ruleId": "package-json-fields",
+    "severity": 2,
+  },
+]
+`;
+
+exports[`license should return error if empty 1`] = `
+Array [
+  Object {
+    "column": 1,
+    "line": 1,
+    "message": "\\"license\\" must not be empty",
+    "ruleId": "package-json-fields",
+    "severity": 2,
+  },
+]
+`;
+
+exports[`license should return error if not set 1`] = `
+Array [
+  Object {
+    "column": 1,
+    "line": 1,
+    "message": "\\"license\\" must be set",
+    "ruleId": "package-json-fields",
+    "severity": 2,
+  },
+]
+`;
+
+exports[`license should return error if not string 1`] = `
+Array [
+  Object {
+    "column": 1,
+    "line": 1,
+    "message": "\\"license\\" must be string",
+    "ruleId": "package-json-fields",
+    "severity": 2,
+  },
+]
+`;
+
+exports[`repository should return error if not set 1`] = `
+Array [
+  Object {
+    "column": 1,
+    "line": 1,
+    "message": "\\"repository\\" must be set",
+    "ruleId": "package-json-fields",
+    "severity": 2,
+  },
+]
+`;
+
+exports[`repository should return error if not valid url 1`] = `
+Array [
+  Object {
+    "column": 1,
+    "line": 1,
+    "message": "\\"repository\\" must be a valid url (https only)",
+    "ruleId": "package-json-fields",
+    "severity": 2,
+  },
+]
+`;

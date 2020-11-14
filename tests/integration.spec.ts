@@ -4,7 +4,7 @@ import { promises as fs } from "fs";
 import path from "path";
 import glob from "glob";
 import execa from "execa";
-import { verifyTarball } from "../src/tarball";
+import { verify } from "../src/verify";
 import PackageJson from "../src/types/package-json";
 
 const ROOT_DIRECTORY = path.resolve(path.join(__dirname, ".."));
@@ -24,8 +24,9 @@ async function npmPack(pkg: PackageJson, fixture: string): Promise<string> {
 it.each(fixtures)("%s", async (fixture) => {
 	expect.assertions(1);
 	const dir = path.join(FIXTURE_DIRECTORY, fixture);
-	const pkg: PackageJson = JSON.parse(await fs.readFile(path.join(dir, "package.json"), "utf-8"));
+	const pkgPath = path.join(dir, "package.json");
+	const pkg: PackageJson = JSON.parse(await fs.readFile(pkgPath, "utf-8"));
 	const tarball = await npmPack(pkg, fixture);
-	const result = await verifyTarball(pkg, tarball);
+	const result = await verify(pkg, pkgPath, tarball);
 	expect(result).toMatchSnapshot();
 });

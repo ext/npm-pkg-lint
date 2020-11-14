@@ -1,6 +1,20 @@
+interface UrlObject {
+	type?: string;
+	name?: string;
+	url?: string;
+	email?: string;
+}
+
 export default interface PackageJson {
 	name: string;
 	version: string;
+	description?: string;
+	keywords?: string[];
+	homepage?: string;
+	bugs?: string | UrlObject;
+	license?: string;
+	author?: string | UrlObject;
+	repository?: string | UrlObject;
 	main?: string;
 	browser?: string;
 	module?: string;
@@ -8,4 +22,6 @@ export default interface PackageJson {
 	typings?: string;
 	bin?: string | Record<string, string>;
 	man?: string | string[];
+
+	[key: string]: string | string[] | Record<string, string> | UrlObject;
 }
