@@ -21,8 +21,8 @@
   "files": [
     "bin",
     "dist",
-    "!*.d.ts",
-    "!*.spec.js"
+    "!**/*.d.ts",
+    "!**/*.spec.js"
   ],
   "scripts": {
     "build": "tsc",
