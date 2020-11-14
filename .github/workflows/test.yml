@@ -23,7 +23,7 @@ jobs:
       - name: Build
         run: |
           npm run build
-          npm run pack
+          npm pack
       - name: Jest
         run: npm test
         env:
