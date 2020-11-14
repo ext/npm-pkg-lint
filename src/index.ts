@@ -7,6 +7,7 @@ import findUp from "find-up";
 import { setupBlacklist } from "./blacklist";
 import { verify } from "./verify";
 import PackageJson from "./types/package-json";
+import { tarballLocation } from "./tarball-location";
 
 /* eslint-disable-next-line @typescript-eslint/no-var-requires */
 const stylish = require("eslint/lib/cli-engine/formatters/stylish");
@@ -28,10 +29,6 @@ async function defaultPkgLocation(): Promise<string | undefined> {
 	}
 }
 
-function defaultTarballLocation(pkg: PackageJson, pkgPath: string): string {
-	return path.join(path.dirname(pkgPath), `${pkg.name}-${pkg.version}.tgz`);
-}
-
 async function run(): Promise<void> {
 	const parser = new ArgumentParser({
 		description: "npm package linter",
@@ -50,7 +47,7 @@ async function run(): Promise<void> {
 	}
 
 	const pkg: PackageJson = JSON.parse(await fs.readFile(pkgPath, "utf-8"));
-	const tarball = args.tarball ?? defaultTarballLocation(pkg, pkgPath);
+	const tarball = args.tarball ?? tarballLocation(pkg, pkgPath);
 
 	if (!existsSync(tarball)) {
 		console.error(`"${tarball}" does not exist, did you forget to run \`npm pack'?`);
