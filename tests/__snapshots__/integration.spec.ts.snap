@@ -18,7 +18,7 @@ Array [
   },
   Object {
     "errorCount": 0,
-    "filePath": "/home/ext/workspace/npm-pkg-lint/tests/fixtures/disallowed-files/package.json",
+    "filePath": "tests/fixtures/disallowed-files/package.json",
     "messages": Array [],
     "warningCount": 0,
   },
@@ -35,7 +35,7 @@ Array [
   },
   Object {
     "errorCount": 7,
-    "filePath": "/home/ext/workspace/npm-pkg-lint/tests/fixtures/empty-fields/package.json",
+    "filePath": "tests/fixtures/empty-fields/package.json",
     "messages": Array [
       Object {
         "column": 1,
@@ -110,7 +110,7 @@ Array [
   },
   Object {
     "errorCount": 0,
-    "filePath": "/home/ext/workspace/npm-pkg-lint/tests/fixtures/missing-binary/package.json",
+    "filePath": "tests/fixtures/missing-binary/package.json",
     "messages": Array [],
     "warningCount": 0,
   },
@@ -127,7 +127,7 @@ Array [
   },
   Object {
     "errorCount": 7,
-    "filePath": "/home/ext/workspace/npm-pkg-lint/tests/fixtures/missing-fields/package.json",
+    "filePath": "tests/fixtures/missing-fields/package.json",
     "messages": Array [
       Object {
         "column": 1,
@@ -202,7 +202,7 @@ Array [
   },
   Object {
     "errorCount": 0,
-    "filePath": "/home/ext/workspace/npm-pkg-lint/tests/fixtures/missing-main/package.json",
+    "filePath": "tests/fixtures/missing-main/package.json",
     "messages": Array [],
     "warningCount": 0,
   },

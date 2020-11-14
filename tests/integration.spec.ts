@@ -24,7 +24,7 @@ async function npmPack(pkg: PackageJson, fixture: string): Promise<string> {
 it.each(fixtures)("%s", async (fixture) => {
 	expect.assertions(1);
 	const dir = path.join(FIXTURE_DIRECTORY, fixture);
-	const pkgPath = path.join(dir, "package.json");
+	const pkgPath = path.relative(ROOT_DIRECTORY, path.join(dir, "package.json"));
 	const pkg: PackageJson = JSON.parse(await fs.readFile(pkgPath, "utf-8"));
 	const tarball = await npmPack(pkg, fixture);
 	const result = await verify(pkg, pkgPath, tarball);
