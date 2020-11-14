@@ -24,6 +24,7 @@ jobs:
         run: |
           npm run build
           npm pack
+          npm run self-test
       - name: Jest
         run: npm test
         env:
