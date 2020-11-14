@@ -41,6 +41,13 @@ Verifies the presence of files specified in:
 - `bin`
 - `man`
 
+## Shebang
+
+Require all binaries to have UNIX-style shebang at the beginning of the file.
+Normally this is `#/usr/bin/env node`.
+
+**Why?** Binaries must have a shebang at the beginning of the file to be executable for end users.
+
 ## `package.json` fields
 
 Verifies the fields in `package.json` and ensures all fields are properly set.

@@ -1,4 +1,5 @@
-import tar, { FileStat } from "tar";
+import fs from "fs";
+import tar, { FileStat, Parse } from "tar";
 import PackageJson from "./types/package-json";
 import { isBlacklisted } from "./blacklist";
 import { Message } from "./message";
@@ -10,6 +11,10 @@ interface RequiredFile {
 	filename: string;
 }
 
+function normalize(filename: string): string {
+	return filename.replace(/^package\//, "");
+}
+
 export async function getFileList(filename: string): Promise<string[]> {
 	const entries: FileStat[] = [];
 	await tar.list({
@@ -19,7 +24,37 @@ export async function getFileList(filename: string): Promise<string[]> {
 	});
 	return entries.map((entry) => {
 		const filename = (entry.path as unknown) as string;
-		return filename.replace(/^package\//, "");
+		return normalize(filename);
+	});
+}
+
+export async function getFileContent(
+	tarball: string,
+	filenames: string[]
+): Promise<Record<string, Buffer>> {
+	const contents: Record<string, Buffer> = {};
+
+	return new Promise((resolve, reject) => {
+		/* eslint-disable-next-line @typescript-eslint/ban-ts-comment -- The @types/tar go this one completely wrong */
+		/* @ts-ignore */
+		const t = new Parse({
+			filter(_path: string, entry: tar.ReadEntry): boolean {
+				return filenames.includes(normalize(entry.path));
+			},
+		});
+		t.on("entry", (entry: tar.ReadEntry) => {
+			entry.on("data", (data: Buffer) => {
+				contents[normalize(entry.path)] = data;
+			});
+			entry.on("error", (error) => {
+				reject(error);
+			});
+		});
+		t.on("end", () => {
+			resolve(contents);
+		});
+		const rs = fs.createReadStream(tarball);
+		rs.pipe(t);
 	});
 }
 
