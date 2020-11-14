@@ -30,6 +30,7 @@
     "eslint:fix": "eslint --fix .",
     "prettier:check": "prettier . --check",
     "prettier:write": "prettier . --write",
+    "postpack": "node bin/index.js",
     "semantic-release": "semantic-release",
     "test": "jest"
   },
