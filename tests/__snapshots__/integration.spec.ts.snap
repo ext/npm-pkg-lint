@@ -16,23 +16,11 @@ Array [
     ],
     "warningCount": 0,
   },
-  Object {
-    "errorCount": 0,
-    "filePath": "tests/fixtures/disallowed-files/package.json",
-    "messages": Array [],
-    "warningCount": 0,
-  },
 ]
 `;
 
 exports[`empty-fields 1`] = `
 Array [
-  Object {
-    "errorCount": 0,
-    "filePath": "tests/fixtures/empty-fields/empty-fields-1.0.0.tgz",
-    "messages": Array [],
-    "warningCount": 0,
-  },
   Object {
     "errorCount": 7,
     "filePath": "tests/fixtures/empty-fields/package.json",
@@ -108,23 +96,11 @@ Array [
     ],
     "warningCount": 0,
   },
-  Object {
-    "errorCount": 0,
-    "filePath": "tests/fixtures/missing-binary/package.json",
-    "messages": Array [],
-    "warningCount": 0,
-  },
 ]
 `;
 
 exports[`missing-fields 1`] = `
 Array [
-  Object {
-    "errorCount": 0,
-    "filePath": "tests/fixtures/missing-fields/missing-fields-1.0.0.tgz",
-    "messages": Array [],
-    "warningCount": 0,
-  },
   Object {
     "errorCount": 7,
     "filePath": "tests/fixtures/missing-fields/package.json",
@@ -198,12 +174,6 @@ Array [
         "severity": 2,
       },
     ],
-    "warningCount": 0,
-  },
-  Object {
-    "errorCount": 0,
-    "filePath": "tests/fixtures/missing-main/package.json",
-    "messages": Array [],
     "warningCount": 0,
   },
 ]

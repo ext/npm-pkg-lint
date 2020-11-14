@@ -19,160 +19,200 @@ beforeEach(() => {
 
 it("should not return errors if package.json is well formed (strings only)", async () => {
 	expect.assertions(1);
-	const result = await verifyPackageJson(pkg, "package.json");
-	expect(result.messages).toEqual([]);
+	const results = await verifyPackageJson(pkg, "package.json");
+	expect(results).toEqual([]);
 });
 
 describe("description", () => {
 	it("should return error if not set", async () => {
-		expect.assertions(1);
+		expect.assertions(3);
 		delete pkg.description;
-		const result = await verifyPackageJson(pkg, "package.json");
-		expect(result.messages).toMatchSnapshot();
+		const results = await verifyPackageJson(pkg, "package.json");
+		expect(results).toHaveLength(1);
+		expect(results[0].filePath).toEqual("package.json");
+		expect(results[0].messages).toMatchSnapshot();
 	});
 
 	it("should return error if not string", async () => {
-		expect.assertions(1);
+		expect.assertions(3);
 		pkg.description = (12 as unknown) as string;
-		const result = await verifyPackageJson(pkg, "package.json");
-		expect(result.messages).toMatchSnapshot();
+		const results = await verifyPackageJson(pkg, "package.json");
+		expect(results).toHaveLength(1);
+		expect(results[0].filePath).toEqual("package.json");
+		expect(results[0].messages).toMatchSnapshot();
 	});
 
 	it("should return error if empty", async () => {
-		expect.assertions(1);
+		expect.assertions(3);
 		pkg.description = "";
-		const result = await verifyPackageJson(pkg, "package.json");
-		expect(result.messages).toMatchSnapshot();
+		const results = await verifyPackageJson(pkg, "package.json");
+		expect(results).toHaveLength(1);
+		expect(results[0].filePath).toEqual("package.json");
+		expect(results[0].messages).toMatchSnapshot();
 	});
 });
 
 describe("keywords", () => {
 	it("should return error if not set", async () => {
-		expect.assertions(1);
+		expect.assertions(3);
 		delete pkg.keywords;
-		const result = await verifyPackageJson(pkg, "package.json");
-		expect(result.messages).toMatchSnapshot();
+		const results = await verifyPackageJson(pkg, "package.json");
+		expect(results).toHaveLength(1);
+		expect(results[0].filePath).toEqual("package.json");
+		expect(results[0].messages).toMatchSnapshot();
 	});
 
 	it("should return error if not string", async () => {
-		expect.assertions(1);
+		expect.assertions(3);
 		pkg.keywords = (12 as unknown) as string[];
-		const result = await verifyPackageJson(pkg, "package.json");
-		expect(result.messages).toMatchSnapshot();
+		const results = await verifyPackageJson(pkg, "package.json");
+		expect(results).toHaveLength(1);
+		expect(results[0].filePath).toEqual("package.json");
+		expect(results[0].messages).toMatchSnapshot();
 	});
 
 	it("should return error if empty", async () => {
-		expect.assertions(1);
+		expect.assertions(3);
 		pkg.keywords = [];
-		const result = await verifyPackageJson(pkg, "package.json");
-		expect(result.messages).toMatchSnapshot();
+		const results = await verifyPackageJson(pkg, "package.json");
+		expect(results).toHaveLength(1);
+		expect(results[0].filePath).toEqual("package.json");
+		expect(results[0].messages).toMatchSnapshot();
 	});
 
 	it("should return error if items are empty", async () => {
-		expect.assertions(1);
+		expect.assertions(3);
 		pkg.keywords = [""];
-		const result = await verifyPackageJson(pkg, "package.json");
-		expect(result.messages).toMatchSnapshot();
+		const results = await verifyPackageJson(pkg, "package.json");
+		expect(results).toHaveLength(1);
+		expect(results[0].filePath).toEqual("package.json");
+		expect(results[0].messages).toMatchSnapshot();
 	});
 });
 
 describe("homepage", () => {
 	it("should return error if not set", async () => {
-		expect.assertions(1);
+		expect.assertions(3);
 		delete pkg.homepage;
-		const result = await verifyPackageJson(pkg, "package.json");
-		expect(result.messages).toMatchSnapshot();
+		const results = await verifyPackageJson(pkg, "package.json");
+		expect(results).toHaveLength(1);
+		expect(results[0].filePath).toEqual("package.json");
+		expect(results[0].messages).toMatchSnapshot();
 	});
 
 	it("should return error if not string", async () => {
-		expect.assertions(1);
+		expect.assertions(3);
 		pkg.homepage = (12 as unknown) as string;
-		const result = await verifyPackageJson(pkg, "package.json");
-		expect(result.messages).toMatchSnapshot();
+		const results = await verifyPackageJson(pkg, "package.json");
+		expect(results).toHaveLength(1);
+		expect(results[0].filePath).toEqual("package.json");
+		expect(results[0].messages).toMatchSnapshot();
 	});
 
 	it("should return error if not valid url", async () => {
-		expect.assertions(1);
+		expect.assertions(3);
 		pkg.homepage = "foobar";
-		const result = await verifyPackageJson(pkg, "package.json");
-		expect(result.messages).toMatchSnapshot();
+		const results = await verifyPackageJson(pkg, "package.json");
+		expect(results).toHaveLength(1);
+		expect(results[0].filePath).toEqual("package.json");
+		expect(results[0].messages).toMatchSnapshot();
 	});
 });
 
 describe("bugs", () => {
 	it("should return error if not set", async () => {
-		expect.assertions(1);
+		expect.assertions(3);
 		delete pkg.bugs;
-		const result = await verifyPackageJson(pkg, "package.json");
-		expect(result.messages).toMatchSnapshot();
+		const results = await verifyPackageJson(pkg, "package.json");
+		expect(results).toHaveLength(1);
+		expect(results[0].filePath).toEqual("package.json");
+		expect(results[0].messages).toMatchSnapshot();
 	});
 
 	it("should return error if not valid url", async () => {
-		expect.assertions(1);
+		expect.assertions(3);
 		pkg.bugs = "foobar";
-		const result = await verifyPackageJson(pkg, "package.json");
-		expect(result.messages).toMatchSnapshot();
+		const results = await verifyPackageJson(pkg, "package.json");
+		expect(results).toHaveLength(1);
+		expect(results[0].filePath).toEqual("package.json");
+		expect(results[0].messages).toMatchSnapshot();
 	});
 });
 
 describe("license", () => {
 	it("should return error if not set", async () => {
-		expect.assertions(1);
+		expect.assertions(3);
 		delete pkg.license;
-		const result = await verifyPackageJson(pkg, "package.json");
-		expect(result.messages).toMatchSnapshot();
+		const results = await verifyPackageJson(pkg, "package.json");
+		expect(results).toHaveLength(1);
+		expect(results[0].filePath).toEqual("package.json");
+		expect(results[0].messages).toMatchSnapshot();
 	});
 
 	it("should return error if not string", async () => {
-		expect.assertions(1);
+		expect.assertions(3);
 		pkg.license = (12 as unknown) as string;
-		const result = await verifyPackageJson(pkg, "package.json");
-		expect(result.messages).toMatchSnapshot();
+		const results = await verifyPackageJson(pkg, "package.json");
+		expect(results).toHaveLength(1);
+		expect(results[0].filePath).toEqual("package.json");
+		expect(results[0].messages).toMatchSnapshot();
 	});
 
 	it("should return error if empty", async () => {
-		expect.assertions(1);
+		expect.assertions(3);
 		pkg.license = "";
-		const result = await verifyPackageJson(pkg, "package.json");
-		expect(result.messages).toMatchSnapshot();
+		const results = await verifyPackageJson(pkg, "package.json");
+		expect(results).toHaveLength(1);
+		expect(results[0].filePath).toEqual("package.json");
+		expect(results[0].messages).toMatchSnapshot();
 	});
 });
 
 describe("author", () => {
 	it("should return error if not set", async () => {
-		expect.assertions(1);
+		expect.assertions(3);
 		delete pkg.author;
-		const result = await verifyPackageJson(pkg, "package.json");
-		expect(result.messages).toMatchSnapshot();
+		const results = await verifyPackageJson(pkg, "package.json");
+		expect(results).toHaveLength(1);
+		expect(results[0].filePath).toEqual("package.json");
+		expect(results[0].messages).toMatchSnapshot();
 	});
 
 	it("should return error if empty string", async () => {
-		expect.assertions(1);
+		expect.assertions(3);
 		pkg.author = "";
-		const result = await verifyPackageJson(pkg, "package.json");
-		expect(result.messages).toMatchSnapshot();
+		const results = await verifyPackageJson(pkg, "package.json");
+		expect(results).toHaveLength(1);
+		expect(results[0].filePath).toEqual("package.json");
+		expect(results[0].messages).toMatchSnapshot();
 	});
 
 	it("should return error if empty object", async () => {
-		expect.assertions(1);
+		expect.assertions(3);
 		pkg.author = {};
-		const result = await verifyPackageJson(pkg, "package.json");
-		expect(result.messages).toMatchSnapshot();
+		const results = await verifyPackageJson(pkg, "package.json");
+		expect(results).toHaveLength(1);
+		expect(results[0].filePath).toEqual("package.json");
+		expect(results[0].messages).toMatchSnapshot();
 	});
 });
 
 describe("repository", () => {
 	it("should return error if not set", async () => {
-		expect.assertions(1);
+		expect.assertions(3);
 		delete pkg.repository;
-		const result = await verifyPackageJson(pkg, "package.json");
-		expect(result.messages).toMatchSnapshot();
+		const results = await verifyPackageJson(pkg, "package.json");
+		expect(results).toHaveLength(1);
+		expect(results[0].filePath).toEqual("package.json");
+		expect(results[0].messages).toMatchSnapshot();
 	});
 
 	it("should return error if not valid url", async () => {
-		expect.assertions(1);
+		expect.assertions(3);
 		pkg.repository = "foobar";
-		const result = await verifyPackageJson(pkg, "package.json");
-		expect(result.messages).toMatchSnapshot();
+		const results = await verifyPackageJson(pkg, "package.json");
+		expect(results).toHaveLength(1);
+		expect(results[0].filePath).toEqual("package.json");
+		expect(results[0].messages).toMatchSnapshot();
 	});
 });

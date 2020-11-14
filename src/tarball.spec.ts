@@ -10,14 +10,16 @@ beforeEach(() => {
 });
 
 it("should return error if disallowed file is found", async () => {
-	expect.assertions(1);
+	expect.assertions(3);
 	require("tar").__setMockFiles(["foo.spec.js"]);
 	const pkg: PackageJson = {
 		name: "mock-pkg",
 		version: "1.2.3",
 	};
-	const result = await verifyTarball(pkg, "mock-path");
-	expect(result.messages).toMatchInlineSnapshot(`
+	const results = await verifyTarball(pkg, "mock-pkg-1.2.3.tgz");
+	expect(results).toHaveLength(1);
+	expect(results[0].filePath).toEqual("mock-pkg-1.2.3.tgz");
+	expect(results[0].messages).toMatchInlineSnapshot(`
 		Array [
 		  Object {
 		    "column": 1,
@@ -43,15 +45,17 @@ describe("should return error if package.json references missing file", () => {
 		${"man (single)"}   | ${{ man: "man/foo.1" }}
 		${"man (multiple)"} | ${{ man: ["man/foo.1", "man/bar.1"] }}
 	`("$field", async ({ template }) => {
-		expect.assertions(1);
+		expect.assertions(3);
 		require("tar").__setMockFiles([]);
 		const pkg: PackageJson = {
 			name: "mock-pkg",
 			version: "1.2.3",
 			...template,
 		};
-		const result = await verifyTarball(pkg, "mock-path");
-		expect(result.messages).toMatchSnapshot();
+		const results = await verifyTarball(pkg, "mock-pkg-1.2.3.tgz");
+		expect(results).toHaveLength(1);
+		expect(results[0].filePath).toEqual("mock-pkg-1.2.3.tgz");
+		expect(results[0].messages).toMatchSnapshot();
 	});
 });
 
@@ -82,7 +86,7 @@ describe("should not return error if package.json references existing file", () 
 			version: "1.2.3",
 			...template,
 		};
-		const result = await verifyTarball(pkg, "mock-path");
-		expect(result.messages).toEqual([]);
+		const results = await verifyTarball(pkg, "mock-path");
+		expect(results).toEqual([]);
 	});
 });

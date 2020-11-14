@@ -16,7 +16,7 @@ const fields: Record<string, validator[]> = {
 	repository: [present, validUrl],
 };
 
-export async function verifyPackageJson(pkg: PackageJson, filePath: string): Promise<Result> {
+export async function verifyPackageJson(pkg: PackageJson, filePath: string): Promise<Result[]> {
 	const messages: Message[] = [];
 
 	for (const [field, validators] of Object.entries(fields)) {
@@ -35,10 +35,16 @@ export async function verifyPackageJson(pkg: PackageJson, filePath: string): Pro
 		}
 	}
 
-	return {
-		messages,
-		filePath,
-		errorCount: messages.length,
-		warningCount: 0,
-	};
+	if (messages.length === 0) {
+		return [];
+	}
+
+	return [
+		{
+			messages,
+			filePath,
+			errorCount: messages.length,
+			warningCount: 0,
+		},
+	];
 }

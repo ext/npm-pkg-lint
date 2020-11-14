@@ -109,7 +109,7 @@ function* requiredFiles(pkg: PackageJson): Generator<RequiredFile> {
 	}
 }
 
-export async function verifyTarball(pkg: PackageJson, filePath: string): Promise<Result> {
+export async function verifyTarball(pkg: PackageJson, filePath: string): Promise<Result[]> {
 	const messages: Message[] = [];
 	const filelist = await getFileList(filePath);
 
@@ -135,10 +135,16 @@ export async function verifyTarball(pkg: PackageJson, filePath: string): Promise
 		}
 	}
 
-	return {
-		messages,
-		filePath,
-		errorCount: messages.length,
-		warningCount: 0,
-	};
+	if (messages.length === 0) {
+		return [];
+	}
+
+	return [
+		{
+			messages,
+			filePath,
+			errorCount: messages.length,
+			warningCount: 0,
+		},
+	];
 }
