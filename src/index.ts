@@ -4,13 +4,11 @@ import { existsSync, promises as fs } from "fs";
 import path from "path";
 import { ArgumentParser } from "argparse";
 import findUp from "find-up";
+import stylish from "@html-validate/stylish";
 import { setupBlacklist } from "./blacklist";
 import { verify } from "./verify";
 import PackageJson from "./types/package-json";
 import { tarballLocation } from "./tarball-location";
-
-/* eslint-disable-next-line @typescript-eslint/no-var-requires */
-const stylish = require("eslint/lib/cli-engine/formatters/stylish");
 
 /* eslint-disable-next-line @typescript-eslint/no-var-requires */
 const { version } = require("../package.json");
