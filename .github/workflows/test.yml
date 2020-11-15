@@ -26,6 +26,8 @@ jobs:
           npm pack
           npm run self-test
       - name: Jest
-        run: npm test
+        run: |
+          npm test
+          npx coveralls < coverage/lcov.info
         env:
           CI: true
