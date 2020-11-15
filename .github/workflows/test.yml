@@ -26,8 +26,10 @@ jobs:
           npm pack
           npm run self-test
       - name: Jest
-        run: |
-          npm test
-          npx coveralls < coverage/lcov.info
+        run: npm test
         env:
           CI: true
+      - name: Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
