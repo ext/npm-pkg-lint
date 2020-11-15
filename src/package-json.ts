@@ -45,6 +45,8 @@ export async function verifyPackageJson(pkg: PackageJson, filePath: string): Pro
 			filePath,
 			errorCount: messages.length,
 			warningCount: 0,
+			fixableErrorCount: 0,
+			fixableWarningCount: 0,
 		},
 	];
 }

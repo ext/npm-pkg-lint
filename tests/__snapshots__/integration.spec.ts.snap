@@ -5,6 +5,8 @@ Array [
   Object {
     "errorCount": 1,
     "filePath": "tests/fixtures/disallowed-files/disallowed-files-1.0.0.tgz",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": Array [
       Object {
         "column": 1,
@@ -24,6 +26,8 @@ Array [
   Object {
     "errorCount": 7,
     "filePath": "tests/fixtures/empty-fields/package.json",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": Array [
       Object {
         "column": 1,
@@ -85,6 +89,8 @@ Array [
   Object {
     "errorCount": 1,
     "filePath": "tests/fixtures/missing-binary/missing-binary-1.0.0.tgz",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": Array [
       Object {
         "column": 1,
@@ -104,6 +110,8 @@ Array [
   Object {
     "errorCount": 7,
     "filePath": "tests/fixtures/missing-fields/package.json",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": Array [
       Object {
         "column": 1,
@@ -165,6 +173,8 @@ Array [
   Object {
     "errorCount": 1,
     "filePath": "tests/fixtures/missing-main/missing-main-1.0.0.tgz",
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
     "messages": Array [
       Object {
         "column": 1,

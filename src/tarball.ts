@@ -145,6 +145,8 @@ export async function verifyTarball(pkg: PackageJson, filePath: string): Promise
 			filePath,
 			errorCount: messages.length,
 			warningCount: 0,
+			fixableErrorCount: 0,
+			fixableWarningCount: 0,
 		},
 	];
 }

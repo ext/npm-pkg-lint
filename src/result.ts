@@ -5,4 +5,6 @@ export interface Result {
 	filePath: string;
 	errorCount: number;
 	warningCount: number;
+	fixableErrorCount: number;
+	fixableWarningCount: number;
 }
