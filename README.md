@@ -1,6 +1,6 @@
 # NPM Package linting
 
-Performs sanity checks on a package tarball and `package.json`.
+Opiniated linter for NPM package tarball and `package.json` metadata.
 
 > npx npm-pkg-lint
 
