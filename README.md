@@ -44,6 +44,18 @@ Verifies the presence of files specified in:
 - `bin`
 - `man`
 
+## Disallowed dependencies
+
+Disallows certain packages from being included as `dependencies` (use `devDependencies` or `peerDependencies` instead).
+
+**Why?** These packages are meant to be used to build, lint or test the package and serve no purpose for the end user and will greatly increase the size of the dependency tree.
+
+Examples of disallowed packages:
+
+- `eslint` (including plugins and configurations)
+- `typescript` (precompile with declarations instead)
+- `grunt` (end user does not need to perform tasks inside your package)
+
 ## Shebang
 
 Require all binaries to have UNIX-style shebang at the beginning of the file.

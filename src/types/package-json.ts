@@ -22,6 +22,11 @@ export default interface PackageJson {
 	typings?: string;
 	bin?: string | Record<string, string>;
 	man?: string | string[];
+	dependencies?: Record<string, string>;
+	devDependencies?: Record<string, string>;
+	peerDependencies?: Record<string, string>;
+	bundledDependencies?: Record<string, string>;
+	optionalDependencies?: Record<string, string>;
 
 	[key: string]: string | string[] | Record<string, string> | UrlObject;
 }
