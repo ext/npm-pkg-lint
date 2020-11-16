@@ -118,6 +118,18 @@ it("should handle directories with index.js", async () => {
 	expect(results).toEqual([]);
 });
 
+it("should handle filenames without .js", async () => {
+	expect.assertions(1);
+	require("tar").__setMockFiles(["index.js"]);
+	const pkg: PackageJson = {
+		name: "mock-pkg",
+		version: "1.2.3",
+		main: "index",
+	};
+	const results = await verifyTarball(pkg, { filePath: "mock-path" });
+	expect(results).toEqual([]);
+});
+
 it("should handle leading ./", async () => {
 	expect.assertions(1);
 	require("tar").__setMockFiles(["index.js"]);

@@ -129,6 +129,11 @@ function fileExists(filelist: string[], filename: string): boolean {
 		return true;
 	}
 
+	/* try to append ".js" */
+	if (filelist.includes(`${filename}.js`)) {
+		return true;
+	}
+
 	/* test if it is actually a directory with index.js */
 	if (filelist.includes(`${filename}/index.js`)) {
 		return true;
