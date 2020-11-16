@@ -20,7 +20,7 @@ interface RequiredFile {
 }
 
 function normalize(filename: string): string {
-	return filename.replace(/^package\//, "");
+	return filename.replace(/^[^/]+\//, "");
 }
 
 export async function getFileList(filename: string): Promise<string[]> {
@@ -51,9 +51,10 @@ export async function getFileContent(
 			},
 		});
 		t.on("entry", (entry: tar.ReadEntry) => {
-			contents[normalize(entry.path)] = Buffer.alloc(0);
+			const p = normalize(entry.path);
+			contents[p] = Buffer.alloc(0);
 			entry.on("data", (data: Buffer) => {
-				contents[normalize(entry.path)] = Buffer.concat([contents[normalize(entry.path)], data]);
+				contents[p] = Buffer.concat([contents[p], data]);
 			});
 			entry.on("error", (error) => {
 				reject(error);

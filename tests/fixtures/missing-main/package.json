@@ -12,6 +12,7 @@
     "url": "https://git.example.net/missing-main.git"
   },
   "main": "index.js",
+  "files": [],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -11,6 +11,9 @@
   "repository": {
     "url": "https://git.example.net/missing-binary.git"
   },
+  "files": [
+    "*.js"
+  ],
   "main": "index.js",
   "bin": "bin.js",
   "scripts": {

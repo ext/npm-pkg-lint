@@ -11,7 +11,7 @@ function list(options) {
 }
 
 function __setMockFiles(filelist) {
-	mockFilelist = filelist;
+	mockFilelist = filelist.map((it) => `pkg-root/${it}`);
 }
 
 tar.__setMockFiles = __setMockFiles;

@@ -5,6 +5,9 @@
   "keywords": [
     "test"
   ],
+  "files": [
+    "*.js"
+  ],
   "homepage": "https://example.net",
   "bugs": "https://example.net/bugs",
   "author": "Fred Flintstone <fred.flintstone@example.net>",
