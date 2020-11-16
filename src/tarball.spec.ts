@@ -102,3 +102,15 @@ it("should handle directories with index.js", async () => {
 	const results = await verifyTarball(pkg, "mock-path");
 	expect(results).toEqual([]);
 });
+
+it("should handle leading ./", async () => {
+	expect.assertions(1);
+	require("tar").__setMockFiles(["index.js"]);
+	const pkg: PackageJson = {
+		name: "mock-pkg",
+		version: "1.2.3",
+		main: "./index.js",
+	};
+	const results = await verifyTarball(pkg, "mock-path");
+	expect(results).toEqual([]);
+});

@@ -111,6 +111,9 @@ function* requiredFiles(pkg: PackageJson): Generator<RequiredFile> {
 }
 
 function fileExists(filelist: string[], filename: string): boolean {
+	/* strip leading ./ */
+	filename = filename.replace(/^\.\//, "");
+
 	/* exact match for filename */
 	if (filelist.includes(filename)) {
 		return true;
