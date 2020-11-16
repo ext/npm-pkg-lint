@@ -129,3 +129,17 @@ it("should handle leading ./", async () => {
 	const results = await verifyTarball(pkg, { filePath: "mock-path" });
 	expect(results).toEqual([]);
 });
+
+it("should handle browser field containing false", async () => {
+	expect.assertions(1);
+	require("tar").__setMockFiles(["index.js"]);
+	const pkg: PackageJson = {
+		name: "mock-pkg",
+		version: "1.2.3",
+		browser: {
+			foo: false,
+		},
+	};
+	const results = await verifyTarball(pkg, { filePath: "mock-path" });
+	expect(results).toEqual([]);
+});

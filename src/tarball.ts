@@ -71,18 +71,20 @@ export async function blacklistedFiles(filelist: string[]): Promise<string[]> {
 	return filelist.filter(isBlacklisted);
 }
 
-function normalizeRequiredFiles(src: string | string[] | Record<string, string>): string[] {
+function normalizeRequiredFiles(
+	src: string | string[] | Record<string, string | boolean>
+): string[] {
 	if (typeof src === "string") {
 		return [src];
 	} else if (Array.isArray(src)) {
 		return src;
 	} else {
-		return Object.values(src);
+		return Object.values(src).filter((it) => it !== false) as string[];
 	}
 }
 
 function* yieldRequiredFiles(
-	src: string | string[] | Record<string, string>,
+	src: string | string[] | Record<string, string | boolean>,
 	template: Pick<RequiredFile, "field" | "ruleId">
 ): Generator<RequiredFile> {
 	const files = normalizeRequiredFiles(src);

@@ -16,7 +16,7 @@ export default interface PackageJson {
 	author?: string | UrlObject;
 	repository?: string | UrlObject;
 	main?: string;
-	browser?: string;
+	browser?: string | Record<string, string | false>;
 	module?: string;
 	"jsnext:main"?: string;
 	typings?: string;
@@ -28,5 +28,10 @@ export default interface PackageJson {
 	bundledDependencies?: Record<string, string>;
 	optionalDependencies?: Record<string, string>;
 
-	[key: string]: string | string[] | Record<string, string> | UrlObject;
+	[key: string]:
+		| string
+		| string[]
+		| Record<string, string>
+		| Record<string, string | false>
+		| UrlObject;
 }
