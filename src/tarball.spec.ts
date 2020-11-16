@@ -90,3 +90,15 @@ describe("should not return error if package.json references existing file", () 
 		expect(results).toEqual([]);
 	});
 });
+
+it("should handle directories with index.js", async () => {
+	expect.assertions(1);
+	require("tar").__setMockFiles(["dist/index.js"]);
+	const pkg: PackageJson = {
+		name: "mock-pkg",
+		version: "1.2.3",
+		main: "dist",
+	};
+	const results = await verifyTarball(pkg, "mock-path");
+	expect(results).toEqual([]);
+});

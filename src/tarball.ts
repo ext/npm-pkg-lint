@@ -110,6 +110,20 @@ function* requiredFiles(pkg: PackageJson): Generator<RequiredFile> {
 	}
 }
 
+function fileExists(filelist: string[], filename: string): boolean {
+	/* exact match for filename */
+	if (filelist.includes(filename)) {
+		return true;
+	}
+
+	/* test if it is actually a directory with index.js */
+	if (filelist.includes(`${filename}/index.js`)) {
+		return true;
+	}
+
+	return false;
+}
+
 export async function verifyTarball(pkg: PackageJson, filePath: string): Promise<Result[]> {
 	const messages: Message[] = [];
 	const filelist = await getFileList(filePath);
@@ -125,7 +139,7 @@ export async function verifyTarball(pkg: PackageJson, filePath: string): Promise
 	}
 
 	for (const requiredFile of requiredFiles(pkg)) {
-		if (!filelist.includes(requiredFile.filename)) {
+		if (!fileExists(filelist, requiredFile.filename)) {
 			messages.push({
 				ruleId: requiredFile.ruleId,
 				severity: 2,
