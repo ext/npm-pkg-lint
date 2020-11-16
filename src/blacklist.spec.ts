@@ -20,10 +20,12 @@ describe("should disallow unittests", () => {
 		"dist/file.spec.jsx",
 		"dist/file.spec.ts",
 		"dist/file.spec.tsx",
+		"dist/file.spec.d.ts",
 		"dist/file.test.js",
 		"dist/file.test.jsx",
 		"dist/file.test.ts",
 		"dist/file.test.tsx",
+		"dist/file.test.d.ts",
 	])("%s", (filename) => {
 		expect(isBlacklisted(filename)).toBeTruthy();
 	});

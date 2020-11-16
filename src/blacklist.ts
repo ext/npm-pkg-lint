@@ -23,7 +23,9 @@ const blacklist: RegExp[] = [
 	directory("coverage"),
 	extension("[.-]junit.xml"),
 	extension(".spec.[jt]sx?"),
+	extension(".spec.d.ts"),
 	extension(".test.[jt]sx?"),
+	extension(".test.d.ts"),
 	filename("junit.xml"),
 
 	/* jest */
