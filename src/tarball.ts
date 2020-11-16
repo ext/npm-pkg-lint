@@ -43,8 +43,9 @@ export async function getFileContent(
 			},
 		});
 		t.on("entry", (entry: tar.ReadEntry) => {
+			contents[normalize(entry.path)] = Buffer.alloc(0);
 			entry.on("data", (data: Buffer) => {
-				contents[normalize(entry.path)] = data;
+				contents[normalize(entry.path)] = Buffer.concat([contents[normalize(entry.path)], data]);
 			});
 			entry.on("error", (error) => {
 				reject(error);
