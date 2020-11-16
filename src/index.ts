@@ -10,7 +10,7 @@ import { setupBlacklist } from "./blacklist";
 import { verify } from "./verify";
 import PackageJson from "./types/package-json";
 import { tarballLocation } from "./tarball-location";
-import { getFileContent } from "./tarball";
+import { getFileContent, TarballMeta } from "./tarball";
 
 /* eslint-disable-next-line @typescript-eslint/no-var-requires */
 const { version } = require("../package.json");
@@ -45,7 +45,10 @@ async function preloadStdin(): Promise<string> {
 	});
 }
 
-async function getPackageJson(args: ParsedArgs): Promise<GetPackageJsonResults> {
+async function getPackageJson(
+	args: ParsedArgs,
+	regenerateReportName: boolean
+): Promise<GetPackageJsonResults> {
 	/* get from explicit path passed as argument */
 	if (args.pkgfile) {
 		return {
@@ -56,10 +59,14 @@ async function getPackageJson(args: ParsedArgs): Promise<GetPackageJsonResults> 
 
 	/* extract package.json from explicit tarball location */
 	if (args.tarball) {
-		const contents = await getFileContent(args.tarball, ["package.json"]);
+		const contents = await getFileContent({ filePath: args.tarball }, ["package.json"]);
+		const pkg = JSON.parse(contents["package.json"].toString("utf-8"));
 		return {
-			pkg: JSON.parse(contents["package.json"].toString("utf-8")),
-			pkgPath: path.join(args.tarball, "package.json"),
+			pkg,
+			pkgPath: path.join(
+				regenerateReportName ? `${pkg.name}-${pkg.version}.tgz` : args.tarball,
+				"package.json"
+			),
 		};
 	}
 
@@ -90,20 +97,25 @@ async function run(): Promise<void> {
 	/* this library assumes the file source can be randomly accessed but with
 	 * stdin this is not possible so stdin is read into a temporary file which is
 	 * used instead */
+	let regenerateReportName = false;
 	if (args.tarball === "-") {
 		args.tarball = await preloadStdin();
+		regenerateReportName = true;
 	}
 
-	const { pkg, pkgPath } = await getPackageJson(args);
+	const { pkg, pkgPath } = await getPackageJson(args, regenerateReportName);
 
 	if (!pkg) {
 		console.error("Failed to locate package.json and no location was specificed with `--pkgfile'");
 		process.exit(1);
 	}
 
-	const tarball = args.tarball ?? tarballLocation(pkg, pkgPath);
-	if (!existsSync(tarball)) {
-		console.error(`"${tarball}" does not exist, did you forget to run \`npm pack'?`);
+	const tarball: TarballMeta = {
+		filePath: args.tarball ?? tarballLocation(pkg, pkgPath),
+		reportPath: regenerateReportName ? `${pkg.name}-${pkg.version}.tgz` : undefined,
+	};
+	if (!existsSync(tarball.filePath)) {
+		console.error(`"${tarball.filePath}" does not exist, did you forget to run \`npm pack'?`);
 		process.exit(1);
 	}
 

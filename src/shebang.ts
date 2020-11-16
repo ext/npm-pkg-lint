@@ -1,5 +1,5 @@
 import { Result } from "./result";
-import { getFileContent } from "./tarball";
+import { getFileContent, TarballMeta } from "./tarball";
 import PackageJson from "./types/package-json";
 
 function getBinaries(pkg: PackageJson): string[] {
@@ -9,7 +9,7 @@ function getBinaries(pkg: PackageJson): string[] {
 	return typeof pkg.bin === "string" ? [pkg.bin] : Object.values(pkg.bin);
 }
 
-export async function verifyShebang(pkg: PackageJson, tarball: string): Promise<Result[]> {
+export async function verifyShebang(pkg: PackageJson, tarball: TarballMeta): Promise<Result[]> {
 	const results: Result[] = [];
 	const binaries = getBinaries(pkg);
 	const contents = await getFileContent(tarball, binaries);

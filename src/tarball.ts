@@ -5,6 +5,14 @@ import { isBlacklisted } from "./blacklist";
 import { Message } from "./message";
 import { Result } from "./result";
 
+export interface TarballMeta {
+	/** Path to tarball on disk */
+	filePath: string;
+
+	/** Path to use in report (default filePath) */
+	reportPath?: string;
+}
+
 interface RequiredFile {
 	field: string;
 	ruleId: string;
@@ -29,7 +37,7 @@ export async function getFileList(filename: string): Promise<string[]> {
 }
 
 export async function getFileContent(
-	tarball: string,
+	tarball: TarballMeta,
 	filenames: string[]
 ): Promise<Record<string, Buffer>> {
 	const contents: Record<string, Buffer> = {};
@@ -54,7 +62,7 @@ export async function getFileContent(
 		t.on("end", () => {
 			resolve(contents);
 		});
-		const rs = fs.createReadStream(tarball);
+		const rs = fs.createReadStream(tarball.filePath);
 		rs.pipe(t);
 	});
 }
@@ -127,9 +135,13 @@ function fileExists(filelist: string[], filename: string): boolean {
 	return false;
 }
 
-export async function verifyTarball(pkg: PackageJson, filePath: string): Promise<Result[]> {
+/**
+ * @param pkg - Parsed `package.json` data
+ * @param tarball - Tarball paths
+ */
+export async function verifyTarball(pkg: PackageJson, tarball: TarballMeta): Promise<Result[]> {
 	const messages: Message[] = [];
-	const filelist = await getFileList(filePath);
+	const filelist = await getFileList(tarball.filePath);
 
 	for (const filename of await blacklistedFiles(filelist)) {
 		messages.push({
@@ -160,7 +172,7 @@ export async function verifyTarball(pkg: PackageJson, filePath: string): Promise
 	return [
 		{
 			messages,
-			filePath,
+			filePath: tarball.reportPath ?? tarball.filePath,
 			errorCount: messages.length,
 			warningCount: 0,
 			fixableErrorCount: 0,

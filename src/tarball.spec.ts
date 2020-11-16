@@ -16,7 +16,7 @@ it("should return error if disallowed file is found", async () => {
 		name: "mock-pkg",
 		version: "1.2.3",
 	};
-	const results = await verifyTarball(pkg, "mock-pkg-1.2.3.tgz");
+	const results = await verifyTarball(pkg, { filePath: "mock-pkg-1.2.3.tgz" });
 	expect(results).toHaveLength(1);
 	expect(results[0].filePath).toEqual("mock-pkg-1.2.3.tgz");
 	expect(results[0].messages).toMatchInlineSnapshot(`
@@ -30,6 +30,21 @@ it("should return error if disallowed file is found", async () => {
 		  },
 		]
 	`);
+});
+
+it("should use reportPath if given", async () => {
+	expect.assertions(2);
+	require("tar").__setMockFiles(["foo.spec.js"]);
+	const pkg: PackageJson = {
+		name: "mock-pkg",
+		version: "1.2.3",
+	};
+	const results = await verifyTarball(pkg, {
+		filePath: "mock-pkg-1.2.3.tgz",
+		reportPath: "other-path",
+	});
+	expect(results).toHaveLength(1);
+	expect(results[0].filePath).toEqual("other-path");
 });
 
 describe("should return error if package.json references missing file", () => {
@@ -52,7 +67,7 @@ describe("should return error if package.json references missing file", () => {
 			version: "1.2.3",
 			...template,
 		};
-		const results = await verifyTarball(pkg, "mock-pkg-1.2.3.tgz");
+		const results = await verifyTarball(pkg, { filePath: "mock-pkg-1.2.3.tgz" });
 		expect(results).toHaveLength(1);
 		expect(results[0].filePath).toEqual("mock-pkg-1.2.3.tgz");
 		expect(results[0].messages).toMatchSnapshot();
@@ -86,7 +101,7 @@ describe("should not return error if package.json references existing file", () 
 			version: "1.2.3",
 			...template,
 		};
-		const results = await verifyTarball(pkg, "mock-path");
+		const results = await verifyTarball(pkg, { filePath: "mock-path" });
 		expect(results).toEqual([]);
 	});
 });
@@ -99,7 +114,7 @@ it("should handle directories with index.js", async () => {
 		version: "1.2.3",
 		main: "dist",
 	};
-	const results = await verifyTarball(pkg, "mock-path");
+	const results = await verifyTarball(pkg, { filePath: "mock-path" });
 	expect(results).toEqual([]);
 });
 
@@ -111,6 +126,6 @@ it("should handle leading ./", async () => {
 		version: "1.2.3",
 		main: "./index.js",
 	};
-	const results = await verifyTarball(pkg, "mock-path");
+	const results = await verifyTarball(pkg, { filePath: "mock-path" });
 	expect(results).toEqual([]);
 });

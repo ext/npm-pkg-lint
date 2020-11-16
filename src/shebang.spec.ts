@@ -25,7 +25,7 @@ it("should not return error if package has no binaries", async () => {
 		name: "mock-pkg",
 		version: "1.2.3",
 	};
-	const results = await verifyShebang(pkg, "mock-pkg-1.2.3.tgz");
+	const results = await verifyShebang(pkg, { filePath: "mock-pkg-1.2.3.tgz" });
 	expect(results).toEqual([]);
 });
 
@@ -43,7 +43,7 @@ it("should not return error if file has proper shebang", async () => {
 			script: "script.sh",
 		},
 	};
-	const results = await verifyShebang(pkg, "mock-pkg-1.2.3.tgz");
+	const results = await verifyShebang(pkg, { filePath: "mock-pkg-1.2.3.tgz" });
 	expect(results).toEqual([]);
 });
 
@@ -57,7 +57,7 @@ it("should return error when binary is missing shebang", async () => {
 		version: "1.2.3",
 		bin: "index.js",
 	};
-	const results = await verifyShebang(pkg, "mock-pkg-1.2.3.tgz");
+	const results = await verifyShebang(pkg, { filePath: "mock-pkg-1.2.3.tgz" });
 	expect(results).toHaveLength(1);
 	expect(results[0].filePath).toEqual("index.js");
 	expect(results[0].messages).toMatchInlineSnapshot(`
@@ -83,7 +83,7 @@ it("should return error when binary shebang is not first line", async () => {
 		version: "1.2.3",
 		bin: "index.js",
 	};
-	const results = await verifyShebang(pkg, "mock-pkg-1.2.3.tgz");
+	const results = await verifyShebang(pkg, { filePath: "mock-pkg-1.2.3.tgz" });
 	expect(results).toHaveLength(1);
 	expect(results[0].filePath).toEqual("index.js");
 	expect(results[0].messages).toMatchInlineSnapshot(`
