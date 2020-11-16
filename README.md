@@ -16,6 +16,11 @@ Default is to find `package.json` from current directory tree and derive tarball
 
 If `--tarball` is used `package.json` is extracted from the tarball.
 
+To read from stdin use `--tarball -`.
+This can be used to quickly examine packages from https://www.npmjs.com/:
+
+> curl -s \$(npm view lodash dist.tarball) | npx npm-pkg-lint -t -
+
 ## Disallowed files
 
 Disallows certain files from being included in the package tarball.
