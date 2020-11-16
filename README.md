@@ -14,6 +14,8 @@ Opinionated linter for NPM package tarball and `package.json` metadata.
 Use `--tarball` and `--pkgfile` to specify custom locations.
 Default is to find `package.json` from current directory tree and derive tarball filename from the `name` and `version` field.
 
+If `--tarball` is used `package.json` is extracted from the tarball.
+
 ## Disallowed files
 
 Disallows certain files from being included in the package tarball.

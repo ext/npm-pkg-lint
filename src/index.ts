@@ -9,6 +9,7 @@ import { setupBlacklist } from "./blacklist";
 import { verify } from "./verify";
 import PackageJson from "./types/package-json";
 import { tarballLocation } from "./tarball-location";
+import { getFileContent } from "./tarball";
 
 /* eslint-disable-next-line @typescript-eslint/no-var-requires */
 const { version } = require("../package.json");
@@ -18,13 +19,40 @@ interface ParsedArgs {
 	tarball?: string;
 }
 
-async function defaultPkgLocation(): Promise<string | undefined> {
+interface GetPackageJsonResults {
+	pkg?: PackageJson;
+	pkgPath?: string;
+}
+
+async function getPackageJson(args: ParsedArgs): Promise<GetPackageJsonResults> {
+	/* get from explicit path passed as argument */
+	if (args.pkgfile) {
+		return {
+			pkg: JSON.parse(await fs.readFile(args.pkgfile, "utf-8")),
+			pkgPath: args.pkgfile,
+		};
+	}
+
+	/* extract package.json from explicit tarball location */
+	if (args.tarball) {
+		const contents = await getFileContent(args.tarball, ["package.json"]);
+		return {
+			pkg: JSON.parse(contents["package.json"].toString("utf-8")),
+			pkgPath: path.join(args.tarball, "package.json"),
+		};
+	}
+
+	/* try to locate package.json from file structure */
 	const pkgPath = await findUp("package.json");
 	if (pkgPath) {
-		return path.relative(process.cwd(), pkgPath);
-	} else {
-		return undefined;
+		const relPath = path.relative(process.cwd(), pkgPath);
+		return {
+			pkg: JSON.parse(await fs.readFile(relPath, "utf-8")),
+			pkgPath: relPath,
+		};
 	}
+
+	return {};
 }
 
 async function run(): Promise<void> {
@@ -37,16 +65,14 @@ async function run(): Promise<void> {
 	parser.add_argument("-p", "--pkgfile", { help: "specify package.json location" });
 
 	const args: ParsedArgs = parser.parse_args();
-	const pkgPath = args.pkgfile ?? (await defaultPkgLocation());
+	const { pkg, pkgPath } = await getPackageJson(args);
 
-	if (!pkgPath) {
+	if (!pkg) {
 		console.error("Failed to locate package.json and no location was specificed with `--pkgfile'");
 		process.exit(1);
 	}
 
-	const pkg: PackageJson = JSON.parse(await fs.readFile(pkgPath, "utf-8"));
 	const tarball = args.tarball ?? tarballLocation(pkg, pkgPath);
-
 	if (!existsSync(tarball)) {
 		console.error(`"${tarball}" does not exist, did you forget to run \`npm pack'?`);
 		process.exit(1);
