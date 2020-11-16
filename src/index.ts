@@ -1,9 +1,10 @@
 /* eslint-disable no-console, no-process-exit -- this is a cli tool */
 
-import { existsSync, promises as fs } from "fs";
+import { existsSync, createWriteStream, promises as fs } from "fs";
 import path from "path";
 import { ArgumentParser } from "argparse";
 import findUp from "find-up";
+import tmp from "tmp";
 import stylish from "@html-validate/stylish";
 import { setupBlacklist } from "./blacklist";
 import { verify } from "./verify";
@@ -22,6 +23,26 @@ interface ParsedArgs {
 interface GetPackageJsonResults {
 	pkg?: PackageJson;
 	pkgPath?: string;
+}
+
+async function preloadStdin(): Promise<string> {
+	return new Promise((resolve, reject) => {
+		tmp.file((err, path, fd) => {
+			if (err) {
+				reject(err);
+				return;
+			}
+
+			const st = createWriteStream(null, { fd, autoClose: true });
+			process.stdin.pipe(st);
+			st.on("finish", () => {
+				resolve(path);
+			});
+			st.on("error", (err) => {
+				reject(err);
+			});
+		});
+	});
 }
 
 async function getPackageJson(args: ParsedArgs): Promise<GetPackageJsonResults> {
@@ -65,6 +86,14 @@ async function run(): Promise<void> {
 	parser.add_argument("-p", "--pkgfile", { help: "specify package.json location" });
 
 	const args: ParsedArgs = parser.parse_args();
+
+	/* this library assumes the file source can be randomly accessed but with
+	 * stdin this is not possible so stdin is read into a temporary file which is
+	 * used instead */
+	if (args.tarball === "-") {
+		args.tarball = await preloadStdin();
+	}
+
 	const { pkg, pkgPath } = await getPackageJson(args);
 
 	if (!pkg) {
