@@ -1,4 +1,5 @@
 /* eslint-disable no-console, no-process-exit -- this is a cli tool */
+/* eslint-disable camelcase -- argparse likes snake_case */
 
 import { existsSync, createWriteStream, promises as fs } from "fs";
 import path from "path";
@@ -18,6 +19,7 @@ const { version } = require("../package.json");
 interface ParsedArgs {
 	pkgfile: string;
 	tarball?: string;
+	ignore_missing_fields?: boolean;
 	allow_types_dependencies?: boolean;
 }
 
@@ -96,6 +98,10 @@ async function run(): Promise<void> {
 		action: "store_true",
 		help: "allow dependencies to `@types/*`",
 	});
+	parser.add_argument("--ignore-missing-fields", {
+		action: "store_true",
+		help: "ignore errors for missing fields (but still checks for empty and valid)",
+	});
 
 	const args: ParsedArgs = parser.parse_args();
 
@@ -128,6 +134,7 @@ async function run(): Promise<void> {
 
 	const options: VerifyOptions = {
 		allowTypesDependencies: args.allow_types_dependencies,
+		ignoreMissingFields: args.ignore_missing_fields,
 	};
 
 	const results = await verify(pkg, pkgPath, tarball, options);

@@ -70,6 +70,22 @@ describe("@types", () => {
 	});
 });
 
+describe("present", () => {
+	it("should return error on missing fields by default", async () => {
+		expect.assertions(1);
+		delete pkg.description;
+		const results = await verifyPackageJson(pkg, "package.json");
+		expect(results).toHaveLength(1);
+	});
+
+	it("should ignore error on missing fields if ignoreMissingFields is set", async () => {
+		expect.assertions(1);
+		delete pkg.description;
+		const results = await verifyPackageJson(pkg, "package.json", { ignoreMissingFields: true });
+		expect(results).toHaveLength(0);
+	});
+});
+
 describe("fields", () => {
 	describe("description", () => {
 		it("should return error if not set", async () => {

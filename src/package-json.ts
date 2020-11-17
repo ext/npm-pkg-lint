@@ -6,6 +6,7 @@ import { isDisallowedDependency } from "./rules/disallowed-dependency";
 
 export interface VerifyPackageJsonOptions {
 	allowTypesDependencies?: boolean;
+	ignoreMissingFields?: boolean;
 }
 
 /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
@@ -21,7 +22,7 @@ const fields: Record<string, validator[]> = {
 	repository: [present, validUrl],
 };
 
-function verifyFields(pkg: PackageJson): Message[] {
+function verifyFields(pkg: PackageJson, options: VerifyPackageJsonOptions): Message[] {
 	const messages: Message[] = [];
 
 	for (const [field, validators] of Object.entries(fields)) {
@@ -30,6 +31,9 @@ function verifyFields(pkg: PackageJson): Message[] {
 				validator(field, pkg[field]);
 			}
 		} catch (error) {
+			if (error.validator === present.name && options.ignoreMissingFields) {
+				continue;
+			}
 			messages.push({
 				ruleId: "package-json-fields",
 				severity: 2,
@@ -71,7 +75,7 @@ export async function verifyPackageJson(
 	filePath: string,
 	options: VerifyPackageJsonOptions = {}
 ): Promise<Result[]> {
-	const messages: Message[] = [...verifyFields(pkg), ...verifyDependencies(pkg, options)];
+	const messages: Message[] = [...verifyFields(pkg, options), ...verifyDependencies(pkg, options)];
 
 	if (messages.length === 0) {
 		return [];
