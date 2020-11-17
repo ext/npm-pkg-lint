@@ -1,5 +1,28 @@
 # npm-pkg-lint changelog
 
+## [1.2.0](https://github.com/ext/npm-pkg-lint/compare/v1.1.0...v1.2.0) (2020-11-17)
+
+### Features
+
+- add `--allow-types-dependencies` to allow `@types/*` ([087facc](https://github.com/ext/npm-pkg-lint/commit/087faccdbc70dab3ca8a02e4bd72f4b389cdcb08))
+- disallow packages as dependencies ([9088173](https://github.com/ext/npm-pkg-lint/commit/90881737559365b0d442bdc8b54d35874222e1be))
+- support ignoring missing fields ([fb688e5](https://github.com/ext/npm-pkg-lint/commit/fb688e5426a4a864492b23ebcd60055987d49cf3))
+- support reading `package.json` directly from tarball ([bfbf3fc](https://github.com/ext/npm-pkg-lint/commit/bfbf3fcc66a0b6313dfa080be268bc5f713777c8))
+- support reading tarball from stdin ([85981c4](https://github.com/ext/npm-pkg-lint/commit/85981c4ccebef86e0f692156fbbf6267febdb32d))
+
+### Bug Fixes
+
+- `browser` field may contain `false` ([9957100](https://github.com/ext/npm-pkg-lint/commit/9957100d734b38d675dde6022e39f6d1684206de))
+- disallow `*.(spec|test).d.ts` ([e6c2b88](https://github.com/ext/npm-pkg-lint/commit/e6c2b88bb791af55787240dc79a403387d03d5d5))
+- handle large `package.json` files ([e1bb35e](https://github.com/ext/npm-pkg-lint/commit/e1bb35e181913b4398f1edf04761a5531bc0b059))
+- handle leading `./` in filenames ([371114c](https://github.com/ext/npm-pkg-lint/commit/371114ccfcadcc9c5f22f3f9dca800c36b1f7a7d))
+- handle packages not using `package/` as root ([b376852](https://github.com/ext/npm-pkg-lint/commit/b376852fa7cd0deb8d9e9d270e5ca7266d11be9b))
+- handle packages with index.js but trailing slash ([8cb0fb4](https://github.com/ext/npm-pkg-lint/commit/8cb0fb45cddbaed552d6eef7d1731b439f225b3b))
+- handle resolving files without `.js` extension ([0555d38](https://github.com/ext/npm-pkg-lint/commit/0555d38e84bc5528e68780ce8f3a3b68ce2d58bb))
+- handle when `main` points to directory with `index.js` ([368f2a6](https://github.com/ext/npm-pkg-lint/commit/368f2a61f992769d3f8b4218ca3a3081c2f12e9a))
+- regenerate package name when using stdin ([15487e4](https://github.com/ext/npm-pkg-lint/commit/15487e4d4eec88c948f5a4441bb5899025d5a938))
+- tweak allowed files and dependencies ([f50be59](https://github.com/ext/npm-pkg-lint/commit/f50be59c88f8e6898288dfcb524384833557f70f))
+
 ## [1.1.0](https://github.com/ext/npm-pkg-lint/compare/v1.0.3...v1.1.0) (2020-11-14)
 
 ### Features
