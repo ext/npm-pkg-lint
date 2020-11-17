@@ -50,6 +50,26 @@ it("should not return error if dependency is allowed", async () => {
 	expect(results).toEqual([]);
 });
 
+describe("@types", () => {
+	beforeEach(() => {
+		pkg.dependencies = {
+			"@types/foobar": "1.2.3",
+		};
+	});
+
+	it("should return error if @types is used as dependency by default", async () => {
+		expect.assertions(1);
+		const results = await verifyPackageJson(pkg, "package.json");
+		expect(results).toHaveLength(1);
+	});
+
+	it("should not return error if @types is allowed", async () => {
+		expect.assertions(1);
+		const results = await verifyPackageJson(pkg, "package.json", { allowTypesDependencies: true });
+		expect(results).toHaveLength(0);
+	});
+});
+
 describe("fields", () => {
 	describe("description", () => {
 		it("should return error if not set", async () => {

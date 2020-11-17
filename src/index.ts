@@ -7,7 +7,7 @@ import findUp from "find-up";
 import tmp from "tmp";
 import stylish from "@html-validate/stylish";
 import { setupBlacklist } from "./blacklist";
-import { verify } from "./verify";
+import { verify, VerifyOptions } from "./verify";
 import PackageJson from "./types/package-json";
 import { tarballLocation } from "./tarball-location";
 import { getFileContent, TarballMeta } from "./tarball";
@@ -18,6 +18,7 @@ const { version } = require("../package.json");
 interface ParsedArgs {
 	pkgfile: string;
 	tarball?: string;
+	allow_types_dependencies?: boolean;
 }
 
 interface GetPackageJsonResults {
@@ -91,6 +92,10 @@ async function run(): Promise<void> {
 	parser.add_argument("-v", "--version", { action: "version", version });
 	parser.add_argument("-t", "--tarball", { help: "specify tarball location" });
 	parser.add_argument("-p", "--pkgfile", { help: "specify package.json location" });
+	parser.add_argument("--allow-types-dependencies", {
+		action: "store_true",
+		help: "allow dependencies to `@types/*`",
+	});
 
 	const args: ParsedArgs = parser.parse_args();
 
@@ -121,7 +126,11 @@ async function run(): Promise<void> {
 
 	setupBlacklist(pkg.name);
 
-	const results = await verify(pkg, pkgPath, tarball);
+	const options: VerifyOptions = {
+		allowTypesDependencies: args.allow_types_dependencies,
+	};
+
+	const results = await verify(pkg, pkgPath, tarball, options);
 	const output = stylish(results);
 	process.stdout.write(output);
 

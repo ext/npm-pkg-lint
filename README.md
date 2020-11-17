@@ -11,6 +11,8 @@ Opinionated linter for NPM package tarball and `package.json` metadata.
 
 > npx npm-pkg-lint [--tarball my-pkg-1.2.3.tgz} [--pkgfile package.json]
 
+Use `--help` to see full usage help.
+
 Use `--tarball` and `--pkgfile` to specify custom locations.
 Default is to find `package.json` from current directory tree and derive tarball filename from the `name` and `version` field.
 
@@ -62,6 +64,8 @@ Examples of disallowed packages:
 - `eslint` (including plugins and configurations)
 - `typescript` (precompile with declarations instead)
 - `grunt` (end user does not need to perform tasks inside your package)
+
+By default `@types/*` is disallowed but this can be disabled with `--allow-types-dependencies`.
 
 ## Shebang
 

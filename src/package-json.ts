@@ -4,6 +4,10 @@ import { Result } from "./result";
 import { nonempty, present, typeArray, typeString, validUrl } from "./validators";
 import { isDisallowedDependency } from "./rules/disallowed-dependency";
 
+export interface VerifyPackageJsonOptions {
+	allowTypesDependencies?: boolean;
+}
+
 /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
 type validator = (key: string, value: any) => void;
 
@@ -39,10 +43,15 @@ function verifyFields(pkg: PackageJson): Message[] {
 	return messages;
 }
 
-function verifyDependencies(pkg: PackageJson): Message[] {
+function verifyDependencies(pkg: PackageJson, options: VerifyPackageJsonOptions): Message[] {
 	const messages: Message[] = [];
 
 	for (const dependency of Object.keys(pkg.dependencies || {})) {
+		/* skip @types/* if explicitly allowed by user */
+		if (options.allowTypesDependencies && dependency.match(/^@types\//)) {
+			continue;
+		}
+
 		if (isDisallowedDependency(dependency)) {
 			messages.push({
 				ruleId: "disallowed-dependency",
@@ -57,8 +66,12 @@ function verifyDependencies(pkg: PackageJson): Message[] {
 	return messages;
 }
 
-export async function verifyPackageJson(pkg: PackageJson, filePath: string): Promise<Result[]> {
-	const messages: Message[] = [...verifyFields(pkg), ...verifyDependencies(pkg)];
+export async function verifyPackageJson(
+	pkg: PackageJson,
+	filePath: string,
+	options: VerifyPackageJsonOptions = {}
+): Promise<Result[]> {
+	const messages: Message[] = [...verifyFields(pkg), ...verifyDependencies(pkg, options)];
 
 	if (messages.length === 0) {
 		return [];
