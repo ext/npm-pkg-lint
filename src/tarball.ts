@@ -136,7 +136,7 @@ function fileExists(filelist: string[], filename: string): boolean {
 	}
 
 	/* test if it is actually a directory with index.js */
-	if (filelist.includes(`${filename}/index.js`)) {
+	if (filelist.includes(`${filename.replace(/\/$/, "")}/index.js`)) {
 		return true;
 	}
 

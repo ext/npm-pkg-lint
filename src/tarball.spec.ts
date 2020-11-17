@@ -118,6 +118,18 @@ it("should handle directories with index.js", async () => {
 	expect(results).toEqual([]);
 });
 
+it("should handle directories with index.js and trailing slash", async () => {
+	expect.assertions(1);
+	require("tar").__setMockFiles(["dist/index.js"]);
+	const pkg: PackageJson = {
+		name: "mock-pkg",
+		version: "1.2.3",
+		main: "dist/",
+	};
+	const results = await verifyTarball(pkg, { filePath: "mock-path" });
+	expect(results).toEqual([]);
+});
+
 it("should handle filenames without .js", async () => {
 	expect.assertions(1);
 	require("tar").__setMockFiles(["index.js"]);
