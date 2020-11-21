@@ -93,3 +93,15 @@ Verifies the following fields:
 It also enforces all urls to be `https`, even the repository url.
 While `git` is technically valid most users cannot clone the repository anonomously.
 Shortcuts are not permitted either because it saves basically nothing, makes tooling more difficult to write and wont work for smaller hosting services.
+
+## Unsupported node versions
+
+Requires `engines.node` to be up-to-date and only supporting LTS and active versions.
+
+**Why?** Newer versions contains more builtin functions and features replacing the need for polyfills and many one-liner packages.
+
+As an example `mkdirp` can be replaced with `fs.mkdir(p, { recursive: true })` starting with Node 10.
+
+While stable Linux distributions (e.g. Debian stable) and enterprise environment might not use the most recent versions they often try to stay away from EOL versions.
+Users stuck at older versions will not be able to update to the latest set of node packages but if you are using an environment with unsupported versions you are unlikely to want to update node packages.
+It is also very likely that the package doesn't actually run on such old version anyway because of a missing feature or a dependency requiring a later version.

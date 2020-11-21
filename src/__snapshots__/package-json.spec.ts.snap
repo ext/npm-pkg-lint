@@ -240,6 +240,18 @@ Array [
 ]
 `;
 
+exports[`should return engines.node supports eol version 1`] = `
+Array [
+  Object {
+    "column": 1,
+    "line": 1,
+    "message": "engines.node is satisfied by Node 8 (EOL since 2019-12-31)",
+    "ruleId": "outdated-engines",
+    "severity": 2,
+  },
+]
+`;
+
 exports[`should return error if dependency is disallowed 1`] = `
 Array [
   Object {

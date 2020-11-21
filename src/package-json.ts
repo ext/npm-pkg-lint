@@ -3,6 +3,7 @@ import { Message } from "./message";
 import { Result } from "./result";
 import { nonempty, present, typeArray, typeString, validUrl } from "./validators";
 import { isDisallowedDependency } from "./rules/disallowed-dependency";
+import { outdatedEngines } from "./rules/outdated-engines";
 
 export interface VerifyPackageJsonOptions {
 	allowTypesDependencies?: boolean;
@@ -75,7 +76,11 @@ export async function verifyPackageJson(
 	filePath: string,
 	options: VerifyPackageJsonOptions = {}
 ): Promise<Result[]> {
-	const messages: Message[] = [...verifyFields(pkg, options), ...verifyDependencies(pkg, options)];
+	const messages: Message[] = [
+		...verifyFields(pkg, options),
+		...verifyDependencies(pkg, options),
+		...outdatedEngines(pkg),
+	];
 
 	if (messages.length === 0) {
 		return [];

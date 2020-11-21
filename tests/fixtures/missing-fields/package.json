@@ -1,5 +1,8 @@
 {
   "name": "missing-fields",
   "version": "1.0.0",
-  "files": []
+  "files": [],
+  "engines": {
+    "node": ">= 10"
+  }
 }
