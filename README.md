@@ -7,6 +7,12 @@ Opinionated linter for NPM package tarball and `package.json` metadata.
 
 > npx npm-pkg-lint
 
+Core principles:
+
+* Technically valid according to specification is not always the best, a stricter subset makes tooling easier and less vague.
+* Native features are better than third-party code.
+* Fewer and smaller dependencies are better than many and large dependencies.
+
 ## Usage
 
 > npx npm-pkg-lint [--tarball my-pkg-1.2.3.tgz} [--pkgfile package.json]
