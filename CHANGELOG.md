@@ -1,5 +1,11 @@
 # npm-pkg-lint changelog
 
+## [1.3.0](https://github.com/ext/npm-pkg-lint/compare/v1.2.0...v1.3.0) (2020-11-21)
+
+### Features
+
+- check for unsupported node versions ([c788c00](https://github.com/ext/npm-pkg-lint/commit/c788c008f90b7af56106ce99eaecfe289b976c39))
+
 ## [1.2.0](https://github.com/ext/npm-pkg-lint/compare/v1.1.0...v1.2.0) (2020-11-17)
 
 ### Features
