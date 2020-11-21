@@ -2,14 +2,14 @@
   "name": "empty-fields",
   "version": "1.0.0",
   "description": "",
-  "files": [],
   "keywords": [],
   "homepage": "",
   "bugs": "",
-  "author": "",
   "repository": {},
-  "main": "",
   "license": "",
+  "author": "",
+  "main": "",
+  "files": [],
   "engines": {
     "node": ">= 10"
   }

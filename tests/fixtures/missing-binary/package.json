@@ -7,20 +7,20 @@
   ],
   "homepage": "https://example.net",
   "bugs": "https://example.net/bugs",
-  "author": "Fred Flintstone <fred.flintstone@example.net>",
   "repository": {
     "url": "https://git.example.net/missing-binary.git"
   },
+  "license": "ISC",
+  "author": "Fred Flintstone <fred.flintstone@example.net>",
+  "main": "index.js",
+  "bin": "bin.js",
   "files": [
     "*.js"
   ],
-  "main": "index.js",
-  "bin": "bin.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "engines": {
     "node": ">= 10"
-  },
-  "license": "ISC"
+  }
 }
