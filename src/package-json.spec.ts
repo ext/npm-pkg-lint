@@ -14,6 +14,9 @@ beforeEach(() => {
 		license: "UNLICENSED",
 		author: "Fred Flintstone <fred.flintstone@example.net>",
 		repository: "https://git.example.net/test-case.git",
+		engines: {
+			node: ">= 10",
+		},
 	};
 });
 
@@ -48,6 +51,15 @@ it("should not return error if dependency is allowed", async () => {
 	};
 	const results = await verifyPackageJson(pkg, "package.json");
 	expect(results).toEqual([]);
+});
+
+it("should return engines.node supports eol version", async () => {
+	expect.assertions(3);
+	pkg.engines.node = ">= 8";
+	const results = await verifyPackageJson(pkg, "package.json");
+	expect(results).toHaveLength(1);
+	expect(results[0].filePath).toEqual("package.json");
+	expect(results[0].messages).toMatchSnapshot();
 });
 
 describe("@types", () => {

@@ -9,5 +9,8 @@
   "author": "",
   "repository": {},
   "main": "",
-  "license": ""
+  "license": "",
+  "engines": {
+    "node": ">= 10"
+  }
 }

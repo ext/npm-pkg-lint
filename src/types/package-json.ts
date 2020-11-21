@@ -27,6 +27,7 @@ export default interface PackageJson {
 	peerDependencies?: Record<string, string>;
 	bundledDependencies?: Record<string, string>;
 	optionalDependencies?: Record<string, string>;
+	engines?: Record<string, string>;
 
 	[key: string]:
 		| string
