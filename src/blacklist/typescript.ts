@@ -1,4 +1,4 @@
-import { directory, extension, filename } from "./helpers";
+import { directory, filename } from "./helpers";
 
 const regexp: RegExp[] = [directory(".tsbuildinfo"), filename("tsconfig.json")];
 
