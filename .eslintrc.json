@@ -4,11 +4,12 @@
   "overrides": [
     {
       "files": "*.ts",
-      "extends": ["@html-validate/eslint-config/typescript"]
+      "extends": ["@html-validate/typescript"]
     },
     {
       "files": "*.spec.[jt]s",
-      "extends": ["@html-validate/eslint-config/jest"]
+      "excludedFiles": "cypress/**",
+      "extends": ["@html-validate/jest"]
     }
   ]
 }

@@ -3,8 +3,6 @@ import PackageJson from "../types/package-json";
 import { outdatedEngines } from "./outdated-engines";
 
 let pkg: PackageJson;
-const ruleId = "outdated-engines";
-const severity = Severity.ERROR;
 
 beforeEach(() => {
 	pkg = {
