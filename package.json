@@ -79,7 +79,7 @@
     "@typescript-eslint/eslint-plugin": "4.22.0",
     "@typescript-eslint/parser": "4.22.0",
     "eslint": "7.24.0",
-    "eslint-plugin-jest": "24.3.2",
+    "eslint-plugin-jest": "24.3.5",
     "execa": "5.0.0",
     "glob": "7.1.6",
     "husky": "6.0.0",

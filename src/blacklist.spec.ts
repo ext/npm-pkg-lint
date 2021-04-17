@@ -13,6 +13,7 @@ describe("should disallow unittests", () => {
 		"dist/file.test.tsx",
 		"dist/file.test.d.ts",
 	])("%s", (filename) => {
+		expect.assertions(1);
 		expect(isBlacklisted(filename)).toBeTruthy();
 	});
 });
@@ -25,6 +26,7 @@ it("should ignore package tarball", () => {
 
 describe("should disallow directories", () => {
 	it.each(["coverage/index.html", "temp/coverage/index.html"])("%s", (filename) => {
+		expect.assertions(1);
 		expect(isBlacklisted(filename)).toBeTruthy();
 	});
 });
