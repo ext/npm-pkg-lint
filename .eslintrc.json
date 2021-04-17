@@ -8,7 +8,7 @@
     },
     {
       "files": "*.spec.[jt]s",
-      "excludedFiles": "cypress/**",
+      "excludedFiles": ["cypress/**", "tests/e2e/**"],
       "extends": ["@html-validate/jest"]
     }
   ]
