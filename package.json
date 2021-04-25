@@ -76,7 +76,7 @@
     "@types/semver": "7.3.4",
     "@types/tar": "4.0.4",
     "@types/tmp": "0.2.0",
-    "eslint": "7.24.0",
+    "eslint": "7.25.0",
     "execa": "5.0.0",
     "glob": "7.1.6",
     "husky": "6.0.0",
