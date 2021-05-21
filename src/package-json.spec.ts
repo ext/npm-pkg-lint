@@ -111,7 +111,7 @@ describe("fields", () => {
 
 		it("should return error if not string", async () => {
 			expect.assertions(3);
-			pkg.description = (12 as unknown) as string;
+			pkg.description = 12 as unknown as string;
 			const results = await verifyPackageJson(pkg, "package.json");
 			expect(results).toHaveLength(1);
 			expect(results[0].filePath).toEqual("package.json");
@@ -140,7 +140,7 @@ describe("fields", () => {
 
 		it("should return error if not string", async () => {
 			expect.assertions(3);
-			pkg.keywords = (12 as unknown) as string[];
+			pkg.keywords = 12 as unknown as string[];
 			const results = await verifyPackageJson(pkg, "package.json");
 			expect(results).toHaveLength(1);
 			expect(results[0].filePath).toEqual("package.json");
@@ -178,7 +178,7 @@ describe("fields", () => {
 
 		it("should return error if not string", async () => {
 			expect.assertions(3);
-			pkg.homepage = (12 as unknown) as string;
+			pkg.homepage = 12 as unknown as string;
 			const results = await verifyPackageJson(pkg, "package.json");
 			expect(results).toHaveLength(1);
 			expect(results[0].filePath).toEqual("package.json");
@@ -227,7 +227,7 @@ describe("fields", () => {
 
 		it("should return error if not string", async () => {
 			expect.assertions(3);
-			pkg.license = (12 as unknown) as string;
+			pkg.license = 12 as unknown as string;
 			const results = await verifyPackageJson(pkg, "package.json");
 			expect(results).toHaveLength(1);
 			expect(results[0].filePath).toEqual("package.json");
