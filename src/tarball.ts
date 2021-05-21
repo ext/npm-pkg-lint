@@ -31,7 +31,7 @@ export async function getFileList(filename: string): Promise<string[]> {
 		onentry: (entry: FileStat) => entries.push(entry),
 	});
 	return entries.map((entry) => {
-		const filename = (entry.path as unknown) as string;
+		const filename = entry.path as unknown as string;
 		return normalize(filename);
 	});
 }
