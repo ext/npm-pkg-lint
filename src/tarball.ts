@@ -1,3 +1,5 @@
+/* eslint-disable security/detect-object-injection, sonarjs/no-duplicate-string */
+
 import fs from "fs";
 import tar, { FileStat, Parse } from "tar";
 import PackageJson from "./types/package-json";
@@ -63,6 +65,7 @@ export async function getFileContent(
 		t.on("end", () => {
 			resolve(contents);
 		});
+		/* eslint-disable-next-line security/detect-non-literal-fs-filename */
 		const rs = fs.createReadStream(tarball.filePath);
 		rs.pipe(t);
 	});

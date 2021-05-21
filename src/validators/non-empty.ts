@@ -19,7 +19,7 @@ export function nonempty(key: string, value: any): void {
 			throw new Error(`"${key}" must not be empty`);
 		}
 		for (const index in value) {
-			nonempty(`${key}[${index}]`, value[index]);
+			nonempty(`${key}[${index}]`, value[index]); // eslint-disable-line security/detect-object-injection
 		}
 		return;
 	}

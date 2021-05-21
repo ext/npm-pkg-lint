@@ -25,7 +25,7 @@ it.each(fixtures)("%s", async (fixture) => {
 	expect.assertions(1);
 	const dir = path.join(FIXTURE_DIRECTORY, fixture);
 	const pkgPath = path.relative(ROOT_DIRECTORY, path.join(dir, "package.json"));
-	const pkg: PackageJson = JSON.parse(await fs.readFile(pkgPath, "utf-8"));
+	const pkg: PackageJson = JSON.parse(await fs.readFile(pkgPath, "utf-8")); // eslint-disable-line security/detect-non-literal-fs-filename
 	const tarball = { filePath: await npmPack(pkg, fixture) };
 	const result = await verify(pkg, pkgPath, tarball);
 	expect(result).toMatchSnapshot();

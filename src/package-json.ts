@@ -29,7 +29,7 @@ function verifyFields(pkg: PackageJson, options: VerifyPackageJsonOptions): Mess
 	for (const [field, validators] of Object.entries(fields)) {
 		try {
 			for (const validator of validators) {
-				validator(field, pkg[field]);
+				validator(field, pkg[field]); // eslint-disable-line security/detect-object-injection
 			}
 		} catch (error) {
 			if (error.validator === present.name && options.ignoreMissingFields) {

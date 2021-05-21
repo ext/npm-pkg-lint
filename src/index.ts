@@ -1,5 +1,6 @@
 /* eslint-disable no-console, no-process-exit -- this is a cli tool */
 /* eslint-disable camelcase -- argparse likes snake_case */
+/* eslint-disable security/detect-non-literal-fs-filename -- want to read given filenames */
 
 import { existsSync, createWriteStream, promises as fs } from "fs";
 import path from "path";
@@ -15,6 +16,8 @@ import { getFileContent, TarballMeta } from "./tarball";
 
 /* eslint-disable-next-line @typescript-eslint/no-var-requires */
 const { version } = require("../package.json");
+
+const PACKAGE_JSON = "package.json";
 
 interface ParsedArgs {
 	pkgfile: string;
@@ -62,19 +65,19 @@ async function getPackageJson(
 
 	/* extract package.json from explicit tarball location */
 	if (args.tarball) {
-		const contents = await getFileContent({ filePath: args.tarball }, ["package.json"]);
-		const pkg = JSON.parse(contents["package.json"].toString("utf-8"));
+		const contents = await getFileContent({ filePath: args.tarball }, [PACKAGE_JSON]);
+		const pkg = JSON.parse(contents[PACKAGE_JSON].toString("utf-8")); // eslint-disable-line security/detect-object-injection
 		return {
 			pkg,
 			pkgPath: path.join(
 				regenerateReportName ? `${pkg.name}-${pkg.version}.tgz` : args.tarball,
-				"package.json"
+				PACKAGE_JSON
 			),
 		};
 	}
 
 	/* try to locate package.json from file structure */
-	const pkgPath = await findUp("package.json");
+	const pkgPath = await findUp(PACKAGE_JSON);
 	if (pkgPath) {
 		const relPath = path.relative(process.cwd(), pkgPath);
 		return {
