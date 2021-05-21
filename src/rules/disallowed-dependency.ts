@@ -1,3 +1,5 @@
+/* eslint-disable security/detect-non-literal-regexp */
+
 function exact(name: string): RegExp {
 	return new RegExp(`^${name}$`);
 }

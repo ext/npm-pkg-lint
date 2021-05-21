@@ -1,6 +1,7 @@
 import blacklist from "./blacklist/index";
 
 export function setupBlacklist(name: string): void {
+	/* eslint-disable-next-line security/detect-non-literal-regexp */
 	blacklist.push(new RegExp(`^${name}-\\d+\\.\\d+\\.\\d+\\.tgz$`));
 }
 
