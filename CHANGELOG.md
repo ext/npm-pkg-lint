@@ -1,5 +1,12 @@
 # npm-pkg-lint changelog
 
+## [1.4.0](https://github.com/ext/npm-pkg-lint/compare/v1.3.0...v1.4.0) (2021-06-05)
+
+### Features
+
+- bump node release table (node 10 now returns an error) ([6c38aad](https://github.com/ext/npm-pkg-lint/commit/6c38aadf28e32ef494cc1321a3bbc718537f232d))
+- verify engine constrains ([535906f](https://github.com/ext/npm-pkg-lint/commit/535906f5ec85b0f3136eb350f167e4d157ac2407))
+
 ## [1.3.0](https://github.com/ext/npm-pkg-lint/compare/v1.2.0...v1.3.0) (2020-11-21)
 
 ### Features
