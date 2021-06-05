@@ -14,23 +14,29 @@ beforeEach(() => {
 
 describe("should return error when unsupported version satisfies engines.node", () => {
 	it.each`
-		range          | description    | date
-		${">= 0.10.x"} | ${"Node 0.10"} | ${"2016-10-31"}
-		${">= 0.12.x"} | ${"Node 0.12"} | ${"2016-12-31"}
-		${">= 4.x"}    | ${"Node 4"}    | ${"2018-04-30"}
-		${">= 5.x"}    | ${"Node 5"}    | ${"2016-06-30"}
-		${">= 6.x"}    | ${"Node 6"}    | ${"2019-04-30"}
-		${">= 7.x"}    | ${"Node 7"}    | ${"2017-06-30"}
-		${">= 8.x"}    | ${"Node 8"}    | ${"2019-12-31"}
-		${">= 9.x"}    | ${"Node 9"}    | ${"2018-06-30"}
-	`("$description", ({ range, description, date }) => {
+		range          | description
+		${">= 0.10.x"} | ${"Node 0.10"}
+		${">= 0.12.x"} | ${"Node 0.12"}
+		${">= 4.x"}    | ${"Node 4"}
+		${">= 5.x"}    | ${"Node 5"}
+		${">= 6.x"}    | ${"Node 6"}
+		${">= 7.x"}    | ${"Node 7"}
+		${">= 8.x"}    | ${"Node 8"}
+		${">= 9.x"}    | ${"Node 9"}
+		${">= 10.x"}   | ${"Node 10"}
+		${">= 11.x"}   | ${"Node 11"}
+	`("$description", ({ range, description }) => {
 		expect.assertions(1);
 		pkg.engines.node = range;
+		/* eslint-disable-next-line security/detect-non-literal-regexp */
+		const message = new RegExp(
+			String.raw`engines\.node is satisfied by ${description} \(EOL since \d{4}-.*\)`
+		);
 		expect(Array.from(outdatedEngines(pkg))).toEqual([
 			{
 				ruleId: "outdated-engines",
 				severity: Severity.ERROR,
-				message: `engines.node is satisfied by ${description} (EOL since ${date})`,
+				message: expect.stringMatching(message),
 				line: 1,
 				column: 1,
 			},
@@ -88,6 +94,6 @@ it("should return error engines is missing", () => {
 
 it("should not return error when engines.node only supports active versions", () => {
 	expect.assertions(1);
-	pkg.engines.node = ">= 10";
+	pkg.engines.node = ">= 12";
 	expect(Array.from(outdatedEngines(pkg))).toMatchInlineSnapshot(`Array []`);
 });

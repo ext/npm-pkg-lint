@@ -3,6 +3,6 @@
   "version": "1.0.0",
   "files": [],
   "engines": {
-    "node": ">= 10"
+    "node": ">= 12"
   }
 }

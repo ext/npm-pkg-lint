@@ -15,7 +15,7 @@ beforeEach(() => {
 		author: "Fred Flintstone <fred.flintstone@example.net>",
 		repository: "https://git.example.net/test-case.git",
 		engines: {
-			node: ">= 10",
+			node: ">= 12",
 		},
 	};
 });
