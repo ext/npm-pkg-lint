@@ -10,7 +10,7 @@
     "noImplicitAny": true,
     "outDir": "dist",
     "resolveJsonModule": true,
-    "sourceMap": false,
+    "sourceMap": true,
     "target": "es2017",
     "strict": true,
     "strictNullChecks": false

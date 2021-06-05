@@ -1,6 +1,12 @@
 import { verifyPackageJson } from "./package-json";
 import PackageJson from "./types/package-json";
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import { npmInfoMockDefault } from "./utils/npm-info";
+
+jest.mock("./utils/npm-info");
+
 let pkg: PackageJson;
 
 beforeEach(() => {
@@ -18,6 +24,7 @@ beforeEach(() => {
 			node: ">= 12",
 		},
 	};
+	npmInfoMockDefault(pkg);
 });
 
 it("should not return errors if package.json is well formed (strings only)", async () => {

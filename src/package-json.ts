@@ -4,6 +4,7 @@ import { Result } from "./result";
 import { nonempty, present, typeArray, typeString, validUrl } from "./validators";
 import { isDisallowedDependency } from "./rules/disallowed-dependency";
 import { outdatedEngines } from "./rules/outdated-engines";
+import { verifyEngineConstraint } from "./rules/verify-engine-constraint";
 
 export interface VerifyPackageJsonOptions {
 	allowTypesDependencies?: boolean;
@@ -77,6 +78,7 @@ export async function verifyPackageJson(
 	options: VerifyPackageJsonOptions = {}
 ): Promise<Result[]> {
 	const messages: Message[] = [
+		...(await verifyEngineConstraint(pkg)),
 		...verifyFields(pkg, options),
 		...verifyDependencies(pkg, options),
 		...outdatedEngines(pkg),
