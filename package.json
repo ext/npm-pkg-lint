@@ -80,7 +80,7 @@
     "@types/tmp": "0.2.1",
     "eslint": "7.32.0",
     "glob": "7.1.7",
-    "husky": "7.0.1",
+    "husky": "7.0.2",
     "jest": "27.0.6",
     "lint-staged": "11.1.2",
     "prettier": "2.3.2",
