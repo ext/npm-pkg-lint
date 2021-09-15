@@ -5,7 +5,7 @@
 import { existsSync, createWriteStream, promises as fs } from "fs";
 import path from "path";
 import { ArgumentParser } from "argparse";
-import findUp from "find-up";
+import { findUp } from "find-up";
 import tmp from "tmp";
 import stylish from "@html-validate/stylish";
 import { setupBlacklist } from "./blacklist";
