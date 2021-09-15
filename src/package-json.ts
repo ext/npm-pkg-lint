@@ -1,7 +1,7 @@
 import PackageJson from "./types/package-json";
 import { Message } from "./message";
 import { Result } from "./result";
-import { nonempty, present, typeArray, typeString, validUrl } from "./validators";
+import { nonempty, present, typeArray, typeString, ValidationError, validUrl } from "./validators";
 import { isDisallowedDependency } from "./rules/disallowed-dependency";
 import { outdatedEngines } from "./rules/outdated-engines";
 import { verifyEngineConstraint } from "./rules/verify-engine-constraint";
@@ -33,16 +33,25 @@ function verifyFields(pkg: PackageJson, options: VerifyPackageJsonOptions): Mess
 				validator(field, pkg[field]); // eslint-disable-line security/detect-object-injection
 			}
 		} catch (error) {
-			if (error.validator === present.name && options.ignoreMissingFields) {
+			if (
+				error instanceof ValidationError &&
+				error.validator === present.name &&
+				options.ignoreMissingFields
+			) {
 				continue;
 			}
-			messages.push({
-				ruleId: "package-json-fields",
-				severity: 2,
-				message: error.message,
-				line: 1,
-				column: 1,
-			});
+			// istanbul ignore else
+			if (error instanceof Error) {
+				messages.push({
+					ruleId: "package-json-fields",
+					severity: 2,
+					message: error.message,
+					line: 1,
+					column: 1,
+				});
+			} else {
+				throw error;
+			}
 		}
 	}
 
