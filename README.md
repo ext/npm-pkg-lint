@@ -132,3 +132,26 @@ If `package.json` declares constraint such as:
 ```
 
 but the `my-dependency` constraint requires NodeJS 12 or later this rule yields an error as NodeJS 8 will not satisfy that constraint.
+
+## `@types/node` and engine constraints
+
+Requires `engines.node` lowest major version to equal `@types/node` major version.
+
+**Why?** If you the wrong major version of `@types/node` you might write code with is unsupported by the versions claimed to be supported by `engines.node` or you might be missing out on newer features that could be used.
+
+Final compatibility should be tested with a version matrix but having `@types/node` at the correct version can give the developer early assistance.
+
+The following `package.json`:
+
+```json
+{
+  "devDependencies": {
+    "@types/node": "^14.17.16"
+  },
+  "engines": {
+    "node": ">= 12"
+  }
+}
+```
+
+will yield an error becase `node` v12 is not the same as `@types/node` v14.
