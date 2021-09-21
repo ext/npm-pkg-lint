@@ -1,5 +1,15 @@
 # npm-pkg-lint changelog
 
+## [1.5.0](https://github.com/ext/npm-pkg-lint/compare/v1.4.0...v1.5.0) (2021-09-21)
+
+### Features
+
+- new rule `types-node-matching-engine` ([c9fda99](https://github.com/ext/npm-pkg-lint/commit/c9fda99a6d219d8b435066027fbefb1b165e4d7a))
+
+### Dependency upgrades
+
+- **deps:** update dependency @html-validate/stylish to v2 ([1c68c80](https://github.com/ext/npm-pkg-lint/commit/1c68c8023019e107360f5ecb3a60848a5b82037e))
+
 ## [1.4.0](https://github.com/ext/npm-pkg-lint/compare/v1.3.0...v1.4.0) (2021-06-05)
 
 ### Features
