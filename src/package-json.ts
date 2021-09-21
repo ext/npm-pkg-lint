@@ -5,6 +5,7 @@ import { nonempty, present, typeArray, typeString, ValidationError, validUrl } f
 import { isDisallowedDependency } from "./rules/disallowed-dependency";
 import { outdatedEngines } from "./rules/outdated-engines";
 import { verifyEngineConstraint } from "./rules/verify-engine-constraint";
+import { typesNodeMatchingEngine } from "./rules/types-node-matching-engine";
 
 export interface VerifyPackageJsonOptions {
 	allowTypesDependencies?: boolean;
@@ -91,6 +92,7 @@ export async function verifyPackageJson(
 		...verifyFields(pkg, options),
 		...verifyDependencies(pkg, options),
 		...outdatedEngines(pkg),
+		...typesNodeMatchingEngine(pkg),
 	];
 
 	if (messages.length === 0) {
