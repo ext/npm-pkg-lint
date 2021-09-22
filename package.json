@@ -73,7 +73,7 @@
     "@html-validate/semantic-release-config": "2.1.2",
     "@types/argparse": "2.0.10",
     "@types/glob": "7.1.4",
-    "@types/jest": "27.0.1",
+    "@types/jest": "27.0.2",
     "@types/node": "12.20.25",
     "@types/semver": "7.3.8",
     "@types/tar": "4.0.5",
