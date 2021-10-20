@@ -75,7 +75,7 @@
     "@types/glob": "7.1.4",
     "@types/jest": "27.0.2",
     "@types/node": "12.20.33",
-    "@types/semver": "7.3.8",
+    "@types/semver": "7.3.9",
     "@types/tar": "4.0.5",
     "@types/tmp": "0.2.1",
     "eslint": "7.32.0",
