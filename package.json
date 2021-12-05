@@ -65,9 +65,9 @@
   "devDependencies": {
     "@commitlint/cli": "13.2.1",
     "@html-validate/commitlint-config": "2.1.4",
-    "@html-validate/eslint-config": "4.4.8",
-    "@html-validate/eslint-config-jest": "4.4.9",
-    "@html-validate/eslint-config-typescript": "4.4.9",
+    "@html-validate/eslint-config": "4.4.12",
+    "@html-validate/eslint-config-jest": "4.4.11",
+    "@html-validate/eslint-config-typescript": "4.4.11",
     "@html-validate/jest-config": "2.2.0",
     "@html-validate/prettier-config": "2.0.0",
     "@html-validate/semantic-release-config": "3.0.3",
