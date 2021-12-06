@@ -18,7 +18,7 @@ it("should return error if disallowed file is found", async () => {
 	};
 	const results = await verifyTarball(pkg, { filePath: "mock-pkg-1.2.3.tgz" });
 	expect(results).toHaveLength(1);
-	expect(results[0].filePath).toEqual("mock-pkg-1.2.3.tgz");
+	expect(results[0].filePath).toBe("mock-pkg-1.2.3.tgz");
 	expect(results[0].messages).toMatchInlineSnapshot(`
 		Array [
 		  Object {
@@ -44,7 +44,7 @@ it("should use reportPath if given", async () => {
 		reportPath: "other-path",
 	});
 	expect(results).toHaveLength(1);
-	expect(results[0].filePath).toEqual("other-path");
+	expect(results[0].filePath).toBe("other-path");
 });
 
 describe("should return error if package.json references missing file", () => {
@@ -69,7 +69,7 @@ describe("should return error if package.json references missing file", () => {
 		};
 		const results = await verifyTarball(pkg, { filePath: "mock-pkg-1.2.3.tgz" });
 		expect(results).toHaveLength(1);
-		expect(results[0].filePath).toEqual("mock-pkg-1.2.3.tgz");
+		expect(results[0].filePath).toBe("mock-pkg-1.2.3.tgz");
 		expect(results[0].messages).toMatchSnapshot();
 	});
 });

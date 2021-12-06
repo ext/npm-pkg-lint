@@ -47,7 +47,7 @@ it("should return error if dependency is disallowed", async () => {
 	};
 	const results = await verifyPackageJson(pkg, "package.json");
 	expect(results).toHaveLength(1);
-	expect(results[0].filePath).toEqual("package.json");
+	expect(results[0].filePath).toBe("package.json");
 	expect(results[0].messages).toMatchSnapshot();
 });
 
@@ -65,7 +65,7 @@ it("should return engines.node supports eol version", async () => {
 	pkg.engines.node = ">= 8";
 	const results = await verifyPackageJson(pkg, "package.json");
 	expect(results).toHaveLength(1);
-	expect(results[0].filePath).toEqual("package.json");
+	expect(results[0].filePath).toBe("package.json");
 	expect(results[0].messages).toMatchSnapshot();
 });
 
@@ -112,7 +112,7 @@ describe("fields", () => {
 			delete pkg.description;
 			const results = await verifyPackageJson(pkg, "package.json");
 			expect(results).toHaveLength(1);
-			expect(results[0].filePath).toEqual("package.json");
+			expect(results[0].filePath).toBe("package.json");
 			expect(results[0].messages).toMatchSnapshot();
 		});
 
@@ -121,7 +121,7 @@ describe("fields", () => {
 			pkg.description = 12 as unknown as string;
 			const results = await verifyPackageJson(pkg, "package.json");
 			expect(results).toHaveLength(1);
-			expect(results[0].filePath).toEqual("package.json");
+			expect(results[0].filePath).toBe("package.json");
 			expect(results[0].messages).toMatchSnapshot();
 		});
 
@@ -130,7 +130,7 @@ describe("fields", () => {
 			pkg.description = "";
 			const results = await verifyPackageJson(pkg, "package.json");
 			expect(results).toHaveLength(1);
-			expect(results[0].filePath).toEqual("package.json");
+			expect(results[0].filePath).toBe("package.json");
 			expect(results[0].messages).toMatchSnapshot();
 		});
 	});
@@ -141,7 +141,7 @@ describe("fields", () => {
 			delete pkg.keywords;
 			const results = await verifyPackageJson(pkg, "package.json");
 			expect(results).toHaveLength(1);
-			expect(results[0].filePath).toEqual("package.json");
+			expect(results[0].filePath).toBe("package.json");
 			expect(results[0].messages).toMatchSnapshot();
 		});
 
@@ -150,7 +150,7 @@ describe("fields", () => {
 			pkg.keywords = 12 as unknown as string[];
 			const results = await verifyPackageJson(pkg, "package.json");
 			expect(results).toHaveLength(1);
-			expect(results[0].filePath).toEqual("package.json");
+			expect(results[0].filePath).toBe("package.json");
 			expect(results[0].messages).toMatchSnapshot();
 		});
 
@@ -159,7 +159,7 @@ describe("fields", () => {
 			pkg.keywords = [];
 			const results = await verifyPackageJson(pkg, "package.json");
 			expect(results).toHaveLength(1);
-			expect(results[0].filePath).toEqual("package.json");
+			expect(results[0].filePath).toBe("package.json");
 			expect(results[0].messages).toMatchSnapshot();
 		});
 
@@ -168,7 +168,7 @@ describe("fields", () => {
 			pkg.keywords = [""];
 			const results = await verifyPackageJson(pkg, "package.json");
 			expect(results).toHaveLength(1);
-			expect(results[0].filePath).toEqual("package.json");
+			expect(results[0].filePath).toBe("package.json");
 			expect(results[0].messages).toMatchSnapshot();
 		});
 	});
@@ -179,7 +179,7 @@ describe("fields", () => {
 			delete pkg.homepage;
 			const results = await verifyPackageJson(pkg, "package.json");
 			expect(results).toHaveLength(1);
-			expect(results[0].filePath).toEqual("package.json");
+			expect(results[0].filePath).toBe("package.json");
 			expect(results[0].messages).toMatchSnapshot();
 		});
 
@@ -188,7 +188,7 @@ describe("fields", () => {
 			pkg.homepage = 12 as unknown as string;
 			const results = await verifyPackageJson(pkg, "package.json");
 			expect(results).toHaveLength(1);
-			expect(results[0].filePath).toEqual("package.json");
+			expect(results[0].filePath).toBe("package.json");
 			expect(results[0].messages).toMatchSnapshot();
 		});
 
@@ -197,7 +197,7 @@ describe("fields", () => {
 			pkg.homepage = "foobar";
 			const results = await verifyPackageJson(pkg, "package.json");
 			expect(results).toHaveLength(1);
-			expect(results[0].filePath).toEqual("package.json");
+			expect(results[0].filePath).toBe("package.json");
 			expect(results[0].messages).toMatchSnapshot();
 		});
 	});
@@ -208,7 +208,7 @@ describe("fields", () => {
 			delete pkg.bugs;
 			const results = await verifyPackageJson(pkg, "package.json");
 			expect(results).toHaveLength(1);
-			expect(results[0].filePath).toEqual("package.json");
+			expect(results[0].filePath).toBe("package.json");
 			expect(results[0].messages).toMatchSnapshot();
 		});
 
@@ -217,7 +217,7 @@ describe("fields", () => {
 			pkg.bugs = "foobar";
 			const results = await verifyPackageJson(pkg, "package.json");
 			expect(results).toHaveLength(1);
-			expect(results[0].filePath).toEqual("package.json");
+			expect(results[0].filePath).toBe("package.json");
 			expect(results[0].messages).toMatchSnapshot();
 		});
 	});
@@ -228,7 +228,7 @@ describe("fields", () => {
 			delete pkg.license;
 			const results = await verifyPackageJson(pkg, "package.json");
 			expect(results).toHaveLength(1);
-			expect(results[0].filePath).toEqual("package.json");
+			expect(results[0].filePath).toBe("package.json");
 			expect(results[0].messages).toMatchSnapshot();
 		});
 
@@ -237,7 +237,7 @@ describe("fields", () => {
 			pkg.license = 12 as unknown as string;
 			const results = await verifyPackageJson(pkg, "package.json");
 			expect(results).toHaveLength(1);
-			expect(results[0].filePath).toEqual("package.json");
+			expect(results[0].filePath).toBe("package.json");
 			expect(results[0].messages).toMatchSnapshot();
 		});
 
@@ -246,7 +246,7 @@ describe("fields", () => {
 			pkg.license = "";
 			const results = await verifyPackageJson(pkg, "package.json");
 			expect(results).toHaveLength(1);
-			expect(results[0].filePath).toEqual("package.json");
+			expect(results[0].filePath).toBe("package.json");
 			expect(results[0].messages).toMatchSnapshot();
 		});
 	});
@@ -257,7 +257,7 @@ describe("fields", () => {
 			delete pkg.author;
 			const results = await verifyPackageJson(pkg, "package.json");
 			expect(results).toHaveLength(1);
-			expect(results[0].filePath).toEqual("package.json");
+			expect(results[0].filePath).toBe("package.json");
 			expect(results[0].messages).toMatchSnapshot();
 		});
 
@@ -266,7 +266,7 @@ describe("fields", () => {
 			pkg.author = "";
 			const results = await verifyPackageJson(pkg, "package.json");
 			expect(results).toHaveLength(1);
-			expect(results[0].filePath).toEqual("package.json");
+			expect(results[0].filePath).toBe("package.json");
 			expect(results[0].messages).toMatchSnapshot();
 		});
 
@@ -275,7 +275,7 @@ describe("fields", () => {
 			pkg.author = {};
 			const results = await verifyPackageJson(pkg, "package.json");
 			expect(results).toHaveLength(1);
-			expect(results[0].filePath).toEqual("package.json");
+			expect(results[0].filePath).toBe("package.json");
 			expect(results[0].messages).toMatchSnapshot();
 		});
 	});
@@ -286,7 +286,7 @@ describe("fields", () => {
 			delete pkg.repository;
 			const results = await verifyPackageJson(pkg, "package.json");
 			expect(results).toHaveLength(1);
-			expect(results[0].filePath).toEqual("package.json");
+			expect(results[0].filePath).toBe("package.json");
 			expect(results[0].messages).toMatchSnapshot();
 		});
 
@@ -295,7 +295,7 @@ describe("fields", () => {
 			pkg.repository = "foobar";
 			const results = await verifyPackageJson(pkg, "package.json");
 			expect(results).toHaveLength(1);
-			expect(results[0].filePath).toEqual("package.json");
+			expect(results[0].filePath).toBe("package.json");
 			expect(results[0].messages).toMatchSnapshot();
 		});
 	});

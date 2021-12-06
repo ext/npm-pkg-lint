@@ -61,7 +61,7 @@ it("should return error when binary is missing shebang", async () => {
 	};
 	const results = await verifyShebang(pkg, { filePath: "mock-pkg-1.2.3.tgz" });
 	expect(results).toHaveLength(1);
-	expect(results[0].filePath).toEqual("index.js");
+	expect(results[0].filePath).toBe("index.js");
 	expect(results[0].messages).toMatchInlineSnapshot(`
 		Array [
 		  Object {
@@ -87,7 +87,7 @@ it("should return error when binary shebang is not first line", async () => {
 	};
 	const results = await verifyShebang(pkg, { filePath: "mock-pkg-1.2.3.tgz" });
 	expect(results).toHaveLength(1);
-	expect(results[0].filePath).toEqual("index.js");
+	expect(results[0].filePath).toBe("index.js");
 	expect(results[0].messages).toMatchInlineSnapshot(`
 		Array [
 		  Object {
