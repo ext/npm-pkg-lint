@@ -63,7 +63,7 @@
     "tmp": "^0.2.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "13.2.1",
+    "@commitlint/cli": "15.0.0",
     "@html-validate/commitlint-config": "2.1.4",
     "@html-validate/eslint-config": "5.2.1",
     "@html-validate/eslint-config-jest": "5.2.0",
