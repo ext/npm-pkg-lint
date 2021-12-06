@@ -7,7 +7,7 @@ it("should generate tarball filename based on package.json name and version", ()
 		name: "mock-package",
 		version: "1.2.3",
 	};
-	expect(tarballLocation(pkg, "./package.json")).toEqual("mock-package-1.2.3.tgz");
+	expect(tarballLocation(pkg, "./package.json")).toBe("mock-package-1.2.3.tgz");
 });
 
 it("should handle scoped packages", () => {
@@ -16,5 +16,5 @@ it("should handle scoped packages", () => {
 		name: "@org/mock-package",
 		version: "1.2.3",
 	};
-	expect(tarballLocation(pkg, "./package.json")).toEqual("org-mock-package-1.2.3.tgz");
+	expect(tarballLocation(pkg, "./package.json")).toBe("org-mock-package-1.2.3.tgz");
 });
