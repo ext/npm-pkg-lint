@@ -30,16 +30,14 @@
     "eslint": "eslint .",
     "eslint:fix": "eslint --fix .",
     "prepare": "husky install",
-    "prettier:check": "prettier . --check",
-    "prettier:write": "prettier . --write",
+    "prettier:check": "prettier --check .",
+    "prettier:write": "prettier --write .",
     "self-test": "node bin/index.js",
     "semantic-release": "semantic-release",
     "test": "jest"
   },
   "commitlint": {
-    "extends": [
-      "@html-validate"
-    ]
+    "extends": "@html-validate"
   },
   "lint-staged": {
     "*.{ts,js,json,md}": "prettier --write"
@@ -63,7 +61,6 @@
     "tmp": "^0.2.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "13.2.1",
     "@html-validate/commitlint-config": "2.1.4",
     "@html-validate/eslint-config": "5.2.1",
     "@html-validate/eslint-config-jest": "5.2.0",
