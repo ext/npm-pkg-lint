@@ -67,7 +67,7 @@
     "@html-validate/eslint-config-typescript": "5.2.0",
     "@html-validate/jest-config": "3.0.1",
     "@html-validate/prettier-config": "2.0.0",
-    "@html-validate/semantic-release-config": "3.0.3",
+    "@html-validate/semantic-release-config": "3.0.4",
     "@types/argparse": "2.0.10",
     "@types/glob": "7.2.0",
     "@types/jest": "27.4.0",
