@@ -1,5 +1,11 @@
 # npm-pkg-lint changelog
 
+## [1.6.0](https://github.com/ext/npm-pkg-lint/compare/v1.5.0...v1.6.0) (2022-02-16)
+
+### Features
+
+- bundle all dependencies ([d6026eb](https://github.com/ext/npm-pkg-lint/commit/d6026eb2b6e9f93319f5297d6b2ba743a2f92199))
+
 ## [1.5.0](https://github.com/ext/npm-pkg-lint/compare/v1.4.0...v1.5.0) (2021-09-21)
 
 ### Features
