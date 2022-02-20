@@ -1,5 +1,17 @@
 # npm-pkg-lint changelog
 
+## [1.7.0](https://github.com/ext/npm-pkg-lint/compare/v1.6.0...v1.7.0) (2022-02-20)
+
+### Features
+
+- disallow `*.spec.js.map` files ([f5773d3](https://github.com/ext/npm-pkg-lint/commit/f5773d3ca50324a77cc371121c4ed7052f86d2a4))
+
+### Dependency upgrades
+
+- **deps:** pin dependencies ([664ea7b](https://github.com/ext/npm-pkg-lint/commit/664ea7b274940112e0821a4c8c7a2629f53f8350))
+- **deps:** update dependency @html-validate/stylish to v2.0.1 ([ebae0ce](https://github.com/ext/npm-pkg-lint/commit/ebae0ce488adbdc347ba016551186305a3358b68))
+- **deps:** update dependency tar to v6.1.11 ([d52d912](https://github.com/ext/npm-pkg-lint/commit/d52d912bb65253f0643b52065ab536dc123a2caa))
+
 ## [1.6.0](https://github.com/ext/npm-pkg-lint/compare/v1.5.0...v1.6.0) (2022-02-16)
 
 ### Features
