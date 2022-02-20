@@ -32,3 +32,9 @@ it("should disallow .d.ts for test files", () => {
 	expect(isBlacklisted("foo.spec.d.ts")).toBeTruthy();
 	expect(isBlacklisted("foo.test.d.ts")).toBeTruthy();
 });
+
+it("should disallow .map for test files", () => {
+	expect.assertions(2);
+	expect(isBlacklisted("foo.spec.js.map")).toBeTruthy();
+	expect(isBlacklisted("foo.test.js.map")).toBeTruthy();
+});

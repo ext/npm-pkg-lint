@@ -6,8 +6,10 @@ const regexp: RegExp[] = [
 	extension(".snap"),
 	extension(".spec.[jt]sx?"),
 	extension(".spec.d.ts"),
+	extension(".spec.js.map"),
 	extension(".test.[jt]sx?"),
 	extension(".test.d.ts"),
+	extension(".test.js.map"),
 ];
 
 export default regexp;
