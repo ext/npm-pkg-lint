@@ -13,6 +13,10 @@ function prefix(prefix: string): RegExp {
 	return new RegExp(`^${prefix}(-.+)?`);
 }
 
+function scopedPrefix(prefix: string): RegExp {
+	return new RegExp(`^(.*)/${prefix}(-.+)?`);
+}
+
 const disallowedDependencies: RegExp[] = [
 	exact("jake"),
 	prefix("babel-core"),
@@ -36,7 +40,11 @@ const disallowedDependencies: RegExp[] = [
 const disallowedEslint: RegExp[] = [
 	exact("eslint"),
 	prefix("eslint-config"),
+	prefix("eslint-formatter"),
 	prefix("eslint-plugin"),
+	scopedPrefix("eslint-config"),
+	scopedPrefix("eslint-formatter"),
+	scopedPrefix("eslint-plugin"),
 ];
 
 const allowedDependencies: string[] = [

@@ -26,7 +26,11 @@ describe("package list", () => {
 		"babel-core",
 		"eslint",
 		"eslint-config-foobar",
+		"eslint-formatter-foobar",
 		"eslint-plugin-foobar",
+		"@scope/eslint-config",
+		"@scope/eslint-formatter",
+		"@scope/eslint-plugin",
 		"grunt",
 		"grunt-contrib-foobar",
 		"grunt-foobar",
@@ -55,12 +59,16 @@ describe("package list", () => {
 });
 
 it("should allow eslint-* if package keywords includes eslint", () => {
-	expect.assertions(3);
+	expect.assertions(7);
 	const eslintPkg: PackageJson = {
 		...pkg,
 		keywords: ["eslint"],
 	};
 	expect(isDisallowedDependency(eslintPkg, "eslint")).toBeFalsy();
-	expect(isDisallowedDependency(eslintPkg, "eslint-plugin-foobar")).toBeFalsy();
 	expect(isDisallowedDependency(eslintPkg, "eslint-config-foobar")).toBeFalsy();
+	expect(isDisallowedDependency(eslintPkg, "eslint-formatter-foobar")).toBeFalsy();
+	expect(isDisallowedDependency(eslintPkg, "eslint-plugin-foobar")).toBeFalsy();
+	expect(isDisallowedDependency(eslintPkg, "@scope/eslint-config-foobar")).toBeFalsy();
+	expect(isDisallowedDependency(eslintPkg, "@scope/eslint-formatter-foobar")).toBeFalsy();
+	expect(isDisallowedDependency(eslintPkg, "@scope/eslint-plugin-foobar")).toBeFalsy();
 });
