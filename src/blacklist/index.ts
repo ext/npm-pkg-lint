@@ -6,6 +6,7 @@ import jest from "./jest";
 import node from "./node";
 import prettier from "./prettier";
 import typescript from "./typescript";
+import windows from "./windows";
 import { directory, extension, filename, rcfile } from "./helpers";
 
 const blacklist: RegExp[] = [
@@ -121,6 +122,7 @@ const blacklist: RegExp[] = [
 	...node,
 	...prettier,
 	...typescript,
+	...windows,
 ];
 
 export default blacklist;
