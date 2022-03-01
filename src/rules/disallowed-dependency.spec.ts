@@ -1,18 +1,24 @@
+import PackageJson from "../types/package-json";
 import { isDisallowedDependency } from "./disallowed-dependency";
+
+const pkg: PackageJson = {
+	name: "mock-package",
+	version: "1.2.3",
+};
 
 it("should disallow scopes", () => {
 	expect.assertions(1);
-	expect(isDisallowedDependency("@types/foo")).toBeTruthy();
+	expect(isDisallowedDependency(pkg, "@types/foo")).toBeTruthy();
 });
 
 it("should disallow exact package name", () => {
 	expect.assertions(1);
-	expect(isDisallowedDependency("eslint")).toBeTruthy();
+	expect(isDisallowedDependency(pkg, "jake")).toBeTruthy();
 });
 
 it("should disallow package prefix", () => {
 	expect.assertions(1);
-	expect(isDisallowedDependency("eslint-config-foobar")).toBeTruthy();
+	expect(isDisallowedDependency(pkg, "cypress-plugin-axe")).toBeTruthy();
 });
 
 describe("package list", () => {
@@ -39,11 +45,22 @@ describe("package list", () => {
 		"@types/foobar",
 	])("%s", (dependency) => {
 		expect.assertions(1);
-		expect(isDisallowedDependency(dependency)).toBeTruthy();
+		expect(isDisallowedDependency(pkg, dependency)).toBeTruthy();
 	});
 
 	it.each(["@babel/code-frame"])("%s", (dependency) => {
 		expect.assertions(1);
-		expect(isDisallowedDependency(dependency)).toBeFalsy();
+		expect(isDisallowedDependency(pkg, dependency)).toBeFalsy();
 	});
+});
+
+it("should allow eslint-* if package keywords includes eslint", () => {
+	expect.assertions(3);
+	const eslintPkg: PackageJson = {
+		...pkg,
+		keywords: ["eslint"],
+	};
+	expect(isDisallowedDependency(eslintPkg, "eslint")).toBeFalsy();
+	expect(isDisallowedDependency(eslintPkg, "eslint-plugin-foobar")).toBeFalsy();
+	expect(isDisallowedDependency(eslintPkg, "eslint-config-foobar")).toBeFalsy();
 });

@@ -1,5 +1,7 @@
 /* eslint-disable security/detect-non-literal-regexp */
 
+import PackageJson from "../types/package-json";
+
 function exact(name: string): RegExp {
 	return new RegExp(`^${name}$`);
 }
@@ -12,12 +14,9 @@ function prefix(prefix: string): RegExp {
 }
 
 const disallowedDependencies: RegExp[] = [
-	exact("eslint"),
 	exact("jake"),
 	prefix("babel-core"),
 	prefix("cypress"),
-	prefix("eslint-config"),
-	prefix("eslint-plugin"),
 	prefix("grunt"),
 	prefix("gulp"),
 	prefix("html-validate"),
@@ -34,6 +33,12 @@ const disallowedDependencies: RegExp[] = [
 	scope("@types"),
 ];
 
+const disallowedEslint: RegExp[] = [
+	exact("eslint"),
+	prefix("eslint-config"),
+	prefix("eslint-plugin"),
+];
+
 const allowedDependencies: string[] = [
 	"@babel/code-frame",
 	"@babel/polyfill",
@@ -43,12 +48,22 @@ const allowedDependencies: string[] = [
 	"webpack-sources",
 ];
 
-export function isDisallowedDependency(dependency: string): boolean {
+function match(list: RegExp[], dependency: string): boolean {
+	return list.some((it) => dependency.match(it));
+}
+
+export function isDisallowedDependency(pkg: PackageJson, dependency: string): boolean {
 	/* test if dependency is explicitly listed as allowed */
 	if (allowedDependencies.includes(dependency)) {
 		return false;
 	}
 
+	/* eslint-* is allowed only if keywords includes "eslint" */
+	const keywords = pkg.keywords || [];
+	if (!keywords.includes("eslint") && match(disallowedEslint, dependency)) {
+		return true;
+	}
+
 	/* test if dependency is explicitly listed as disallowed */
-	return disallowedDependencies.some((it) => dependency.match(it));
+	return match(disallowedDependencies, dependency);
 }
