@@ -1,5 +1,11 @@
 # npm-pkg-lint changelog
 
+## [1.8.0](https://github.com/ext/npm-pkg-lint/compare/v1.7.0...v1.8.0) (2022-03-01)
+
+### Features
+
+- disallow windows reserved filenames ([c5dd47e](https://github.com/ext/npm-pkg-lint/commit/c5dd47ea7e9a7e67b4bcce09bc7dfc2713e1afd9))
+
 ## [1.7.0](https://github.com/ext/npm-pkg-lint/compare/v1.6.0...v1.7.0) (2022-02-20)
 
 ### Features
