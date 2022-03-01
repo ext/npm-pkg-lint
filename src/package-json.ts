@@ -68,7 +68,7 @@ function verifyDependencies(pkg: PackageJson, options: VerifyPackageJsonOptions)
 			continue;
 		}
 
-		if (isDisallowedDependency(dependency)) {
+		if (isDisallowedDependency(pkg, dependency)) {
 			messages.push({
 				ruleId: "disallowed-dependency",
 				severity: 2,

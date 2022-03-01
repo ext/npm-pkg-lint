@@ -73,6 +73,35 @@ Examples of disallowed packages:
 
 By default `@types/*` is disallowed but this can be disabled with `--allow-types-dependencies`.
 
+### ESLint
+
+If your `package.json` contains the `"eslint"` keyword the ESLint packages can be included as dependencies, e.g. if you publish a sharable config including a plugin you must include `"eslint"` as a keyword.
+
+**OK**:
+
+```json
+{
+  "name": "eslint-config-myfancyconfig",
+  "version": "1.0.0",
+  "keywords": ["eslint"],
+  "dependencies": {
+    "eslint-plugin-myfancyplugin": "^1.2.0"
+  }
+}
+```
+
+**Fail**:
+
+```json
+{
+  "name": "eslint-config-myfancyconfig",
+  "version": "1.0.0",
+  "dependencies": {
+    "eslint-plugin-myfancyplugin": "^1.2.0"
+  }
+}
+```
+
 ## Shebang
 
 Require all binaries to have UNIX-style shebang at the beginning of the file.
