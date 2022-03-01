@@ -1,5 +1,12 @@
 # npm-pkg-lint changelog
 
+## [1.9.0](https://github.com/ext/npm-pkg-lint/compare/v1.8.0...v1.9.0) (2022-03-01)
+
+### Features
+
+- allow eslint packages as dependency if keywords include `"eslint"` ([7f582d1](https://github.com/ext/npm-pkg-lint/commit/7f582d1cebee8ddbdc33fb347e0725feda957181))
+- disallow scoped eslint packages and formatters ([780bef1](https://github.com/ext/npm-pkg-lint/commit/780bef1fc99f98ed89ee14641c0e1a9bd13cf0c2))
+
 ## [1.8.0](https://github.com/ext/npm-pkg-lint/compare/v1.7.0...v1.8.0) (2022-03-01)
 
 ### Features
