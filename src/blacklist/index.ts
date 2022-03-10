@@ -66,6 +66,7 @@ const blacklist: RegExp[] = [
 	filename(".travis.yml"),
 	filename(".?zuul.ya?ml"),
 	filename("ISSUE_TEMPLATE.md"),
+	filename("Jenkinsfile"),
 	filename("PULL_REQUEST_TEMPLATE.md"),
 	filename("appveyor.yml"),
 
