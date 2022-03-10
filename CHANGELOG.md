@@ -1,5 +1,11 @@
 # npm-pkg-lint changelog
 
+### [1.9.1](https://github.com/ext/npm-pkg-lint/compare/v1.9.0...v1.9.1) (2022-03-10)
+
+### Bug Fixes
+
+- disallow Jenkinsfile ([ec9db2e](https://github.com/ext/npm-pkg-lint/commit/ec9db2e3832a8b4b6191546ff1b4cd260df27684))
+
 ## [1.9.0](https://github.com/ext/npm-pkg-lint/compare/v1.8.0...v1.9.0) (2022-03-01)
 
 ### Features
