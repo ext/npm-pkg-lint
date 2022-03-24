@@ -28,7 +28,6 @@ const disallowedDependencies: RegExp[] = [
 	prefix("jest"),
 	prefix("mocha"),
 	prefix("nyc"),
-	prefix("prettier"),
 	prefix("protractor"),
 	prefix("ts-node"),
 	prefix("typescript"),
@@ -45,6 +44,12 @@ const disallowedEslint: RegExp[] = [
 	scopedPrefix("eslint-config"),
 	scopedPrefix("eslint-formatter"),
 	scopedPrefix("eslint-plugin"),
+];
+
+const disallowedPrettier: RegExp[] = [
+	exact("prettier"),
+	prefix("prettier-"),
+	scopedPrefix("prettier-"),
 ];
 
 const allowedDependencies: string[] = [
@@ -66,9 +71,15 @@ export function isDisallowedDependency(pkg: PackageJson, dependency: string): bo
 		return false;
 	}
 
-	/* eslint-* is allowed only if keywords includes "eslint" */
 	const keywords = pkg.keywords || [];
+
+	/* eslint-* is allowed only if keywords includes "eslint" */
 	if (!keywords.includes("eslint") && match(disallowedEslint, dependency)) {
+		return true;
+	}
+
+	/* prettier-* is allowed only if keywords includes "prettier" */
+	if (!keywords.includes("prettier") && match(disallowedPrettier, dependency)) {
 		return true;
 	}
 

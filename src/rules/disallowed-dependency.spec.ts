@@ -41,7 +41,10 @@ describe("package list", () => {
 		"jest",
 		"mocha",
 		"prettier",
+		"prettier-config-foobar",
 		"prettier-plugin-foobar",
+		"@scope/prettier-config-foobar",
+		"@scope/prettier-plugin-foobar",
 		"ts-node",
 		"typescript",
 		"webpack",
@@ -71,4 +74,17 @@ it("should allow eslint-* if package keywords includes eslint", () => {
 	expect(isDisallowedDependency(eslintPkg, "@scope/eslint-config-foobar")).toBeFalsy();
 	expect(isDisallowedDependency(eslintPkg, "@scope/eslint-formatter-foobar")).toBeFalsy();
 	expect(isDisallowedDependency(eslintPkg, "@scope/eslint-plugin-foobar")).toBeFalsy();
+});
+
+it("should allow prettier-* if package keywords includes prettier", () => {
+	expect.assertions(5);
+	const eslintPkg: PackageJson = {
+		...pkg,
+		keywords: ["prettier"],
+	};
+	expect(isDisallowedDependency(eslintPkg, "prettier")).toBeFalsy();
+	expect(isDisallowedDependency(eslintPkg, "prettier-config-foobar")).toBeFalsy();
+	expect(isDisallowedDependency(eslintPkg, "prettier-plugin-foobar")).toBeFalsy();
+	expect(isDisallowedDependency(eslintPkg, "@scope/prettier-config-foobar")).toBeFalsy();
+	expect(isDisallowedDependency(eslintPkg, "@scope/prettier-plugin-foobar")).toBeFalsy();
 });

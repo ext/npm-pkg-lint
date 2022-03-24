@@ -102,6 +102,35 @@ If your `package.json` contains the `"eslint"` keyword the ESLint packages can b
 }
 ```
 
+### Prettier
+
+If your `package.json` contains the `"prettier"` keyword the Prettier packages can be included as dependencies, e.g. if you publish a sharable config including a plugin you must include `"prettier"` as a keyword.
+
+**OK**:
+
+```json
+{
+  "name": "prettier-config-myfancyconfig",
+  "version": "1.0.0",
+  "keywords": ["prettier"],
+  "dependencies": {
+    "prettier-plugin-myfancyplugin": "^1.2.0"
+  }
+}
+```
+
+**Fail**:
+
+```json
+{
+  "name": "prettier-config-myfancyconfig",
+  "version": "1.0.0",
+  "dependencies": {
+    "prettier-plugin-myfancyplugin": "^1.2.0"
+  }
+}
+```
+
 ## Shebang
 
 Require all binaries to have UNIX-style shebang at the beginning of the file.
