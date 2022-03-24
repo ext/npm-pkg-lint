@@ -1,5 +1,11 @@
 # npm-pkg-lint changelog
 
+## [1.10.0](https://github.com/ext/npm-pkg-lint/compare/v1.9.1...v1.10.0) (2022-03-24)
+
+### Features
+
+- allow prettier packages as dependency if keywords include `"prettier"` ([19ad790](https://github.com/ext/npm-pkg-lint/commit/19ad7909c1129f1aa496e99c0ea7eeee9852c6ad))
+
 ### [1.9.1](https://github.com/ext/npm-pkg-lint/compare/v1.9.0...v1.9.1) (2022-03-10)
 
 ### Bug Fixes
