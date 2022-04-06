@@ -57,7 +57,7 @@
     "@html-validate/eslint-config-jest": "5.4.4",
     "@html-validate/eslint-config-typescript": "5.4.0",
     "@html-validate/jest-config": "3.0.1",
-    "@html-validate/prettier-config": "2.0.0",
+    "@html-validate/prettier-config": "2.1.0",
     "@html-validate/stylish": "2.0.1",
     "@types/argparse": "2.0.10",
     "@types/glob": "7.2.0",
