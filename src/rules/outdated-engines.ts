@@ -1,27 +1,11 @@
 import semver from "semver";
 import { Severity } from "@html-validate/stylish/dist/severity";
 import { Message } from "../message";
+import { nodeVersions } from "../node-versions";
 import PackageJson from "../types/package-json";
 
 const ruleId = "outdated-engines";
 const severity = Severity.ERROR;
-
-interface EOLDescriptor {
-	date: string;
-}
-
-const EOL: [string, EOLDescriptor][] = [
-	["0.10.x", { date: "2016-10-31" }],
-	["0.12.x", { date: "2016-12-31" }],
-	["4.x.x", { date: "2018-04-30" }],
-	["5.x.x", { date: "2016-06-30" }],
-	["6.x.x", { date: "2019-04-30" }],
-	["7.x.x", { date: "2017-06-30" }],
-	["8.x.x", { date: "2019-12-31" }],
-	["9.x.x", { date: "2018-06-30" }],
-	["10.x.x", { date: "2021-04-30" }],
-	["11.x.x", { date: "2019-06-01" }],
-];
 
 export function* outdatedEngines(pkg: PackageJson): Generator<Message> {
 	if (!pkg.engines || !pkg.engines.node) {
@@ -47,14 +31,18 @@ export function* outdatedEngines(pkg: PackageJson): Generator<Message> {
 		return;
 	}
 
-	for (const [version, descriptor] of EOL) {
+	for (const [version, descriptor] of nodeVersions) {
+		if (!descriptor.eol) {
+			continue;
+		}
+
 		const expanded = version.replace(/[xX*]/g, "999");
 		const parsed = semver.parse(expanded);
 		if (!semver.satisfies(expanded, range)) {
 			continue;
 		}
 		const nodeRelease = parsed.major || `0.${parsed.minor}`;
-		const message = `engines.node is satisfied by Node ${nodeRelease} (EOL since ${descriptor.date})`;
+		const message = `engines.node is satisfied by Node ${nodeRelease} (EOL since ${descriptor.eol})`;
 		yield {
 			ruleId,
 			severity,
