@@ -1,5 +1,17 @@
 # npm-pkg-lint changelog
 
+## [1.11.0](https://github.com/ext/npm-pkg-lint/compare/v1.10.0...v1.11.0) (2022-05-02)
+
+### Features
+
+- mark node 12 as EOL ([5c279f1](https://github.com/ext/npm-pkg-lint/commit/5c279f103cbc94ae9c40d4cb83621e3113c89e49))
+- require node 14 ([b46016f](https://github.com/ext/npm-pkg-lint/commit/b46016fdfc043b0c810be827c4705a39df0924a6))
+
+### Dependency upgrades
+
+- **deps:** update dependency semver to v7.3.6 ([a6374dc](https://github.com/ext/npm-pkg-lint/commit/a6374dc14547e6096e7ddef0a80c9d8ad15b65eb))
+- **deps:** update dependency semver to v7.3.7 ([2f32363](https://github.com/ext/npm-pkg-lint/commit/2f32363d405337b08d303d6ecb3fb7d9fcba6cec))
+
 ## [1.10.0](https://github.com/ext/npm-pkg-lint/compare/v1.9.1...v1.10.0) (2022-03-24)
 
 ### Features
