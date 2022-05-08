@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`disallowed-files 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 1,
     "filePath": "tests/fixtures/disallowed-files/disallowed-files-1.0.0.tgz",
     "fixableErrorCount": 0,
     "fixableWarningCount": 0,
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 1,
         "line": 1,
         "message": "my-lib.spec.js is not allowed in tarball",
@@ -22,59 +22,59 @@ Array [
 `;
 
 exports[`empty-fields 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 7,
     "filePath": "tests/fixtures/empty-fields/package.json",
     "fixableErrorCount": 0,
     "fixableWarningCount": 0,
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 1,
         "line": 1,
-        "message": "\\"description\\" must not be empty",
+        "message": ""description" must not be empty",
         "ruleId": "package-json-fields",
         "severity": 2,
       },
-      Object {
+      {
         "column": 1,
         "line": 1,
-        "message": "\\"keywords\\" must not be empty",
+        "message": ""keywords" must not be empty",
         "ruleId": "package-json-fields",
         "severity": 2,
       },
-      Object {
+      {
         "column": 1,
         "line": 1,
-        "message": "\\"homepage\\" must be a valid url (https only)",
+        "message": ""homepage" must be a valid url (https only)",
         "ruleId": "package-json-fields",
         "severity": 2,
       },
-      Object {
+      {
         "column": 1,
         "line": 1,
-        "message": "\\"bugs\\" must be a valid url (https only)",
+        "message": ""bugs" must be a valid url (https only)",
         "ruleId": "package-json-fields",
         "severity": 2,
       },
-      Object {
+      {
         "column": 1,
         "line": 1,
-        "message": "\\"license\\" must not be empty",
+        "message": ""license" must not be empty",
         "ruleId": "package-json-fields",
         "severity": 2,
       },
-      Object {
+      {
         "column": 1,
         "line": 1,
-        "message": "\\"author\\" must not be empty",
+        "message": ""author" must not be empty",
         "ruleId": "package-json-fields",
         "severity": 2,
       },
-      Object {
+      {
         "column": 1,
         "line": 1,
-        "message": "\\"repository\\" must be a valid url (https only)",
+        "message": ""repository" must be a valid url (https only)",
         "ruleId": "package-json-fields",
         "severity": 2,
       },
@@ -85,14 +85,14 @@ Array [
 `;
 
 exports[`missing-binary 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 1,
     "filePath": "tests/fixtures/missing-binary/missing-binary-1.0.0.tgz",
     "fixableErrorCount": 0,
     "fixableWarningCount": 0,
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 1,
         "line": 1,
         "message": "bin.js (pkg.bin) is not present in tarball",
@@ -106,59 +106,59 @@ Array [
 `;
 
 exports[`missing-fields 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 7,
     "filePath": "tests/fixtures/missing-fields/package.json",
     "fixableErrorCount": 0,
     "fixableWarningCount": 0,
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 1,
         "line": 1,
-        "message": "\\"description\\" must be set",
+        "message": ""description" must be set",
         "ruleId": "package-json-fields",
         "severity": 2,
       },
-      Object {
+      {
         "column": 1,
         "line": 1,
-        "message": "\\"keywords\\" must be set",
+        "message": ""keywords" must be set",
         "ruleId": "package-json-fields",
         "severity": 2,
       },
-      Object {
+      {
         "column": 1,
         "line": 1,
-        "message": "\\"homepage\\" must be set",
+        "message": ""homepage" must be set",
         "ruleId": "package-json-fields",
         "severity": 2,
       },
-      Object {
+      {
         "column": 1,
         "line": 1,
-        "message": "\\"bugs\\" must be set",
+        "message": ""bugs" must be set",
         "ruleId": "package-json-fields",
         "severity": 2,
       },
-      Object {
+      {
         "column": 1,
         "line": 1,
-        "message": "\\"license\\" must be set",
+        "message": ""license" must be set",
         "ruleId": "package-json-fields",
         "severity": 2,
       },
-      Object {
+      {
         "column": 1,
         "line": 1,
-        "message": "\\"author\\" must be set",
+        "message": ""author" must be set",
         "ruleId": "package-json-fields",
         "severity": 2,
       },
-      Object {
+      {
         "column": 1,
         "line": 1,
-        "message": "\\"repository\\" must be set",
+        "message": ""repository" must be set",
         "ruleId": "package-json-fields",
         "severity": 2,
       },
@@ -169,14 +169,14 @@ Array [
 `;
 
 exports[`missing-main 1`] = `
-Array [
-  Object {
+[
+  {
     "errorCount": 1,
     "filePath": "tests/fixtures/missing-main/missing-main-1.0.0.tgz",
     "fixableErrorCount": 0,
     "fixableWarningCount": 0,
-    "messages": Array [
-      Object {
+    "messages": [
+      {
         "column": 1,
         "line": 1,
         "message": "index.js (pkg.main) is not present in tarball",

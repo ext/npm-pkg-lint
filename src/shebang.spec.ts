@@ -63,8 +63,8 @@ it("should return error when binary is missing shebang", async () => {
 	expect(results).toHaveLength(1);
 	expect(results[0].filePath).toBe("index.js");
 	expect(results[0].messages).toMatchInlineSnapshot(`
-		Array [
-		  Object {
+		[
+		  {
 		    "column": 1,
 		    "line": 1,
 		    "message": "first line must contain shebang to be executable",
@@ -89,8 +89,8 @@ it("should return error when binary shebang is not first line", async () => {
 	expect(results).toHaveLength(1);
 	expect(results[0].filePath).toBe("index.js");
 	expect(results[0].messages).toMatchInlineSnapshot(`
-		Array [
-		  Object {
+		[
+		  {
 		    "column": 1,
 		    "line": 1,
 		    "message": "first line must contain shebang to be executable",

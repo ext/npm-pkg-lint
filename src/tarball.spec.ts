@@ -20,8 +20,8 @@ it("should return error if disallowed file is found", async () => {
 	expect(results).toHaveLength(1);
 	expect(results[0].filePath).toBe("mock-pkg-1.2.3.tgz");
 	expect(results[0].messages).toMatchInlineSnapshot(`
-		Array [
-		  Object {
+		[
+		  {
 		    "column": 1,
 		    "line": 1,
 		    "message": "foo.spec.js is not allowed in tarball",
