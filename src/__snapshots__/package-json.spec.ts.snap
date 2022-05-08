@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`fields author should return error if empty object 1`] = `
-Array [
-  Object {
+[
+  {
     "column": 1,
     "line": 1,
-    "message": "\\"author\\" must not be empty",
+    "message": ""author" must not be empty",
     "ruleId": "package-json-fields",
     "severity": 2,
   },
@@ -13,11 +13,11 @@ Array [
 `;
 
 exports[`fields author should return error if empty string 1`] = `
-Array [
-  Object {
+[
+  {
     "column": 1,
     "line": 1,
-    "message": "\\"author\\" must not be empty",
+    "message": ""author" must not be empty",
     "ruleId": "package-json-fields",
     "severity": 2,
   },
@@ -25,11 +25,11 @@ Array [
 `;
 
 exports[`fields author should return error if not set 1`] = `
-Array [
-  Object {
+[
+  {
     "column": 1,
     "line": 1,
-    "message": "\\"author\\" must be set",
+    "message": ""author" must be set",
     "ruleId": "package-json-fields",
     "severity": 2,
   },
@@ -37,11 +37,11 @@ Array [
 `;
 
 exports[`fields bugs should return error if not set 1`] = `
-Array [
-  Object {
+[
+  {
     "column": 1,
     "line": 1,
-    "message": "\\"bugs\\" must be set",
+    "message": ""bugs" must be set",
     "ruleId": "package-json-fields",
     "severity": 2,
   },
@@ -49,11 +49,11 @@ Array [
 `;
 
 exports[`fields bugs should return error if not valid url 1`] = `
-Array [
-  Object {
+[
+  {
     "column": 1,
     "line": 1,
-    "message": "\\"bugs\\" must be a valid url (https only)",
+    "message": ""bugs" must be a valid url (https only)",
     "ruleId": "package-json-fields",
     "severity": 2,
   },
@@ -61,11 +61,11 @@ Array [
 `;
 
 exports[`fields description should return error if empty 1`] = `
-Array [
-  Object {
+[
+  {
     "column": 1,
     "line": 1,
-    "message": "\\"description\\" must not be empty",
+    "message": ""description" must not be empty",
     "ruleId": "package-json-fields",
     "severity": 2,
   },
@@ -73,11 +73,11 @@ Array [
 `;
 
 exports[`fields description should return error if not set 1`] = `
-Array [
-  Object {
+[
+  {
     "column": 1,
     "line": 1,
-    "message": "\\"description\\" must be set",
+    "message": ""description" must be set",
     "ruleId": "package-json-fields",
     "severity": 2,
   },
@@ -85,11 +85,11 @@ Array [
 `;
 
 exports[`fields description should return error if not string 1`] = `
-Array [
-  Object {
+[
+  {
     "column": 1,
     "line": 1,
-    "message": "\\"description\\" must be string",
+    "message": ""description" must be string",
     "ruleId": "package-json-fields",
     "severity": 2,
   },
@@ -97,11 +97,11 @@ Array [
 `;
 
 exports[`fields homepage should return error if not set 1`] = `
-Array [
-  Object {
+[
+  {
     "column": 1,
     "line": 1,
-    "message": "\\"homepage\\" must be set",
+    "message": ""homepage" must be set",
     "ruleId": "package-json-fields",
     "severity": 2,
   },
@@ -109,11 +109,11 @@ Array [
 `;
 
 exports[`fields homepage should return error if not string 1`] = `
-Array [
-  Object {
+[
+  {
     "column": 1,
     "line": 1,
-    "message": "\\"homepage\\" must be string",
+    "message": ""homepage" must be string",
     "ruleId": "package-json-fields",
     "severity": 2,
   },
@@ -121,11 +121,11 @@ Array [
 `;
 
 exports[`fields homepage should return error if not valid url 1`] = `
-Array [
-  Object {
+[
+  {
     "column": 1,
     "line": 1,
-    "message": "\\"homepage\\" must be a valid url (https only)",
+    "message": ""homepage" must be a valid url (https only)",
     "ruleId": "package-json-fields",
     "severity": 2,
   },
@@ -133,11 +133,11 @@ Array [
 `;
 
 exports[`fields keywords should return error if empty 1`] = `
-Array [
-  Object {
+[
+  {
     "column": 1,
     "line": 1,
-    "message": "\\"keywords\\" must not be empty",
+    "message": ""keywords" must not be empty",
     "ruleId": "package-json-fields",
     "severity": 2,
   },
@@ -145,11 +145,11 @@ Array [
 `;
 
 exports[`fields keywords should return error if items are empty 1`] = `
-Array [
-  Object {
+[
+  {
     "column": 1,
     "line": 1,
-    "message": "\\"keywords[0]\\" must not be empty",
+    "message": ""keywords[0]" must not be empty",
     "ruleId": "package-json-fields",
     "severity": 2,
   },
@@ -157,11 +157,11 @@ Array [
 `;
 
 exports[`fields keywords should return error if not set 1`] = `
-Array [
-  Object {
+[
+  {
     "column": 1,
     "line": 1,
-    "message": "\\"keywords\\" must be set",
+    "message": ""keywords" must be set",
     "ruleId": "package-json-fields",
     "severity": 2,
   },
@@ -169,11 +169,11 @@ Array [
 `;
 
 exports[`fields keywords should return error if not string 1`] = `
-Array [
-  Object {
+[
+  {
     "column": 1,
     "line": 1,
-    "message": "\\"keywords\\" must be array",
+    "message": ""keywords" must be array",
     "ruleId": "package-json-fields",
     "severity": 2,
   },
@@ -181,11 +181,11 @@ Array [
 `;
 
 exports[`fields license should return error if empty 1`] = `
-Array [
-  Object {
+[
+  {
     "column": 1,
     "line": 1,
-    "message": "\\"license\\" must not be empty",
+    "message": ""license" must not be empty",
     "ruleId": "package-json-fields",
     "severity": 2,
   },
@@ -193,11 +193,11 @@ Array [
 `;
 
 exports[`fields license should return error if not set 1`] = `
-Array [
-  Object {
+[
+  {
     "column": 1,
     "line": 1,
-    "message": "\\"license\\" must be set",
+    "message": ""license" must be set",
     "ruleId": "package-json-fields",
     "severity": 2,
   },
@@ -205,11 +205,11 @@ Array [
 `;
 
 exports[`fields license should return error if not string 1`] = `
-Array [
-  Object {
+[
+  {
     "column": 1,
     "line": 1,
-    "message": "\\"license\\" must be string",
+    "message": ""license" must be string",
     "ruleId": "package-json-fields",
     "severity": 2,
   },
@@ -217,11 +217,11 @@ Array [
 `;
 
 exports[`fields repository should return error if not set 1`] = `
-Array [
-  Object {
+[
+  {
     "column": 1,
     "line": 1,
-    "message": "\\"repository\\" must be set",
+    "message": ""repository" must be set",
     "ruleId": "package-json-fields",
     "severity": 2,
   },
@@ -229,11 +229,11 @@ Array [
 `;
 
 exports[`fields repository should return error if not valid url 1`] = `
-Array [
-  Object {
+[
+  {
     "column": 1,
     "line": 1,
-    "message": "\\"repository\\" must be a valid url (https only)",
+    "message": ""repository" must be a valid url (https only)",
     "ruleId": "package-json-fields",
     "severity": 2,
   },
@@ -241,8 +241,8 @@ Array [
 `;
 
 exports[`should return engines.node supports eol version 1`] = `
-Array [
-  Object {
+[
+  {
     "column": 1,
     "line": 1,
     "message": "engines.node is satisfied by Node 8 (EOL since 2019-12-31)",
@@ -253,8 +253,8 @@ Array [
 `;
 
 exports[`should return error if dependency is disallowed 1`] = `
-Array [
-  Object {
+[
+  {
     "column": 1,
     "line": 1,
     "message": "eslint should be a devDependency",

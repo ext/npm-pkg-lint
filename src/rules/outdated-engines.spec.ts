@@ -49,11 +49,11 @@ it("should return error engines.node is not a valid semver range", () => {
 	expect.assertions(1);
 	pkg.engines.node = "foobar";
 	expect(Array.from(outdatedEngines(pkg))).toMatchInlineSnapshot(`
-		Array [
-		  Object {
+		[
+		  {
 		    "column": 1,
 		    "line": 1,
-		    "message": "engines.node \\"foobar\\" is not a valid semver range",
+		    "message": "engines.node "foobar" is not a valid semver range",
 		    "ruleId": "outdated-engines",
 		    "severity": 2,
 		  },
@@ -65,8 +65,8 @@ it("should return error engines.node is missing", () => {
 	expect.assertions(1);
 	delete pkg.engines.node;
 	expect(Array.from(outdatedEngines(pkg))).toMatchInlineSnapshot(`
-		Array [
-		  Object {
+		[
+		  {
 		    "column": 1,
 		    "line": 1,
 		    "message": "Missing engines.node field",
@@ -81,8 +81,8 @@ it("should return error engines is missing", () => {
 	expect.assertions(1);
 	delete pkg.engines;
 	expect(Array.from(outdatedEngines(pkg))).toMatchInlineSnapshot(`
-		Array [
-		  Object {
+		[
+		  {
 		    "column": 1,
 		    "line": 1,
 		    "message": "Missing engines.node field",
@@ -96,5 +96,5 @@ it("should return error engines is missing", () => {
 it("should not return error when engines.node only supports active versions", () => {
 	expect.assertions(1);
 	pkg.engines.node = ">= 14";
-	expect(Array.from(outdatedEngines(pkg))).toMatchInlineSnapshot(`Array []`);
+	expect(Array.from(outdatedEngines(pkg))).toMatchInlineSnapshot(`[]`);
 });

@@ -17,8 +17,8 @@ it("should return error when engine is lower major than types", () => {
 	pkg.devDependencies["@types/node"] = "^14.1.2";
 	pkg.engines.node = ">= 12";
 	expect(Array.from(typesNodeMatchingEngine(pkg))).toMatchInlineSnapshot(`
-		Array [
-		  Object {
+		[
+		  {
 		    "column": 1,
 		    "line": 1,
 		    "message": "@types/node v14 does not equal engines.node v12",
@@ -34,8 +34,8 @@ it("should return error when engine is higher major than types", () => {
 	pkg.devDependencies["@types/node"] = "^12.1.2";
 	pkg.engines.node = ">= 14";
 	expect(Array.from(typesNodeMatchingEngine(pkg))).toMatchInlineSnapshot(`
-		Array [
-		  Object {
+		[
+		  {
 		    "column": 1,
 		    "line": 1,
 		    "message": "@types/node v12 does not equal engines.node v14",
@@ -58,8 +58,8 @@ it("should handle || in engine constraint", () => {
 	pkg.devDependencies["@types/node"] = "^14.1.2";
 	pkg.engines.node = "^10.2.3 || ^12.2.3 || 14.2.3";
 	expect(Array.from(typesNodeMatchingEngine(pkg))).toMatchInlineSnapshot(`
-		Array [
-		  Object {
+		[
+		  {
 		    "column": 1,
 		    "line": 1,
 		    "message": "@types/node v14 does not equal engines.node v10",
