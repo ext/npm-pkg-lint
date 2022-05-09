@@ -4,14 +4,18 @@ describe("should disallow unittests", () => {
 	it.each([
 		"dist/file.spec.js",
 		"dist/file.spec.jsx",
+		"dist/file.spec.js.map",
 		"dist/file.spec.ts",
 		"dist/file.spec.tsx",
 		"dist/file.spec.d.ts",
+		"dist/file.spec.d.ts.map",
 		"dist/file.test.js",
 		"dist/file.test.jsx",
+		"dist/file.test.js.map",
 		"dist/file.test.ts",
 		"dist/file.test.tsx",
 		"dist/file.test.d.ts",
+		"dist/file.test.d.ts.map",
 	])("%s", (filename) => {
 		expect.assertions(1);
 		expect(isBlacklisted(filename)).toBeTruthy();
