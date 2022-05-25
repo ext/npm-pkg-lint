@@ -1,4 +1,4 @@
-import { Severity } from "@html-validate/stylish/dist/severity";
+import { Severity } from "@html-validate/stylish";
 import PackageJson from "../types/package-json";
 import { outdatedEngines } from "./outdated-engines";
 

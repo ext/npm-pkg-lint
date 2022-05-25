@@ -1,5 +1,5 @@
 import semver from "semver";
-import { Severity } from "@html-validate/stylish/dist/severity";
+import { Severity } from "@html-validate/stylish";
 import { Message } from "../message";
 import { nodeVersions } from "../node-versions";
 import PackageJson from "../types/package-json";
