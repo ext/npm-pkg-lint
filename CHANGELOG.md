@@ -1,5 +1,15 @@
 # npm-pkg-lint changelog
 
+### [1.11.1](https://github.com/ext/npm-pkg-lint/compare/v1.11.0...v1.11.1) (2022-05-25)
+
+### Bug Fixes
+
+- disallow (spec|test).d.ts.map ([8fce5dd](https://github.com/ext/npm-pkg-lint/commit/8fce5dd59b2c9713b171d64b8e0f5b80801b5588))
+
+### Dependency upgrades
+
+- **deps:** update dependency @html-validate/stylish to v3 ([5754f8d](https://github.com/ext/npm-pkg-lint/commit/5754f8dc4f8ee9a5ec178c78fed72fab927bad85))
+
 ## [1.11.0](https://github.com/ext/npm-pkg-lint/compare/v1.10.0...v1.11.0) (2022-05-02)
 
 ### Features
