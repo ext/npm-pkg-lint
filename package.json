@@ -52,7 +52,7 @@
     ]
   },
   "devDependencies": {
-    "@html-validate/commitlint-config": "3.0.2",
+    "@html-validate/commitlint-config": "3.0.3",
     "@html-validate/eslint-config": "5.4.10",
     "@html-validate/eslint-config-jest": "5.4.10",
     "@html-validate/eslint-config-typescript": "5.4.10",
