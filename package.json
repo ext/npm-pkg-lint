@@ -22,12 +22,11 @@
     "bin",
     "dist",
     "!**/*.d.ts",
-    "!**/*.js.map",
     "!**/*.spec.js"
   ],
   "scripts": {
     "prebuild": "tsc",
-    "build": "esbuild src/index.ts --bundle --platform=node --target=node14.0 --analyze --minify --outdir=dist",
+    "build": "esbuild src/index.ts --bundle --platform=node --target=node14.0 --analyze --sourcemap --outdir=dist",
     "eslint": "eslint .",
     "eslint:fix": "eslint --fix .",
     "prepare": "husky install",
