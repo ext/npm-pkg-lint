@@ -29,9 +29,13 @@
     "build": "esbuild src/index.ts --bundle --platform=node --target=node14.0 --analyze --sourcemap --outdir=dist",
     "eslint": "eslint .",
     "eslint:fix": "eslint --fix .",
+    "prepack": "release-prepack package.json --bundle",
+    "postpack": "release-postpack package.json",
     "prepare": "husky install",
+    "prepublishOnly": "release-prepublish package.json",
     "prettier:check": "prettier --check .",
     "prettier:write": "prettier --write .",
+    "postpublish": "release-postpublish package.json",
     "self-test": "node bin/index.js",
     "test": "jest"
   },
@@ -50,6 +54,15 @@
       "tests/fixtures"
     ]
   },
+  "dependencies": {
+    "@html-validate/stylish": "3.0.1",
+    "argparse": "2.0.1",
+    "execa": "5.1.1",
+    "find-up": "5.0.0",
+    "semver": "7.3.7",
+    "tar": "6.1.11",
+    "tmp": "0.2.1"
+  },
   "devDependencies": {
     "@html-validate/commitlint-config": "3.0.3",
     "@html-validate/eslint-config": "5.4.10",
@@ -57,7 +70,7 @@
     "@html-validate/eslint-config-typescript": "5.4.10",
     "@html-validate/jest-config": "3.3.2",
     "@html-validate/prettier-config": "2.2.0",
-    "@html-validate/stylish": "3.0.1",
+    "@html-validate/release-scripts": "3.4.3",
     "@types/argparse": "2.0.10",
     "@types/glob": "7.2.0",
     "@types/jest": "28.1.1",
@@ -65,18 +78,12 @@
     "@types/semver": "7.3.9",
     "@types/tar": "6.1.1",
     "@types/tmp": "0.2.3",
-    "argparse": "2.0.1",
     "esbuild": "0.14.42",
-    "execa": "5.1.1",
-    "find-up": "5.0.0",
     "glob": "8.0.3",
     "husky": "8.0.1",
     "jest": "28.1.0",
     "lint-staged": "13.0.0",
     "prettier": "2.6.2",
-    "semver": "7.3.7",
-    "tar": "6.1.11",
-    "tmp": "0.2.1",
     "ts-jest": "28.0.4",
     "typescript": "4.7.3"
   },
@@ -85,21 +92,8 @@
   },
   "renovate": {
     "extends": [
-      "gitlab>html-validate/renovate-config"
-    ],
-    "packageRules": [
-      {
-        "matchPackageNames": [
-          "@html-validate/stylish",
-          "argparse",
-          "execa",
-          "find-up",
-          "semver",
-          "tar",
-          "tmp"
-        ],
-        "semanticCommitType": "fix"
-      }
+      "gitlab>html-validate/renovate-config",
+      "gitlab>html-validate/renovate-config:bundled"
     ]
   }
 }
