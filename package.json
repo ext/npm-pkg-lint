@@ -78,7 +78,7 @@
     "@types/semver": "7.3.10",
     "@types/tar": "6.1.1",
     "@types/tmp": "0.2.3",
-    "esbuild": "0.14.50",
+    "esbuild": "0.14.51",
     "glob": "8.0.3",
     "husky": "8.0.1",
     "jest": "28.1.3",
