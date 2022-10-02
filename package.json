@@ -67,7 +67,7 @@
     "@html-validate/commitlint-config": "3.0.6",
     "@html-validate/eslint-config": "5.5.2",
     "@html-validate/eslint-config-jest": "5.5.1",
-    "@html-validate/eslint-config-typescript": "5.5.2",
+    "@html-validate/eslint-config-typescript": "5.5.3",
     "@html-validate/jest-config": "3.5.1",
     "@html-validate/prettier-config": "2.3.0",
     "@html-validate/release-scripts": "3.5.9",
