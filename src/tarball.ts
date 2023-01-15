@@ -1,7 +1,7 @@
 /* eslint-disable security/detect-object-injection, sonarjs/no-duplicate-string */
 
 import fs from "fs";
-import tar, { FileStat, Parse } from "tar";
+import tar, { Parse, ReadEntry } from "tar";
 import PackageJson from "./types/package-json";
 import { isBlacklisted } from "./blacklist";
 import { Message } from "./message";
@@ -26,11 +26,11 @@ function normalize(filename: string): string {
 }
 
 export async function getFileList(filename: string): Promise<string[]> {
-	const entries: FileStat[] = [];
+	const entries: ReadEntry[] = [];
 	await tar.list({
 		file: filename,
 		strict: true,
-		onentry: (entry: FileStat) => entries.push(entry),
+		onentry: (entry: ReadEntry) => entries.push(entry),
 	});
 	return entries.map((entry) => {
 		const filename = entry.path as unknown as string;
