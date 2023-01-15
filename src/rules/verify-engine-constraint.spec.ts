@@ -1,4 +1,5 @@
 import PackageJson from "../types/package-json";
+import * as npmInfoModule from "../utils/npm-info";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import { npmInfoMockClear, npmInfoMockAdd } from "../utils/npm-info";
@@ -103,4 +104,17 @@ it("should not return error if all dependencies have matching constraints", asyn
 	});
 	npmInfoMockAdd("bar@1.0.0", { name: "bar", version: "1.0.0", engines: { node: ">= 12" } });
 	expect(await verifyEngineConstraint(pkg)).toEqual([]);
+});
+
+it("should ignore @types/node", async () => {
+	expect.assertions(1);
+	const pkg: PackageJson = {
+		name: "my-app",
+		version: "1.0.0",
+		dependencies: { "@types/node": "*" },
+		engines: { node: ">= 10" },
+	};
+	const npmInfo = jest.spyOn(npmInfoModule, "npmInfo");
+	await verifyEngineConstraint(pkg);
+	expect(npmInfo).not.toHaveBeenCalled();
 });
