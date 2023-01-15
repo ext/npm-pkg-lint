@@ -1,5 +1,17 @@
 # npm-pkg-lint changelog
 
+## [1.11.2](https://github.com/ext/npm-pkg-lint/compare/v1.11.1...v1.11.2) (2023-01-15)
+
+### Bug Fixes
+
+- dont minify and add sourcemap instead ([bebaafd](https://github.com/ext/npm-pkg-lint/commit/bebaafd233adf25e9a09f9f9a133b99d2f349443))
+- ignore @types/node when verifying transitive engine constraints ([d9fed79](https://github.com/ext/npm-pkg-lint/commit/d9fed79944661d03377f33e3863160713490c228))
+
+### Dependency upgrades
+
+- **deps:** update dependency semver to v7.3.8 ([420b1d6](https://github.com/ext/npm-pkg-lint/commit/420b1d68f189d73383f902fc920e3309afddff21))
+- **deps:** update dependency tar to v6.1.13 ([f1f0394](https://github.com/ext/npm-pkg-lint/commit/f1f03943e68605c6554b4dd99a187b9434b1929e))
+
 ### [1.11.1](https://github.com/ext/npm-pkg-lint/compare/v1.11.0...v1.11.1) (2022-05-25)
 
 ### Bug Fixes
