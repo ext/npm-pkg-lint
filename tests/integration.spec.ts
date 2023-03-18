@@ -1,8 +1,8 @@
 jest.unmock("tar");
 
 import { promises as fs } from "fs";
-import path from "path";
-import glob from "glob";
+import * as path from "path";
+import { globSync } from "glob";
 import execa from "execa";
 import { verify } from "../src/verify";
 import PackageJson from "../src/types/package-json";
@@ -10,9 +10,7 @@ import PackageJson from "../src/types/package-json";
 const ROOT_DIRECTORY = path.resolve(path.join(__dirname, ".."));
 const FIXTURE_DIRECTORY = path.join(__dirname, "fixtures");
 
-const fixtures = glob.sync(path.join(FIXTURE_DIRECTORY, "*")).map((fixture: string) => {
-	return path.relative(FIXTURE_DIRECTORY, fixture);
-});
+const fixtures = globSync("*", { cwd: FIXTURE_DIRECTORY });
 
 async function npmPack(pkg: PackageJson, fixture: string): Promise<string> {
 	const dir = path.join(FIXTURE_DIRECTORY, fixture);
