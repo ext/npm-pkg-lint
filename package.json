@@ -64,7 +64,7 @@
     "tmp": "0.2.1"
   },
   "devDependencies": {
-    "@html-validate/commitlint-config": "3.0.11",
+    "@html-validate/commitlint-config": "3.0.12",
     "@html-validate/eslint-config": "5.5.27",
     "@html-validate/eslint-config-jest": "5.5.18",
     "@html-validate/eslint-config-typescript": "5.5.28",
