@@ -1,4 +1,4 @@
-/* eslint-disable security/detect-non-literal-regexp */
+/* eslint-disable security/detect-non-literal-regexp -- expected to be non-literal */
 
 export function escape(text: string): string {
 	return text.replace(/\./, "\\.");

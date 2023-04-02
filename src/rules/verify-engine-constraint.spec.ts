@@ -1,6 +1,6 @@
 import PackageJson from "../types/package-json";
 import * as npmInfoModule from "../utils/npm-info";
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment -- exists in mock only
 // @ts-ignore
 import { npmInfoMockClear, npmInfoMockAdd } from "../utils/npm-info";
 import { verifyEngineConstraint } from "./verify-engine-constraint";
