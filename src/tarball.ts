@@ -1,5 +1,3 @@
-/* eslint-disable security/detect-object-injection, sonarjs/no-duplicate-string */
-
 import fs from "fs";
 import tar, { Parse, ReadEntry } from "tar";
 import PackageJson from "./types/package-json";
@@ -20,6 +18,8 @@ interface RequiredFile {
 	ruleId: string;
 	filename: string;
 }
+
+const ruleId = "no-missing-main";
 
 function normalize(filename: string): string {
 	return filename.replace(/^[^/]+\//, "");
@@ -65,7 +65,6 @@ export async function getFileContent(
 		t.on("end", () => {
 			resolve(contents);
 		});
-		/* eslint-disable-next-line security/detect-non-literal-fs-filename */
 		const rs = fs.createReadStream(tarball.filePath);
 		rs.pipe(t);
 	});
@@ -99,18 +98,19 @@ function* yieldRequiredFiles(
 
 function* requiredFiles(pkg: PackageJson): Generator<RequiredFile> {
 	if (pkg.main) {
-		yield* yieldRequiredFiles(pkg.main, { field: "main", ruleId: "no-missing-main" });
+		yield* yieldRequiredFiles(pkg.main, { field: "main", ruleId });
 	}
 	if (pkg.browser) {
-		yield* yieldRequiredFiles(pkg.browser, { field: "browser", ruleId: "no-missing-main" });
+		yield* yieldRequiredFiles(pkg.browser, { field: "browser", ruleId });
 	}
 	if (pkg.module) {
-		yield* yieldRequiredFiles(pkg.module, { field: "module", ruleId: "no-missing-main" });
+		yield* yieldRequiredFiles(pkg.module, { field: "module", ruleId });
 	}
+	/* eslint-disable-next-line sonarjs/no-duplicate-string -- doesn't help readability */
 	if (pkg["jsnext:main"]) {
 		yield* yieldRequiredFiles(pkg["jsnext:main"], {
 			field: "jsnext:main",
-			ruleId: "no-missing-main",
+			ruleId,
 		});
 	}
 	if (pkg.typings) {

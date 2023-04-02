@@ -1,5 +1,3 @@
-/* eslint-disable security/detect-object-injection */
-
 let mockContents: Record<string, Buffer>;
 
 jest.mock("./tarball", () => {

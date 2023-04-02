@@ -1,7 +1,7 @@
 import { verifyPackageJson } from "./package-json";
 import PackageJson from "./types/package-json";
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment -- it exists in the mock only
 // @ts-ignore
 import { npmInfoMockDefault } from "./utils/npm-info";
 

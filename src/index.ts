@@ -1,6 +1,4 @@
 /* eslint-disable no-console, no-process-exit -- this is a cli tool */
-/* eslint-disable camelcase -- argparse likes snake_case */
-/* eslint-disable security/detect-non-literal-fs-filename -- want to read given filenames */
 
 import { existsSync, createWriteStream, promises as fs } from "fs";
 import path from "path";
@@ -14,7 +12,7 @@ import PackageJson from "./types/package-json";
 import { tarballLocation } from "./tarball-location";
 import { getFileContent, TarballMeta } from "./tarball";
 
-/* eslint-disable-next-line @typescript-eslint/no-var-requires */
+/* eslint-disable-next-line @typescript-eslint/no-var-requires -- technical debt, should use fs.readFile */
 const { version } = require("../package.json");
 
 const PACKAGE_JSON = "package.json";
@@ -66,7 +64,7 @@ async function getPackageJson(
 	/* extract package.json from explicit tarball location */
 	if (args.tarball) {
 		const contents = await getFileContent({ filePath: args.tarball }, [PACKAGE_JSON]);
-		const pkg = JSON.parse(contents[PACKAGE_JSON].toString("utf-8")); // eslint-disable-line security/detect-object-injection
+		const pkg = JSON.parse(contents[PACKAGE_JSON].toString("utf-8"));
 		return {
 			pkg,
 			pkgPath: path.join(

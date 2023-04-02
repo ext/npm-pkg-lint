@@ -12,8 +12,7 @@ export interface VerifyPackageJsonOptions {
 	ignoreMissingFields?: boolean;
 }
 
-/* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-type validator = (key: string, value: any) => void;
+type validator = (key: string, value: unknown) => void;
 
 const fields: Record<string, validator[]> = {
 	description: [present, typeString, nonempty],
@@ -31,7 +30,7 @@ function verifyFields(pkg: PackageJson, options: VerifyPackageJsonOptions): Mess
 	for (const [field, validators] of Object.entries(fields)) {
 		try {
 			for (const validator of validators) {
-				validator(field, pkg[field]); // eslint-disable-line security/detect-object-injection
+				validator(field, pkg[field]);
 			}
 		} catch (error) {
 			if (
