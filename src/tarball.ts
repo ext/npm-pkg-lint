@@ -1,6 +1,6 @@
 import fs from "fs";
 import tar, { Parse, ReadEntry } from "tar";
-import PackageJson from "./types/package-json";
+import PackageJson, { type PackageJsonExports } from "./types/package-json";
 import { isBlacklisted } from "./blacklist";
 import { Message } from "./message";
 import { Result } from "./result";
@@ -96,7 +96,33 @@ function* yieldRequiredFiles(
 	}
 }
 
+function* yieldExportedFiles(
+	exports: undefined | null | string | PackageJsonExports
+): Generator<RequiredFile> {
+	if (!exports) {
+		return;
+	}
+
+	if (typeof exports === "string") {
+		yield {
+			field: "exports",
+			ruleId: "no-missing-exports",
+			filename: exports,
+		};
+		return;
+	}
+
+	for (const [key, value] of Object.entries(exports)) {
+		/* ignore wildcards for now */
+		if (key.includes("*")) {
+			continue;
+		}
+		yield* yieldExportedFiles(value);
+	}
+}
+
 function* requiredFiles(pkg: PackageJson): Generator<RequiredFile> {
+	yield* yieldExportedFiles(pkg.exports);
 	if (pkg.main) {
 		yield* yieldRequiredFiles(pkg.main, { field: "main", ruleId });
 	}

@@ -51,6 +51,7 @@ Requires files specified in `package.json` to be present.
 
 Verifies the presence of files specified in:
 
+- `exports` (wildcard patterns are ignored)
 - `main`
 - `browser`
 - `module`
