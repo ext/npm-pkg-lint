@@ -1,5 +1,15 @@
 # npm-pkg-lint changelog
 
+## [1.12.0](https://github.com/ext/npm-pkg-lint/compare/v1.11.2...v1.12.0) (2023-04-13)
+
+### Features
+
+- verify `exports` field in `package.json` ([6a7408f](https://github.com/ext/npm-pkg-lint/commit/6a7408f8813fbec13a9e53ee1f0f2db0068e5681)), closes [#159](https://github.com/ext/npm-pkg-lint/issues/159)
+
+### Dependency upgrades
+
+- **deps:** update dependency semver to v7.4.0 ([0e53246](https://github.com/ext/npm-pkg-lint/commit/0e532463488f556f6232189e621b30e300d10e1b))
+
 ## [1.11.2](https://github.com/ext/npm-pkg-lint/compare/v1.11.1...v1.11.2) (2023-01-15)
 
 ### Bug Fixes
