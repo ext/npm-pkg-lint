@@ -49,16 +49,20 @@ it("should use reportPath if given", async () => {
 
 describe("should return error if package.json references missing file", () => {
 	it.each`
-		field               | template
-		${"main"}           | ${{ main: "index.js" }}
-		${"browser"}        | ${{ browser: "index.js" }}
-		${"module"}         | ${{ module: "index.js" }}
-		${"jsnext:main"}    | ${{ "jsnext:main": "index.js" }}
-		${"typings"}        | ${{ typings: "index.d.ts" }}
-		${"bin (single)"}   | ${{ bin: "index.js" }}
-		${"bin (multiple)"} | ${{ bin: { foo: "dist/foo.js", bar: "dist/bar.js" } }}
-		${"man (single)"}   | ${{ man: "man/foo.1" }}
-		${"man (multiple)"} | ${{ man: ["man/foo.1", "man/bar.1"] }}
+		field                    | template
+		${"main"}                | ${{ main: "index.js" }}
+		${"browser"}             | ${{ browser: "index.js" }}
+		${"module"}              | ${{ module: "index.js" }}
+		${"jsnext:main"}         | ${{ "jsnext:main": "index.js" }}
+		${"typings"}             | ${{ typings: "index.d.ts" }}
+		${"bin (single)"}        | ${{ bin: "index.js" }}
+		${"bin (multiple)"}      | ${{ bin: { foo: "dist/foo.js", bar: "dist/bar.js" } }}
+		${"man (single)"}        | ${{ man: "man/foo.1" }}
+		${"man (multiple)"}      | ${{ man: ["man/foo.1", "man/bar.1"] }}
+		${"exports (sugar)"}     | ${{ exports: "./index.js" }}
+		${"exports (subpath)"}   | ${{ exports: { ".": "./index.js", "./foo": "./dist/foo.js" } }}
+		${"exports (condition)"} | ${{ exports: { ".": { require: "./index.cjs", import: "./index.mjs" } } }}
+		${"exports (nested)"}    | ${{ exports: { ".": { browser: { require: "./index.cjs" } } } }}
 	`("$field", async ({ template }) => {
 		expect.assertions(3);
 		require("tar").__setMockFiles([]);
@@ -76,20 +80,28 @@ describe("should return error if package.json references missing file", () => {
 
 describe("should not return error if package.json references existing file", () => {
 	it.each`
-		field               | template
-		${"main"}           | ${{ main: "index.js" }}
-		${"browser"}        | ${{ browser: "index.js" }}
-		${"module"}         | ${{ module: "index.js" }}
-		${"jsnext:main"}    | ${{ "jsnext:main": "index.js" }}
-		${"typings"}        | ${{ typings: "index.d.ts" }}
-		${"bin (single)"}   | ${{ bin: "index.js" }}
-		${"bin (multiple)"} | ${{ bin: { foo: "dist/foo.js", bar: "dist/bar.js" } }}
-		${"man (single)"}   | ${{ man: "man/foo.1" }}
-		${"man (multiple)"} | ${{ man: ["man/foo.1", "man/bar.1"] }}
+		field                    | template
+		${"main"}                | ${{ main: "index.js" }}
+		${"browser"}             | ${{ browser: "index.js" }}
+		${"module"}              | ${{ module: "index.js" }}
+		${"jsnext:main"}         | ${{ "jsnext:main": "index.js" }}
+		${"typings"}             | ${{ typings: "index.d.ts" }}
+		${"bin (single)"}        | ${{ bin: "index.js" }}
+		${"bin (multiple)"}      | ${{ bin: { foo: "dist/foo.js", bar: "dist/bar.js" } }}
+		${"man (single)"}        | ${{ man: "man/foo.1" }}
+		${"man (multiple)"}      | ${{ man: ["man/foo.1", "man/bar.1"] }}
+		${"exports (sugar)"}     | ${{ exports: "./index.js" }}
+		${"exports (subpath)"}   | ${{ exports: { ".": "./index.js", "./foo": "./dist/foo.js" } }}
+		${"exports (condition)"} | ${{ exports: { ".": { require: "./index.cjs", import: "./index.mjs" } } }}
+		${"exports (wildcard)"}  | ${{ exports: { "./foo/*": "./foo/*.js" } }}
+		${"exports (null)"}      | ${{ exports: { ".": null, "./foo": { condition: null } } }}
+		${"exports (nested)"}    | ${{ exports: { ".": { browser: { require: "./index.cjs" } } } }}
 	`("$field", async ({ template }) => {
 		expect.assertions(1);
 		require("tar").__setMockFiles([
 			"index.js",
+			"index.cjs",
+			"index.mjs",
 			"index.d.ts",
 			"dist/foo.js",
 			"dist/bar.js",

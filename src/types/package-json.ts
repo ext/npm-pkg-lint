@@ -5,6 +5,13 @@ interface UrlObject {
 	email?: string;
 }
 
+/**
+ * @internal
+ */
+export interface PackageJsonExports {
+	[key: string]: string | null | PackageJsonExports;
+}
+
 export default interface PackageJson {
 	name: string;
 	version: string;
@@ -19,6 +26,7 @@ export default interface PackageJson {
 	browser?: string | Record<string, string | false>;
 	module?: string;
 	"jsnext:main"?: string;
+	exports?: string | null | PackageJsonExports;
 	typings?: string;
 	bin?: string | Record<string, string>;
 	man?: string | string[];
@@ -30,9 +38,12 @@ export default interface PackageJson {
 	engines?: Record<string, string>;
 
 	[key: string]:
+		| undefined
+		| null
 		| string
 		| string[]
 		| Record<string, string>
 		| Record<string, string | false>
+		| PackageJsonExports
 		| UrlObject;
 }
