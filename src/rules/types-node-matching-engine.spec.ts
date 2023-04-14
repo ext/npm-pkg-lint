@@ -1,20 +1,21 @@
 import PackageJson from "../types/package-json";
 import { typesNodeMatchingEngine } from "./types-node-matching-engine";
 
-let pkg: PackageJson;
+let pkg: PackageJson & Required<Pick<PackageJson, "engines">>;
 
 beforeEach(() => {
 	pkg = {
 		name: "mock-package",
 		version: "1.2.3",
-		devDependencies: {},
 		engines: {},
 	};
 });
 
 it("should return error when engine is lower major than types", () => {
 	expect.assertions(1);
-	pkg.devDependencies["@types/node"] = "^14.1.2";
+	pkg.devDependencies = {
+		"@types/node": "^14.1.2",
+	};
 	pkg.engines.node = ">= 12";
 	expect(Array.from(typesNodeMatchingEngine(pkg))).toMatchInlineSnapshot(`
 		[
@@ -31,7 +32,9 @@ it("should return error when engine is lower major than types", () => {
 
 it("should return error when engine is higher major than types", () => {
 	expect.assertions(1);
-	pkg.devDependencies["@types/node"] = "^12.1.2";
+	pkg.devDependencies = {
+		"@types/node": "^12.1.2",
+	};
 	pkg.engines.node = ">= 14";
 	expect(Array.from(typesNodeMatchingEngine(pkg))).toMatchInlineSnapshot(`
 		[
@@ -48,14 +51,18 @@ it("should return error when engine is higher major than types", () => {
 
 it("should not return error when engine and types have same major", () => {
 	expect.assertions(1);
-	pkg.devDependencies["@types/node"] = "^12.1.2";
+	pkg.devDependencies = {
+		"@types/node": "^12.1.2",
+	};
 	pkg.engines.node = ">= 12";
 	expect(Array.from(typesNodeMatchingEngine(pkg))).toEqual([]);
 });
 
 it("should handle || in engine constraint", () => {
 	expect.assertions(1);
-	pkg.devDependencies["@types/node"] = "^14.1.2";
+	pkg.devDependencies = {
+		"@types/node": "^14.1.2",
+	};
 	pkg.engines.node = "^10.2.3 || ^12.2.3 || 14.2.3";
 	expect(Array.from(typesNodeMatchingEngine(pkg))).toMatchInlineSnapshot(`
 		[

@@ -4,8 +4,9 @@ import PackageJson from "../types/package-json";
 const cache: Map<string, PackageJson> = new Map();
 
 export async function npmInfo(pkg: string): Promise<PackageJson> {
-	if (cache.has(pkg)) {
-		return cache.get(pkg);
+	const cached = cache.get(pkg);
+	if (cached) {
+		return cached;
 	}
 
 	const result = await execa("npm", ["info", "--json", pkg]);
