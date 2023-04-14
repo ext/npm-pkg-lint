@@ -41,7 +41,7 @@ export function* outdatedEngines(pkg: PackageJson): Generator<Message> {
 		if (!semver.satisfies(expanded, range)) {
 			continue;
 		}
-		const nodeRelease = parsed.major || `0.${parsed.minor}`;
+		const nodeRelease = parsed?.major || `0.${parsed?.minor}`;
 		const message = `engines.node is satisfied by Node ${nodeRelease} (EOL since ${descriptor.eol})`;
 		yield {
 			ruleId,

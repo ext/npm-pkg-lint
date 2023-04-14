@@ -28,7 +28,9 @@ describe("should return error when unsupported version satisfies engines.node", 
 		${">= 12.x"}   | ${"Node 12"}
 	`("$description", ({ range, description }) => {
 		expect.assertions(1);
-		pkg.engines.node = range;
+		pkg.engines = {
+			node: range,
+		};
 		/* eslint-disable-next-line security/detect-non-literal-regexp -- not under user control */
 		const message = new RegExp(
 			String.raw`engines\.node is satisfied by ${description} \(EOL since \d{4}-.*\)`
@@ -47,7 +49,9 @@ describe("should return error when unsupported version satisfies engines.node", 
 
 it("should return error engines.node is not a valid semver range", () => {
 	expect.assertions(1);
-	pkg.engines.node = "foobar";
+	pkg.engines = {
+		node: "foobar",
+	};
 	expect(Array.from(outdatedEngines(pkg))).toMatchInlineSnapshot(`
 		[
 		  {
@@ -63,7 +67,7 @@ it("should return error engines.node is not a valid semver range", () => {
 
 it("should return error engines.node is missing", () => {
 	expect.assertions(1);
-	delete pkg.engines.node;
+	pkg.engines = {};
 	expect(Array.from(outdatedEngines(pkg))).toMatchInlineSnapshot(`
 		[
 		  {
@@ -95,6 +99,8 @@ it("should return error engines is missing", () => {
 
 it("should not return error when engines.node only supports active versions", () => {
 	expect.assertions(1);
-	pkg.engines.node = ">= 14";
+	pkg.engines = {
+		node: ">= 14",
+	};
 	expect(Array.from(outdatedEngines(pkg))).toMatchInlineSnapshot(`[]`);
 });

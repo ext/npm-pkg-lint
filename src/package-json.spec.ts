@@ -7,7 +7,7 @@ import { npmInfoMockDefault } from "./utils/npm-info";
 
 jest.mock("./utils/npm-info");
 
-let pkg: PackageJson;
+let pkg: PackageJson & Required<Pick<PackageJson, "engines">>;
 
 beforeEach(() => {
 	pkg = {

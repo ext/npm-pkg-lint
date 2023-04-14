@@ -29,6 +29,10 @@ export async function verifyEngineConstraint(pkg: PackageJson): Promise<Message[
 	}
 
 	const minDeclared = semver.minVersion(declaredConstraint);
+	if (!minDeclared) {
+		throw new Error(`Failed to parse engine constraint "${declaredConstraint}"`);
+	}
+
 	const messages: Message[] = [];
 
 	for await (const dependency of getDeepDependencies(pkg)) {

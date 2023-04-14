@@ -25,8 +25,8 @@ interface ParsedArgs {
 }
 
 interface GetPackageJsonResults {
-	pkg?: PackageJson;
-	pkgPath?: string;
+	pkg: PackageJson;
+	pkgPath: string;
 }
 
 async function preloadStdin(): Promise<string> {
@@ -37,7 +37,7 @@ async function preloadStdin(): Promise<string> {
 				return;
 			}
 
-			const st = createWriteStream(null, { fd, autoClose: true });
+			const st = createWriteStream("", { fd, autoClose: true });
 			process.stdin.pipe(st);
 			st.on("finish", () => {
 				resolve(path);
@@ -52,7 +52,7 @@ async function preloadStdin(): Promise<string> {
 async function getPackageJson(
 	args: ParsedArgs,
 	regenerateReportName: boolean
-): Promise<GetPackageJsonResults> {
+): Promise<GetPackageJsonResults | Record<string, never>> {
 	/* get from explicit path passed as argument */
 	if (args.pkgfile) {
 		return {

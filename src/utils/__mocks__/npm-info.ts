@@ -4,8 +4,9 @@ const mock: Map<string, PackageJson> = new Map();
 let defaultInfo: PackageJson | null = null;
 
 export async function npmInfo(pkg: string): Promise<PackageJson> {
-	if (mock.has(pkg)) {
-		return mock.get(pkg);
+	const mocked = mock.get(pkg);
+	if (mocked) {
+		return mocked;
 	} else if (defaultInfo) {
 		return defaultInfo;
 	} else {
