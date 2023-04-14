@@ -18,6 +18,7 @@
   "author": "David Sveningsson <ext@sidvind.com>",
   "main": "dist/index.js",
   "bin": "bin/index.js",
+  "type": "module",
   "files": [
     "bin",
     "dist",
@@ -26,7 +27,7 @@
   ],
   "scripts": {
     "prebuild": "tsc",
-    "build": "esbuild src/index.ts --bundle --platform=node --target=node14.0 --analyze --sourcemap --outdir=dist",
+    "build": "node build.mjs",
     "eslint": "eslint .",
     "eslint:fix": "eslint --fix .",
     "prepack": "release-prepack package.json --bundle",
@@ -37,6 +38,7 @@
     "prettier:write": "prettier --write .",
     "postpublish": "release-postpublish package.json",
     "self-test": "node bin/index.js",
+    "pretest": "npm run prettier:check && npm run eslint",
     "test": "jest"
   },
   "commitlint": {
