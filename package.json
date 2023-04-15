@@ -55,7 +55,7 @@
     ]
   },
   "dependencies": {
-    "@html-validate/stylish": "3.0.1",
+    "@html-validate/stylish": "4.0.0",
     "argparse": "2.0.1",
     "execa": "5.1.1",
     "find-up": "5.0.0",
