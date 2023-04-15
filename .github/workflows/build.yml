@@ -28,7 +28,7 @@ jobs:
           npm pack
           npm run self-test
       - name: Jest
-        run: npm test
+        run: npm --ignore-scripts test
         env:
           CI: true
       - name: Coveralls
