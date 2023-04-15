@@ -5,7 +5,7 @@ import path from "path";
 import { ArgumentParser } from "argparse";
 import findUp from "find-up";
 import tmp from "tmp";
-import stylish from "@html-validate/stylish";
+import { stylish } from "@html-validate/stylish";
 import { setupBlacklist } from "./blacklist";
 import { verify, VerifyOptions } from "./verify";
 import PackageJson from "./types/package-json";
