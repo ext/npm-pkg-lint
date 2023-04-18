@@ -80,7 +80,7 @@
     "@types/tar": "6.1.4",
     "@types/tmp": "0.2.3",
     "esbuild": "0.17.17",
-    "glob": "10.1.0",
+    "glob": "10.2.1",
     "husky": "8.0.3",
     "jest": "29.5.0",
     "lint-staged": "13.2.1",
