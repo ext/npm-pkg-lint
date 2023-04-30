@@ -3,7 +3,7 @@ jest.unmock("tar");
 import { promises as fs } from "fs";
 import * as path from "path";
 import { globSync } from "glob";
-import execa from "execa";
+import { execa } from "execa";
 import { verify } from "../src/verify";
 import PackageJson from "../src/types/package-json";
 

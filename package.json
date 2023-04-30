@@ -59,7 +59,7 @@
   "dependencies": {
     "@html-validate/stylish": "4.0.0",
     "argparse": "2.0.1",
-    "execa": "5.1.1",
+    "execa": "7.1.1",
     "find-up": "5.0.0",
     "semver": "7.5.0",
     "tar": "6.1.13",
@@ -89,7 +89,7 @@
     "typescript": "5.0.4"
   },
   "engines": {
-    "node": ">= 14.0"
+    "node": ">= 14.18"
   },
   "renovate": {
     "extends": [
