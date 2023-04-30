@@ -1,5 +1,18 @@
 # npm-pkg-lint changelog
 
+## [1.13.0](https://github.com/ext/npm-pkg-lint/compare/v1.12.0...v1.13.0) (2023-04-30)
+
+### Features
+
+- migrate to esm ([51b4f90](https://github.com/ext/npm-pkg-lint/commit/51b4f9097747ea9ff36541c93a1e711c76a298eb))
+
+### Dependency upgrades
+
+- **deps:** update dependency @html-validate/stylish to v4 ([23c0be0](https://github.com/ext/npm-pkg-lint/commit/23c0be008cd39afff42199916f01804ae46b8d8f))
+- **deps:** update dependency execa to v7 ([f63c699](https://github.com/ext/npm-pkg-lint/commit/f63c699589d1dce00b6d0b3da945389cef569b80))
+- **deps:** update dependency find-up to v6 ([a2b6d5c](https://github.com/ext/npm-pkg-lint/commit/a2b6d5c74958ecd30638fbac295d9f02d0d3f839))
+- **deps:** update dependency semver to v7.5.0 ([36c11eb](https://github.com/ext/npm-pkg-lint/commit/36c11eb7e155a18c774fdbb9e508c0b6531c1672))
+
 ## [1.12.0](https://github.com/ext/npm-pkg-lint/compare/v1.11.2...v1.12.0) (2023-04-13)
 
 ### Features
