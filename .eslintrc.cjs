@@ -3,6 +3,11 @@ require("@html-validate/eslint-config/patch/modern-module-resolution");
 module.exports = {
 	extends: ["@html-validate"],
 
+	parserOptions: {
+		/* needed by yocto-queue */
+		ecmaVersion: 2022,
+	},
+
 	rules: {
 		"import/extensions": "off",
 	},

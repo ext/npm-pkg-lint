@@ -1,7 +1,8 @@
 /* eslint-disable no-console -- this is a cli tool */
 
-import { existsSync, createWriteStream, promises as fs } from "node:fs";
+import { existsSync, createWriteStream, readFileSync, promises as fs } from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { ArgumentParser } from "argparse";
 import { findUp } from "find-up";
 import tmp from "tmp";
@@ -12,8 +13,8 @@ import PackageJson from "./types/package-json";
 import { tarballLocation } from "./tarball-location";
 import { getFileContent, TarballMeta } from "./tarball";
 
-/* eslint-disable-next-line @typescript-eslint/no-var-requires -- technical debt, should use fs.readFile */
-const { version } = require("../package.json");
+const pkgFilepath = fileURLToPath(new URL("../package.json", import.meta.url));
+const { version } = JSON.parse(readFileSync(pkgFilepath, "utf-8")) as { version: string };
 
 const PACKAGE_JSON = "package.json";
 
