@@ -1,4 +1,4 @@
-import execa from "execa";
+import { execa } from "execa";
 import PackageJson from "../types/package-json";
 
 const cache: Map<string, PackageJson> = new Map();
