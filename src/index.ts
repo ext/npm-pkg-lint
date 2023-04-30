@@ -1,4 +1,4 @@
-/* eslint-disable no-console, no-process-exit -- this is a cli tool */
+/* eslint-disable no-console -- this is a cli tool */
 
 import { existsSync, createWriteStream, promises as fs } from "node:fs";
 import path from "node:path";
@@ -119,7 +119,8 @@ async function run(): Promise<void> {
 
 	if (!pkg) {
 		console.error("Failed to locate package.json and no location was specificed with `--pkgfile'");
-		process.exit(1);
+		process.exitCode = 1;
+		return;
 	}
 
 	const tarball: TarballMeta = {
@@ -128,7 +129,8 @@ async function run(): Promise<void> {
 	};
 	if (!existsSync(tarball.filePath)) {
 		console.error(`"${tarball.filePath}" does not exist, did you forget to run \`npm pack'?`);
-		process.exit(1);
+		process.exitCode = 1;
+		return;
 	}
 
 	setupBlacklist(pkg.name);
@@ -146,7 +148,7 @@ async function run(): Promise<void> {
 		return sum + result.errorCount;
 	}, 0);
 
-	process.exit(totalErrors > 0 ? 1 : 0);
+	process.exitCode = totalErrors > 0 ? 1 : 0;
 }
 
 run();
