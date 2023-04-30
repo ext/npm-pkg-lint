@@ -3,7 +3,7 @@
 import { existsSync, createWriteStream, promises as fs } from "node:fs";
 import path from "node:path";
 import { ArgumentParser } from "argparse";
-import findUp from "find-up";
+import { findUp } from "find-up";
 import tmp from "tmp";
 import { stylish } from "@html-validate/stylish";
 import { setupBlacklist } from "./blacklist";
