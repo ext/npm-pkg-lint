@@ -4,7 +4,7 @@
     "rootDir": "./src",
     "declaration": true,
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
+    "isolatedModules": true,
     "lib": ["es2020"],
     "module": "esnext",
     "moduleResolution": "bundler",
