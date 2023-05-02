@@ -3,6 +3,7 @@ import { Message } from "./message";
 import { Result } from "./result";
 import { nonempty, present, typeArray, typeString, ValidationError, validUrl } from "./validators";
 import { isDisallowedDependency } from "./rules/disallowed-dependency";
+import { exportsTypesOrder } from "./rules/exports-types-order";
 import { outdatedEngines } from "./rules/outdated-engines";
 import { verifyEngineConstraint } from "./rules/verify-engine-constraint";
 import { typesNodeMatchingEngine } from "./rules/types-node-matching-engine";
@@ -88,6 +89,7 @@ export async function verifyPackageJson(
 ): Promise<Result[]> {
 	const messages: Message[] = [
 		...(await verifyEngineConstraint(pkg)),
+		...exportsTypesOrder(pkg),
 		...verifyFields(pkg, options),
 		...verifyDependencies(pkg, options),
 		...outdatedEngines(pkg),

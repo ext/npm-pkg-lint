@@ -60,6 +60,12 @@ Verifies the presence of files specified in:
 - `bin`
 - `man`
 
+## TypeScript `types` in `exports`
+
+Requires `types` to be the first condition in `exports`.
+
+**Why?** For TypeScript to properly detect `types` it need to come before `require` or `import`, else it will fall back to detecting by filename.
+
 ## Disallowed dependencies
 
 Disallows certain packages from being included as `dependencies` (use `devDependencies` or `peerDependencies` instead).
