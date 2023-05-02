@@ -1,5 +1,11 @@
 # npm-pkg-lint changelog
 
+## [1.14.0](https://github.com/ext/npm-pkg-lint/compare/v1.13.0...v1.14.0) (2023-05-02)
+
+### Features
+
+- ensure typescript `types` comes first in `exports` ([1e76b9b](https://github.com/ext/npm-pkg-lint/commit/1e76b9b413cc4d743daac00056f4847054bc147f))
+
 ## [1.13.0](https://github.com/ext/npm-pkg-lint/compare/v1.12.0...v1.13.0) (2023-04-30)
 
 ### Features
