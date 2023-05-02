@@ -1,9 +1,9 @@
 import fs from "fs";
-import tar, { Parse, ReadEntry } from "tar";
-import PackageJson, { type PackageJsonExports } from "./types/package-json";
+import tar, { type ReadEntry, Parse } from "tar";
+import { type PackageJson, type PackageJsonExports } from "./types";
 import { isBlacklisted } from "./blacklist";
-import { Message } from "./message";
-import { Result } from "./result";
+import { type Message } from "./message";
+import { type Result } from "./result";
 
 export interface TarballMeta {
 	/** Path to tarball on disk */
@@ -70,7 +70,7 @@ export async function getFileContent(
 	});
 }
 
-export async function blacklistedFiles(filelist: string[]): Promise<string[]> {
+export function blacklistedFiles(filelist: string[]): string[] {
 	return filelist.filter(isBlacklisted);
 }
 
@@ -180,7 +180,7 @@ export async function verifyTarball(pkg: PackageJson, tarball: TarballMeta): Pro
 	const messages: Message[] = [];
 	const filelist = await getFileList(tarball.filePath);
 
-	for (const filename of await blacklistedFiles(filelist)) {
+	for (const filename of blacklistedFiles(filelist)) {
 		messages.push({
 			ruleId: "no-disallowed-files",
 			severity: 2,

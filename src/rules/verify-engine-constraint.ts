@@ -1,6 +1,6 @@
 import semver from "semver";
-import { Message } from "../message";
-import PackageJson from "../types/package-json";
+import { type Message } from "../message";
+import { type PackageJson } from "../types";
 import { npmInfo } from "../utils";
 
 const ruleId = "invalid-engine-constraint";
@@ -18,7 +18,7 @@ async function* getDeepDependencies(pkg: PackageJson, dependency?: string): Asyn
 
 		const deep = `${key}@${value}`;
 		yield deep;
-		yield* await getDeepDependencies(pkg, deep);
+		yield* getDeepDependencies(pkg, deep);
 	}
 }
 

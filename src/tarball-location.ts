@@ -1,5 +1,5 @@
 import path from "path";
-import PackageJson from "./types/package-json";
+import { type PackageJson } from "./types";
 
 function normalize(name: string): string {
 	return name.replace("/", "-").replace(/^@/, "");

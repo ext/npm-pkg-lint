@@ -3,7 +3,7 @@
 jest.mock("tar");
 
 import { verifyTarball } from "./tarball";
-import PackageJson from "./types/package-json";
+import { type PackageJson } from "./types";
 
 beforeEach(() => {
 	require("tar").__setMockFiles([]);

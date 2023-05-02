@@ -8,10 +8,10 @@ import { findUp } from "find-up";
 import tmp from "tmp";
 import { stylish } from "@html-validate/stylish";
 import { setupBlacklist } from "./blacklist";
-import { verify, VerifyOptions } from "./verify";
-import PackageJson from "./types/package-json";
+import { type VerifyOptions, verify } from "./verify";
+import { type PackageJson } from "./types";
 import { tarballLocation } from "./tarball-location";
-import { getFileContent, TarballMeta } from "./tarball";
+import { type TarballMeta, getFileContent } from "./tarball";
 
 const pkgFilepath = fileURLToPath(new URL("../package.json", import.meta.url));
 const { version } = JSON.parse(readFileSync(pkgFilepath, "utf-8")) as { version: string };
@@ -57,7 +57,7 @@ async function getPackageJson(
 	/* get from explicit path passed as argument */
 	if (args.pkgfile) {
 		return {
-			pkg: JSON.parse(await fs.readFile(args.pkgfile, "utf-8")),
+			pkg: JSON.parse(await fs.readFile(args.pkgfile, "utf-8")) as PackageJson,
 			pkgPath: args.pkgfile,
 		};
 	}
@@ -65,7 +65,7 @@ async function getPackageJson(
 	/* extract package.json from explicit tarball location */
 	if (args.tarball) {
 		const contents = await getFileContent({ filePath: args.tarball }, [PACKAGE_JSON]);
-		const pkg = JSON.parse(contents[PACKAGE_JSON].toString("utf-8"));
+		const pkg = JSON.parse(contents[PACKAGE_JSON].toString("utf-8")) as PackageJson;
 		return {
 			pkg,
 			pkgPath: path.join(
@@ -80,7 +80,7 @@ async function getPackageJson(
 	if (pkgPath) {
 		const relPath = path.relative(process.cwd(), pkgPath);
 		return {
-			pkg: JSON.parse(await fs.readFile(relPath, "utf-8")),
+			pkg: JSON.parse(await fs.readFile(relPath, "utf-8")) as PackageJson,
 			pkgPath: relPath,
 		};
 	}
@@ -105,7 +105,7 @@ async function run(): Promise<void> {
 		help: "ignore errors for missing fields (but still checks for empty and valid)",
 	});
 
-	const args: ParsedArgs = parser.parse_args();
+	const args = parser.parse_args() as ParsedArgs;
 
 	/* this library assumes the file source can be randomly accessed but with
 	 * stdin this is not possible so stdin is read into a temporary file which is
@@ -152,4 +152,7 @@ async function run(): Promise<void> {
 	process.exitCode = totalErrors > 0 ? 1 : 0;
 }
 
-run();
+run().catch((err) => {
+	console.error(err);
+	process.exitCode = 1;
+});

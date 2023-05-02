@@ -1,4 +1,4 @@
-import PackageJson from "../types/package-json";
+import { PackageJson } from "../types";
 import { exportsTypesOrder } from "./exports-types-order";
 
 let pkg: PackageJson;

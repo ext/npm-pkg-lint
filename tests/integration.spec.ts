@@ -5,7 +5,7 @@ import * as path from "path";
 import { globSync } from "glob";
 import { execa } from "execa";
 import { verify } from "../src/verify";
-import PackageJson from "../src/types/package-json";
+import { type PackageJson } from "../src/types";
 
 const ROOT_DIRECTORY = path.resolve(path.join(__dirname, ".."));
 const FIXTURE_DIRECTORY = path.join(__dirname, "fixtures");

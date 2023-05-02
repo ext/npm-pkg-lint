@@ -12,7 +12,7 @@ export interface PackageJsonExports {
 	[key: string]: string | null | PackageJsonExports;
 }
 
-export default interface PackageJson {
+export interface PackageJson {
 	name: string;
 	version: string;
 	description?: string;

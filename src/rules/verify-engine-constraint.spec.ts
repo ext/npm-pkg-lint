@@ -1,4 +1,4 @@
-import PackageJson from "../types/package-json";
+import { PackageJson } from "../types";
 import * as npmInfoModule from "../utils/npm-info";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment -- exists in mock only
 // @ts-ignore

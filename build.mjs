@@ -1,3 +1,4 @@
+/* eslint-disable no-console -- expected to log */
 import * as esbuild from "esbuild";
 
 const cjsCompat = `

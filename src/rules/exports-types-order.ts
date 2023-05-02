@@ -1,6 +1,6 @@
 import { Severity } from "@html-validate/stylish";
-import { Message } from "../message";
-import PackageJson, { PackageJsonExports } from "../types/package-json";
+import { type Message } from "../message";
+import { type PackageJson, type PackageJsonExports } from "../types";
 
 const ruleId = "exports-types-order";
 const severity = Severity.ERROR;

@@ -1,4 +1,4 @@
-import PackageJson from "../types/package-json";
+import { PackageJson } from "../types";
 import { typesNodeMatchingEngine } from "./types-node-matching-engine";
 
 let pkg: PackageJson & Required<Pick<PackageJson, "engines">>;

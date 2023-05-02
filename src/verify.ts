@@ -1,8 +1,8 @@
-import { Result } from "./result";
-import { TarballMeta, verifyTarball } from "./tarball";
-import { verifyPackageJson, VerifyPackageJsonOptions } from "./package-json";
+import { type Result } from "./result";
+import { type TarballMeta, verifyTarball } from "./tarball";
+import { type VerifyPackageJsonOptions, verifyPackageJson } from "./package-json";
 import { verifyShebang } from "./shebang";
-import PackageJson from "./types/package-json";
+import { type PackageJson } from "./types";
 
 export type VerifyOptions = VerifyPackageJsonOptions;
 

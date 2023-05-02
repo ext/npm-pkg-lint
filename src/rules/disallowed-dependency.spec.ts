@@ -1,4 +1,4 @@
-import PackageJson from "../types/package-json";
+import { PackageJson } from "../types";
 import { isDisallowedDependency } from "./disallowed-dependency";
 
 const pkg: PackageJson = {

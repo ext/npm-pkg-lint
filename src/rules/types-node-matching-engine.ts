@@ -1,7 +1,7 @@
 import semver from "semver";
 import { Severity } from "@html-validate/stylish";
-import { Message } from "../message";
-import PackageJson from "../types/package-json";
+import { type Message } from "../message";
+import { type PackageJson } from "../types";
 
 const ruleId = "types-node-matching-engine";
 const severity = Severity.ERROR;

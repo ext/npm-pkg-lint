@@ -1,4 +1,4 @@
-import PackageJson from "../../types/package-json";
+import { type PackageJson } from "../../types";
 
 const mock: Map<string, PackageJson> = new Map();
 let defaultInfo: PackageJson | null = null;

@@ -3,7 +3,7 @@ function isEmpty(value: any): boolean {
 	return typeof value === "undefined" || value === null || value === "";
 }
 
-export function nonempty(key: string, value: any): void {
+export function nonempty(key: string, value: unknown): void {
 	if (isEmpty(value)) {
 		throw new Error(`"${key}" must not be empty`);
 	}
@@ -18,6 +18,7 @@ export function nonempty(key: string, value: any): void {
 		if (value.length === 0) {
 			throw new Error(`"${key}" must not be empty`);
 		}
+		/* eslint-disable-next-line @typescript-eslint/no-for-in-array -- technical debt */
 		for (const index in value) {
 			nonempty(`${key}[${index}]`, value[index]);
 		}
@@ -25,8 +26,10 @@ export function nonempty(key: string, value: any): void {
 	}
 
 	/* object must have at least one one property set */
-	const values = Object.values(value);
-	if (values.length === 0) {
-		throw new Error(`"${key}" must not be empty`);
+	if (value && typeof value === "object") {
+		const values = Object.values(value);
+		if (values.length === 0) {
+			throw new Error(`"${key}" must not be empty`);
+		}
 	}
 }

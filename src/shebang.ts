@@ -1,6 +1,6 @@
-import { Result } from "./result";
-import { getFileContent, TarballMeta } from "./tarball";
-import PackageJson from "./types/package-json";
+import { type Result } from "./result";
+import { type TarballMeta, getFileContent } from "./tarball";
+import { type PackageJson } from "./types";
 
 function getBinaries(pkg: PackageJson): string[] {
 	if (!pkg.bin) {

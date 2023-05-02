@@ -13,7 +13,7 @@ jest.mock("./tarball", () => {
 });
 
 import { verifyShebang } from "./shebang";
-import PackageJson from "./types/package-json";
+import { PackageJson } from "./types";
 
 beforeEach(() => {
 	mockContents = {};

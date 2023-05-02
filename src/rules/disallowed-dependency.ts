@@ -1,6 +1,6 @@
 /* eslint-disable security/detect-non-literal-regexp -- expected to be non-literal */
 
-import PackageJson from "../types/package-json";
+import { type PackageJson } from "../types";
 
 function exact(name: string): RegExp {
 	return new RegExp(`^${name}$`);

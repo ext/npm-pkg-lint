@@ -1,6 +1,6 @@
-import PackageJson from "./types/package-json";
-import { Message } from "./message";
-import { Result } from "./result";
+import { type PackageJson } from "./types";
+import { type Message } from "./message";
+import { type Result } from "./result";
 import { nonempty, present, typeArray, typeString, ValidationError, validUrl } from "./validators";
 import { isDisallowedDependency } from "./rules/disallowed-dependency";
 import { exportsTypesOrder } from "./rules/exports-types-order";

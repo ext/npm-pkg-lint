@@ -1,5 +1,5 @@
 import { Severity } from "@html-validate/stylish";
-import PackageJson from "../types/package-json";
+import { PackageJson } from "../types";
 import { outdatedEngines } from "./outdated-engines";
 
 let pkg: PackageJson;
