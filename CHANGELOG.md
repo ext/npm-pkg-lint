@@ -1,5 +1,11 @@
 # npm-pkg-lint changelog
 
+## [1.14.1](https://github.com/ext/npm-pkg-lint/compare/v1.14.0...v1.14.1) (2023-05-04)
+
+### Bug Fixes
+
+- npm package fix ([63933f9](https://github.com/ext/npm-pkg-lint/commit/63933f9d2873cf071825aaa97d17bdda66165c95))
+
 ## [1.14.0](https://github.com/ext/npm-pkg-lint/compare/v1.13.0...v1.14.0) (2023-05-02)
 
 ### Features
