@@ -33,7 +33,7 @@
     "prepack": "release-prepack package.json --bundle",
     "postpack": "release-postpack package.json",
     "prepare": "husky install",
-    "prepublishOnly": "release-prepublish package.json",
+    "prepublishOnly": "release-prepublish package.json --bundle",
     "prettier:check": "prettier --check .",
     "prettier:write": "prettier --write .",
     "postpublish": "release-postpublish package.json",
