@@ -62,7 +62,7 @@
     "execa": "7.1.1",
     "find-up": "6.3.0",
     "semver": "7.5.1",
-    "tar": "6.1.14",
+    "tar": "6.1.15",
     "tmp": "0.2.1"
   },
   "devDependencies": {
