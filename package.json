@@ -81,7 +81,7 @@
     "@types/tar": "6.1.5",
     "@types/tmp": "0.2.3",
     "esbuild": "0.18.11",
-    "glob": "10.3.2",
+    "glob": "10.3.3",
     "husky": "8.0.3",
     "jest": "29.6.1",
     "lint-staged": "13.2.3",
