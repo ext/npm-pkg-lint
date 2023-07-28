@@ -62,7 +62,7 @@ function verifyFields(pkg: PackageJson, options: VerifyPackageJsonOptions): Mess
 function verifyDependencies(pkg: PackageJson, options: VerifyPackageJsonOptions): Message[] {
 	const messages: Message[] = [];
 
-	for (const dependency of Object.keys(pkg.dependencies || {})) {
+	for (const dependency of Object.keys(pkg.dependencies ?? {})) {
 		/* skip @types/* if explicitly allowed by user */
 		if (options.allowTypesDependencies && dependency.match(/^@types\//)) {
 			continue;

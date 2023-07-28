@@ -53,7 +53,7 @@ async function preloadStdin(): Promise<string> {
 async function getPackageJson(
 	args: ParsedArgs,
 	regenerateReportName: boolean
-): Promise<GetPackageJsonResults | Record<string, never>> {
+): Promise<GetPackageJsonResults | { pkg: undefined; pkgPath: undefined }> {
 	/* get from explicit path passed as argument */
 	if (args.pkgfile) {
 		return {
@@ -85,7 +85,7 @@ async function getPackageJson(
 		};
 	}
 
-	return {};
+	return { pkg: undefined, pkgPath: undefined };
 }
 
 async function run(): Promise<void> {

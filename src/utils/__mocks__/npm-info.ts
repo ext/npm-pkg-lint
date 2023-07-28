@@ -1,6 +1,6 @@
 import { type PackageJson } from "../../types";
 
-const mock: Map<string, PackageJson> = new Map();
+const mock = new Map<string, PackageJson>();
 let defaultInfo: PackageJson | null = null;
 
 export async function npmInfo(pkg: string): Promise<PackageJson> {

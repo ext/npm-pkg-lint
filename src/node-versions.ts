@@ -3,7 +3,7 @@ interface NodeVersionDescriptor {
 	eol?: string;
 }
 
-export const nodeVersions: [string, NodeVersionDescriptor][] = [
+export const nodeVersions: Array<[string, NodeVersionDescriptor]> = [
 	["0.10.x", { eol: "2016-10-31" }],
 	["0.12.x", { eol: "2016-12-31" }],
 	["4.x.x", { eol: "2018-04-30" }],
