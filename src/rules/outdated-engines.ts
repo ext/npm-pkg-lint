@@ -8,7 +8,7 @@ const ruleId = "outdated-engines";
 const severity = Severity.ERROR;
 
 export function* outdatedEngines(pkg: PackageJson): Generator<Message> {
-	if (!pkg.engines || !pkg.engines.node) {
+	if (!pkg.engines?.node) {
 		yield {
 			ruleId,
 			severity,
@@ -41,7 +41,7 @@ export function* outdatedEngines(pkg: PackageJson): Generator<Message> {
 		if (!semver.satisfies(expanded, range)) {
 			continue;
 		}
-		const nodeRelease = parsed?.major || `0.${parsed?.minor ?? ""}`;
+		const nodeRelease = (parsed?.major ?? 0) || `0.${parsed?.minor ?? ""}`;
 		const message = `engines.node is satisfied by Node ${nodeRelease} (EOL since ${descriptor.eol})`;
 		yield {
 			ruleId,

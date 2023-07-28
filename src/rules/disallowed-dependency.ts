@@ -71,7 +71,7 @@ export function isDisallowedDependency(pkg: PackageJson, dependency: string): bo
 		return false;
 	}
 
-	const keywords = pkg.keywords || [];
+	const keywords = pkg.keywords ?? [];
 
 	/* eslint-* is allowed only if keywords includes "eslint" */
 	if (!keywords.includes("eslint") && match(disallowedEslint, dependency)) {

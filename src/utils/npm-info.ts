@@ -1,7 +1,7 @@
 import { execa } from "execa";
 import { type PackageJson } from "../types";
 
-const cache: Map<string, PackageJson> = new Map();
+const cache = new Map<string, PackageJson>();
 
 export async function npmInfo(pkg: string): Promise<PackageJson> {
 	const cached = cache.get(pkg);

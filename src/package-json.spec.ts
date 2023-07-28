@@ -2,7 +2,7 @@ import { verifyPackageJson } from "./package-json";
 import { PackageJson } from "./types";
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment -- it exists in the mock only
-// @ts-ignore
+// @ts-expect-error
 import { npmInfoMockDefault } from "./utils/npm-info";
 
 jest.mock("./utils/npm-info");

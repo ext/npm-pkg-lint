@@ -45,8 +45,6 @@ export async function getFileContent(
 	const contents: Record<string, Buffer> = {};
 
 	return new Promise((resolve, reject) => {
-		/* eslint-disable-next-line @typescript-eslint/ban-ts-comment -- The @types/tar go this one completely wrong */
-		/* @ts-ignore */
 		const t = new Parse({
 			filter(_path: string, entry: tar.ReadEntry): boolean {
 				return filenames.includes(normalize(entry.path));

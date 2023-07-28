@@ -7,7 +7,7 @@ const ruleId = "types-node-matching-engine";
 const severity = Severity.ERROR;
 
 export function* typesNodeMatchingEngine(pkg: PackageJson): Generator<Message> {
-	if (!pkg.engines || !pkg.engines.node) {
+	if (!pkg.engines?.node) {
 		return;
 	}
 
