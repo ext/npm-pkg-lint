@@ -26,6 +26,9 @@ describe("should return error when unsupported version satisfies engines.node", 
 		${">= 10.x"}   | ${"Node 10"}
 		${">= 11.x"}   | ${"Node 11"}
 		${">= 12.x"}   | ${"Node 12"}
+		${">= 13.x"}   | ${"Node 13"}
+		${">= 14.x"}   | ${"Node 14"}
+		${">= 15.x"}   | ${"Node 15"}
 	`("$description", ({ range, description }) => {
 		expect.assertions(1);
 		pkg.engines = {
@@ -100,7 +103,7 @@ it("should return error engines is missing", () => {
 it("should not return error when engines.node only supports active versions", () => {
 	expect.assertions(1);
 	pkg.engines = {
-		node: ">= 14",
+		node: ">= 16",
 	};
 	expect(Array.from(outdatedEngines(pkg))).toMatchInlineSnapshot(`[]`);
 });

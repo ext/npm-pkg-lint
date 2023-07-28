@@ -15,4 +15,7 @@ export const nodeVersions: [string, NodeVersionDescriptor][] = [
 	["10.x.x", { eol: "2021-04-30" }],
 	["11.x.x", { eol: "2019-06-01" }],
 	["12.x.x", { eol: "2022-04-30" }],
+	["13.x.x", { eol: "2020-06-01" }],
+	["14.x.x", { eol: "2023-04-30" }],
+	["15.x.x", { eol: "2021-06-01" }],
 ];
