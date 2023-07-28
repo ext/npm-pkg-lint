@@ -1,5 +1,31 @@
 # npm-pkg-lint changelog
 
+## [2.0.0](https://github.com/ext/npm-pkg-lint/compare/v1.14.1...v2.0.0) (2023-07-28)
+
+### ⚠ BREAKING CHANGES
+
+- require nodejs 16 or later
+
+### Features
+
+- require nodejs 16 or later ([b038f51](https://github.com/ext/npm-pkg-lint/commit/b038f51af1eddc2be33712cb516f586a8bc46cab))
+
+### Bug Fixes
+
+- warn about node versions < 16 ([db74b48](https://github.com/ext/npm-pkg-lint/commit/db74b4834187eb0b15e9476f09713e5920973623))
+
+### Dependency upgrades
+
+- **deps:** update dependency @html-validate/stylish to v4.0.1 ([2227039](https://github.com/ext/npm-pkg-lint/commit/2227039b6955ecbea1bf435375f36221b7bbf01f))
+- **deps:** update dependency @html-validate/stylish to v4.1.0 ([baa7473](https://github.com/ext/npm-pkg-lint/commit/baa7473664bc0c1508bae82bcdf06456ebb49c31))
+- **deps:** update dependency execa to v7.2.0 ([4fb750d](https://github.com/ext/npm-pkg-lint/commit/4fb750dfbade81fbf4c8ff046beaaa6987bbd699))
+- **deps:** update dependency semver to v7.5.1 ([535ac47](https://github.com/ext/npm-pkg-lint/commit/535ac4745d677f54817f0d2229d9084083d8b876))
+- **deps:** update dependency semver to v7.5.2 ([4cf73e5](https://github.com/ext/npm-pkg-lint/commit/4cf73e559228c34db1cad86c628a0e69203ae611))
+- **deps:** update dependency semver to v7.5.3 ([e91f05c](https://github.com/ext/npm-pkg-lint/commit/e91f05caa2b0b8ef56c55744ccb48f87cf6751e7))
+- **deps:** update dependency semver to v7.5.4 ([d123287](https://github.com/ext/npm-pkg-lint/commit/d1232879c9455adea046f66c86b73c0b7abe882b))
+- **deps:** update dependency tar to v6.1.14 ([4e26a31](https://github.com/ext/npm-pkg-lint/commit/4e26a31ab6dd873fd7444a2817470d49747dc18a))
+- **deps:** update dependency tar to v6.1.15 ([f87b2c6](https://github.com/ext/npm-pkg-lint/commit/f87b2c6bfb59b32f6ac677fc12ea4cc1a679044e))
+
 ## [1.14.1](https://github.com/ext/npm-pkg-lint/compare/v1.14.0...v1.14.1) (2023-05-04)
 
 ### Bug Fixes
