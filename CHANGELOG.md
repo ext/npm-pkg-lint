@@ -1,5 +1,11 @@
 # npm-pkg-lint changelog
 
+## [2.0.2](https://github.com/ext/npm-pkg-lint/compare/v2.0.1...v2.0.2) (2023-08-23)
+
+### Dependency upgrades
+
+- **deps:** update dependency execa to v8 ([0ce6c1f](https://github.com/ext/npm-pkg-lint/commit/0ce6c1f12c6ef6a55117e1d8a88eb4fb896c22b3))
+
 ## [2.0.1](https://github.com/ext/npm-pkg-lint/compare/v2.0.0...v2.0.1) (2023-08-15)
 
 ### Dependency upgrades
