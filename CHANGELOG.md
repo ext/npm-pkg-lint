@@ -1,5 +1,11 @@
 # npm-pkg-lint changelog
 
+## [2.0.3](https://github.com/ext/npm-pkg-lint/compare/v2.0.2...v2.0.3) (2023-09-15)
+
+### Dependency upgrades
+
+- **deps:** update dependency tar to v6.2.0 ([0151497](https://github.com/ext/npm-pkg-lint/commit/0151497f3e429de0070a75d6fca116ba9862e519))
+
 ## [2.0.2](https://github.com/ext/npm-pkg-lint/compare/v2.0.1...v2.0.2) (2023-08-23)
 
 ### Dependency upgrades
