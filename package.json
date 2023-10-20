@@ -79,7 +79,7 @@
     "@types/node": "16.18.59",
     "@types/semver": "7.5.4",
     "@types/tar": "6.1.7",
-    "@types/tmp": "0.2.4",
+    "@types/tmp": "0.2.5",
     "esbuild": "0.19.5",
     "glob": "10.3.10",
     "husky": "8.0.3",
