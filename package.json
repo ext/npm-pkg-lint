@@ -78,7 +78,7 @@
     "@types/jest": "29.5.7",
     "@types/node": "16.18.60",
     "@types/semver": "7.5.4",
-    "@types/tar": "6.1.7",
+    "@types/tar": "6.1.8",
     "@types/tmp": "0.2.5",
     "esbuild": "0.19.5",
     "glob": "10.3.10",
