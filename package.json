@@ -75,7 +75,7 @@
     "@html-validate/prettier-config": "2.4.8",
     "@html-validate/release-scripts": "5.0.1",
     "@types/argparse": "2.0.13",
-    "@types/jest": "29.5.7",
+    "@types/jest": "29.5.8",
     "@types/node": "16.18.60",
     "@types/semver": "7.5.4",
     "@types/tar": "6.1.8",
