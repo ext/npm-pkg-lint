@@ -73,7 +73,7 @@
     "@html-validate/eslint-config-typescript-typeinfo": "5.11.10",
     "@html-validate/jest-config": "3.7.7",
     "@html-validate/prettier-config": "2.4.8",
-    "@html-validate/release-scripts": "5.0.1",
+    "@html-validate/release-scripts": "5.0.2",
     "@types/argparse": "2.0.13",
     "@types/jest": "29.5.8",
     "@types/node": "16.18.61",
