@@ -7,7 +7,7 @@ const severity = Severity.ERROR;
 
 function* validateOrder(
 	value: string | PackageJsonExports | null,
-	path: string[]
+	path: string[],
 ): Generator<Message> {
 	if (!value || typeof value === "string") {
 		return;

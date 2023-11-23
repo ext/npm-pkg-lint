@@ -10,7 +10,7 @@ export async function verify(
 	pkg: PackageJson,
 	pkgPath: string,
 	tarball: TarballMeta,
-	options: VerifyOptions = {}
+	options: VerifyOptions = {},
 ): Promise<Result[]> {
 	return [
 		...(await verifyTarball(pkg, tarball)),

@@ -52,7 +52,7 @@ async function preloadStdin(): Promise<string> {
 
 async function getPackageJson(
 	args: ParsedArgs,
-	regenerateReportName: boolean
+	regenerateReportName: boolean,
 ): Promise<GetPackageJsonResults | { pkg: undefined; pkgPath: undefined }> {
 	/* get from explicit path passed as argument */
 	if (args.pkgfile) {
@@ -70,7 +70,7 @@ async function getPackageJson(
 			pkg,
 			pkgPath: path.join(
 				regenerateReportName ? `${pkg.name}-${pkg.version}.tgz` : args.tarball,
-				PACKAGE_JSON
+				PACKAGE_JSON,
 			),
 		};
 	}

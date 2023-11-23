@@ -36,7 +36,7 @@ describe("should return error when unsupported version satisfies engines.node", 
 		};
 		/* eslint-disable-next-line security/detect-non-literal-regexp -- not under user control */
 		const message = new RegExp(
-			String.raw`engines\.node is satisfied by ${description} \(EOL since \d{4}-.*\)`
+			String.raw`engines\.node is satisfied by ${description} \(EOL since \d{4}-.*\)`,
 		);
 		expect(Array.from(outdatedEngines(pkg))).toEqual([
 			{

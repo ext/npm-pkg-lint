@@ -40,7 +40,7 @@ export async function getFileList(filename: string): Promise<string[]> {
 
 export async function getFileContent(
 	tarball: TarballMeta,
-	filenames: string[]
+	filenames: string[],
 ): Promise<Record<string, Buffer>> {
 	const contents: Record<string, Buffer> = {};
 
@@ -73,7 +73,7 @@ export function blacklistedFiles(filelist: string[]): string[] {
 }
 
 function normalizeRequiredFiles(
-	src: string | string[] | Record<string, string | boolean>
+	src: string | string[] | Record<string, string | boolean>,
 ): string[] {
 	if (typeof src === "string") {
 		return [src];
@@ -86,7 +86,7 @@ function normalizeRequiredFiles(
 
 function* yieldRequiredFiles(
 	src: string | string[] | Record<string, string | boolean>,
-	template: Pick<RequiredFile, "field" | "ruleId">
+	template: Pick<RequiredFile, "field" | "ruleId">,
 ): Generator<RequiredFile> {
 	const files = normalizeRequiredFiles(src);
 	for (const filename of files) {
@@ -95,7 +95,7 @@ function* yieldRequiredFiles(
 }
 
 function* yieldExportedFiles(
-	exports: undefined | null | string | PackageJsonExports
+	exports: undefined | null | string | PackageJsonExports,
 ): Generator<RequiredFile> {
 	if (!exports) {
 		return;
