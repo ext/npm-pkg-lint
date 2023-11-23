@@ -3,10 +3,13 @@ let mockContents: Record<string, Buffer>;
 jest.mock("./tarball", () => {
 	return {
 		getFileContent(_tarball: string, filenames: string[]): Promise<Record<string, Buffer>> {
-			const result = filenames.reduce((st: Record<string, Buffer>, filename: string) => {
-				st[filename] = mockContents[filename];
-				return st;
-			}, {} as Record<string, Buffer>);
+			const result = filenames.reduce(
+				(st: Record<string, Buffer>, filename: string) => {
+					st[filename] = mockContents[filename];
+					return st;
+				},
+				{} as Record<string, Buffer>,
+			);
 			return Promise.resolve(result);
 		},
 	};

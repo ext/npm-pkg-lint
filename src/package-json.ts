@@ -85,7 +85,7 @@ function verifyDependencies(pkg: PackageJson, options: VerifyPackageJsonOptions)
 export async function verifyPackageJson(
 	pkg: PackageJson,
 	filePath: string,
-	options: VerifyPackageJsonOptions = {}
+	options: VerifyPackageJsonOptions = {},
 ): Promise<Result[]> {
 	const messages: Message[] = [
 		...(await verifyEngineConstraint(pkg)),

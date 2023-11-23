@@ -24,9 +24,9 @@ it("should throw error on invalid type", () => {
 it("should throw error when value is not https url", () => {
 	expect.assertions(2);
 	expect(() => validUrl("test", "http://example.net")).toThrow(
-		'"test" must be a valid url (https only)'
+		'"test" must be a valid url (https only)',
 	);
 	expect(() => validUrl("test", { url: "http://example.net" })).toThrow(
-		'"test.url" must be a valid url (https only)'
+		'"test.url" must be a valid url (https only)',
 	);
 });
