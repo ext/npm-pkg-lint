@@ -1,5 +1,11 @@
 # npm-pkg-lint changelog
 
+## [2.1.0](https://github.com/ext/npm-pkg-lint/compare/v2.0.3...v2.1.0) (2023-11-23)
+
+### Features
+
+- persistent cache for npm package data ([ddc2083](https://github.com/ext/npm-pkg-lint/commit/ddc2083461ac5c4538e13313419e1fab951c06a3))
+
 ## [2.0.3](https://github.com/ext/npm-pkg-lint/compare/v2.0.2...v2.0.3) (2023-09-15)
 
 ### Dependency upgrades
