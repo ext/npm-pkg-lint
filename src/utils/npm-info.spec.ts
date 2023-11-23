@@ -2,6 +2,7 @@ import { execa } from "execa";
 import { npmInfo } from "./npm-info";
 
 jest.mock("execa");
+jest.mock("./persistent-cache");
 
 const mockExeca = execa as unknown as jest.Mock;
 
