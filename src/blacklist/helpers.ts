@@ -17,5 +17,5 @@ export function filename(path: string): RegExp {
 }
 
 export function rcfile(base: string): RegExp {
-	return new RegExp(`${escape(base)}(\\.(js|cjs|yaml|yml|json))?$`);
+	return new RegExp(`${escape(base)}(\\.(js|cjs|mjs|ts|yaml|yml|json))?$`);
 }
