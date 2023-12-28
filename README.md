@@ -177,6 +177,8 @@ It also enforces all urls to be `https`, even the repository url.
 While `git` is technically valid most users cannot clone the repository anonomously.
 Shortcuts are not permitted either because it saves basically nothing, makes tooling more difficult to write and wont work for smaller hosting services.
 
+When the `--ignore-missing-fields` option is used the fields can be omitted (but still need to be valid if present).
+
 ## Unsupported node versions
 
 Requires `engines.node` to be up-to-date and only supporting LTS and active versions.
