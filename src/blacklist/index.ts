@@ -1,3 +1,4 @@
+import ava from "./ava";
 import emacs from "./emacs";
 import eslint from "./eslint";
 import fimbullinter from "./fimbullinter";
@@ -19,6 +20,7 @@ const blacklist: RegExp[] = [
 	filename("junit.xml"),
 	filename("lcov.info"),
 	filename(".airtap.yml"),
+	rcfile(".c8rc"),
 	rcfile(".nycrc"),
 
 	/* tests */
@@ -26,9 +28,16 @@ const blacklist: RegExp[] = [
 	directory("perf"),
 	directory("tests?"),
 	filename("cypress.json"),
+	filename("cypress.config.js"),
+	filename("cypress.config.cjs"),
+	filename("cypress.config.mjs"),
+	filename("cypress.config.ts"),
 	filename("karma.config.js"),
 	filename("mocha.opts"),
-	filename("protractor.config.js"),
+	filename("playwright.config.js"),
+	filename("playwright.config.cjs"),
+	filename("playwright.config.mjs"),
+	filename("playwright.config.ts"),
 	filename("test.js"),
 	filename("testem.json"),
 	filename("testem.yml"),
@@ -54,6 +63,8 @@ const blacklist: RegExp[] = [
 	filename("dangerfile.[jt]s"),
 	filename("gulpfile.babel.js"),
 	filename("gulpfile.esm.js"),
+	filename("Herebyfile.js"),
+	filename("Herebyfile.mjs"),
 
 	/* ci */
 	/^\.azure-.*$/,
@@ -115,6 +126,7 @@ const blacklist: RegExp[] = [
 	filename("netlify.toml"),
 	filename("release.config.js") /* semantic release */,
 
+	...ava,
 	...emacs,
 	...eslint,
 	...fimbullinter,
