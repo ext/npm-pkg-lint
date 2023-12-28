@@ -18,4 +18,6 @@ export const nodeVersions: Array<[string, NodeVersionDescriptor]> = [
 	["13.x.x", { eol: "2020-06-01" }],
 	["14.x.x", { eol: "2023-04-30" }],
 	["15.x.x", { eol: "2021-06-01" }],
+	["16.x.x", { eol: "2023-09-11" }],
+	["17.x.x", { eol: "2022-06-01" }],
 ];

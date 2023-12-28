@@ -21,7 +21,7 @@ beforeEach(() => {
 		author: "Fred Flintstone <fred.flintstone@example.net>",
 		repository: { type: "git", url: "git+https://git.example.net/test-case.git" },
 		engines: {
-			node: ">= 16",
+			node: ">= 18",
 		},
 	};
 	npmInfoMockDefault(pkg);
