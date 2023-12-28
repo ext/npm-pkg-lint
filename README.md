@@ -17,7 +17,24 @@ Core principles:
 
 > npx npm-pkg-lint [--tarball my-pkg-1.2.3.tgz} [--pkgfile package.json]
 
-Use `--help` to see full usage help.
+```
+usage: npm-pkg-lint [-h] [-v] [-t TARBALL] [-p PKGFILE] [OPTIONS]
+
+npm package linter
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -v, --version         show program's version number and exit
+  -t TARBALL, --tarball TARBALL
+                        specify tarball location
+  -p PKGFILE, --pkgfile PKGFILE
+                        specify package.json location
+  --allow-types-dependencies
+                        allow dependencies to `@types/*`
+  --ignore-missing-fields
+                        ignore errors for missing fields (but still checks for
+                        empty and valid)
+```
 
 Use `--tarball` and `--pkgfile` to specify custom locations.
 Default is to find `package.json` from current directory tree and derive tarball filename from the `name` and `version` field.

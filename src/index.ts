@@ -90,7 +90,7 @@ async function getPackageJson(
 
 async function run(): Promise<void> {
 	const parser = new ArgumentParser({
-		description: "npm package linter",
+		description: "Opiniated linter for NPM package tarball and package.json metadata",
 	});
 
 	parser.add_argument("-v", "--version", { action: "version", version });
