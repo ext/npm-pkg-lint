@@ -216,30 +216,6 @@ exports[`fields license should return error if not string 1`] = `
 ]
 `;
 
-exports[`fields repository should return error if not set 1`] = `
-[
-  {
-    "column": 1,
-    "line": 1,
-    "message": ""repository" must be set",
-    "ruleId": "package-json-fields",
-    "severity": 2,
-  },
-]
-`;
-
-exports[`fields repository should return error if not valid url 1`] = `
-[
-  {
-    "column": 1,
-    "line": 1,
-    "message": ""repository" must be a valid url (https only)",
-    "ruleId": "package-json-fields",
-    "severity": 2,
-  },
-]
-`;
-
 exports[`should return engines.node supports eol version 1`] = `
 [
   {

@@ -5,6 +5,12 @@ interface UrlObject {
 	email?: string;
 }
 
+interface RepositoryObject {
+	type?: string;
+	url?: string;
+	directory?: unknown;
+}
+
 /**
  * @internal
  */
@@ -21,7 +27,7 @@ export interface PackageJson {
 	bugs?: string | UrlObject;
 	license?: string;
 	author?: string | UrlObject;
-	repository?: string | UrlObject;
+	repository?: string | RepositoryObject;
 	main?: string;
 	browser?: string | Record<string, string | false>;
 	module?: string;

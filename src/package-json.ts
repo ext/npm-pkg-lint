@@ -1,7 +1,15 @@
 import { type PackageJson } from "./types";
 import { type Message } from "./message";
 import { type Result } from "./result";
-import { nonempty, present, typeArray, typeString, ValidationError, validUrl } from "./validators";
+import {
+	nonempty,
+	present,
+	typeArray,
+	typeString,
+	ValidationError,
+	validRepoUrl,
+	validUrl,
+} from "./validators";
 import { isDisallowedDependency } from "./rules/disallowed-dependency";
 import { exportsTypesOrder } from "./rules/exports-types-order";
 import { outdatedEngines } from "./rules/outdated-engines";
@@ -22,7 +30,7 @@ const fields: Record<string, validator[]> = {
 	bugs: [present, validUrl],
 	license: [present, typeString, nonempty],
 	author: [present, nonempty],
-	repository: [present, validUrl],
+	repository: [present, validRepoUrl],
 };
 
 function verifyFields(pkg: PackageJson, options: VerifyPackageJsonOptions): Message[] {

@@ -8,7 +8,8 @@
   "homepage": "https://example.net",
   "bugs": "https://example.net/bugs",
   "repository": {
-    "url": "https://git.example.net/missing-main.git"
+    "type": "git",
+    "url": "git+https://git.example.net/missing-main.git"
   },
   "license": "ISC",
   "author": "Fred Flintstone <fred.flintstone@example.net>",

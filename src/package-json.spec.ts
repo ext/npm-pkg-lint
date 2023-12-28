@@ -19,7 +19,7 @@ beforeEach(() => {
 		bugs: "https://example.net",
 		license: "UNLICENSED",
 		author: "Fred Flintstone <fred.flintstone@example.net>",
-		repository: "https://git.example.net/test-case.git",
+		repository: { type: "git", url: "git+https://git.example.net/test-case.git" },
 		engines: {
 			node: ">= 16",
 		},
@@ -287,16 +287,55 @@ describe("fields", () => {
 			const results = await verifyPackageJson(pkg, "package.json");
 			expect(results).toHaveLength(1);
 			expect(results[0].filePath).toBe("package.json");
-			expect(results[0].messages).toMatchSnapshot();
+			expect(results[0].messages).toMatchInlineSnapshot(`
+				[
+				  {
+				    "column": 1,
+				    "line": 1,
+				    "message": ""repository" must be set",
+				    "ruleId": "package-json-fields",
+				    "severity": 2,
+				  },
+				]
+			`);
 		});
 
-		it("should return error if not valid url", async () => {
+		it("should return error if not not an object", async () => {
 			expect.assertions(3);
 			pkg.repository = "foobar";
 			const results = await verifyPackageJson(pkg, "package.json");
 			expect(results).toHaveLength(1);
 			expect(results[0].filePath).toBe("package.json");
-			expect(results[0].messages).toMatchSnapshot();
+			expect(results[0].messages).toMatchInlineSnapshot(`
+				[
+				  {
+				    "column": 1,
+				    "line": 1,
+				    "message": ""repository" must be an object with "type" and "url"",
+				    "ruleId": "package-json-fields",
+				    "severity": 2,
+				  },
+				]
+			`);
+		});
+
+		it("should return error if not valid url", async () => {
+			expect.assertions(3);
+			pkg.repository = { type: "git", url: "http://example.net" };
+			const results = await verifyPackageJson(pkg, "package.json");
+			expect(results).toHaveLength(1);
+			expect(results[0].filePath).toBe("package.json");
+			expect(results[0].messages).toMatchInlineSnapshot(`
+				[
+				  {
+				    "column": 1,
+				    "line": 1,
+				    "message": ""repository.url" must use "git+https://" instead of "http://"",
+				    "ruleId": "package-json-fields",
+				    "severity": 2,
+				  },
+				]
+			`);
 		});
 	});
 });
