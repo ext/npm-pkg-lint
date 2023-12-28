@@ -109,6 +109,18 @@ Examples of obsolete packages:
 - `mkdirp` - `fs#mkdir` supports the `recursive` flag since NodeJS v10.
 - `stable` - `Array#sort` is stable since NodeJS v12.
 
+## Deprecated dependencies
+
+Disallows deprecated packages from being included as `dependencies`, `devDependencies` or `peerDependencies` entirely.
+These dependences are explicitly marked as deprecated by the package author.
+
+**Why?** Deprecated packages should be removed or replaced with alternatives as they are often unmaintained and might contain security vulnerabilities.
+
+Examples of obsolete packages:
+
+- `mkdirp` - `fs#mkdir` supports the `recursive` flag since NodeJS v10.
+- `stable` - `Array#sort` is stable since NodeJS v12.
+
 ### ESLint
 
 If your `package.json` contains the `"eslint"` keyword the ESLint packages can be included as dependencies, e.g. if you publish a sharable config including a plugin you must include `"eslint"` as a keyword.

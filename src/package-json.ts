@@ -10,6 +10,7 @@ import {
 	validRepoUrl,
 	validUrl,
 } from "./validators";
+import { deprecatedDependency } from "./rules/deprecated-dependency";
 import { isDisallowedDependency } from "./rules/disallowed-dependency";
 import { isObsoleteDependency } from "./rules/obsolete-dependency";
 import { exportsTypesOrder } from "./rules/exports-types-order";
@@ -112,6 +113,7 @@ export async function verifyPackageJson(
 	options: VerifyPackageJsonOptions = {},
 ): Promise<Result[]> {
 	const messages: Message[] = [
+		...(await deprecatedDependency(pkg)),
 		...(await verifyEngineConstraint(pkg)),
 		...exportsTypesOrder(pkg),
 		...verifyFields(pkg, options),
