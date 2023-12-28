@@ -1,5 +1,28 @@
 # npm-pkg-lint changelog
 
+## [3.0.0](https://github.com/ext/npm-pkg-lint/compare/v2.1.0...v3.0.0) (2023-12-28)
+
+### ⚠ BREAKING CHANGES
+
+- **deps:** require nodejs 18 or later
+
+### Features
+
+- add a few more disallowed dependencies ([d386a79](https://github.com/ext/npm-pkg-lint/commit/d386a79b387735908077238b1b5f69651c079f97))
+- **deps:** require nodejs 18 or later ([e24fbb1](https://github.com/ext/npm-pkg-lint/commit/e24fbb13443a8a98405c886fea7f7995a2edff2a))
+- new rule `deprecated-dependencies` ([423072e](https://github.com/ext/npm-pkg-lint/commit/423072e0d74e02e72344d75ee1de72cb72bbc5db))
+- new rule `obsolete-dependencies` ([e17e283](https://github.com/ext/npm-pkg-lint/commit/e17e2838d3068a1dcdb74b566266782aa405ada9))
+- stricter validation of repository field ([7df0e54](https://github.com/ext/npm-pkg-lint/commit/7df0e54383f6c43a9d850150c4bcf911b20c631a))
+- update active nodejs versions ([a57b4c7](https://github.com/ext/npm-pkg-lint/commit/a57b4c71247cd70aa6759f0af29ca89ba5a6b661))
+
+### Bug Fixes
+
+- detect eslint flat config as disallowed files ([811acaf](https://github.com/ext/npm-pkg-lint/commit/811acaf37d9f9f21b0a41cfe074c6dade750a6ad))
+- disallow ava, c8, hereby and playwright configuration in tarball ([e942a67](https://github.com/ext/npm-pkg-lint/commit/e942a67707a6068c88d5013ce1e8f759ca85b58b))
+- engine constraints verify the lowest version allowed by range ([1a6fed5](https://github.com/ext/npm-pkg-lint/commit/1a6fed5ceb3fdbbc99fa1c4b6fa80f8d8d9e610c))
+- handle when @types/node is declared as latest ([1214065](https://github.com/ext/npm-pkg-lint/commit/12140655caab805ce03c68e8e39e0c632b267e35))
+- look for `.cjs` and `.mjs` when looking for "rc files" ([42a237f](https://github.com/ext/npm-pkg-lint/commit/42a237f115f2f4c529f730fe1e1c9434ee72d314))
+
 ## [2.1.0](https://github.com/ext/npm-pkg-lint/compare/v2.0.3...v2.1.0) (2023-11-23)
 
 ### Features
