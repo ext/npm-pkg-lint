@@ -119,12 +119,14 @@ describe("filename()", () => {
 
 describe("rcfile()", () => {
 	it("should match variants", () => {
-		expect.assertions(6);
+		expect.assertions(8);
 		const regexp = rcfile(".eslintrc");
-		expect(".eslintrc.json".match(regexp)).toBeTruthy();
 		expect(".eslintrc".match(regexp)).toBeTruthy();
-		expect(".eslintrc.js".match(regexp)).toBeTruthy();
 		expect(".eslintrc.cjs".match(regexp)).toBeTruthy();
+		expect(".eslintrc.mjs".match(regexp)).toBeTruthy();
+		expect(".eslintrc.js".match(regexp)).toBeTruthy();
+		expect(".eslintrc.ts".match(regexp)).toBeTruthy();
+		expect(".eslintrc.json".match(regexp)).toBeTruthy();
 		expect(".eslintrc.yaml".match(regexp)).toBeTruthy();
 		expect(".eslintrc.yml".match(regexp)).toBeTruthy();
 	});

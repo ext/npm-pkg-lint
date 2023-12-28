@@ -18,7 +18,10 @@ function scopedPrefix(prefix: string): RegExp {
 }
 
 const disallowedDependencies: RegExp[] = [
+	exact("ava"),
 	exact("jake"),
+	exact("tsd"),
+	exact("xo"),
 	prefix("babel-core"),
 	prefix("cypress"),
 	prefix("grunt"),

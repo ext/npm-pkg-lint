@@ -20,8 +20,13 @@ export function* typesNodeMatchingEngine(pkg: PackageJson): Generator<Message> {
 		return;
 	}
 
+	const declaredVersion = mergedDependencies["@types/node"];
+	if (declaredVersion === "latest") {
+		return;
+	}
+
 	const nodeVersion = semver.minVersion(pkg.engines.node);
-	const typesVersion = semver.minVersion(mergedDependencies["@types/node"]);
+	const typesVersion = semver.minVersion(declaredVersion);
 
 	if (!nodeVersion || !typesVersion) {
 		return;

@@ -19,9 +19,9 @@ beforeEach(() => {
 		bugs: "https://example.net",
 		license: "UNLICENSED",
 		author: "Fred Flintstone <fred.flintstone@example.net>",
-		repository: "https://git.example.net/test-case.git",
+		repository: { type: "git", url: "git+https://git.example.net/test-case.git" },
 		engines: {
-			node: ">= 16",
+			node: ">= 18",
 		},
 	};
 	npmInfoMockDefault(pkg);
@@ -49,6 +49,27 @@ it("should return error if dependency is disallowed", async () => {
 	expect(results).toHaveLength(1);
 	expect(results[0].filePath).toBe("package.json");
 	expect(results[0].messages).toMatchSnapshot();
+});
+
+it("should return error if dependency is obsolete", async () => {
+	expect.assertions(3);
+	pkg.devDependencies = {
+		mkdirp: "1.2.3",
+	};
+	const results = await verifyPackageJson(pkg, "package.json");
+	expect(results).toHaveLength(1);
+	expect(results[0].filePath).toBe("package.json");
+	expect(results[0].messages).toMatchInlineSnapshot(`
+		[
+		  {
+		    "column": 1,
+		    "line": 1,
+		    "message": "mkdirp is obsolete and should no longer be used: use native "fs.mkdir(..., { recursive: true })" instead",
+		    "ruleId": "obsolete-dependency",
+		    "severity": 2,
+		  },
+		]
+	`);
 });
 
 it("should not return error if dependency is allowed", async () => {
@@ -287,16 +308,55 @@ describe("fields", () => {
 			const results = await verifyPackageJson(pkg, "package.json");
 			expect(results).toHaveLength(1);
 			expect(results[0].filePath).toBe("package.json");
-			expect(results[0].messages).toMatchSnapshot();
+			expect(results[0].messages).toMatchInlineSnapshot(`
+				[
+				  {
+				    "column": 1,
+				    "line": 1,
+				    "message": ""repository" must be set",
+				    "ruleId": "package-json-fields",
+				    "severity": 2,
+				  },
+				]
+			`);
 		});
 
-		it("should return error if not valid url", async () => {
+		it("should return error if not not an object", async () => {
 			expect.assertions(3);
 			pkg.repository = "foobar";
 			const results = await verifyPackageJson(pkg, "package.json");
 			expect(results).toHaveLength(1);
 			expect(results[0].filePath).toBe("package.json");
-			expect(results[0].messages).toMatchSnapshot();
+			expect(results[0].messages).toMatchInlineSnapshot(`
+				[
+				  {
+				    "column": 1,
+				    "line": 1,
+				    "message": ""repository" must be an object with "type" and "url"",
+				    "ruleId": "package-json-fields",
+				    "severity": 2,
+				  },
+				]
+			`);
+		});
+
+		it("should return error if not valid url", async () => {
+			expect.assertions(3);
+			pkg.repository = { type: "git", url: "http://example.net" };
+			const results = await verifyPackageJson(pkg, "package.json");
+			expect(results).toHaveLength(1);
+			expect(results[0].filePath).toBe("package.json");
+			expect(results[0].messages).toMatchInlineSnapshot(`
+				[
+				  {
+				    "column": 1,
+				    "line": 1,
+				    "message": ""repository.url" must use "git+https://" instead of "http://"",
+				    "ruleId": "package-json-fields",
+				    "severity": 2,
+				  },
+				]
+			`);
 		});
 	});
 });

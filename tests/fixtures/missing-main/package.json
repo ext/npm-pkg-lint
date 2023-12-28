@@ -8,7 +8,8 @@
   "homepage": "https://example.net",
   "bugs": "https://example.net/bugs",
   "repository": {
-    "url": "https://git.example.net/missing-main.git"
+    "type": "git",
+    "url": "git+https://git.example.net/missing-main.git"
   },
   "license": "ISC",
   "author": "Fred Flintstone <fred.flintstone@example.net>",
@@ -18,6 +19,6 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "engines": {
-    "node": ">= 16"
+    "node": ">= 18"
   }
 }

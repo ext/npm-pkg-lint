@@ -103,7 +103,7 @@ it("should return error engines is missing", () => {
 it("should not return error when engines.node only supports active versions", () => {
 	expect.assertions(1);
 	pkg.engines = {
-		node: ">= 16",
+		node: ">= 18",
 	};
 	expect(Array.from(outdatedEngines(pkg))).toMatchInlineSnapshot(`[]`);
 });

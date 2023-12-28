@@ -7,7 +7,7 @@ const ruleId = "invalid-engine-constraint";
 
 async function* getDeepDependencies(pkg: PackageJson, dependency?: string): AsyncGenerator<string> {
 	const pkgData = dependency ? await npmInfo(dependency) : pkg;
-	for (const [key, value] of Object.entries(pkgData.dependencies ?? {})) {
+	for (const [key, version] of Object.entries(pkgData.dependencies ?? {})) {
 		/* ignore this as this package is sometimes is present as version "*" which
 		 * just yields way to many versions to handle causing MaxBuffer errors and
 		 * there is another rule to make sure the outermost @types/node package
@@ -16,7 +16,9 @@ async function* getDeepDependencies(pkg: PackageJson, dependency?: string): Asyn
 			continue;
 		}
 
-		const deep = `${key}@${value}`;
+		const minVersion = semver.minVersion(version);
+		const deep = `${key}@${minVersion ? minVersion.version : version}`;
+
 		yield deep;
 		yield* getDeepDependencies(pkg, deep);
 	}

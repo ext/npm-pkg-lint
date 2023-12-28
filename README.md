@@ -17,7 +17,24 @@ Core principles:
 
 > npx npm-pkg-lint [--tarball my-pkg-1.2.3.tgz} [--pkgfile package.json]
 
-Use `--help` to see full usage help.
+```
+usage: npm-pkg-lint [-h] [-v] [-t TARBALL] [-p PKGFILE] [OPTIONS]
+
+npm package linter
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -v, --version         show program's version number and exit
+  -t TARBALL, --tarball TARBALL
+                        specify tarball location
+  -p PKGFILE, --pkgfile PKGFILE
+                        specify package.json location
+  --allow-types-dependencies
+                        allow dependencies to `@types/*`
+  --ignore-missing-fields
+                        ignore errors for missing fields (but still checks for
+                        empty and valid)
+```
 
 Use `--tarball` and `--pkgfile` to specify custom locations.
 Default is to find `package.json` from current directory tree and derive tarball filename from the `name` and `version` field.
@@ -79,6 +96,30 @@ Examples of disallowed packages:
 - `grunt` (end user does not need to perform tasks inside your package)
 
 By default `@types/*` is disallowed but this can be disabled with `--allow-types-dependencies`.
+
+## Obsolete dependencies
+
+Disallows certain packages from being included as `dependencies`, `devDependencies` or `peerDependencies` entirely.
+These dependencies have native replacements supported by all supported NodeJS versions.
+
+**Why?** Obsolete packages have native replacements and thus only clutter the dependency graphs thus increasing the time to install, the size on disk and produces noise with tools analyzing `package-lock.json`.
+
+Examples of obsolete packages:
+
+- `mkdirp` - `fs#mkdir` supports the `recursive` flag since NodeJS v10.
+- `stable` - `Array#sort` is stable since NodeJS v12.
+
+## Deprecated dependencies
+
+Disallows deprecated packages from being included as `dependencies`, `devDependencies` or `peerDependencies` entirely.
+These dependences are explicitly marked as deprecated by the package author.
+
+**Why?** Deprecated packages should be removed or replaced with alternatives as they are often unmaintained and might contain security vulnerabilities.
+
+Examples of obsolete packages:
+
+- `mkdirp` - `fs#mkdir` supports the `recursive` flag since NodeJS v10.
+- `stable` - `Array#sort` is stable since NodeJS v12.
 
 ### ESLint
 
@@ -164,6 +205,8 @@ Verifies the following fields:
 It also enforces all urls to be `https`, even the repository url.
 While `git` is technically valid most users cannot clone the repository anonomously.
 Shortcuts are not permitted either because it saves basically nothing, makes tooling more difficult to write and wont work for smaller hosting services.
+
+When the `--ignore-missing-fields` option is used the fields can be omitted (but still need to be valid if present).
 
 ## Unsupported node versions
 
