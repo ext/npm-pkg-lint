@@ -8,7 +8,7 @@ jobs:
     strategy:
       matrix:
         # note: keep in sync with if-statement on coveralls below
-        node-version: [16.x, 18.x, 20.x]
+        node-version: [18.x, 20.x, 21.x]
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js ${{ matrix.node-version }}
