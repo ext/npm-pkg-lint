@@ -11,6 +11,7 @@ import {
 	validUrl,
 } from "./validators";
 import { isDisallowedDependency } from "./rules/disallowed-dependency";
+import { isObsoleteDependency } from "./rules/obsolete-dependency";
 import { exportsTypesOrder } from "./rules/exports-types-order";
 import { outdatedEngines } from "./rules/outdated-engines";
 import { verifyEngineConstraint } from "./rules/verify-engine-constraint";
@@ -69,8 +70,10 @@ function verifyFields(pkg: PackageJson, options: VerifyPackageJsonOptions): Mess
 
 function verifyDependencies(pkg: PackageJson, options: VerifyPackageJsonOptions): Message[] {
 	const messages: Message[] = [];
+	const { dependencies = {}, devDependencies = {}, peerDependencies = {} } = pkg;
+	const allDependencies = { ...dependencies, ...devDependencies, ...peerDependencies };
 
-	for (const dependency of Object.keys(pkg.dependencies ?? {})) {
+	for (const dependency of Object.keys(dependencies)) {
 		/* skip @types/* if explicitly allowed by user */
 		if (options.allowTypesDependencies && dependency.match(/^@types\//)) {
 			continue;
@@ -81,6 +84,19 @@ function verifyDependencies(pkg: PackageJson, options: VerifyPackageJsonOptions)
 				ruleId: "disallowed-dependency",
 				severity: 2,
 				message: `${dependency} should be a devDependency`,
+				line: 1,
+				column: 1,
+			});
+		}
+	}
+
+	for (const dependency of Object.keys(allDependencies)) {
+		const obsolete = isObsoleteDependency(dependency);
+		if (obsolete) {
+			messages.push({
+				ruleId: "obsolete-dependency",
+				severity: 2,
+				message: `${dependency} is obsolete and should no longer be used: ${obsolete.message}`,
 				line: 1,
 				column: 1,
 			});

@@ -80,6 +80,18 @@ Examples of disallowed packages:
 
 By default `@types/*` is disallowed but this can be disabled with `--allow-types-dependencies`.
 
+## Obsolete dependencies
+
+Disallows certain packages from being included as `dependencies`, `devDependencies` or `peerDependencies` entirely.
+These dependencies have native replacements supported by all supported NodeJS versions.
+
+**Why?** Obsolete packages have native replacements and thus only clutter the dependency graphs thus increasing the time to install, the size on disk and produces noise with tools analyzing `package-lock.json`.
+
+Examples of obsolete packages:
+
+- `mkdirp` - `fs#mkdir` supports the `recursive` flag since NodeJS v10.
+- `stable` - `Array#sort` is stable since NodeJS v12.
+
 ### ESLint
 
 If your `package.json` contains the `"eslint"` keyword the ESLint packages can be included as dependencies, e.g. if you publish a sharable config including a plugin you must include `"eslint"` as a keyword.

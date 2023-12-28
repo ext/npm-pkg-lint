@@ -51,6 +51,27 @@ it("should return error if dependency is disallowed", async () => {
 	expect(results[0].messages).toMatchSnapshot();
 });
 
+it("should return error if dependency is obsolete", async () => {
+	expect.assertions(3);
+	pkg.devDependencies = {
+		mkdirp: "1.2.3",
+	};
+	const results = await verifyPackageJson(pkg, "package.json");
+	expect(results).toHaveLength(1);
+	expect(results[0].filePath).toBe("package.json");
+	expect(results[0].messages).toMatchInlineSnapshot(`
+		[
+		  {
+		    "column": 1,
+		    "line": 1,
+		    "message": "mkdirp is obsolete and should no longer be used: use native "fs.mkdir(..., { recursive: true })" instead",
+		    "ruleId": "obsolete-dependency",
+		    "severity": 2,
+		  },
+		]
+	`);
+});
+
 it("should not return error if dependency is allowed", async () => {
 	expect.assertions(1);
 	pkg.dependencies = {
