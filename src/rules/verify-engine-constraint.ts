@@ -1,12 +1,15 @@
-import semver from "semver";
+import semver, { type SemVer } from "semver";
 import { type Message } from "../message";
 import { type PackageJson } from "../types";
-import { npmInfo } from "../utils";
+import { isNpmInfoError, npmInfo } from "../utils";
 
 const ruleId = "invalid-engine-constraint";
 
 async function* getDeepDependencies(pkg: PackageJson, dependency?: string): AsyncGenerator<string> {
-	const pkgData = dependency ? await npmInfo(dependency) : pkg;
+	const pkgData = dependency ? await npmInfo(dependency, { ignoreUnpublished: true }) : pkg;
+	if (!pkgData) {
+		return;
+	}
 	for (const [key, version] of Object.entries(pkgData.dependencies ?? {})) {
 		/* ignore this as this package is sometimes is present as version "*" which
 		 * just yields way to many versions to handle causing MaxBuffer errors and
@@ -24,6 +27,30 @@ async function* getDeepDependencies(pkg: PackageJson, dependency?: string): Asyn
 	}
 }
 
+async function verifyDependency(
+	dependency: string,
+	minDeclared: SemVer,
+	declaredConstraint: string,
+): Promise<Message | null> {
+	const pkgData = await npmInfo(dependency);
+	const constraint = pkgData.engines?.node;
+	if (!constraint) {
+		return null;
+	}
+
+	if (!semver.satisfies(minDeclared, constraint)) {
+		return {
+			ruleId,
+			severity: 2,
+			message: `the transitive dependency "${dependency}" (node ${constraint}) does not satisfy the declared node engine "${declaredConstraint}"`,
+			line: 1,
+			column: 1,
+		};
+	}
+
+	return null;
+}
+
 export async function verifyEngineConstraint(pkg: PackageJson): Promise<Message[]> {
 	const declaredConstraint = pkg.engines?.node;
 	if (!declaredConstraint) {
@@ -36,22 +63,32 @@ export async function verifyEngineConstraint(pkg: PackageJson): Promise<Message[
 	}
 
 	const messages: Message[] = [];
+	const visited = new Set<string>();
 
 	for await (const dependency of getDeepDependencies(pkg)) {
-		const pkgData = await npmInfo(dependency);
-		const constraint = pkgData.engines?.node;
-		if (!constraint) {
+		if (visited.has(dependency)) {
 			continue;
 		}
 
-		if (!semver.satisfies(minDeclared, constraint)) {
-			messages.push({
-				ruleId,
-				severity: 2,
-				message: `the transitive dependency "${dependency}" (node ${constraint}) does not satisfy the declared node engine "${declaredConstraint}"`,
-				line: 1,
-				column: 1,
-			});
+		visited.add(dependency);
+
+		try {
+			const message = await verifyDependency(dependency, minDeclared, declaredConstraint);
+			if (message) {
+				messages.push(message);
+			}
+		} catch (err: unknown) {
+			if (isNpmInfoError(err) && err.code === "E404") {
+				messages.push({
+					ruleId,
+					severity: 1,
+					message: `the transitive dependency "${dependency}" is not published to the NPM registry`,
+					line: 1,
+					column: 1,
+				});
+				continue;
+			}
+			throw err;
 		}
 	}
 

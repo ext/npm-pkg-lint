@@ -2,6 +2,7 @@ import semver from "semver";
 import { type Message } from "../message";
 import { type PackageJson } from "../types";
 import { npmInfo } from "../utils";
+import { isNpmInfoError } from "../utils/npm-info";
 
 const ruleId = "no-deprecated-dependency";
 
@@ -26,18 +27,32 @@ export async function deprecatedDependency(pkg: PackageJson): Promise<Message[]>
 	const messages: Message[] = [];
 
 	for await (const dependency of getDependencies(pkg)) {
-		const { deprecated } = await npmInfo(dependency);
-		if (!deprecated) {
-			continue;
-		}
+		try {
+			const { deprecated } = await npmInfo(dependency);
+			if (!deprecated) {
+				continue;
+			}
 
-		messages.push({
-			ruleId,
-			severity: 2,
-			message: `"${dependency}" is deprecated and must not be used`,
-			line: 1,
-			column: 1,
-		});
+			messages.push({
+				ruleId,
+				severity: 2,
+				message: `"${dependency}" is deprecated and must not be used`,
+				line: 1,
+				column: 1,
+			});
+		} catch (err: unknown) {
+			if (isNpmInfoError(err) && err.code === "E404") {
+				messages.push({
+					ruleId,
+					severity: 1,
+					message: `the dependency "${dependency}" is not published to the NPM registry`,
+					line: 1,
+					column: 1,
+				});
+				continue;
+			}
+			throw err;
+		}
 	}
 
 	return messages;
