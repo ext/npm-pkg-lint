@@ -1,1 +1,1 @@
-export { npmInfo } from "./npm-info";
+export { type NpmInfoError, isNpmInfoError, npmInfo } from "./npm-info";
