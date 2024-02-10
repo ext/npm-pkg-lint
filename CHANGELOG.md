@@ -1,5 +1,15 @@
 # npm-pkg-lint changelog
 
+## [3.1.0](https://github.com/ext/npm-pkg-lint/compare/v3.0.1...v3.1.0) (2024-02-10)
+
+### Features
+
+- **deps:** update dependency find-up to v7 ([4c8826e](https://github.com/ext/npm-pkg-lint/commit/4c8826eb029f05cc8825d9dfaf876c6e5e11b843))
+
+### Bug Fixes
+
+- handle unpublished packages/versions ([52a5bc4](https://github.com/ext/npm-pkg-lint/commit/52a5bc44fef240023fc3aa579d0504c3ec186e66))
+
 ## [3.0.1](https://github.com/ext/npm-pkg-lint/compare/v3.0.0...v3.0.1) (2024-02-09)
 
 ### Bug Fixes
