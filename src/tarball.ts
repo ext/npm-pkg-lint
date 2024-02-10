@@ -57,6 +57,7 @@ export async function getFileContent(
 				contents[p] = Buffer.concat([contents[p], data]);
 			});
 			entry.on("error", (error) => {
+				/* eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors -- technical debt */
 				reject(error);
 			});
 		});
