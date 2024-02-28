@@ -39,6 +39,11 @@ describe("package list", () => {
 		"html-validate",
 		"html-validate-foobar",
 		"jest",
+		"jest-cli",
+		"jest-transform-stub",
+		"babel-jest",
+		"ts-jest",
+		"@jest/core",
 		"mocha",
 		"prettier",
 		"prettier-config-foobar",
@@ -74,6 +79,20 @@ it("should allow eslint-* if package keywords includes eslint", () => {
 	expect(isDisallowedDependency(eslintPkg, "@scope/eslint-config-foobar")).toBeFalsy();
 	expect(isDisallowedDependency(eslintPkg, "@scope/eslint-formatter-foobar")).toBeFalsy();
 	expect(isDisallowedDependency(eslintPkg, "@scope/eslint-plugin-foobar")).toBeFalsy();
+});
+
+it("should allow jest-* if package keywords includes jest", () => {
+	expect.assertions(6);
+	const eslintPkg: PackageJson = {
+		...pkg,
+		keywords: ["jest"],
+	};
+	expect(isDisallowedDependency(eslintPkg, "jest")).toBeFalsy();
+	expect(isDisallowedDependency(eslintPkg, "jest-cli")).toBeFalsy();
+	expect(isDisallowedDependency(eslintPkg, "jest-transform-stub")).toBeFalsy();
+	expect(isDisallowedDependency(eslintPkg, "babel-jest")).toBeFalsy();
+	expect(isDisallowedDependency(eslintPkg, "ts-jest")).toBeFalsy();
+	expect(isDisallowedDependency(eslintPkg, "@jest/core")).toBeFalsy();
 });
 
 it("should allow prettier-* if package keywords includes prettier", () => {
