@@ -1,5 +1,11 @@
 # npm-pkg-lint changelog
 
+## 2.2.0 (2024-02-28)
+
+### Features
+
+- allow jest dependencies when using jest keyword ([1515674](https://github.com/ext/npm-pkg-lint/commit/15156748e1f22beeb8b78d8b466b319cea31920d))
+
 ## 2.1.1 (2024-02-28)
 
 ### Bug Fixes
