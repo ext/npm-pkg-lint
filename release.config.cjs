@@ -4,6 +4,7 @@ const npm = require("@html-validate/semantic-release-config/lib/npm");
 const changelog = require("@html-validate/semantic-release-config/lib/changelog");
 const exec = require("@html-validate/semantic-release-config/lib/exec");
 const git = require("@html-validate/semantic-release-config/lib/git");
+const branches = require("@html-validate/semantic-release-config/lib/branches");
 
 const plugins = [
 	["@semantic-release/commit-analyzer", commitAnalyzer],
@@ -15,4 +16,4 @@ const plugins = [
 	["@semantic-release/git", git],
 ];
 
-module.exports = { plugins };
+module.exports = { branches, plugins };
