@@ -25,7 +25,6 @@ const disallowedDependencies: RegExp[] = [
 	prefix("gulp"),
 	prefix("html-validate"),
 	prefix("jasmine"),
-	prefix("jest"),
 	prefix("mocha"),
 	prefix("nyc"),
 	prefix("protractor"),
@@ -44,6 +43,14 @@ const disallowedEslint: RegExp[] = [
 	scopedPrefix("eslint-config"),
 	scopedPrefix("eslint-formatter"),
 	scopedPrefix("eslint-plugin"),
+];
+
+const disallowedJest: RegExp[] = [
+	exact("jest"),
+	exact("babel-jest"),
+	exact("ts-jest"),
+	prefix("jest-"),
+	scope("@jest"),
 ];
 
 const disallowedPrettier: RegExp[] = [
@@ -75,6 +82,11 @@ export function isDisallowedDependency(pkg: PackageJson, dependency: string): bo
 
 	/* eslint-* is allowed only if keywords includes "eslint" */
 	if (!keywords.includes("eslint") && match(disallowedEslint, dependency)) {
+		return true;
+	}
+
+	/* jest-* is allowed only if keywords includes "jest" */
+	if (!keywords.includes("jest") && match(disallowedJest, dependency)) {
 		return true;
 	}
 
