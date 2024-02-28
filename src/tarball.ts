@@ -208,8 +208,8 @@ export async function verifyTarball(pkg: PackageJson, tarball: TarballMeta): Pro
 		{
 			messages,
 			filePath: tarball.reportPath ?? tarball.filePath,
-			errorCount: messages.length,
-			warningCount: 0,
+			errorCount: messages.filter((it) => it.severity === 2).length,
+			warningCount: messages.filter((it) => it.severity === 1).length,
 			fixableErrorCount: 0,
 			fixableWarningCount: 0,
 		},
