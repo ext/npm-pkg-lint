@@ -150,6 +150,35 @@ If your `package.json` contains the `"eslint"` keyword the ESLint packages can b
 }
 ```
 
+### Jest
+
+If your `package.json` contains the `"jest"` keyword the Jest packages can be included as dependencies, e.g. if you publish a sharable config including a plugin you must include `"jest"` as a keyword.
+
+**OK**:
+
+```json
+{
+  "name": "awesome-jest-config",
+  "version": "1.0.0",
+  "keywords": ["jest"],
+  "dependencies": {
+    "babel-jest": "^29.0.0"
+  }
+}
+```
+
+**Fail**:
+
+```json
+{
+  "name": "eslint-config-myfancyconfig",
+  "version": "1.0.0",
+  "dependencies": {
+    "babel-jest": "^29.0.0"
+  }
+}
+```
+
 ### Prettier
 
 If your `package.json` contains the `"prettier"` keyword the Prettier packages can be included as dependencies, e.g. if you publish a sharable config including a plugin you must include `"prettier"` as a keyword.
