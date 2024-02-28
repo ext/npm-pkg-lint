@@ -1,5 +1,11 @@
 # npm-pkg-lint changelog
 
+## 2.1.1 (2024-02-28)
+
+### Bug Fixes
+
+- handle unpublished packages/versions ([e9578e6](https://github.com/ext/npm-pkg-lint/commit/e9578e67b587536304a1f56f0bb9d88615c65d7d))
+
 ## [2.1.0](https://github.com/ext/npm-pkg-lint/compare/v2.0.3...v2.1.0) (2023-11-23)
 
 ### Features
