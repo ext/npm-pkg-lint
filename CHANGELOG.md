@@ -1,5 +1,11 @@
 # npm-pkg-lint changelog
 
+## 3.2.1 (2024-03-01)
+
+### Bug Fixes
+
+- **deps:** update dependency tmp to v0.2.2 ([93391d8](https://github.com/ext/npm-pkg-lint/commit/93391d84eb4e1cda4f3f7490d5eedc4816c91c07))
+
 ## 3.2.0 (2024-02-28)
 
 ### Features
