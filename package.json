@@ -63,7 +63,7 @@
     "find-up": "7.0.0",
     "semver": "7.6.0",
     "tar": "6.2.0",
-    "tmp": "0.2.2"
+    "tmp": "0.2.3"
   },
   "devDependencies": {
     "@html-validate/commitlint-config": "3.2.0",
