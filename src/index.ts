@@ -12,6 +12,7 @@ import { type VerifyOptions, verify } from "./verify";
 import { type PackageJson } from "./types";
 import { tarballLocation } from "./tarball-location";
 import { type TarballMeta, getFileContent } from "./tarball";
+import { setCacheDirecory } from "./utils/persistent-cache";
 
 const pkgFilepath = fileURLToPath(new URL("../package.json", import.meta.url));
 const { version } = JSON.parse(readFileSync(pkgFilepath, "utf-8")) as { version: string };
@@ -19,6 +20,7 @@ const { version } = JSON.parse(readFileSync(pkgFilepath, "utf-8")) as { version:
 const PACKAGE_JSON = "package.json";
 
 interface ParsedArgs {
+	cache?: string;
 	pkgfile: string;
 	tarball?: string;
 	ignore_missing_fields?: boolean;
@@ -96,6 +98,7 @@ async function run(): Promise<void> {
 	parser.add_argument("-v", "--version", { action: "version", version });
 	parser.add_argument("-t", "--tarball", { help: "specify tarball location" });
 	parser.add_argument("-p", "--pkgfile", { help: "specify package.json location" });
+	parser.add_argument("--cache", { help: "specify cache directory" });
 	parser.add_argument("--allow-types-dependencies", {
 		action: "store_true",
 		help: "allow dependencies to `@types/*`",
@@ -106,6 +109,10 @@ async function run(): Promise<void> {
 	});
 
 	const args = parser.parse_args() as ParsedArgs;
+
+	if (args.cache) {
+		await setCacheDirecory(args.cache);
+	}
 
 	/* this library assumes the file source can be randomly accessed but with
 	 * stdin this is not possible so stdin is read into a temporary file which is
