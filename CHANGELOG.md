@@ -1,5 +1,11 @@
 # npm-pkg-lint changelog
 
+## 2.3.0 (2024-04-05)
+
+### Features
+
+- support `--cache` to set custom cache directory ([ad3fead](https://github.com/ext/npm-pkg-lint/commit/ad3fead829f4dfaaa7c0a2bf8a9bf9c64f3f409e))
+
 ## 2.2.0 (2024-02-28)
 
 ### Features
