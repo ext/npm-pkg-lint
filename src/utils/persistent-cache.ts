@@ -5,13 +5,19 @@ import os from "node:os";
 
 const enabled = os.platform() === "linux";
 const cacheRoot = process.env.XDG_CACHE_HOME ?? path.join(os.homedir(), ".cache");
-const cacheDir = path.join(cacheRoot, "npm-pkg-lint");
+let cacheDir = path.join(cacheRoot, "npm-pkg-lint");
 
 /* istanbul ignore next */
 function getFilePath(key: string): string {
 	const hash = crypto.createHash("md5").update(key).digest("hex");
 	const filename = `${hash.slice(0, 2)}/${hash.slice(2)}.json`;
 	return path.join(cacheDir, filename);
+}
+
+/* istanbul ignore next */
+export async function setCacheDirecory(directory: string): Promise<void> {
+	await fs.mkdir(directory, { recursive: true });
+	cacheDir = directory;
 }
 
 /* istanbul ignore next */
