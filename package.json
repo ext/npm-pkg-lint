@@ -17,7 +17,9 @@
   "license": "MIT",
   "author": "David Sveningsson <ext@sidvind.com>",
   "main": "dist/index.js",
-  "bin": "bin/index.js",
+  "bin": {
+    "npm-pkg-lint": "bin/index.js"
+  },
   "type": "module",
   "files": [
     "bin",
