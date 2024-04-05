@@ -18,9 +18,10 @@ Core principles:
 > npx npm-pkg-lint [--tarball my-pkg-1.2.3.tgz} [--pkgfile package.json]
 
 ```
-usage: npm-pkg-lint [-h] [-v] [-t TARBALL] [-p PKGFILE] [OPTIONS]
+usage: index.js [-h] [-v] [-t TARBALL] [-p PKGFILE] [--cache CACHE]
+                [--allow-types-dependencies] [--ignore-missing-fields]
 
-npm package linter
+Opiniated linter for NPM package tarball and package.json metadata
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -29,6 +30,7 @@ optional arguments:
                         specify tarball location
   -p PKGFILE, --pkgfile PKGFILE
                         specify package.json location
+  --cache CACHE         specify cache directory
   --allow-types-dependencies
                         allow dependencies to `@types/*`
   --ignore-missing-fields
