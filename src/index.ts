@@ -159,7 +159,7 @@ async function run(): Promise<void> {
 	process.exitCode = totalErrors > 0 ? 1 : 0;
 }
 
-run().catch((err) => {
+run().catch((err: unknown) => {
 	console.error(err);
 	process.exitCode = 1;
 });
