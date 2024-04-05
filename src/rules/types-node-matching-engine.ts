@@ -33,10 +33,12 @@ export function* typesNodeMatchingEngine(pkg: PackageJson): Generator<Message> {
 	}
 
 	if (typesVersion.major !== nodeVersion.major) {
+		const actualVersion = `v${String(typesVersion.major)}`;
+		const expectedVersion = `v${String(nodeVersion.major)}`;
 		yield {
 			ruleId,
 			severity,
-			message: `@types/node v${typesVersion.major} does not equal engines.node v${nodeVersion.major}`,
+			message: `@types/node ${actualVersion} does not equal engines.node ${expectedVersion}`,
 			line: 1,
 			column: 1,
 		};
