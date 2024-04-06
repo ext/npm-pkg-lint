@@ -9,7 +9,14 @@ const ruleId = "no-deprecated-dependency";
 function* getDependencies(pkg: PackageJson): Generator<string> {
 	const { dependencies = {}, devDependencies = {}, peerDependencies = {} } = pkg;
 	const allDependencies = { ...dependencies, ...devDependencies, ...peerDependencies };
-	for (const [key, version] of Object.entries(allDependencies)) {
+	for (let [key, version] of Object.entries(allDependencies)) {
+		/* handle npm: prefix */
+		if (version.startsWith("npm:")) {
+			const [newKey, newVersion] = version.slice("npm:".length).split("@", 2);
+			key = newKey;
+			version = newVersion;
+		}
+
 		/* ignore this as this package is sometimes is present as version "*" which
 		 * just yields way to many versions to handle causing MaxBuffer errors and
 		 * there is another rule to make sure the outermost @types/node package
