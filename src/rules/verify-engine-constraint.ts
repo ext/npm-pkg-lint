@@ -10,7 +10,14 @@ async function* getDeepDependencies(pkg: PackageJson, dependency?: string): Asyn
 	if (!pkgData) {
 		return;
 	}
-	for (const [key, value] of Object.entries(pkgData.dependencies ?? {})) {
+	for (let [key, value] of Object.entries(pkgData.dependencies ?? {})) {
+		/* handle npm: prefix */
+		if (value.startsWith("npm:")) {
+			const [newKey, newVersion] = value.slice("npm:".length).split("@", 2);
+			key = newKey;
+			value = newVersion;
+		}
+
 		/* ignore this as this package is sometimes is present as version "*" which
 		 * just yields way to many versions to handle causing MaxBuffer errors and
 		 * there is another rule to make sure the outermost @types/node package

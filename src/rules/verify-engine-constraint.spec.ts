@@ -118,3 +118,32 @@ it("should ignore @types/node", async () => {
 	await verifyEngineConstraint(pkg);
 	expect(npmInfo).not.toHaveBeenCalled();
 });
+
+it("should handle npm: prefix", async () => {
+	expect.assertions(1);
+	const pkg: PackageJson = {
+		name: "my-app",
+		version: "1.0.0",
+		dependencies: { spam: "npm:foo@1.0.0" },
+		engines: { node: ">= 10" },
+	};
+	npmInfoMockAdd("foo@1.0.0", {
+		name: "foo",
+		version: "1.0.0",
+		dependencies: { spam: "npm:bar@1.0.0" },
+		engines: { node: ">= 12" },
+	});
+	npmInfoMockAdd("bar@1.0.0", { name: "bar", version: "1.0.0", engines: { node: ">= 12" } });
+	expect(await verifyEngineConstraint(pkg)).toEqual([
+		expect.objectContaining({
+			ruleId: "invalid-engine-constraint",
+			message:
+				'the transitive dependency "foo@1.0.0" (node >= 12) does not satisfy the declared node engine ">= 10"',
+		}),
+		expect.objectContaining({
+			ruleId: "invalid-engine-constraint",
+			message:
+				'the transitive dependency "bar@1.0.0" (node >= 12) does not satisfy the declared node engine ">= 10"',
+		}),
+	]);
+});
