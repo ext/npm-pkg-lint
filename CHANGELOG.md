@@ -1,5 +1,11 @@
 # npm-pkg-lint changelog
 
+## 2.3.1 (2024-04-07)
+
+### Bug Fixes
+
+- handle `npm:` prefix in dependencies ([ed79756](https://github.com/ext/npm-pkg-lint/commit/ed7975694d362bf429f585d659ea3266129c9fc8))
+
 ## 2.3.0 (2024-04-05)
 
 ### Features
