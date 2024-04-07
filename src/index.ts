@@ -24,6 +24,7 @@ interface ParsedArgs {
 	pkgfile: string;
 	tarball?: string;
 	ignore_missing_fields?: boolean;
+	allow_dependency: string[];
 	allow_types_dependencies?: boolean;
 }
 
@@ -99,9 +100,15 @@ async function run(): Promise<void> {
 	parser.add_argument("-t", "--tarball", { help: "specify tarball location" });
 	parser.add_argument("-p", "--pkgfile", { help: "specify package.json location" });
 	parser.add_argument("--cache", { help: "specify cache directory" });
+	parser.add_argument("--allow-dependency", {
+		action: "append",
+		default: [],
+		metavar: "DEPENDENCY",
+		help: "explicitly allow given dependency (can be given multiple times or as a comma-separated list)",
+	});
 	parser.add_argument("--allow-types-dependencies", {
 		action: "store_true",
-		help: "allow dependencies to `@types/*`",
+		help: "allow production dependencies to `@types/*`",
 	});
 	parser.add_argument("--ignore-missing-fields", {
 		action: "store_true",
@@ -109,6 +116,7 @@ async function run(): Promise<void> {
 	});
 
 	const args = parser.parse_args() as ParsedArgs;
+	const allowedDependencies = new Set(args.allow_dependency.map((it) => it.split(",")).flat());
 
 	if (args.cache) {
 		await setCacheDirecory(args.cache);
@@ -144,6 +152,7 @@ async function run(): Promise<void> {
 	setupBlacklist(pkg.name);
 
 	const options: VerifyOptions = {
+		allowedDependencies,
 		allowTypesDependencies: args.allow_types_dependencies,
 		ignoreMissingFields: args.ignore_missing_fields,
 	};

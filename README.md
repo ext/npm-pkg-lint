@@ -80,6 +80,8 @@ Examples of disallowed packages:
 
 By default `@types/*` is disallowed but this can be disabled with `--allow-types-dependencies`.
 
+If needed, `--allow-dependency` can be used to ignore one or more dependencies.
+
 ### ESLint
 
 If your `package.json` contains the `"eslint"` keyword the ESLint packages can be included as dependencies, e.g. if you publish a sharable config including a plugin you must include `"eslint"` as a keyword.

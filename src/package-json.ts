@@ -9,6 +9,7 @@ import { verifyEngineConstraint } from "./rules/verify-engine-constraint";
 import { typesNodeMatchingEngine } from "./rules/types-node-matching-engine";
 
 export interface VerifyPackageJsonOptions {
+	allowedDependencies: Set<string>;
 	allowTypesDependencies?: boolean;
 	ignoreMissingFields?: boolean;
 }
@@ -59,20 +60,38 @@ function verifyFields(pkg: PackageJson, options: VerifyPackageJsonOptions): Mess
 	return messages;
 }
 
+function getActualDependency(key: string, version: string): string {
+	/* handle npm: prefix */
+	if (version.startsWith("npm:")) {
+		const [name] = version.slice("npm:".length).split("@", 2);
+		return name;
+	}
+
+	return key;
+}
+
 function verifyDependencies(pkg: PackageJson, options: VerifyPackageJsonOptions): Message[] {
 	const messages: Message[] = [];
 
-	for (const dependency of Object.keys(pkg.dependencies ?? {})) {
+	for (const [key, version] of Object.entries(pkg.dependencies ?? {})) {
+		const dependency = getActualDependency(key, version);
+
+		/* skip dependencies explicitly allowed by the user */
+		if (options.allowedDependencies.has(dependency)) {
+			continue;
+		}
+
 		/* skip @types/* if explicitly allowed by user */
 		if (options.allowTypesDependencies && dependency.match(/^@types\//)) {
 			continue;
 		}
 
 		if (isDisallowedDependency(pkg, dependency)) {
+			const name = key === dependency ? dependency : `"${key}" ("npm:${dependency}")`;
 			messages.push({
 				ruleId: "disallowed-dependency",
 				severity: 2,
-				message: `${dependency} should be a devDependency`,
+				message: `"${name}" should be a devDependency`,
 				line: 1,
 				column: 1,
 			});
@@ -85,7 +104,7 @@ function verifyDependencies(pkg: PackageJson, options: VerifyPackageJsonOptions)
 export async function verifyPackageJson(
 	pkg: PackageJson,
 	filePath: string,
-	options: VerifyPackageJsonOptions = {}
+	options: VerifyPackageJsonOptions = { allowedDependencies: new Set() }
 ): Promise<Result[]> {
 	const messages: Message[] = [
 		...(await verifyEngineConstraint(pkg)),
