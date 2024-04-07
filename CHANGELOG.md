@@ -1,5 +1,11 @@
 # npm-pkg-lint changelog
 
+## 2.4.0 (2024-04-07)
+
+### Features
+
+- add `--allow-dependency` to ignore disallowed dependency ([5b7939e](https://github.com/ext/npm-pkg-lint/commit/5b7939ed388777029cf2cfcb100dbcfaa3ae6b91))
+
 ## 2.3.1 (2024-04-07)
 
 ### Bug Fixes
