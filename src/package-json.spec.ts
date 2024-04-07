@@ -48,7 +48,38 @@ it("should return error if dependency is disallowed", async () => {
 	const results = await verifyPackageJson(pkg, "package.json");
 	expect(results).toHaveLength(1);
 	expect(results[0].filePath).toBe("package.json");
-	expect(results[0].messages).toMatchSnapshot();
+	expect(results[0].messages).toMatchInlineSnapshot(`
+		[
+		  {
+		    "column": 1,
+		    "line": 1,
+		    "message": ""eslint" should be a devDependency",
+		    "ruleId": "disallowed-dependency",
+		    "severity": 2,
+		  },
+		]
+	`);
+});
+
+it("should return error if aliased dependency is disallowed", async () => {
+	expect.assertions(3);
+	pkg.dependencies = {
+		aliased: "npm:eslint@1.2.3",
+	};
+	const results = await verifyPackageJson(pkg, "package.json");
+	expect(results).toHaveLength(1);
+	expect(results[0].filePath).toBe("package.json");
+	expect(results[0].messages).toMatchInlineSnapshot(`
+		[
+		  {
+		    "column": 1,
+		    "line": 1,
+		    "message": """aliased" ("npm:eslint")" should be a devDependency",
+		    "ruleId": "disallowed-dependency",
+		    "severity": 2,
+		  },
+		]
+	`);
 });
 
 it("should return error if dependency is obsolete", async () => {
@@ -64,7 +95,7 @@ it("should return error if dependency is obsolete", async () => {
 		  {
 		    "column": 1,
 		    "line": 1,
-		    "message": "mkdirp is obsolete and should no longer be used: use native "fs.mkdir(..., { recursive: true })" instead",
+		    "message": ""mkdirp" is obsolete and should no longer be used: use native "fs.mkdir(..., { recursive: true })" instead",
 		    "ruleId": "obsolete-dependency",
 		    "severity": 2,
 		  },
@@ -79,6 +110,18 @@ it("should not return error if dependency is allowed", async () => {
 	};
 	const results = await verifyPackageJson(pkg, "package.json");
 	expect(results).toEqual([]);
+});
+
+it("should not return error if explicitly allowed by user", async () => {
+	expect.assertions(1);
+	pkg.dependencies = {
+		eslint: "1.2.3",
+		aliased: "npm:eslint@1.2.3",
+	};
+	const results = await verifyPackageJson(pkg, "package.json", {
+		allowedDependencies: new Set(["eslint"]),
+	});
+	expect(results).toHaveLength(0);
 });
 
 it("should return engines.node supports eol version", async () => {
@@ -105,7 +148,10 @@ describe("@types", () => {
 
 	it("should not return error if @types is allowed", async () => {
 		expect.assertions(1);
-		const results = await verifyPackageJson(pkg, "package.json", { allowTypesDependencies: true });
+		const results = await verifyPackageJson(pkg, "package.json", {
+			allowedDependencies: new Set(),
+			allowTypesDependencies: true,
+		});
 		expect(results).toHaveLength(0);
 	});
 });
@@ -121,7 +167,10 @@ describe("present", () => {
 	it("should ignore error on missing fields if ignoreMissingFields is set", async () => {
 		expect.assertions(1);
 		delete pkg.description;
-		const results = await verifyPackageJson(pkg, "package.json", { ignoreMissingFields: true });
+		const results = await verifyPackageJson(pkg, "package.json", {
+			allowedDependencies: new Set(),
+			ignoreMissingFields: true,
+		});
 		expect(results).toHaveLength(0);
 	});
 });

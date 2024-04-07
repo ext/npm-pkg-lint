@@ -25,6 +25,6 @@ it.each(fixtures)("%s", async (fixture) => {
 	const pkgPath = path.relative(ROOT_DIRECTORY, path.join(dir, "package.json"));
 	const pkg: PackageJson = JSON.parse(await fs.readFile(pkgPath, "utf-8"));
 	const tarball = { filePath: await npmPack(pkg, fixture) };
-	const result = await verify(pkg, pkgPath, tarball);
+	const result = await verify(pkg, pkgPath, tarball, { allowedDependencies: new Set() });
 	expect(result).toMatchSnapshot();
 });
