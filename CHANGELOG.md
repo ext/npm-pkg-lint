@@ -1,5 +1,11 @@
 # npm-pkg-lint changelog
 
+## 2.4.1 (2024-04-12)
+
+### Bug Fixes
+
+- handle when direct dependency is unpublished ([5fedbd0](https://github.com/ext/npm-pkg-lint/commit/5fedbd010567053137816eaa85001eb45445280d))
+
 ## 2.4.0 (2024-04-07)
 
 ### Features
