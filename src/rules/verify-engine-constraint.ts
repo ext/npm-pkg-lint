@@ -37,7 +37,10 @@ async function verifyDependency(
 	minDeclared: SemVer,
 	declaredConstraint: string
 ): Promise<Message | null> {
-	const pkgData = await npmInfo(dependency);
+	const pkgData = await npmInfo(dependency, { ignoreUnpublished: true });
+	if (!pkgData) {
+		return null;
+	}
 	const constraint = pkgData.engines?.node;
 	if (!constraint) {
 		return null;
