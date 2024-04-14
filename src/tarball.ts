@@ -1,5 +1,6 @@
 import fs from "fs";
-import tar, { type ReadEntry, Parse } from "tar";
+import * as tar from "tar";
+import { type ReadEntry, Parser } from "tar";
 import { type PackageJson, type PackageJsonExports } from "./types";
 import { isBlacklisted } from "./blacklist";
 import { type Message } from "./message";
@@ -45,9 +46,9 @@ export async function getFileContent(
 	const contents: Record<string, Buffer> = {};
 
 	return new Promise((resolve, reject) => {
-		const t = new Parse({
-			filter(_path: string, entry: tar.ReadEntry): boolean {
-				return filenames.includes(normalize(entry.path));
+		const t = new Parser({
+			filter(path): boolean {
+				return filenames.includes(normalize(path));
 			},
 		});
 		t.on("entry", (entry: tar.ReadEntry) => {
@@ -65,7 +66,7 @@ export async function getFileContent(
 			resolve(contents);
 		});
 		const rs = fs.createReadStream(tarball.filePath);
-		rs.pipe(t);
+		rs.pipe(t as unknown as NodeJS.WritableStream);
 	});
 }
 
