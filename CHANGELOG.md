@@ -1,5 +1,11 @@
 # npm-pkg-lint changelog
 
+## 3.5.1 (2024-04-19)
+
+### Bug Fixes
+
+- **deps:** update dependency tar to v7.0.1 ([a8ef125](https://github.com/ext/npm-pkg-lint/commit/a8ef12546f96d5a1ec948394160338b954f84471))
+
 ## 3.5.0 (2024-04-14)
 
 ### Features
