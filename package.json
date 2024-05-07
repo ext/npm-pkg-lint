@@ -78,7 +78,7 @@
     "@html-validate/release-scripts": "6.4.0",
     "@types/argparse": "2.0.16",
     "@types/jest": "29.5.12",
-    "@types/node": "18.19.31",
+    "@types/node": "18.19.32",
     "@types/semver": "7.5.8",
     "@types/tar": "6.1.13",
     "@types/tmp": "0.2.6",
