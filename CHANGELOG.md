@@ -1,5 +1,12 @@
 # npm-pkg-lint changelog
 
+## 3.6.0 (2024-05-19)
+
+### Features
+
+- add `--ignore-node-version` to disable `outdated-engines` node version error ([4f12e8a](https://github.com/ext/npm-pkg-lint/commit/4f12e8a0fa5fcf497ae06ecd0c392137b9b50a38))
+- **deps:** update dependency execa to v9 ([dbd310b](https://github.com/ext/npm-pkg-lint/commit/dbd310ba8e2bae21d4aa42eb4694dfa0a476ef44))
+
 ## 3.5.3 (2024-05-17)
 
 ### Bug Fixes
