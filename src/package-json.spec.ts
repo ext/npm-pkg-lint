@@ -120,6 +120,7 @@ it("should not return error if explicitly allowed by user", async () => {
 	};
 	const results = await verifyPackageJson(pkg, "package.json", {
 		allowedDependencies: new Set(["eslint"]),
+		ignoreNodeVersion: false,
 	});
 	expect(results).toHaveLength(0);
 });
@@ -151,6 +152,7 @@ describe("@types", () => {
 		const results = await verifyPackageJson(pkg, "package.json", {
 			allowedDependencies: new Set(),
 			allowTypesDependencies: true,
+			ignoreNodeVersion: false,
 		});
 		expect(results).toHaveLength(0);
 	});
@@ -170,6 +172,7 @@ describe("present", () => {
 		const results = await verifyPackageJson(pkg, "package.json", {
 			allowedDependencies: new Set(),
 			ignoreMissingFields: true,
+			ignoreNodeVersion: false,
 		});
 		expect(results).toHaveLength(0);
 	});
