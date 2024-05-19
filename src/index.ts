@@ -24,6 +24,7 @@ interface ParsedArgs {
 	pkgfile: string;
 	tarball?: string;
 	ignore_missing_fields?: boolean;
+	ignore_node_version: boolean | number;
 	allow_dependency: string[];
 	allow_types_dependencies?: boolean;
 }
@@ -114,6 +115,14 @@ async function run(): Promise<void> {
 		action: "store_true",
 		help: "ignore errors for missing fields (but still checks for empty and valid)",
 	});
+	parser.add_argument("--ignore-node-version", {
+		nargs: "?",
+		metavar: "MAJOR",
+		type: "int",
+		default: false,
+		const: true,
+		help: "ignore error for outdated node version (restricted to MAJOR version if given)",
+	});
 
 	const args = parser.parse_args() as ParsedArgs;
 	const allowedDependencies = new Set(args.allow_dependency.map((it) => it.split(",")).flat());
@@ -155,6 +164,7 @@ async function run(): Promise<void> {
 		allowedDependencies,
 		allowTypesDependencies: args.allow_types_dependencies,
 		ignoreMissingFields: args.ignore_missing_fields,
+		ignoreNodeVersion: args.ignore_node_version,
 	};
 
 	const results = await verify(pkg, pkgPath, tarball, options);

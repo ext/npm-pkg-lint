@@ -40,6 +40,8 @@ optional arguments:
   --ignore-missing-fields
                         ignore errors for missing fields (but still checks for
                         empty and valid)
+  --ignore-node-version [MAJOR]
+                        ignore error for outdated node version (restricted to MAJOR version if given)
 ```
 
 Use `--tarball` and `--pkgfile` to specify custom locations.
@@ -256,6 +258,8 @@ As an example `mkdirp` can be replaced with `fs.mkdir(p, { recursive: true })` s
 While stable Linux distributions (e.g. Debian stable) and enterprise environment might not use the most recent versions they often try to stay away from EOL versions.
 Users stuck at older versions will not be able to update to the latest set of node packages but if you are using an environment with unsupported versions you are unlikely to want to update node packages.
 It is also very likely that the package doesn't actually run on such old version anyway because of a missing feature or a dependency requiring a later version.
+
+This rule can be ignored with `--ignore-node-version`.
 
 ## Verify engine constraints
 

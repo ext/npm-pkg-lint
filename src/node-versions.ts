@@ -3,6 +3,7 @@ interface NodeVersionDescriptor {
 	eol?: string;
 }
 
+/* https://github.com/nodejs/Release/blob/main/schedule.json */
 export const nodeVersions: Array<[string, NodeVersionDescriptor]> = [
 	["0.10.x", { eol: "2016-10-31" }],
 	["0.12.x", { eol: "2016-12-31" }],
@@ -20,4 +21,9 @@ export const nodeVersions: Array<[string, NodeVersionDescriptor]> = [
 	["15.x.x", { eol: "2021-06-01" }],
 	["16.x.x", { eol: "2023-09-11" }],
 	["17.x.x", { eol: "2022-06-01" }],
+	["18.x.x", {}],
+	["19.x.x", { eol: "2023-06-01" }],
+	["20.x.x", {}],
+	["21.x.x", {}],
+	["22.x.x", {}],
 ];

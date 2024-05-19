@@ -22,6 +22,7 @@ export interface VerifyPackageJsonOptions {
 	allowedDependencies: Set<string>;
 	allowTypesDependencies?: boolean;
 	ignoreMissingFields?: boolean;
+	ignoreNodeVersion: boolean | number;
 }
 
 type validator = (key: string, value: unknown) => void;
@@ -129,15 +130,16 @@ function verifyDependencies(pkg: PackageJson, options: VerifyPackageJsonOptions)
 export async function verifyPackageJson(
 	pkg: PackageJson,
 	filePath: string,
-	options: VerifyPackageJsonOptions = { allowedDependencies: new Set() },
+	options: VerifyPackageJsonOptions = { allowedDependencies: new Set(), ignoreNodeVersion: false },
 ): Promise<Result[]> {
+	const { ignoreNodeVersion } = options;
 	const messages: Message[] = [
 		...(await deprecatedDependency(pkg)),
 		...(await verifyEngineConstraint(pkg)),
 		...exportsTypesOrder(pkg),
 		...verifyFields(pkg, options),
 		...verifyDependencies(pkg, options),
-		...outdatedEngines(pkg),
+		...outdatedEngines(pkg, ignoreNodeVersion),
 		...typesNodeMatchingEngine(pkg),
 	];
 

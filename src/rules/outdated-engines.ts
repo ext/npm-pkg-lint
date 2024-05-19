@@ -7,7 +7,10 @@ import { type PackageJson } from "../types";
 const ruleId = "outdated-engines";
 const severity = Severity.ERROR;
 
-export function* outdatedEngines(pkg: PackageJson): Generator<Message> {
+export function* outdatedEngines(
+	pkg: PackageJson,
+	ignoreNodeVersion: boolean | number,
+): Generator<Message> {
 	if (!pkg.engines?.node) {
 		yield {
 			ruleId,
@@ -31,17 +34,32 @@ export function* outdatedEngines(pkg: PackageJson): Generator<Message> {
 		return;
 	}
 
+	if (ignoreNodeVersion === true) {
+		return;
+	}
+
 	for (const [version, descriptor] of nodeVersions) {
+		/* assume the list of versions are sorted: when a version not EOL is found
+		 * we stop processing the list, e.g. `>= 18` is OK while Node 18 is not EOL
+		 * even if Node 19 is EOL. */
 		if (!descriptor.eol) {
-			continue;
+			break;
 		}
 
 		const expanded = version.replace(/[xX*]/g, "999");
-		const parsed = semver.parse(expanded);
 		if (!semver.satisfies(expanded, range)) {
 			continue;
 		}
-		const nodeRelease = (parsed?.major ?? 0) || `0.${String(parsed?.minor ?? "")}`;
+
+		/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- parsing hardcoded values and covered by unit tests */
+		const parsed = semver.parse(expanded)!;
+
+		const { major, minor } = parsed;
+		if (ignoreNodeVersion === major) {
+			return;
+		}
+
+		const nodeRelease = major > 0 ? major : `0.${String(minor)}`;
 		const message = `engines.node is satisfied by Node ${String(nodeRelease)} (EOL since ${
 			descriptor.eol
 		})`;
@@ -53,5 +71,20 @@ export function* outdatedEngines(pkg: PackageJson): Generator<Message> {
 			column: 1,
 		};
 		return;
+	}
+
+	/* if we reached this far there was no error silenced by ignoreNodeVersion so
+	 * we yield a new error informing that the ignore is no longer needed */
+	if (typeof ignoreNodeVersion === "number") {
+		const option = String(ignoreNodeVersion);
+		const version = `v${String(ignoreNodeVersion)}.x`;
+		const message = `--ignore-node-version=${option} used but engines.node="${range}" does not match ${version} or the version is not EOL yet`;
+		yield {
+			ruleId,
+			severity,
+			message,
+			line: 1,
+			column: 1,
+		};
 	}
 }
