@@ -1,5 +1,11 @@
 # npm-pkg-lint changelog
 
+## 3.6.1 (2024-05-24)
+
+### Bug Fixes
+
+- querystring marked as obsolete ([b9e048e](https://github.com/ext/npm-pkg-lint/commit/b9e048eb567c6990754789ff570e0293e900bf96))
+
 ## 3.6.0 (2024-05-19)
 
 ### Features
