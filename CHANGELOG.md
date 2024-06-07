@@ -1,5 +1,11 @@
 # npm-pkg-lint changelog
 
+## 3.6.2 (2024-06-07)
+
+### Bug Fixes
+
+- **deps:** update dependency tar to v7.2.0 ([00641e1](https://github.com/ext/npm-pkg-lint/commit/00641e1d4fd8f779db7d5cdc67d1f8154948c55a))
+
 ## 3.6.1 (2024-05-24)
 
 ### Bug Fixes
