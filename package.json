@@ -64,7 +64,7 @@
     "execa": "9.3.0",
     "find-up": "7.0.0",
     "semver": "7.6.3",
-    "tar": "7.4.1",
+    "tar": "7.4.2",
     "tmp": "0.2.3"
   },
   "devDependencies": {
