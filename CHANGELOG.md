@@ -1,5 +1,11 @@
 # npm-pkg-lint changelog
 
+## 3.6.8 (2024-08-23)
+
+### Bug Fixes
+
+- **deps:** update dependency execa to v9.3.1 ([740e2bc](https://github.com/ext/npm-pkg-lint/commit/740e2bc239be2d47105919c8348c4ea8c2a728d1))
+
 ## 3.6.7 (2024-08-02)
 
 ### Bug Fixes
