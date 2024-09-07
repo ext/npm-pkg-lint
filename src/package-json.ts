@@ -134,7 +134,7 @@ export async function verifyPackageJson(
 ): Promise<Result[]> {
 	const { ignoreNodeVersion } = options;
 	const messages: Message[] = [
-		...(await deprecatedDependency(pkg)),
+		...(await deprecatedDependency(pkg, options)),
 		...(await verifyEngineConstraint(pkg)),
 		...exportsTypesOrder(pkg),
 		...verifyFields(pkg, options),
