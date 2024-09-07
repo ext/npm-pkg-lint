@@ -9,6 +9,7 @@ let cacheDir = path.join(cacheRoot, "npm-pkg-lint");
 
 /* istanbul ignore next */
 function getFilePath(key: string): string {
+	/* eslint-disable-next-line sonarjs/hashing -- technical debt, should use a different algo but should not cause any issues as is either */
 	const hash = crypto.createHash("md5").update(key).digest("hex");
 	const filename = `${hash.slice(0, 2)}/${hash.slice(2)}.json`;
 	return path.join(cacheDir, filename);
@@ -21,7 +22,7 @@ export async function setCacheDirecory(directory: string): Promise<void> {
 }
 
 /* istanbul ignore next */
-export async function persistentCacheGet(key: string): Promise<unknown | null> {
+export async function persistentCacheGet(key: string): Promise<unknown> {
 	if (!enabled) {
 		return null;
 	}

@@ -14,6 +14,7 @@ module.exports = {
 
 	rules: {
 		"import/extensions": "off",
+		"sonarjs/no-clear-text-protocols": "off",
 	},
 
 	overrides: [

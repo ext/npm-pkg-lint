@@ -95,7 +95,7 @@ function verifyDependencies(pkg: PackageJson, options: VerifyPackageJsonOptions)
 		}
 
 		/* skip @types/* if explicitly allowed by user */
-		if (options.allowTypesDependencies && dependency.match(/^@types\//)) {
+		if (options.allowTypesDependencies && /^@types\//.exec(dependency)) {
 			continue;
 		}
 
