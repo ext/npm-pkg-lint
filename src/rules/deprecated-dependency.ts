@@ -92,7 +92,10 @@ export async function deprecatedDependency(
 				column: 1,
 			});
 		} catch (err: unknown) {
-			if (isNpmInfoError(err) && err.code === "E404" && dependency.source !== "devDependencies") {
+			if (isNpmInfoError(err) && err.code === "E404") {
+				if (dependency.source === "devDependencies") {
+					continue;
+				}
 				messages.push({
 					ruleId,
 					severity: 1,
