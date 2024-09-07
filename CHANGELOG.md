@@ -1,5 +1,15 @@
 # npm-pkg-lint changelog
 
+## 3.7.0 (2024-09-07)
+
+### Features
+
+- allow `--allow-dependency` to suppress errors about deprecated packages ([1c666a7](https://github.com/ext/npm-pkg-lint/commit/1c666a76181a150c82b294cb211d13bfe3c1e08e))
+
+### Bug Fixes
+
+- dont yield warnings about unpublished devdependencies ([713aa32](https://github.com/ext/npm-pkg-lint/commit/713aa3261f69c421cfc20e41f44b8687f685111f))
+
 ## 3.6.8 (2024-08-23)
 
 ### Bug Fixes
