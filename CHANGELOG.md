@@ -1,5 +1,11 @@
 # npm-pkg-lint changelog
 
+## 3.7.1 (2024-09-07)
+
+### Bug Fixes
+
+- fix regression error with unpublished packages ([3477283](https://github.com/ext/npm-pkg-lint/commit/347728372fa160d2a004b3476d9835db9faaff3b))
+
 ## 3.7.0 (2024-09-07)
 
 ### Features
