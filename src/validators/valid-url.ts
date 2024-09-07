@@ -1,5 +1,5 @@
 export function validUrl(key: string, value: any): void {
-	if (typeof value === "string" && value.match(/^https:\/\/.+$/)) {
+	if (typeof value === "string" && /^https:\/\/.+$/.exec(value)) {
 		return;
 	} else if (value?.url) {
 		validUrl(`${key}.url`, value.url);

@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-var-requires -- technical debt */
+/* eslint-disable @typescript-eslint/no-require-imports -- technical debt */
 
 jest.mock("tar");
 

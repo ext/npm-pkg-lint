@@ -132,7 +132,6 @@ function* requiredFiles(pkg: PackageJson): Generator<RequiredFile> {
 	if (pkg.module) {
 		yield* yieldRequiredFiles(pkg.module, { field: "module", ruleId });
 	}
-	/* eslint-disable-next-line sonarjs/no-duplicate-string -- doesn't help readability */
 	if (pkg["jsnext:main"]) {
 		yield* yieldRequiredFiles(pkg["jsnext:main"], {
 			field: "jsnext:main",

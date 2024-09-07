@@ -16,7 +16,7 @@ export async function verifyShebang(pkg: PackageJson, tarball: TarballMeta): Pro
 
 	for (const [filePath, content] of Object.entries(contents)) {
 		const text = content.toString("utf-8");
-		if (text.match(/^#!.+?\r?\n/)) {
+		if (/^#!.+?\r?\n/.exec(text)) {
 			continue;
 		}
 		results.push({
