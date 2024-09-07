@@ -218,6 +218,8 @@ Examples of obsolete packages:
 - `mkdirp` - `fs#mkdir` supports the `recursive` flag since NodeJS v10.
 - `stable` - `Array#sort` is stable since NodeJS v12.
 
+If needed, `--allow-dependency` can be used to ignore one or more dependencies.
+
 ## Shebang
 
 Require all binaries to have UNIX-style shebang at the beginning of the file.

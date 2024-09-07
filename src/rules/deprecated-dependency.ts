@@ -1,5 +1,6 @@
 import semver from "semver";
 import { type Message } from "../message";
+import { type VerifyPackageJsonOptions } from "../package-json";
 import { type PackageJson } from "../types";
 import { npmInfo } from "../utils";
 import { isNpmInfoError } from "../utils/npm-info";
@@ -64,10 +65,19 @@ function* getDependencies(pkg: PackageJson): Generator<Dependency> {
 	}
 }
 
-export async function deprecatedDependency(pkg: PackageJson): Promise<Message[]> {
+export async function deprecatedDependency(
+	pkg: PackageJson,
+	options: VerifyPackageJsonOptions,
+): Promise<Message[]> {
+	const { allowedDependencies } = options;
 	const messages: Message[] = [];
 
 	for await (const dependency of getDependencies(pkg)) {
+		/* allow explicitly allowed dependencies */
+		if (allowedDependencies.has(dependency.name)) {
+			continue;
+		}
+
 		try {
 			const { deprecated } = await npmInfo(dependency.spec);
 			if (!deprecated) {
