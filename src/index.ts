@@ -3,6 +3,7 @@
 import { existsSync, createWriteStream, readFileSync, promises as fs } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { type DocumentNode, parse } from "@humanwhocodes/momoa";
 import { ArgumentParser } from "argparse";
 import { findUp } from "find-up";
 import tmp from "tmp";
@@ -31,6 +32,7 @@ interface ParsedArgs {
 
 interface GetPackageJsonResults {
 	pkg: PackageJson;
+	pkgAst: DocumentNode;
 	pkgPath: string;
 }
 
@@ -57,11 +59,15 @@ async function preloadStdin(): Promise<string> {
 async function getPackageJson(
 	args: ParsedArgs,
 	regenerateReportName: boolean,
-): Promise<GetPackageJsonResults | { pkg: undefined; pkgPath: undefined }> {
+): Promise<GetPackageJsonResults | { pkg: undefined; pkgAst: undefined; pkgPath: undefined }> {
 	/* get from explicit path passed as argument */
 	if (args.pkgfile) {
+		const content = await fs.readFile(args.pkgfile, "utf-8");
+		const pkg = JSON.parse(content) as PackageJson;
+		const pkgAst = parse(content);
 		return {
-			pkg: JSON.parse(await fs.readFile(args.pkgfile, "utf-8")) as PackageJson,
+			pkg,
+			pkgAst,
 			pkgPath: args.pkgfile,
 		};
 	}
@@ -69,9 +75,12 @@ async function getPackageJson(
 	/* extract package.json from explicit tarball location */
 	if (args.tarball) {
 		const contents = await getFileContent({ filePath: args.tarball }, [PACKAGE_JSON]);
-		const pkg = JSON.parse(contents[PACKAGE_JSON].toString("utf-8")) as PackageJson;
+		const content = contents[PACKAGE_JSON].toString("utf-8");
+		const pkg = JSON.parse(content) as PackageJson;
+		const pkgAst = parse(content);
 		return {
 			pkg,
+			pkgAst,
 			pkgPath: path.join(
 				regenerateReportName ? `${pkg.name}-${pkg.version}.tgz` : args.tarball,
 				PACKAGE_JSON,
@@ -83,13 +92,16 @@ async function getPackageJson(
 	const pkgPath = await findUp(PACKAGE_JSON);
 	if (pkgPath) {
 		const content = await fs.readFile(pkgPath, "utf-8");
+		const pkg = JSON.parse(content) as PackageJson;
+		const pkgAst = parse(content);
 		return {
-			pkg: JSON.parse(content) as PackageJson,
+			pkg,
+			pkgAst,
 			pkgPath,
 		};
 	}
 
-	return { pkg: undefined, pkgPath: undefined };
+	return { pkg: undefined, pkgAst: undefined, pkgPath: undefined };
 }
 
 async function run(): Promise<void> {
@@ -140,7 +152,7 @@ async function run(): Promise<void> {
 		regenerateReportName = true;
 	}
 
-	const { pkg, pkgPath } = await getPackageJson(args, regenerateReportName);
+	const { pkg, pkgAst, pkgPath } = await getPackageJson(args, regenerateReportName);
 
 	if (!pkg) {
 		console.error("Failed to locate package.json and no location was specificed with `--pkgfile'");
@@ -167,7 +179,18 @@ async function run(): Promise<void> {
 		ignoreNodeVersion: args.ignore_node_version,
 	};
 
-	const results = await verify(pkg, pkgPath, tarball, options);
+	const results = await verify(pkg, pkgAst, pkgPath, tarball, options);
+
+	for (const result of results) {
+		result.messages.sort((a, b) => {
+			if (a.line !== b.line) {
+				return a.line - b.line;
+			} else {
+				return a.column - b.column;
+			}
+		});
+	}
+
 	const output = stylish(results);
 	process.stdout.write(output);
 

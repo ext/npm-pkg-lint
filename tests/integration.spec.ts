@@ -2,10 +2,12 @@ jest.unmock("tar");
 
 import { promises as fs } from "fs";
 import * as path from "path";
+import { parse } from "@humanwhocodes/momoa";
 import { globSync } from "glob";
 import { execa } from "execa";
 import { verify } from "../src/verify";
 import { type PackageJson } from "../src/types";
+import { codeframe } from "../src/utils/codeframe";
 
 const ROOT_DIRECTORY = path.resolve(path.join(__dirname, ".."));
 const FIXTURE_DIRECTORY = path.join(__dirname, "fixtures");
@@ -23,11 +25,13 @@ it.each(fixtures)("%s", async (fixture) => {
 	expect.assertions(1);
 	const dir = path.join(FIXTURE_DIRECTORY, fixture);
 	const pkgPath = path.relative(ROOT_DIRECTORY, path.join(dir, "package.json"));
-	const pkg: PackageJson = JSON.parse(await fs.readFile(pkgPath, "utf-8"));
+	const content = await fs.readFile(pkgPath, "utf-8");
+	const pkgAst = parse(content);
+	const pkg: PackageJson = JSON.parse(content);
 	const tarball = { filePath: await npmPack(pkg, fixture) };
-	const result = await verify(pkg, pkgPath, tarball, {
+	const result = await verify(pkg, pkgAst, pkgPath, tarball, {
 		allowedDependencies: new Set(),
 		ignoreNodeVersion: false,
 	});
-	expect(result).toMatchSnapshot();
+	expect(codeframe(content, result)).toMatchSnapshot();
 });

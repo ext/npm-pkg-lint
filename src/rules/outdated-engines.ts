@@ -1,26 +1,35 @@
 import semver from "semver";
 import { Severity } from "@html-validate/stylish";
+import { type DocumentNode } from "@humanwhocodes/momoa";
 import { type Message } from "../message";
 import { nodeVersions } from "../node-versions";
 import { type PackageJson } from "../types";
+import { jsonLocation } from "../utils";
 
 const ruleId = "outdated-engines";
 const severity = Severity.ERROR;
 
+/* eslint-disable-next-line complexity -- technical debt */
 export function* outdatedEngines(
 	pkg: PackageJson,
+	pkgAst: DocumentNode,
 	ignoreNodeVersion: boolean | number,
 ): Generator<Message> {
 	if (!pkg.engines?.node) {
+		const { line, column } = pkg.engines
+			? jsonLocation(pkgAst, "member", "engines")
+			: { line: 1, column: 1 };
 		yield {
 			ruleId,
 			severity,
 			message: "Missing engines.node field",
-			line: 1,
-			column: 1,
+			line,
+			column,
 		};
 		return;
 	}
+
+	const { line, column } = jsonLocation(pkgAst, "value", "engines", "node");
 
 	const range = pkg.engines.node;
 	if (!semver.validRange(range)) {
@@ -28,8 +37,8 @@ export function* outdatedEngines(
 			ruleId,
 			severity,
 			message: `engines.node "${range}" is not a valid semver range`,
-			line: 1,
-			column: 1,
+			line,
+			column,
 		};
 		return;
 	}
@@ -67,8 +76,8 @@ export function* outdatedEngines(
 			ruleId,
 			severity,
 			message,
-			line: 1,
-			column: 1,
+			line,
+			column,
 		};
 		return;
 	}
@@ -83,8 +92,8 @@ export function* outdatedEngines(
 			ruleId,
 			severity,
 			message,
-			line: 1,
-			column: 1,
+			line,
+			column,
 		};
 	}
 }
