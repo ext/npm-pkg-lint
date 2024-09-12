@@ -1,5 +1,15 @@
 # npm-pkg-lint changelog
 
+## 3.8.0 (2024-09-12)
+
+### Features
+
+- show proper line and column in package.json ([b094ac2](https://github.com/ext/npm-pkg-lint/commit/b094ac20743b80ad6f191c49c1d8b73a845df3f5))
+
+### Bug Fixes
+
+- sort messages by line/column ([dca57bb](https://github.com/ext/npm-pkg-lint/commit/dca57bb180446c4c0457c236381d1430b2a32240))
+
 ## 3.7.2 (2024-09-12)
 
 ### Bug Fixes
