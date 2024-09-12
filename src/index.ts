@@ -180,6 +180,17 @@ async function run(): Promise<void> {
 	};
 
 	const results = await verify(pkg, pkgAst, pkgPath, tarball, options);
+
+	for (const result of results) {
+		result.messages.sort((a, b) => {
+			if (a.line !== b.line) {
+				return a.line - b.line;
+			} else {
+				return a.column - b.column;
+			}
+		});
+	}
+
 	const output = stylish(results);
 	process.stdout.write(output);
 
