@@ -1,7 +1,14 @@
+import { parse, type DocumentNode } from "@humanwhocodes/momoa";
 import { PackageJson } from "../types";
+import { codeframe } from "../utils/codeframe";
 import { typesNodeMatchingEngine } from "./types-node-matching-engine";
 
 let pkg: PackageJson & Required<Pick<PackageJson, "engines">>;
+
+function generateAst(pkg: PackageJson): { content: string; ast: DocumentNode } {
+	const content = JSON.stringify(pkg, null, 2);
+	return { content, ast: parse(content) };
+}
 
 beforeEach(() => {
 	pkg = {
@@ -17,16 +24,15 @@ it("should return error when engine is lower major than types", () => {
 		"@types/node": "^14.1.2",
 	};
 	pkg.engines.node = ">= 12";
-	expect(Array.from(typesNodeMatchingEngine(pkg))).toMatchInlineSnapshot(`
-		[
-		  {
-		    "column": 1,
-		    "line": 1,
-		    "message": "@types/node v14 does not equal engines.node v12",
-		    "ruleId": "types-node-matching-engine",
-		    "severity": 2,
-		  },
-		]
+	const { content, ast } = generateAst(pkg);
+	expect(codeframe(content, typesNodeMatchingEngine(pkg, ast))).toMatchInlineSnapshot(`
+		"ERROR: @types/node v14 does not equal engines.node v12 (types-node-matching-engine) at package.json
+		   6 |   },
+		   7 |   "devDependencies": {
+		>  8 |     "@types/node": "^14.1.2"
+		     |                    ^
+		   9 |   }
+		  10 | }"
 	`);
 });
 
@@ -36,16 +42,15 @@ it("should return error when engine is higher major than types", () => {
 		"@types/node": "^12.1.2",
 	};
 	pkg.engines.node = ">= 14";
-	expect(Array.from(typesNodeMatchingEngine(pkg))).toMatchInlineSnapshot(`
-		[
-		  {
-		    "column": 1,
-		    "line": 1,
-		    "message": "@types/node v12 does not equal engines.node v14",
-		    "ruleId": "types-node-matching-engine",
-		    "severity": 2,
-		  },
-		]
+	const { content, ast } = generateAst(pkg);
+	expect(codeframe(content, typesNodeMatchingEngine(pkg, ast))).toMatchInlineSnapshot(`
+		"ERROR: @types/node v12 does not equal engines.node v14 (types-node-matching-engine) at package.json
+		   6 |   },
+		   7 |   "devDependencies": {
+		>  8 |     "@types/node": "^12.1.2"
+		     |                    ^
+		   9 |   }
+		  10 | }"
 	`);
 });
 
@@ -55,7 +60,8 @@ it("should not return error when engine and types have same major", () => {
 		"@types/node": "^12.1.2",
 	};
 	pkg.engines.node = ">= 12";
-	expect(Array.from(typesNodeMatchingEngine(pkg))).toEqual([]);
+	const { ast } = generateAst(pkg);
+	expect(Array.from(typesNodeMatchingEngine(pkg, ast))).toEqual([]);
 });
 
 it("should handle || in engine constraint", () => {
@@ -64,16 +70,15 @@ it("should handle || in engine constraint", () => {
 		"@types/node": "^14.1.2",
 	};
 	pkg.engines.node = "^10.2.3 || ^12.2.3 || 14.2.3";
-	expect(Array.from(typesNodeMatchingEngine(pkg))).toMatchInlineSnapshot(`
-		[
-		  {
-		    "column": 1,
-		    "line": 1,
-		    "message": "@types/node v14 does not equal engines.node v10",
-		    "ruleId": "types-node-matching-engine",
-		    "severity": 2,
-		  },
-		]
+	const { content, ast } = generateAst(pkg);
+	expect(codeframe(content, typesNodeMatchingEngine(pkg, ast))).toMatchInlineSnapshot(`
+		"ERROR: @types/node v14 does not equal engines.node v10 (types-node-matching-engine) at package.json
+		   6 |   },
+		   7 |   "devDependencies": {
+		>  8 |     "@types/node": "^14.1.2"
+		     |                    ^
+		   9 |   }
+		  10 | }"
 	`);
 });
 
@@ -82,17 +87,20 @@ it("should handle when @types/node dependency is missing", () => {
 	delete pkg.dependencies;
 	delete pkg.devDependencies;
 	delete pkg.peerDependencies;
-	expect(Array.from(typesNodeMatchingEngine(pkg))).toEqual([]);
+	const { ast } = generateAst(pkg);
+	expect(Array.from(typesNodeMatchingEngine(pkg, ast))).toEqual([]);
 });
 
 it("should handle when engines.node is missing", () => {
 	expect.assertions(1);
 	delete pkg.engines.node;
-	expect(Array.from(typesNodeMatchingEngine(pkg))).toEqual([]);
+	const { ast } = generateAst(pkg);
+	expect(Array.from(typesNodeMatchingEngine(pkg, ast))).toEqual([]);
 });
 
 it("should handle when engines.node is not a valid semver range", () => {
 	expect.assertions(1);
 	pkg.engines.node = "foobar";
-	expect(Array.from(typesNodeMatchingEngine(pkg))).toEqual([]);
+	const { ast } = generateAst(pkg);
+	expect(Array.from(typesNodeMatchingEngine(pkg, ast))).toEqual([]);
 });

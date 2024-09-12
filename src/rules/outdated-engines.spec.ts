@@ -1,8 +1,15 @@
 import { Severity } from "@html-validate/stylish";
+import { parse, type DocumentNode } from "@humanwhocodes/momoa";
 import { PackageJson } from "../types";
+import { codeframe } from "../utils/codeframe";
 import { outdatedEngines } from "./outdated-engines";
 
 let pkg: PackageJson;
+
+function generateAst(pkg: PackageJson): { content: string; ast: DocumentNode } {
+	const content = JSON.stringify(pkg, null, 2);
+	return { content, ast: parse(content) };
+}
 
 beforeEach(() => {
 	pkg = {
@@ -40,13 +47,14 @@ describe("should return error when unsupported version satisfies engines.node", 
 		const message = new RegExp(
 			String.raw`engines\.node is satisfied by ${description} \(EOL since \d{4}-.*\)`,
 		);
-		expect(Array.from(outdatedEngines(pkg, false))).toEqual([
+		const { ast } = generateAst(pkg);
+		expect(Array.from(outdatedEngines(pkg, ast, false))).toEqual([
 			{
 				ruleId: "outdated-engines",
 				severity: Severity.ERROR,
 				message: expect.stringMatching(message),
-				line: 1,
-				column: 1,
+				line: 5,
+				column: 13,
 			},
 		]);
 	});
@@ -65,7 +73,8 @@ describe("should allow supported version (including odd versions in-between)", (
 		pkg.engines = {
 			node: range,
 		};
-		expect(Array.from(outdatedEngines(pkg, false))).toEqual([]);
+		const { ast } = generateAst(pkg);
+		expect(Array.from(outdatedEngines(pkg, ast, false))).toEqual([]);
 	});
 });
 
@@ -74,48 +83,43 @@ it("should return error engines.node is not a valid semver range", () => {
 	pkg.engines = {
 		node: "foobar",
 	};
-	expect(Array.from(outdatedEngines(pkg, false))).toMatchInlineSnapshot(`
-		[
-		  {
-		    "column": 1,
-		    "line": 1,
-		    "message": "engines.node "foobar" is not a valid semver range",
-		    "ruleId": "outdated-engines",
-		    "severity": 2,
-		  },
-		]
+	const { content, ast } = generateAst(pkg);
+	expect(codeframe(content, outdatedEngines(pkg, ast, false))).toMatchInlineSnapshot(`
+		"ERROR: engines.node "foobar" is not a valid semver range (outdated-engines) at package.json
+		  3 |   "version": "1.2.3",
+		  4 |   "engines": {
+		> 5 |     "node": "foobar"
+		    |             ^
+		  6 |   }
+		  7 | }"
 	`);
 });
 
 it("should return error engines.node is missing", () => {
 	expect.assertions(1);
 	pkg.engines = {};
-	expect(Array.from(outdatedEngines(pkg, false))).toMatchInlineSnapshot(`
-		[
-		  {
-		    "column": 1,
-		    "line": 1,
-		    "message": "Missing engines.node field",
-		    "ruleId": "outdated-engines",
-		    "severity": 2,
-		  },
-		]
+	const { content, ast } = generateAst(pkg);
+	expect(codeframe(content, outdatedEngines(pkg, ast, false))).toMatchInlineSnapshot(`
+		"ERROR: Missing engines.node field (outdated-engines) at package.json
+		  2 |   "name": "mock-package",
+		  3 |   "version": "1.2.3",
+		> 4 |   "engines": {}
+		    |   ^
+		  5 | }"
 	`);
 });
 
 it("should return error engines is missing", () => {
 	expect.assertions(1);
 	delete pkg.engines;
-	expect(Array.from(outdatedEngines(pkg, false))).toMatchInlineSnapshot(`
-		[
-		  {
-		    "column": 1,
-		    "line": 1,
-		    "message": "Missing engines.node field",
-		    "ruleId": "outdated-engines",
-		    "severity": 2,
-		  },
-		]
+	const { content, ast } = generateAst(pkg);
+	expect(codeframe(content, outdatedEngines(pkg, ast, false))).toMatchInlineSnapshot(`
+		"ERROR: Missing engines.node field (outdated-engines) at package.json
+		> 1 | {
+		    | ^
+		  2 |   "name": "mock-package",
+		  3 |   "version": "1.2.3"
+		  4 | }"
 	`);
 });
 
@@ -124,7 +128,8 @@ it("should not return error when engines.node only supports active versions", ()
 	pkg.engines = {
 		node: ">= 18",
 	};
-	expect(Array.from(outdatedEngines(pkg, false))).toMatchInlineSnapshot(`[]`);
+	const { ast } = generateAst(pkg);
+	expect(Array.from(outdatedEngines(pkg, ast, false))).toEqual([]);
 });
 
 it("should ignore outdated node version when ignoreNodeVersion is true", () => {
@@ -132,7 +137,8 @@ it("should ignore outdated node version when ignoreNodeVersion is true", () => {
 	pkg.engines = {
 		node: ">= 16",
 	};
-	expect(Array.from(outdatedEngines(pkg, true))).toEqual([]);
+	const { ast } = generateAst(pkg);
+	expect(Array.from(outdatedEngines(pkg, ast, true))).toEqual([]);
 });
 
 it("should ignore outdated node version when ignoreNodeVersion is specific major", () => {
@@ -140,7 +146,8 @@ it("should ignore outdated node version when ignoreNodeVersion is specific major
 	pkg.engines = {
 		node: ">= 16",
 	};
-	expect(Array.from(outdatedEngines(pkg, 16))).toEqual([]);
+	const { ast } = generateAst(pkg);
+	expect(Array.from(outdatedEngines(pkg, ast, 16))).toEqual([]);
 });
 
 it("should yield error when ignoreNodeVersion does not match declared engines.node range", () => {
@@ -148,14 +155,14 @@ it("should yield error when ignoreNodeVersion does not match declared engines.no
 	pkg.engines = {
 		node: ">= 18",
 	};
-	expect(Array.from(outdatedEngines(pkg, 16))).toEqual([
-		{
-			ruleId: "outdated-engines",
-			severity: 2,
-			message:
-				'--ignore-node-version=16 used but engines.node=">= 18" does not match v16.x or the version is not EOL yet',
-			line: 1,
-			column: 1,
-		},
-	]);
+	const { content, ast } = generateAst(pkg);
+	expect(codeframe(content, outdatedEngines(pkg, ast, 16))).toMatchInlineSnapshot(`
+		"ERROR: --ignore-node-version=16 used but engines.node=">= 18" does not match v16.x or the version is not EOL yet (outdated-engines) at package.json
+		  3 |   "version": "1.2.3",
+		  4 |   "engines": {
+		> 5 |     "node": ">= 18"
+		    |             ^
+		  6 |   }
+		  7 | }"
+	`);
 });

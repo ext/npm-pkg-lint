@@ -1,8 +1,9 @@
+import { type DocumentNode } from "@humanwhocodes/momoa";
 import semver from "semver";
 import { type Message } from "../message";
 import { type VerifyPackageJsonOptions } from "../package-json";
 import { type PackageJson } from "../types";
-import { npmInfo } from "../utils";
+import { jsonLocation, npmInfo } from "../utils";
 import { isNpmInfoError } from "../utils/npm-info";
 
 const ruleId = "no-deprecated-dependency";
@@ -67,6 +68,7 @@ function* getDependencies(pkg: PackageJson): Generator<Dependency> {
 
 export async function deprecatedDependency(
 	pkg: PackageJson,
+	pkgAst: DocumentNode,
 	options: VerifyPackageJsonOptions,
 ): Promise<Message[]> {
 	const { allowedDependencies } = options;
@@ -83,25 +85,26 @@ export async function deprecatedDependency(
 			if (!deprecated) {
 				continue;
 			}
-
+			const { line, column } = jsonLocation(pkgAst, "member", dependency.source, dependency.name);
 			messages.push({
 				ruleId,
 				severity: 2,
 				message: `"${dependency.spec}" is deprecated and must not be used`,
-				line: 1,
-				column: 1,
+				line,
+				column,
 			});
 		} catch (err: unknown) {
 			if (isNpmInfoError(err) && err.code === "E404") {
 				if (dependency.source === "devDependencies") {
 					continue;
 				}
+				const { line, column } = jsonLocation(pkgAst, "member", dependency.source, dependency.name);
 				messages.push({
 					ruleId,
 					severity: 1,
-					message: `the dependency "${dependency.spec}" is not published to the NPM registry`,
-					line: 1,
-					column: 1,
+					message: `"${dependency.spec}" is not published to the NPM registry`,
+					line,
+					column,
 				});
 				continue;
 			}

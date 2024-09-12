@@ -60,6 +60,7 @@
   },
   "dependencies": {
     "@html-validate/stylish": "4.2.0",
+    "@humanwhocodes/momoa": "3.2.1",
     "argparse": "2.0.1",
     "execa": "9.3.1",
     "find-up": "7.0.0",
@@ -68,6 +69,7 @@
     "tmp": "0.2.3"
   },
   "devDependencies": {
+    "@babel/code-frame": "7.24.7",
     "@html-validate/commitlint-config": "3.2.5",
     "@html-validate/eslint-config": "5.22.3",
     "@html-validate/eslint-config-jest": "5.22.4",
@@ -77,6 +79,7 @@
     "@html-validate/prettier-config": "2.5.5",
     "@html-validate/release-scripts": "6.6.0",
     "@types/argparse": "2.0.16",
+    "@types/babel__code-frame": "7.0.6",
     "@types/jest": "29.5.12",
     "@types/node": "18.19.50",
     "@types/semver": "7.5.8",

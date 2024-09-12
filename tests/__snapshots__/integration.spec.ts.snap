@@ -1,190 +1,132 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`disallowed-files 1`] = `
-[
-  {
-    "errorCount": 1,
-    "filePath": "tests/fixtures/disallowed-files/disallowed-files-1.0.0.tgz",
-    "fixableErrorCount": 0,
-    "fixableWarningCount": 0,
-    "messages": [
-      {
-        "column": 1,
-        "line": 1,
-        "message": "my-lib.spec.js is not allowed in tarball",
-        "ruleId": "no-disallowed-files",
-        "severity": 2,
-      },
-    ],
-    "warningCount": 0,
-  },
-]
+"ERROR: my-lib.spec.js is not allowed in tarball (no-disallowed-files) at tests/fixtures/disallowed-files/disallowed-files-1.0.0.tgz
+"
 `;
 
 exports[`empty-fields 1`] = `
-[
-  {
-    "errorCount": 7,
-    "filePath": "tests/fixtures/empty-fields/package.json",
-    "fixableErrorCount": 0,
-    "fixableWarningCount": 0,
-    "messages": [
-      {
-        "column": 1,
-        "line": 1,
-        "message": ""description" must not be empty",
-        "ruleId": "package-json-fields",
-        "severity": 2,
-      },
-      {
-        "column": 1,
-        "line": 1,
-        "message": ""keywords" must not be empty",
-        "ruleId": "package-json-fields",
-        "severity": 2,
-      },
-      {
-        "column": 1,
-        "line": 1,
-        "message": ""homepage" must be a valid url (https only)",
-        "ruleId": "package-json-fields",
-        "severity": 2,
-      },
-      {
-        "column": 1,
-        "line": 1,
-        "message": ""bugs" must be a valid url (https only)",
-        "ruleId": "package-json-fields",
-        "severity": 2,
-      },
-      {
-        "column": 1,
-        "line": 1,
-        "message": ""license" must not be empty",
-        "ruleId": "package-json-fields",
-        "severity": 2,
-      },
-      {
-        "column": 1,
-        "line": 1,
-        "message": ""author" must not be empty",
-        "ruleId": "package-json-fields",
-        "severity": 2,
-      },
-      {
-        "column": 1,
-        "line": 1,
-        "message": ""repository" is missing required "type" property",
-        "ruleId": "package-json-fields",
-        "severity": 2,
-      },
-    ],
-    "warningCount": 0,
-  },
-]
+"ERROR: "description" must not be empty (package-json-fields) at tests/fixtures/empty-fields/package.json
+  2 |   "name": "empty-fields",
+  3 |   "version": "1.0.0",
+> 4 |   "description": "",
+    |                  ^
+  5 |   "keywords": [],
+  6 |   "homepage": "",
+  7 |   "bugs": "",
+
+ERROR: "keywords" must not be empty (package-json-fields) at tests/fixtures/empty-fields/package.json
+  3 |   "version": "1.0.0",
+  4 |   "description": "",
+> 5 |   "keywords": [],
+    |               ^
+  6 |   "homepage": "",
+  7 |   "bugs": "",
+  8 |   "repository": {},
+
+ERROR: "homepage" must be a valid url (https only) (package-json-fields) at tests/fixtures/empty-fields/package.json
+  4 |   "description": "",
+  5 |   "keywords": [],
+> 6 |   "homepage": "",
+    |               ^
+  7 |   "bugs": "",
+  8 |   "repository": {},
+  9 |   "license": "",
+
+ERROR: "bugs" must be a valid url (https only) (package-json-fields) at tests/fixtures/empty-fields/package.json
+   5 |   "keywords": [],
+   6 |   "homepage": "",
+>  7 |   "bugs": "",
+     |           ^
+   8 |   "repository": {},
+   9 |   "license": "",
+  10 |   "author": "",
+
+ERROR: "license" must not be empty (package-json-fields) at tests/fixtures/empty-fields/package.json
+   7 |   "bugs": "",
+   8 |   "repository": {},
+>  9 |   "license": "",
+     |              ^
+  10 |   "author": "",
+  11 |   "main": "",
+  12 |   "files": [],
+
+ERROR: "author" must not be empty (package-json-fields) at tests/fixtures/empty-fields/package.json
+   8 |   "repository": {},
+   9 |   "license": "",
+> 10 |   "author": "",
+     |             ^
+  11 |   "main": "",
+  12 |   "files": [],
+  13 |   "engines": {
+
+ERROR: "repository" is missing required "type" property (package-json-fields) at tests/fixtures/empty-fields/package.json
+   6 |   "homepage": "",
+   7 |   "bugs": "",
+>  8 |   "repository": {},
+     |                 ^
+   9 |   "license": "",
+  10 |   "author": "",
+  11 |   "main": "","
 `;
 
 exports[`missing-binary 1`] = `
-[
-  {
-    "errorCount": 1,
-    "filePath": "tests/fixtures/missing-binary/missing-binary-1.0.0.tgz",
-    "fixableErrorCount": 0,
-    "fixableWarningCount": 0,
-    "messages": [
-      {
-        "column": 1,
-        "line": 1,
-        "message": "bin.js (pkg.bin) is not present in tarball",
-        "ruleId": "no-missing-binary",
-        "severity": 2,
-      },
-    ],
-    "warningCount": 0,
-  },
-]
+"ERROR: bin.js (pkg.bin) is not present in tarball (no-missing-binary) at tests/fixtures/missing-binary/missing-binary-1.0.0.tgz
+"
 `;
 
 exports[`missing-fields 1`] = `
-[
-  {
-    "errorCount": 7,
-    "filePath": "tests/fixtures/missing-fields/package.json",
-    "fixableErrorCount": 0,
-    "fixableWarningCount": 0,
-    "messages": [
-      {
-        "column": 1,
-        "line": 1,
-        "message": ""description" must be set",
-        "ruleId": "package-json-fields",
-        "severity": 2,
-      },
-      {
-        "column": 1,
-        "line": 1,
-        "message": ""keywords" must be set",
-        "ruleId": "package-json-fields",
-        "severity": 2,
-      },
-      {
-        "column": 1,
-        "line": 1,
-        "message": ""homepage" must be set",
-        "ruleId": "package-json-fields",
-        "severity": 2,
-      },
-      {
-        "column": 1,
-        "line": 1,
-        "message": ""bugs" must be set",
-        "ruleId": "package-json-fields",
-        "severity": 2,
-      },
-      {
-        "column": 1,
-        "line": 1,
-        "message": ""license" must be set",
-        "ruleId": "package-json-fields",
-        "severity": 2,
-      },
-      {
-        "column": 1,
-        "line": 1,
-        "message": ""author" must be set",
-        "ruleId": "package-json-fields",
-        "severity": 2,
-      },
-      {
-        "column": 1,
-        "line": 1,
-        "message": ""repository" must be set",
-        "ruleId": "package-json-fields",
-        "severity": 2,
-      },
-    ],
-    "warningCount": 0,
-  },
-]
+"ERROR: "description" must be set (package-json-fields) at tests/fixtures/missing-fields/package.json
+> 1 | {
+    | ^
+  2 |   "name": "missing-fields",
+  3 |   "version": "1.0.0",
+  4 |   "files": [],
+
+ERROR: "keywords" must be set (package-json-fields) at tests/fixtures/missing-fields/package.json
+> 1 | {
+    | ^
+  2 |   "name": "missing-fields",
+  3 |   "version": "1.0.0",
+  4 |   "files": [],
+
+ERROR: "homepage" must be set (package-json-fields) at tests/fixtures/missing-fields/package.json
+> 1 | {
+    | ^
+  2 |   "name": "missing-fields",
+  3 |   "version": "1.0.0",
+  4 |   "files": [],
+
+ERROR: "bugs" must be set (package-json-fields) at tests/fixtures/missing-fields/package.json
+> 1 | {
+    | ^
+  2 |   "name": "missing-fields",
+  3 |   "version": "1.0.0",
+  4 |   "files": [],
+
+ERROR: "license" must be set (package-json-fields) at tests/fixtures/missing-fields/package.json
+> 1 | {
+    | ^
+  2 |   "name": "missing-fields",
+  3 |   "version": "1.0.0",
+  4 |   "files": [],
+
+ERROR: "author" must be set (package-json-fields) at tests/fixtures/missing-fields/package.json
+> 1 | {
+    | ^
+  2 |   "name": "missing-fields",
+  3 |   "version": "1.0.0",
+  4 |   "files": [],
+
+ERROR: "repository" must be set (package-json-fields) at tests/fixtures/missing-fields/package.json
+> 1 | {
+    | ^
+  2 |   "name": "missing-fields",
+  3 |   "version": "1.0.0",
+  4 |   "files": [],"
 `;
 
 exports[`missing-main 1`] = `
-[
-  {
-    "errorCount": 1,
-    "filePath": "tests/fixtures/missing-main/missing-main-1.0.0.tgz",
-    "fixableErrorCount": 0,
-    "fixableWarningCount": 0,
-    "messages": [
-      {
-        "column": 1,
-        "line": 1,
-        "message": "index.js (pkg.main) is not present in tarball",
-        "ruleId": "no-missing-main",
-        "severity": 2,
-      },
-    ],
-    "warningCount": 0,
-  },
-]
+"ERROR: index.js (pkg.main) is not present in tarball (no-missing-main) at tests/fixtures/missing-main/missing-main-1.0.0.tgz
+"
 `;
