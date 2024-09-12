@@ -82,10 +82,10 @@ async function getPackageJson(
 	/* try to locate package.json from file structure */
 	const pkgPath = await findUp(PACKAGE_JSON);
 	if (pkgPath) {
-		const relPath = path.relative(process.cwd(), pkgPath);
+		const content = await fs.readFile(pkgPath, "utf-8");
 		return {
-			pkg: JSON.parse(await fs.readFile(relPath, "utf-8")) as PackageJson,
-			pkgPath: relPath,
+			pkg: JSON.parse(content) as PackageJson,
+			pkgPath,
 		};
 	}
 
