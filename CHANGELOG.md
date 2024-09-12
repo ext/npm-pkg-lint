@@ -1,5 +1,11 @@
 # npm-pkg-lint changelog
 
+## 3.7.2 (2024-09-12)
+
+### Bug Fixes
+
+- use full absolute path to files in output ([9b3990a](https://github.com/ext/npm-pkg-lint/commit/9b3990a92b1173e627ef9cf40ab98fd49d1f7f09))
+
 ## 3.7.1 (2024-09-07)
 
 ### Bug Fixes
