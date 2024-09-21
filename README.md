@@ -288,7 +288,7 @@ but the `my-dependency` constraint requires NodeJS 12 or later this rule yields 
 
 Requires `engines.node` lowest major version to equal `@types/node` major version.
 
-**Why?** If you the wrong major version of `@types/node` you might write code with is unsupported by the versions claimed to be supported by `engines.node` or you might be missing out on newer features that could be used.
+**Why?** If you use the wrong major version of `@types/node` you might write code with is unsupported by the versions claimed to be supported by `engines.node` or you might be missing out on newer features that could be used.
 
 Final compatibility should be tested with a version matrix but having `@types/node` at the correct version can give the developer early assistance.
 
@@ -306,3 +306,26 @@ The following `package.json`:
 ```
 
 will yield an error becase `node` v12 is not the same as `@types/node` v14.
+
+## `@tsconfig/node*` and engine constraints
+
+Requires `engines.node` lowest major version to match the `@tsconfig/node*` base package.
+
+**Why?** If you use the wrong `@tsconfig/node*` base package you might be targeting and outputing code that will be unsupported by the versions claimed to be supported by `engines.node` or you are outputting inefficient code which isn't taking advantage of newer features that could be used.
+
+Final compatibility should be tested with a version matrix but having `@tsconfig/node*` at the correct version can give the developer early assistance.
+
+The following `package.json`:
+
+```json
+{
+  "devDependencies": {
+    "@tsconfig/node14": "^14.1.2"
+  },
+  "engines": {
+    "node": ">= 12"
+  }
+}
+```
+
+will yield an error becase `@tsconfig/node14` is for NodeJS v14 but the `engines.node` constraints the version to v12.
