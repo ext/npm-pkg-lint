@@ -1,5 +1,12 @@
 # npm-pkg-lint changelog
 
+## 3.9.0 (2024-09-21)
+
+### Features
+
+- disallow @tsconfig/ packages as non-devdependency ([3334ab1](https://github.com/ext/npm-pkg-lint/commit/3334ab1af13ba54ab18aa216c6b8507dd78706ac))
+- match @tsconfig/node\* and engines.node versions ([cf5d931](https://github.com/ext/npm-pkg-lint/commit/cf5d9313b63b602a0c5145ef93fb6ea3006560d0))
+
 ## 3.8.0 (2024-09-12)
 
 ### Features
