@@ -11,7 +11,7 @@ export interface TarballMeta {
 	filePath: string;
 
 	/** Path to use in report (default filePath) */
-	reportPath?: string;
+	reportPath?: string | undefined;
 }
 
 interface RequiredFile {
