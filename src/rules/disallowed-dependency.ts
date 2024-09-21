@@ -35,6 +35,7 @@ const disallowedDependencies: RegExp[] = [
 	prefix("typescript"),
 	prefix("webpack"),
 	scope("@babel"),
+	scope("@tsconfig"),
 	scope("@types"),
 ];
 
