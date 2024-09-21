@@ -22,8 +22,8 @@ import { jsonLocation } from "./utils";
 
 export interface VerifyPackageJsonOptions {
 	allowedDependencies: Set<string>;
-	allowTypesDependencies?: boolean;
-	ignoreMissingFields?: boolean;
+	allowTypesDependencies?: boolean | undefined;
+	ignoreMissingFields?: boolean | undefined;
 	ignoreNodeVersion: boolean | number;
 }
 

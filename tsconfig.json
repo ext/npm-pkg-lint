@@ -1,21 +1,22 @@
 {
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": ["@tsconfig/node18/tsconfig.json", "@tsconfig/strictest/tsconfig.json"],
   "compilerOptions": {
-    "alwaysStrict": true,
     "rootDir": "./src",
+    "outDir": "dist",
     "declaration": true,
-    "esModuleInterop": true,
-    "isolatedModules": true,
-    "lib": ["es2022"],
+    "noEmit": true,
+    "sourceMap": true,
+
     "module": "esnext",
     "moduleResolution": "bundler",
-    "noImplicitAny": true,
-    "noEmit": true,
-    "outDir": "dist",
     "resolveJsonModule": true,
-    "sourceMap": true,
-    "target": "es2022",
-    "strict": true,
-    "skipLibCheck": true
+
+    /* clashes with eslint dot-notation and makes code a bit harder to read */
+    "noPropertyAccessFromIndexSignature": false,
+
+    /* some of these could/should be fixed but it also creates lots of errors where it shouldn't */
+    "noUncheckedIndexedAccess": false
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "**/__mocks__"]

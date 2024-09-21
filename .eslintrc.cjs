@@ -15,6 +15,9 @@ module.exports = {
 	rules: {
 		"import/extensions": "off",
 		"sonarjs/no-clear-text-protocols": "off",
+
+		/* not redundant as they dont mean the same thing */
+		"sonarjs/no-redundant-optional": "off",
 	},
 
 	overrides: [
