@@ -60,7 +60,7 @@
   },
   "dependencies": {
     "@html-validate/stylish": "4.2.0",
-    "@humanwhocodes/momoa": "3.2.2",
+    "@humanwhocodes/momoa": "3.3.0",
     "argparse": "2.0.1",
     "execa": "9.3.1",
     "find-up": "7.0.0",
