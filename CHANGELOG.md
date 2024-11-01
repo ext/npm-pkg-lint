@@ -1,5 +1,11 @@
 # npm-pkg-lint changelog
 
+## 3.9.3 (2024-11-01)
+
+### Bug Fixes
+
+- **deps:** update dependency @humanwhocodes/momoa to v3.3.1 ([049bf42](https://github.com/ext/npm-pkg-lint/commit/049bf42761badecf98f056b1e945eeefeb6e5fbd))
+
 ## 3.9.2 (2024-10-18)
 
 ### Bug Fixes
