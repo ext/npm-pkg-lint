@@ -1,5 +1,11 @@
 # npm-pkg-lint changelog
 
+## 3.10.0 (2024-11-04)
+
+### Features
+
+- **deps:** replace execa with nano-spawn ([a118361](https://github.com/ext/npm-pkg-lint/commit/a118361e11667558dc13e6ab7cafc0be41dd57b2))
+
 ## 3.9.3 (2024-11-01)
 
 ### Bug Fixes
