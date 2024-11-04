@@ -62,7 +62,7 @@
     "@html-validate/stylish": "4.2.0",
     "@humanwhocodes/momoa": "3.3.1",
     "argparse": "2.0.1",
-    "execa": "9.3.1",
+    "execa": "9.5.1",
     "find-up": "7.0.0",
     "semver": "7.6.3",
     "tar": "7.4.3",
