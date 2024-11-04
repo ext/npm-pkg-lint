@@ -1,4 +1,4 @@
-import { execa } from "execa";
+import spawn from "nano-spawn";
 import { type PackageJson } from "../types";
 import { persistentCacheGet, persistentCacheSet } from "./persistent-cache";
 
@@ -59,7 +59,7 @@ export async function npmInfo(
 	}
 
 	try {
-		const result = await execa("npm", ["info", "--json", pkg]);
+		const result = await spawn("npm", ["info", "--json", pkg]);
 		const pkgData = JSON.parse(result.stdout) as PackageJson;
 		cache.set(pkg, pkgData);
 		await persistentCacheSet(pkg, pkgData);

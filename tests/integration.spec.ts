@@ -4,7 +4,7 @@ import { promises as fs } from "fs";
 import * as path from "path";
 import { parse } from "@humanwhocodes/momoa";
 import { globSync } from "glob";
-import { execa } from "execa";
+import spawn from "nano-spawn";
 import { verify } from "../src/verify";
 import { type PackageJson } from "../src/types";
 import { codeframe } from "../src/utils/codeframe";
@@ -17,7 +17,7 @@ const fixtures = globSync("*", { cwd: FIXTURE_DIRECTORY });
 async function npmPack(pkg: PackageJson, fixture: string): Promise<string> {
 	const dir = path.join(FIXTURE_DIRECTORY, fixture);
 	const tarball = path.join(dir, `${pkg.name}-${pkg.version}.tgz`);
-	await execa("npm", ["pack"], { cwd: dir });
+	await spawn("npm", ["pack"], { cwd: dir });
 	return path.relative(ROOT_DIRECTORY, tarball);
 }
 
