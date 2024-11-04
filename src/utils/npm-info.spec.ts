@@ -1,10 +1,10 @@
-import { execa } from "execa";
+import spawn from "nano-spawn";
 import { type ExecaError, type NpmInfoError, npmInfo, isNpmInfoError } from "./npm-info";
 
-jest.mock("execa");
+jest.mock("nano-spawn");
 jest.mock("./persistent-cache");
 
-const mockExeca = execa as unknown as jest.Mock;
+const mockSpawn = spawn as unknown as jest.Mock;
 
 function createExecaError(message: string, stdout: string | Record<string, unknown>): Error {
 	const error = new Error(message) as Error & ExecaError;
@@ -12,7 +12,7 @@ function createExecaError(message: string, stdout: string | Record<string, unkno
 	return error;
 }
 
-mockExeca.mockImplementation((_, args: string[]) => {
+mockSpawn.mockImplementation((_, args: string[]) => {
 	const [name, version] = args.at(-1)!.split("@");
 
 	switch (name) {
@@ -45,7 +45,7 @@ beforeEach(() => {
 it("should fetch package info", async () => {
 	expect.assertions(2);
 	const pkgData = await npmInfo("my-package@1.2.3");
-	expect(mockExeca).toHaveBeenCalledWith("npm", ["info", "--json", "my-package@1.2.3"]);
+	expect(mockSpawn).toHaveBeenCalledWith("npm", ["info", "--json", "my-package@1.2.3"]);
 	expect(pkgData).toEqual({
 		name: "my-package",
 		version: "1.2.3",
@@ -63,7 +63,7 @@ it("should cache results", async () => {
 	await npmInfo("my-package@1");
 	await npmInfo("my-package@2");
 	await npmInfo("my-package@1");
-	expect(mockExeca).toHaveBeenCalledTimes(2);
+	expect(mockSpawn).toHaveBeenCalledTimes(2);
 });
 
 it("should cache ignoreUnpublished", async () => {
@@ -71,7 +71,7 @@ it("should cache ignoreUnpublished", async () => {
 	await npmInfo("unpublished@1", { ignoreUnpublished: true });
 	await npmInfo("unpublished@2", { ignoreUnpublished: true });
 	await npmInfo("unpublished@1", { ignoreUnpublished: true });
-	expect(mockExeca).toHaveBeenCalledTimes(2);
+	expect(mockSpawn).toHaveBeenCalledTimes(2);
 });
 
 it("should throw custom error if an error is returned by npm info", async () => {
