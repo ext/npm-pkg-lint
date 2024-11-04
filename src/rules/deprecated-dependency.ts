@@ -74,7 +74,7 @@ export async function deprecatedDependency(
 	const { allowedDependencies } = options;
 	const messages: Message[] = [];
 
-	for await (const dependency of getDependencies(pkg)) {
+	for (const dependency of getDependencies(pkg)) {
 		/* allow explicitly allowed dependencies */
 		if (allowedDependencies.has(dependency.name)) {
 			continue;
