@@ -147,3 +147,18 @@ it("should handle npm: prefix", async () => {
 		}),
 	]);
 });
+
+it("should handle recursive dependencies", async () => {
+	expect.assertions(1);
+	const pkg: PackageJson = {
+		name: "my-app",
+		version: "1.0.0",
+		dependencies: {
+			foo: "1.0.0",
+		},
+		engines: { node: ">= 20" },
+	};
+	npmInfoMockAdd("foo@1.0.0", { name: "foo", version: "1.0.0", dependencies: { bar: "1.0.0" } });
+	npmInfoMockAdd("bar@1.0.0", { name: "bar", version: "1.0.0", dependencies: { foo: "1.0.0" } });
+	expect(await verifyEngineConstraint(pkg)).toEqual([]);
+});

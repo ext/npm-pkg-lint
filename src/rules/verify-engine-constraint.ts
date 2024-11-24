@@ -5,7 +5,18 @@ import { isNpmInfoError, npmInfo } from "../utils";
 
 const ruleId = "invalid-engine-constraint";
 
-async function* getDeepDependencies(pkg: PackageJson, dependency?: string): AsyncGenerator<string> {
+async function* getDeepDependencies(
+	pkg: PackageJson,
+	visited: Set<string>,
+	dependency?: string,
+): AsyncGenerator<string> {
+	if (dependency) {
+		if (visited.has(dependency)) {
+			return;
+		}
+		visited.add(dependency);
+	}
+
 	const pkgData = dependency ? await npmInfo(dependency, { ignoreUnpublished: true }) : pkg;
 	if (!pkgData) {
 		return;
@@ -30,7 +41,7 @@ async function* getDeepDependencies(pkg: PackageJson, dependency?: string): Asyn
 		const deep = `${key}@${minVersion ? minVersion.version : version}`;
 
 		yield deep;
-		yield* getDeepDependencies(pkg, deep);
+		yield* getDeepDependencies(pkg, visited, deep);
 	}
 }
 
@@ -75,13 +86,7 @@ export async function verifyEngineConstraint(pkg: PackageJson): Promise<Message[
 	const messages: Message[] = [];
 	const visited = new Set<string>();
 
-	for await (const dependency of getDeepDependencies(pkg)) {
-		if (visited.has(dependency)) {
-			continue;
-		}
-
-		visited.add(dependency);
-
+	for await (const dependency of getDeepDependencies(pkg, visited)) {
 		try {
 			const message = await verifyDependency(dependency, minDeclared, declaredConstraint);
 			if (message) {
