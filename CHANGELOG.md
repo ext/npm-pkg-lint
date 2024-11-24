@@ -1,5 +1,11 @@
 # npm-pkg-lint changelog
 
+## 3.10.3 (2024-11-24)
+
+### Bug Fixes
+
+- better handling of recursive dependencies ([cb020d0](https://github.com/ext/npm-pkg-lint/commit/cb020d09310f0f4b0034a351cf4187ae78f81957))
+
 ## 3.10.2 (2024-11-15)
 
 ### Bug Fixes
