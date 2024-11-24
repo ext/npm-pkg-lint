@@ -71,10 +71,10 @@
   "devDependencies": {
     "@babel/code-frame": "7.26.2",
     "@html-validate/commitlint-config": "3.2.5",
-    "@html-validate/eslint-config": "5.23.3",
+    "@html-validate/eslint-config": "5.23.4",
     "@html-validate/eslint-config-jest": "5.23.2",
-    "@html-validate/eslint-config-typescript": "5.23.2",
-    "@html-validate/eslint-config-typescript-typeinfo": "5.23.2",
+    "@html-validate/eslint-config-typescript": "5.23.4",
+    "@html-validate/eslint-config-typescript-typeinfo": "5.23.4",
     "@html-validate/jest-config": "3.10.0",
     "@html-validate/prettier-config": "2.5.6",
     "@html-validate/release-scripts": "6.7.0",
