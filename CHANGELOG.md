@@ -1,5 +1,11 @@
 # npm-pkg-lint changelog
 
+## 3.10.4 (2024-11-29)
+
+### Bug Fixes
+
+- remove extra quotes from aliased disallowed dependency ([553711c](https://github.com/ext/npm-pkg-lint/commit/553711ce662e84e0a4055b0db3f5743e2cb9f869))
+
 ## 3.10.3 (2024-11-24)
 
 ### Bug Fixes
