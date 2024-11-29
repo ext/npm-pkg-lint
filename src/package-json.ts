@@ -112,11 +112,11 @@ function verifyDependencies(
 
 		if (isDisallowedDependency(pkg, dependency)) {
 			const { line, column } = jsonLocation(pkgAst, "member", "dependencies", key);
-			const name = key === dependency ? dependency : `"${key}" ("npm:${dependency}")`;
+			const name = key === dependency ? `"${dependency}"` : `"${key}" ("npm:${dependency}")`;
 			messages.push({
 				ruleId: "disallowed-dependency",
 				severity: 2,
-				message: `"${name}" should be a devDependency`,
+				message: `${name} should be a devDependency`,
 				line,
 				column,
 			});

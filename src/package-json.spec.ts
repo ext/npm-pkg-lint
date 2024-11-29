@@ -75,7 +75,7 @@ it("should return error if aliased dependency is disallowed", async () => {
 	const { content, ast } = generateAst(pkg);
 	const results = await verifyPackageJson(pkg, ast, "package.json");
 	expect(codeframe(content, results)).toMatchInlineSnapshot(`
-		"ERROR: ""aliased" ("npm:eslint")" should be a devDependency (disallowed-dependency) at package.json
+		"ERROR: "aliased" ("npm:eslint") should be a devDependency (disallowed-dependency) at package.json
 		  18 |   },
 		  19 |   "dependencies": {
 		> 20 |     "aliased": "npm:eslint@1.2.3"
