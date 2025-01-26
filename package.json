@@ -76,7 +76,7 @@
     "@html-validate/eslint-config-typescript": "5.25.5",
     "@html-validate/eslint-config-typescript-typeinfo": "5.25.5",
     "@html-validate/jest-config": "3.11.2",
-    "@html-validate/prettier-config": "2.5.11",
+    "@html-validate/prettier-config": "2.5.12",
     "@html-validate/release-scripts": "6.7.5",
     "@tsconfig/node18": "18.2.4",
     "@tsconfig/strictest": "2.0.5",
