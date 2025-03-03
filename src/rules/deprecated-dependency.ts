@@ -20,6 +20,11 @@ function createEntry(
 	version: string,
 	source: Dependency["source"],
 ): Dependency | null {
+	/* ignore packages with file: prefix */
+	if (version.startsWith("file:")) {
+		return null;
+	}
+
 	/* handle npm: prefix */
 	if (version.startsWith("npm:")) {
 		const [newKey, newVersion] = version.slice("npm:".length).split("@", 2);
