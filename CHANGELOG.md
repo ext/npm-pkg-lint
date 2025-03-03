@@ -1,5 +1,11 @@
 # npm-pkg-lint changelog
 
+## 3.10.11 (2025-03-03)
+
+### Bug Fixes
+
+- handle file: prefix for npm dependencies ([a8b5381](https://github.com/ext/npm-pkg-lint/commit/a8b53814dcf8637294008de3b40dad3893576c33))
+
 ## 3.10.10 (2025-02-28)
 
 ### Bug Fixes
