@@ -1,6 +1,6 @@
 import { ValidationError } from "./validation-error";
 
-export function typeArray(key: string, value: any): void {
+export function typeArray(key: string, value: unknown): void {
 	if (!Array.isArray(value)) {
 		throw new ValidationError(typeArray.name, `"${key}" must be array`);
 	}
