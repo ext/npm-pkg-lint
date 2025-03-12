@@ -3,12 +3,12 @@ import { type PackageJson } from "../../types";
 const mock = new Map<string, PackageJson>();
 let defaultInfo: PackageJson | null = null;
 
-export async function npmInfo(pkg: string): Promise<PackageJson> {
+export function npmInfo(pkg: string): Promise<PackageJson> {
 	const mocked = mock.get(pkg);
 	if (mocked) {
-		return mocked;
+		return Promise.resolve(mocked);
 	} else if (defaultInfo) {
-		return defaultInfo;
+		return Promise.resolve(defaultInfo);
 	} else {
 		throw new Error(`No mocked package data for ${pkg}`);
 	}
