@@ -22,9 +22,13 @@ export default [
 		],
 	},
 	...defaultConfig,
-	...typescriptConfig,
 	{
-		name: "Typescript typeinfo configuration",
+		name: "@html-validate/eslint-config-typescript",
+		files: ["**/*.ts"],
+		...typescriptConfig,
+	},
+	{
+		name: "@html-validate/eslint-config-typeinfo",
 		files: ["src/**/*.ts"],
 		ignores: ["src/**/*.spec.ts"],
 		languageOptions: {
@@ -33,9 +37,14 @@ export default [
 				project: ["./tsconfig.json"],
 			},
 		},
+		...typescriptTypeinfoConfig,
 	},
-	...typescriptTypeinfoConfig,
-	...jestConfig,
+	{
+		name: "@html-validate/eslint-config-jest",
+		files: ["**/*.spec.[jt]s"],
+		ignores: ["cypress/**", "tests/e2e/**"],
+		...jestConfig,
+	},
 	{
 		/* files which should lint even if project isn't build yet */
 		files: ["./*.d.ts", "bin/*.js"],
