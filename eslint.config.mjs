@@ -17,14 +17,22 @@ export default [
 			"**/coverage/**",
 			"**/dist/**",
 			"**/node_modules/**",
+			"**/out/**",
 			"**/public/assets/**",
 			"**/temp/**",
 		],
 	},
+
 	...defaultConfig,
-	...typescriptConfig,
+
 	{
-		name: "Typescript typeinfo configuration",
+		name: "@html-validate/eslint-config-typescript",
+		files: ["**/*.ts"],
+		...typescriptConfig,
+	},
+
+	{
+		name: "@html-validate/eslint-config-typeinfo",
 		files: ["src/**/*.ts"],
 		ignores: ["src/**/*.spec.ts"],
 		languageOptions: {
@@ -33,21 +41,18 @@ export default [
 				project: ["./tsconfig.json"],
 			},
 		},
-	},
-	...typescriptTypeinfoConfig,
-	...jestConfig,
-	{
-		/* files which should lint even if project isn't build yet */
-		files: ["./*.d.ts", "bin/*.js"],
-		rules: {
-			"import/export": "off",
-			"import/extensions": "off",
-			"import/no-unresolved": "off",
-		},
+		...typescriptTypeinfoConfig,
 	},
 
 	{
-		name: "Local overrides",
+		name: "@html-validate/eslint-config-jest",
+		files: ["**/*.spec.[jt]s"],
+		ignores: ["cypress/**", "tests/e2e/**"],
+		...jestConfig,
+	},
+
+	{
+		name: "local",
 		rules: {
 			"sonarjs/no-clear-text-protocols": "off",
 		},

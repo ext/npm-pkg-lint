@@ -9,6 +9,7 @@ const ruleId = "tsconfig-base-matching-engine";
 const severity = Severity.ERROR;
 const matchDependency = /^@tsconfig\/node(\d+)$/;
 
+/* eslint-disable-next-line complexity -- technical debt */
 export function* tsconfigBaseMatchingEngine(
 	pkg: PackageJson,
 	pkgAst: DocumentNode,

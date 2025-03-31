@@ -39,7 +39,6 @@ const fields: Record<string, validator[]> = {
 	repository: [present, validRepoUrl],
 };
 
-/* eslint-disable-next-line sonarjs/cognitive-complexity -- technical debt */
 function verifyFields(
 	pkg: PackageJson,
 	pkgAst: DocumentNode,
@@ -89,6 +88,7 @@ function getActualDependency(key: string, version: string): string {
 	return key;
 }
 
+/* eslint-disable-next-line complexity -- technical debt */
 function verifyDependencies(
 	pkg: PackageJson,
 	pkgAst: DocumentNode,
