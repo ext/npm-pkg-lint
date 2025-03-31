@@ -10,7 +10,6 @@ const obsolete: ObsoleteDependency[] = [
 	{ package: "querystring", message: `use native "URLSearchParams" instead` },
 ];
 
-/* eslint-disable-next-line sonarjs/function-return-type -- no */
 export function isObsoleteDependency(dependency: string): ObsoleteDependency | false {
 	return obsolete.find((it) => it.package === dependency) ?? false;
 }
