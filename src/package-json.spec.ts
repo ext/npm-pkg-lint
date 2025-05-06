@@ -28,7 +28,7 @@ beforeEach(() => {
 		author: "Fred Flintstone <fred.flintstone@example.net>",
 		repository: { type: "git", url: "git+https://git.example.net/test-case.git" },
 		engines: {
-			node: ">= 18",
+			node: ">= 20",
 		},
 	};
 	npmInfoMockDefault(pkg);
@@ -541,7 +541,7 @@ describe("fields", () => {
 				> 12 |   "repository": "foobar",
 				     |                 ^
 				  13 |   "engines": {
-				  14 |     "node": ">= 18"
+				  14 |     "node": ">= 20"
 				  15 |   }"
 			`);
 		});
