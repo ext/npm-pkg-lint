@@ -38,6 +38,8 @@ describe("should return error when unsupported version satisfies engines.node", 
 		${">= 15.x"}   | ${"Node 15"}
 		${">= 16.x"}   | ${"Node 16"}
 		${">= 17.x"}   | ${"Node 17"}
+		${">= 18.x"}   | ${"Node 18"}
+		${">= 19.x"}   | ${"Node 19"}
 	`("$description", ({ range, description }) => {
 		expect.assertions(1);
 		pkg.engines = {
@@ -63,11 +65,10 @@ describe("should return error when unsupported version satisfies engines.node", 
 describe("should allow supported version (including odd versions in-between)", () => {
 	it.each`
 		range        | description
-		${">= 18.x"} | ${"Node 18"}
-		${">= 19.x"} | ${"Node 19"}
 		${">= 20.x"} | ${"Node 20"}
 		${">= 21.x"} | ${"Node 21"}
 		${">= 22.x"} | ${"Node 22"}
+		${">= 23.x"} | ${"Node 23"}
 	`("$description", ({ range }) => {
 		expect.assertions(1);
 		pkg.engines = {
@@ -126,7 +127,7 @@ it("should return error engines is missing", () => {
 it("should not return error when engines.node only supports active versions", () => {
 	expect.assertions(1);
 	pkg.engines = {
-		node: ">= 18",
+		node: ">= 20",
 	};
 	const { ast } = generateAst(pkg);
 	expect(Array.from(outdatedEngines(pkg, ast, false))).toEqual([]);
@@ -135,7 +136,7 @@ it("should not return error when engines.node only supports active versions", ()
 it("should ignore outdated node version when ignoreNodeVersion is true", () => {
 	expect.assertions(1);
 	pkg.engines = {
-		node: ">= 16",
+		node: ">= 18",
 	};
 	const { ast } = generateAst(pkg);
 	expect(Array.from(outdatedEngines(pkg, ast, true))).toEqual([]);
@@ -144,23 +145,23 @@ it("should ignore outdated node version when ignoreNodeVersion is true", () => {
 it("should ignore outdated node version when ignoreNodeVersion is specific major", () => {
 	expect.assertions(1);
 	pkg.engines = {
-		node: ">= 16",
+		node: ">= 18",
 	};
 	const { ast } = generateAst(pkg);
-	expect(Array.from(outdatedEngines(pkg, ast, 16))).toEqual([]);
+	expect(Array.from(outdatedEngines(pkg, ast, 18))).toEqual([]);
 });
 
 it("should yield error when ignoreNodeVersion does not match declared engines.node range", () => {
 	expect.assertions(1);
 	pkg.engines = {
-		node: ">= 18",
+		node: ">= 20",
 	};
 	const { content, ast } = generateAst(pkg);
-	expect(codeframe(content, outdatedEngines(pkg, ast, 16))).toMatchInlineSnapshot(`
-		"ERROR: --ignore-node-version=16 used but engines.node=">= 18" does not match v16.x or the version is not EOL yet (outdated-engines) at package.json
+	expect(codeframe(content, outdatedEngines(pkg, ast, 18))).toMatchInlineSnapshot(`
+		"ERROR: --ignore-node-version=18 used but engines.node=">= 20" does not match v18.x or the version is not EOL yet (outdated-engines) at package.json
 		  3 |   "version": "1.2.3",
 		  4 |   "engines": {
-		> 5 |     "node": ">= 18"
+		> 5 |     "node": ">= 20"
 		    |             ^
 		  6 |   }
 		  7 | }"

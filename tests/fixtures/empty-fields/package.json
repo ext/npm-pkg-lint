@@ -11,6 +11,6 @@
   "main": "",
   "files": [],
   "engines": {
-    "node": ">= 18"
+    "node": ">= 20"
   }
 }
