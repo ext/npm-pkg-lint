@@ -1,5 +1,12 @@
 # npm-pkg-lint changelog
 
+## 3.10.12 (2025-05-16)
+
+### Bug Fixes
+
+- **deps:** update dependency nano-spawn to v0.2.1 ([b7cd2c6](https://github.com/ext/npm-pkg-lint/commit/b7cd2c6ac485834dfba27f907dee4d6a14e0cc83))
+- **deps:** update dependency semver to v7.7.2 ([0240088](https://github.com/ext/npm-pkg-lint/commit/0240088c38028ba81567235e6f87c37b8d75ae1d))
+
 ## 3.10.11 (2025-03-03)
 
 ### Bug Fixes
