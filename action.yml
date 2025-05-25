@@ -39,4 +39,6 @@ runs:
       run: npm pack
     - name: npm-pkg-lint
       shell: bash
-      run: npm exec npm-pkg-lint ${{ inputs.ignore-node-version && format('--ignore-node-version={0}', inputs.ignore-node-version) || '' }}
+      run: |
+        npm exec npm-pkg-lint -- \
+          ${{ inputs.ignore-node-version && format('--ignore-node-version={0}', inputs.ignore-node-version) || '' }}
