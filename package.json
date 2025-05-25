@@ -97,11 +97,5 @@
   },
   "engines": {
     "node": ">= 20"
-  },
-  "renovate": {
-    "extends": [
-      "gitlab>html-validate/renovate-config",
-      "gitlab>html-validate/renovate-config:bundled"
-    ]
   }
 }
