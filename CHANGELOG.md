@@ -1,5 +1,18 @@
 # npm-pkg-lint changelog
 
+## 4.0.0 (2025-05-25)
+
+### ⚠ BREAKING CHANGES
+
+- NodeJS v20 or later is required
+
+### Features
+
+- add github action ([de14fce](https://github.com/ext/npm-pkg-lint/commit/de14fce0cff29d500de0fb3873a37a89e88fbf5b))
+- **deps:** update dependency nano-spawn to v1 ([ee1e960](https://github.com/ext/npm-pkg-lint/commit/ee1e960f1b41080c392b20fea2670c8b32168029))
+- require nodejs v20 or later ([ce8786c](https://github.com/ext/npm-pkg-lint/commit/ce8786c10d29fc56386f2e5ba7183dbad615a86c))
+- **rules:** require node v20 as node v18 is eol ([515e8c4](https://github.com/ext/npm-pkg-lint/commit/515e8c4b82d6db28f7d09ae7639be0ae91c490ab))
+
 ## 3.10.12 (2025-05-16)
 
 ### Bug Fixes
