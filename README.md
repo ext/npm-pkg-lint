@@ -54,6 +54,28 @@ This can be used to quickly examine packages from https://www.npmjs.com/:
 
 > curl -s \$(npm view lodash dist.tarball) | npx npm-pkg-lint -t -
 
+## Github Action
+
+This tool can be used directly with Github Actions:
+
+```yaml
+- name: Checkout
+  uses: actions/checkout@v4
+- name: Setup Node.js
+  uses: actions/setup-node@v4
+- name: npm-pkg-lint
+  uses: ext/npm-pkg-lint@master
+```
+
+> [!IMPORTANT]
+> You need to have `npm-pkg-lint` installed as a dependency in `package.json`.
+> This ensures you have control over which version of the tool is actually running.
+
+| Input&nbsp;parameter | Default   | Description                                                               |
+| -------------------- | --------- | ------------------------------------------------------------------------- |
+| build                | `"build"` | Build command (executed with `npm run`). Set to `false` to disable build. |
+| npm-pack             | `true`    | When enabled `npm pack` is run automatically                              |
+
 ## Disallowed files
 
 Disallows certain files from being included in the package tarball.

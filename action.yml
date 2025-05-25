@@ -1,0 +1,38 @@
+name: npm-pkg-lint
+author: David Sveningsson
+description: |
+  Opinionated linter for NPM package tarball and package.json metadata
+
+branding:
+  icon: git-pull-request
+  color: blue
+
+inputs:
+  build:
+    description: Build command (executed with `npm run`)
+    required: false
+    default: build
+  npm-pack:
+    description: When enabled `npm pack` is run automatically
+    required: false
+    default: true
+
+runs:
+  using: composite
+  steps:
+    - name: Setup cache
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/npm-pkg-lint
+        key: npm-pkg-lint
+    - name: Build package
+      if: (inputs.build != 'false' && inputs.build != false)
+      shell: bash
+      run: npm run --if-present ${{ inputs.build }}
+    - name: Create NPM package
+      if: (inputs.npm-pack == 'true' || inputs.npm-pack == true)
+      shell: bash
+      run: npm pack
+    - name: npm-pkg-lint
+      shell: bash
+      run: npm exec npm-pkg-lint
