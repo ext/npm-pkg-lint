@@ -13,7 +13,7 @@ async function run() {
 		sourcemap: true,
 		bundle: true,
 		platform: "node",
-		target: "node14",
+		target: "node20",
 		format: "esm",
 		banner: {
 			js: cjsCompat,

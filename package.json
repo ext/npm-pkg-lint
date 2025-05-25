@@ -78,12 +78,12 @@
     "@html-validate/jest-config": "3.12.1",
     "@html-validate/prettier-config": "3.0.2",
     "@html-validate/release-scripts": "6.8.4",
-    "@tsconfig/node18": "18.2.4",
+    "@tsconfig/node20": "20.1.5",
     "@tsconfig/strictest": "2.0.5",
     "@types/argparse": "2.0.17",
     "@types/babel__code-frame": "7.0.6",
     "@types/jest": "29.5.14",
-    "@types/node": "18.19.103",
+    "@types/node": "20.17.50",
     "@types/semver": "7.7.0",
     "@types/tar": "6.1.13",
     "@types/tmp": "0.2.6",
@@ -96,7 +96,7 @@
     "typescript": "5.8.3"
   },
   "engines": {
-    "node": ">= 18.19"
+    "node": ">= 20"
   },
   "renovate": {
     "extends": [
