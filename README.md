@@ -71,10 +71,11 @@ This tool can be used directly with Github Actions:
 > You need to have `npm-pkg-lint` installed as a dependency in `package.json`.
 > This ensures you have control over which version of the tool is actually running.
 
-| Input&nbsp;parameter | Default   | Description                                                               |
-| -------------------- | --------- | ------------------------------------------------------------------------- |
-| build                | `"build"` | Build command (executed with `npm run`). Set to `false` to disable build. |
-| npm-pack             | `true`    | When enabled `npm pack` is run automatically                              |
+| Input&nbsp;parameter | Default   | Description                                                                     |
+| -------------------- | --------- | ------------------------------------------------------------------------------- |
+| build                | `"build"` | Build command (executed with `npm run`). Set to `false` to disable build.       |
+| ignore-node-version  | -         | Ignore error for outdated node version (see --ignore-node-version CLI argument) |
+| npm-pack             | `true`    | When enabled `npm pack` is run automatically                                    |
 
 ## Disallowed files
 

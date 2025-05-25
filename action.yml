@@ -12,6 +12,10 @@ inputs:
     description: Build command (executed with `npm run`)
     required: false
     default: build
+  ignore-node-version:
+    description: Ignore error for outdated node version (see `--ignore-node-version` CLI argument)
+    required: false
+    default: ""
   npm-pack:
     description: When enabled `npm pack` is run automatically
     required: false
@@ -35,4 +39,6 @@ runs:
       run: npm pack
     - name: npm-pkg-lint
       shell: bash
-      run: npm exec npm-pkg-lint
+      run: |
+        npm exec npm-pkg-lint \
+          ${{ inputs.ignore-node-version && format('--ignore-node-version={0}', inputs.ignore-node-version) || '' }}
