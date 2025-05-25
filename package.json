@@ -63,7 +63,7 @@
     "@humanwhocodes/momoa": "3.3.8",
     "argparse": "2.0.1",
     "find-up": "7.0.0",
-    "nano-spawn": "0.2.1",
+    "nano-spawn": "1.0.2",
     "semver": "7.7.2",
     "tar": "7.4.3",
     "tmp": "0.2.3"
@@ -96,7 +96,7 @@
     "typescript": "5.8.3"
   },
   "engines": {
-    "node": ">= 20"
+    "node": ">= 20.17"
   },
   "publishConfig": {
     "access": "public",
