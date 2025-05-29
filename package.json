@@ -83,7 +83,7 @@
     "@types/argparse": "2.0.17",
     "@types/babel__code-frame": "7.0.6",
     "@types/jest": "29.5.14",
-    "@types/node": "20.17.51",
+    "@types/node": "20.17.52",
     "@types/semver": "7.7.0",
     "@types/tar": "6.1.13",
     "@types/tmp": "0.2.6",
