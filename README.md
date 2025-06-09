@@ -74,6 +74,7 @@ This tool can be used directly with Github Actions:
 | Input&nbsp;parameter | Default   | Description                                                                     |
 | -------------------- | --------- | ------------------------------------------------------------------------------- |
 | build                | `"build"` | Build command (executed with `npm run`). Set to `false` to disable build.       |
+| folders              | `"."`     | Space-separated list of folder to run in.                                       |
 | ignore-node-version  | -         | Ignore error for outdated node version (see --ignore-node-version CLI argument) |
 | npm-pack             | `true`    | When enabled `npm pack` is run automatically                                    |
 

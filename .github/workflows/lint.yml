@@ -21,3 +21,14 @@ jobs:
       - name: ESLint
         if: success() || failure()
         run: npm run eslint -- --max-warnings 0
+  npm-pkg-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+      - name: Install dependencies
+        run: npm ci
+      - name: npm-pkg-lint
+        uses: ./
