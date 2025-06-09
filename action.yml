@@ -43,10 +43,15 @@ runs:
       run: |
         for pkg in ${{ inputs.folders }}; do (
           set -e
-          cd $pkg
-          echo "::group::$(npm pkg get --json name | jq -r)"
+          if [[ "${pkg}" != "." ]]; then
+            cd $pkg
+            name=$(node -p 'require("./package.json").name')
+            echo "::group::${name}"
+          fi
           npm pack
-          echo "::endgroup::"
+          if [[ "${pkg}" != "." ]]; then
+            echo "::endgroup::"
+          fi
         ); done
     - name: npm-pkg-lint
       shell: bash
