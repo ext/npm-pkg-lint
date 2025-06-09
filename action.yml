@@ -8,6 +8,10 @@ branding:
   color: blue
 
 inputs:
+  allow-dependencies:
+    description: Comma-separated list of dependencies to explicitly allow even if they would yield an error
+    required: false
+    default: ""
   build:
     description: Build command (executed with `npm run`)
     required: false
@@ -64,8 +68,7 @@ runs:
             echo "::group::${name}"
             echo Running npm-pkg-lint on package ${name} in ${pkg}
           fi
-          npm exec npm-pkg-lint -- \
-            ${{ inputs.ignore-node-version && format('--ignore-node-version={0}', inputs.ignore-node-version) || '' }}
+          npm exec npm-pkg-lint -- ${{ inputs.allow-dependencies && format('--allow-dependency={0}', inputs.allow-dependency) || '' }} ${{ inputs.ignore-node-version && format('--ignore-node-version={0}', inputs.ignore-node-version) || '' }}
           if [[ "${pkg}" != "." ]]; then
             echo "::endgroup::"
           fi
