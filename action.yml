@@ -12,6 +12,10 @@ inputs:
     description: Build command (executed with `npm run`)
     required: false
     default: build
+  folders:
+    description: Space-separated list of folder to run in.
+    required: false
+    default: "."
   ignore-node-version:
     description: Ignore error for outdated node version (see `--ignore-node-version` CLI argument)
     required: false
@@ -36,9 +40,24 @@ runs:
     - name: Create NPM package
       if: (inputs.npm-pack == 'true' || inputs.npm-pack == true)
       shell: bash
-      run: npm pack
+      run: |
+        for pkg in ${{ inputs.folders }}; do (
+          set -e
+          cd $pkg
+          echo "::group::$(npm pkg get --json name | jq -r)"
+          npm pack
+          echo "::endgroup::"
+        ); done
     - name: npm-pkg-lint
       shell: bash
       run: |
-        npm exec npm-pkg-lint -- \
-          ${{ inputs.ignore-node-version && format('--ignore-node-version={0}', inputs.ignore-node-version) || '' }}
+        for pkg in ${{ inputs.folders }}; do (
+          set -e
+          cd $pkg
+          name=$(npm pkg get --json name | jq -r)
+          echo "::group::${name}"
+          echo Running npm-pkg-lint on package ${name} in ${pkg}
+          npm exec npm-pkg-lint -- \
+            ${{ inputs.ignore-node-version && format('--ignore-node-version={0}', inputs.ignore-node-version) || '' }}
+          echo "::endgroup::"
+        ); done
