@@ -53,11 +53,15 @@ runs:
       run: |
         for pkg in ${{ inputs.folders }}; do (
           set -e
-          cd $pkg
-          name=$(npm pkg get --json name | jq -r)
-          echo "::group::${name}"
-          echo Running npm-pkg-lint on package ${name} in ${pkg}
+          if [[ "${pkg}" != "." ]]; then
+            cd $pkg
+            name=$(node -p 'require("./package.json").name')
+            echo "::group::${name}"
+            echo Running npm-pkg-lint on package ${name} in ${pkg}
+          fi
           npm exec npm-pkg-lint -- \
             ${{ inputs.ignore-node-version && format('--ignore-node-version={0}', inputs.ignore-node-version) || '' }}
-          echo "::endgroup::"
+          if [[ "${pkg}" != "." ]]; then
+            echo "::endgroup::"
+          fi
         ); done
