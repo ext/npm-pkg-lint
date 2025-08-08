@@ -1,5 +1,11 @@
 # npm-pkg-lint changelog
 
+## 4.0.2 (2025-08-08)
+
+### Bug Fixes
+
+- **deps:** update dependency tmp to v0.2.4 [security] ([d10a199](https://github.com/ext/npm-pkg-lint/commit/d10a199ced27b00021b4cd83ff7834f09b4ab61b))
+
 ## 4.0.1 (2025-06-27)
 
 ### Bug Fixes
