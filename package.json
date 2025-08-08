@@ -93,7 +93,7 @@
     "jest": "30.0.5",
     "lint-staged": "16.1.4",
     "ts-jest": "29.4.1",
-    "typescript": "5.8.3"
+    "typescript": "5.9.2"
   },
   "engines": {
     "node": ">= 20.17"
