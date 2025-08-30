@@ -52,6 +52,7 @@ describe("package list", () => {
 		"@scope/prettier-plugin-foobar",
 		"ts-node",
 		"typescript",
+		"typescript-eslint",
 		"webpack",
 		"@babel/foobar",
 		"@types/foobar",
@@ -67,7 +68,7 @@ describe("package list", () => {
 });
 
 it("should allow eslint-* if package keywords includes eslint", () => {
-	expect.assertions(7);
+	expect.assertions(8);
 	const eslintPkg: PackageJson = {
 		...pkg,
 		keywords: ["eslint"],
@@ -79,6 +80,7 @@ it("should allow eslint-* if package keywords includes eslint", () => {
 	expect(isDisallowedDependency(eslintPkg, "@scope/eslint-config-foobar")).toBeFalsy();
 	expect(isDisallowedDependency(eslintPkg, "@scope/eslint-formatter-foobar")).toBeFalsy();
 	expect(isDisallowedDependency(eslintPkg, "@scope/eslint-plugin-foobar")).toBeFalsy();
+	expect(isDisallowedDependency(eslintPkg, "typescript-eslint")).toBeFalsy();
 });
 
 it("should allow jest-* if package keywords includes jest", () => {

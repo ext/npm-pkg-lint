@@ -21,6 +21,7 @@ const disallowedDependencies: RegExp[] = [
 	exact("ava"),
 	exact("jake"),
 	exact("tsd"),
+	exact("typescript"),
 	exact("xo"),
 	prefix("babel-core"),
 	prefix("cypress"),
@@ -32,7 +33,6 @@ const disallowedDependencies: RegExp[] = [
 	prefix("nyc"),
 	prefix("protractor"),
 	prefix("ts-node"),
-	prefix("typescript"),
 	prefix("webpack"),
 	scope("@babel"),
 	scope("@tsconfig"),
@@ -41,9 +41,11 @@ const disallowedDependencies: RegExp[] = [
 
 const disallowedEslint: RegExp[] = [
 	exact("eslint"),
+	exact("typescript-eslint"),
 	prefix("eslint-config"),
 	prefix("eslint-formatter"),
 	prefix("eslint-plugin"),
+	scope("@typescript-eslint"),
 	scopedPrefix("eslint-config"),
 	scopedPrefix("eslint-formatter"),
 	scopedPrefix("eslint-plugin"),
