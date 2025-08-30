@@ -1,5 +1,11 @@
 # npm-pkg-lint changelog
 
+## 4.0.4 (2025-08-30)
+
+### Bug Fixes
+
+- allow typescript-eslint i keywords contain eslint ([745b0ad](https://github.com/ext/npm-pkg-lint/commit/745b0ad07a7692c2ea8cdc73e6e73223e120513f))
+
 ## 4.0.3 (2025-08-15)
 
 ### Bug Fixes
