@@ -1,5 +1,11 @@
 # npm-pkg-lint changelog
 
+## 4.1.0 (2025-09-19)
+
+### Features
+
+- **deps:** update dependency find-up to v8 ([ef00c41](https://github.com/ext/npm-pkg-lint/commit/ef00c41a7608db9ea7d9668a4410d2aa161bbf16))
+
 ## 4.0.5 (2025-09-12)
 
 ### Bug Fixes
