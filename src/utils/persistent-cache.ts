@@ -1,7 +1,7 @@
-import fs from "node:fs/promises";
-import path from "node:path";
 import crypto from "node:crypto";
+import fs from "node:fs/promises";
 import os from "node:os";
+import path from "node:path";
 
 const enabled = os.platform() === "linux";
 const cacheRoot = process.env.XDG_CACHE_HOME ?? path.join(os.homedir(), ".cache");

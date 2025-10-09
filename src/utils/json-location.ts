@@ -1,4 +1,4 @@
-import { type MemberNode, type DocumentNode, type ValueNode } from "@humanwhocodes/momoa";
+import { type DocumentNode, type MemberNode, type ValueNode } from "@humanwhocodes/momoa";
 
 interface Result {
 	value: ValueNode;

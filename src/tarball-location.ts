@@ -1,4 +1,4 @@
-import path from "path";
+import path from "node:path";
 import { type PackageJson } from "./types";
 
 function normalize(name: string): string {

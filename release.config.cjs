@@ -1,10 +1,10 @@
-const commitAnalyzer = require("@html-validate/semantic-release-config/lib/commit-analyzer");
-const releaseNotesGenerator = require("@html-validate/semantic-release-config/lib/release-notes-generator");
-const npm = require("@html-validate/semantic-release-config/lib/npm");
+const branches = require("@html-validate/semantic-release-config/lib/branches");
 const changelog = require("@html-validate/semantic-release-config/lib/changelog");
+const commitAnalyzer = require("@html-validate/semantic-release-config/lib/commit-analyzer");
 const exec = require("@html-validate/semantic-release-config/lib/exec");
 const git = require("@html-validate/semantic-release-config/lib/git");
-const branches = require("@html-validate/semantic-release-config/lib/branches");
+const npm = require("@html-validate/semantic-release-config/lib/npm");
+const releaseNotesGenerator = require("@html-validate/semantic-release-config/lib/release-notes-generator");
 
 const plugins = [
 	["@semantic-release/commit-analyzer", commitAnalyzer],

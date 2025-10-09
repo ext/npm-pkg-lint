@@ -1,8 +1,8 @@
 import { type DocumentNode } from "@humanwhocodes/momoa";
-import { type Result } from "./result";
-import { type TarballMeta, verifyTarball } from "./tarball";
 import { type VerifyPackageJsonOptions, verifyPackageJson } from "./package-json";
+import { type Result } from "./result";
 import { verifyShebang } from "./shebang";
+import { type TarballMeta, verifyTarball } from "./tarball";
 import { type PackageJson } from "./types";
 
 export type VerifyOptions = VerifyPackageJsonOptions;

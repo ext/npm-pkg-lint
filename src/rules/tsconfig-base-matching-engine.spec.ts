@@ -1,4 +1,4 @@
-import { parse, type DocumentNode } from "@humanwhocodes/momoa";
+import { type DocumentNode, parse } from "@humanwhocodes/momoa";
 import { PackageJson } from "../types";
 import { codeframe } from "../utils/codeframe";
 import { tsconfigBaseMatchingEngine } from "./tsconfig-base-matching-engine";
