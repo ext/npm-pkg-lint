@@ -1,5 +1,5 @@
 import spawn from "nano-spawn";
-import { type ExecaError, type NpmInfoError, npmInfo, isNpmInfoError } from "./npm-info";
+import { type ExecaError, type NpmInfoError, isNpmInfoError, npmInfo } from "./npm-info";
 
 jest.mock("nano-spawn");
 jest.mock("./persistent-cache");

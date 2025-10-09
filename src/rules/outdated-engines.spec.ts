@@ -1,5 +1,5 @@
 import { Severity } from "@html-validate/stylish";
-import { parse, type DocumentNode } from "@humanwhocodes/momoa";
+import { type DocumentNode, parse } from "@humanwhocodes/momoa";
 import { PackageJson } from "../types";
 import { codeframe } from "../utils/codeframe";
 import { outdatedEngines } from "./outdated-engines";

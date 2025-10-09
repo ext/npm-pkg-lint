@@ -1,13 +1,13 @@
 jest.unmock("tar");
 
-import { promises as fs } from "fs";
-import * as path from "path";
+import { promises as fs } from "node:fs";
+import * as path from "node:path";
 import { parse } from "@humanwhocodes/momoa";
 import { globSync } from "glob";
 import spawn from "nano-spawn";
-import { verify } from "../src/verify";
 import { type PackageJson } from "../src/types";
 import { codeframe } from "../src/utils/codeframe";
+import { verify } from "../src/verify";
 
 const ROOT_DIRECTORY = path.resolve(path.join(__dirname, ".."));
 const FIXTURE_DIRECTORY = path.join(__dirname, "fixtures");

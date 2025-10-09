@@ -2,7 +2,7 @@ import { PackageJson } from "../types";
 import * as npmInfoModule from "../utils/npm-info";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment -- exists in mock only
 // @ts-expect-error
-import { npmInfoMockClear, npmInfoMockAdd } from "../utils/npm-info";
+import { npmInfoMockAdd, npmInfoMockClear } from "../utils/npm-info";
 import { verifyEngineConstraint } from "./verify-engine-constraint";
 
 jest.mock("../utils/npm-info");

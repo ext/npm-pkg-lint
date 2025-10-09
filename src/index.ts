@@ -1,19 +1,19 @@
 /* eslint-disable no-console -- this is a cli tool */
 
-import { existsSync, createWriteStream, readFileSync, promises as fs } from "node:fs";
+import { createWriteStream, existsSync, promises as fs, readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { stylish } from "@html-validate/stylish";
 import { type DocumentNode, parse } from "@humanwhocodes/momoa";
 import { ArgumentParser } from "argparse";
 import { findUp } from "find-up";
 import tmp from "tmp";
-import { stylish } from "@html-validate/stylish";
 import { setupBlacklist } from "./blacklist";
-import { type VerifyOptions, verify } from "./verify";
-import { type PackageJson } from "./types";
-import { tarballLocation } from "./tarball-location";
 import { type TarballMeta, getFileContent } from "./tarball";
+import { tarballLocation } from "./tarball-location";
+import { type PackageJson } from "./types";
 import { setCacheDirecory } from "./utils/persistent-cache";
+import { type VerifyOptions, verify } from "./verify";
 
 const pkgFilepath = fileURLToPath(new URL("../package.json", import.meta.url));
 const { version } = JSON.parse(readFileSync(pkgFilepath, "utf-8")) as { version: string };

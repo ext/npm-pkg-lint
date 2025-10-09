@@ -1,6 +1,6 @@
-import semver from "semver";
 import { Severity } from "@html-validate/stylish";
 import { type DocumentNode } from "@humanwhocodes/momoa";
+import semver from "semver";
 import { type Message } from "../message";
 import { nodeVersions } from "../node-versions";
 import { type PackageJson } from "../types";

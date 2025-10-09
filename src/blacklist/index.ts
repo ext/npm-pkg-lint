@@ -3,12 +3,12 @@ import emacs from "./emacs";
 import eslint from "./eslint";
 import fimbullinter from "./fimbullinter";
 import git from "./git";
+import { directory, extension, filename, rcfile } from "./helpers";
 import jest from "./jest";
 import node from "./node";
 import prettier from "./prettier";
 import typescript from "./typescript";
 import windows from "./windows";
-import { directory, extension, filename, rcfile } from "./helpers";
 
 const blacklist: RegExp[] = [
 	/* tests in general */
