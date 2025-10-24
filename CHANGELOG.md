@@ -1,5 +1,17 @@
 # npm-pkg-lint changelog
 
+## 4.2.0 (2025-10-24)
+
+### Features
+
+- **deps:** update dependency nano-spawn to v2 ([3e7c339](https://github.com/ext/npm-pkg-lint/commit/3e7c339a6cd928f92de6159414593fc6d5c4d079))
+
+### Bug Fixes
+
+- **deps:** update dependency @humanwhocodes/momoa to v3.3.10 ([1abf3d5](https://github.com/ext/npm-pkg-lint/commit/1abf3d50d9afb55fcec5b6ad81e85a3d798a3519))
+- disallow `__fixtures__` ([9bedf7e](https://github.com/ext/npm-pkg-lint/commit/9bedf7e357f93b46f28061a880d194a91b8c55c4))
+- disallow yarn.lock ([7595cef](https://github.com/ext/npm-pkg-lint/commit/7595cef02d184fd6ab55c1dbe86416d1b9346cac))
+
 ## 4.1.2 (2025-10-10)
 
 ### Bug Fixes
