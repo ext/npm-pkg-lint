@@ -16,6 +16,9 @@ describe("should disallow unittests", () => {
 		"dist/file.test.tsx",
 		"dist/file.test.d.ts",
 		"dist/file.test.d.ts.map",
+		"src/__tests__/file.js",
+		"src/__fixtures__/file.js",
+		"src/__snapshots__/file.js.snap",
 	])("%s", (filename) => {
 		expect.assertions(1);
 		expect(isBlacklisted(filename)).toBeTruthy();

@@ -1,6 +1,7 @@
 import { directory, extension } from "./helpers";
 
 const regexp: RegExp[] = [
+	directory("__fixtures__"),
 	directory("__snapshots__"),
 	directory("__tests__"),
 	extension(".snap"),
