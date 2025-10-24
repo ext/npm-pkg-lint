@@ -62,6 +62,12 @@ describe("Task runners", () => {
 });
 
 describe("CI/CD", () => {
+	it("should disallow github", () => {
+		expect.assertions(2);
+		expect(isBlacklisted(".github/workflows/foo.yml")).toBeTruthy();
+		expect(isBlacklisted(".github/FUNDING.md")).toBeTruthy();
+	});
+
 	it("should disallow Zuul", () => {
 		expect.assertions(6);
 		expect(isBlacklisted(".zuul.d/foo.yml")).toBeTruthy();

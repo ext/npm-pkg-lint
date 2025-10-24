@@ -7,6 +7,7 @@ const regexp: RegExp[] = [
 	filename(".npmrc"),
 	filename(".nvmrc"),
 	filename("lerna.json"),
+	filename("yarn.lock"),
 ];
 
 export default regexp;
