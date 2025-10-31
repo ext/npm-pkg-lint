@@ -79,7 +79,7 @@
     "@html-validate/prettier-config": "3.1.6",
     "@html-validate/release-scripts": "7.1.0",
     "@tsconfig/node20": "20.1.6",
-    "@tsconfig/strictest": "2.0.6",
+    "@tsconfig/strictest": "2.0.7",
     "@types/argparse": "2.0.17",
     "@types/babel__code-frame": "7.0.6",
     "@types/jest": "30.0.0",
