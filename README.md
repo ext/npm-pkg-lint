@@ -123,6 +123,12 @@ Requires `types` to match `exports`.
 
 **Why?** To avoid issues with newer TS versions resolving with `exports` if present rather than the older `types` field.
 
+## TypeScript prefer `types` over `typings`
+
+Requires `types` to be used instead of `typings`.
+
+**Why?** While TypeScript allows `typings` to be used as an alias, it is better for consistency to only use one over the other.
+
 ## Disallowed dependencies
 
 Disallows certain packages from being included as `dependencies` (use `devDependencies` or `peerDependencies` instead).
