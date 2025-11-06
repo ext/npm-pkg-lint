@@ -54,6 +54,7 @@ describe("should return error if package.json references missing file", () => {
 		${"browser"}             | ${{ browser: "index.js" }}
 		${"module"}              | ${{ module: "index.js" }}
 		${"jsnext:main"}         | ${{ "jsnext:main": "index.js" }}
+		${"types"}               | ${{ types: "index.d.ts" }}
 		${"typings"}             | ${{ typings: "index.d.ts" }}
 		${"bin (single)"}        | ${{ bin: "index.js" }}
 		${"bin (multiple)"}      | ${{ bin: { foo: "dist/foo.js", bar: "dist/bar.js" } }}
@@ -85,6 +86,7 @@ describe("should not return error if package.json references existing file", () 
 		${"browser"}             | ${{ browser: "index.js" }}
 		${"module"}              | ${{ module: "index.js" }}
 		${"jsnext:main"}         | ${{ "jsnext:main": "index.js" }}
+		${"types"}               | ${{ types: "index.d.ts" }}
 		${"typings"}             | ${{ typings: "index.d.ts" }}
 		${"bin (single)"}        | ${{ bin: "index.js" }}
 		${"bin (multiple)"}      | ${{ bin: { foo: "dist/foo.js", bar: "dist/bar.js" } }}
