@@ -129,6 +129,12 @@ Requires `types` to be used instead of `typings`.
 
 **Why?** While TypeScript allows `typings` to be used as an alias, it is better for consistency to only use one over the other.
 
+## TypeScript conflicting `types` and `typings` fields
+
+Requires only one of the two fields `types` and `typings` to be used, not both.
+
+**Why?** `typings` is an alias for `types` and if both are set it is unclear which is to be used (and could potentially be set to different values).
+
 ## Disallowed dependencies
 
 Disallows certain packages from being included as `dependencies` (use `devDependencies` or `peerDependencies` instead).
