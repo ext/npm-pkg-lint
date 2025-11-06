@@ -1,6 +1,7 @@
 import { type DocumentNode } from "@humanwhocodes/momoa";
 import { type Message } from "./message";
 import { type Result } from "./result";
+import { conflictingTypesTypings } from "./rules/conflicting-types-typings";
 import { deprecatedDependency } from "./rules/deprecated-dependency";
 import { isDisallowedDependency } from "./rules/disallowed-dependency";
 import { exportsTypesOrder } from "./rules/exports-types-order";
@@ -166,6 +167,7 @@ export async function verifyPackageJson(
 	const { ignoreNodeVersion } = options;
 
 	const messages: Message[] = [
+		...conflictingTypesTypings(pkg, pkgAst),
 		...(await deprecatedDependency(pkg, pkgAst, options)),
 		...(await verifyEngineConstraint(pkg)),
 		...exportsTypesOrder(pkg, pkgAst),
