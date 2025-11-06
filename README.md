@@ -116,6 +116,12 @@ Requires `types` to be the first condition in `exports`.
 
 **Why?** For TypeScript to properly detect `types` it need to come before `require` or `import`, else it will fall back to detecting by filename.
 
+## TypeScript `types` matching `exports`
+
+Requires `types` to match `exports`.
+
+**Why?** To avoid issues with newer TS versions resolving with `exports` if present rather than the older `types` field.
+
 ## Disallowed dependencies
 
 Disallows certain packages from being included as `dependencies` (use `devDependencies` or `peerDependencies` instead).

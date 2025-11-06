@@ -6,6 +6,7 @@ import { isDisallowedDependency } from "./rules/disallowed-dependency";
 import { exportsTypesOrder } from "./rules/exports-types-order";
 import { isObsoleteDependency } from "./rules/obsolete-dependency";
 import { outdatedEngines } from "./rules/outdated-engines";
+import { shadowedTypes } from "./rules/shadowed-types";
 import { typesNodeMatchingEngine } from "./rules/types-node-matching-engine";
 import { verifyEngineConstraint } from "./rules/verify-engine-constraint";
 import { type PackageJson } from "./types";
@@ -170,6 +171,7 @@ export async function verifyPackageJson(
 		...verifyFields(pkg, pkgAst, options),
 		...verifyDependencies(pkg, pkgAst, options),
 		...outdatedEngines(pkg, pkgAst, ignoreNodeVersion),
+		...shadowedTypes(pkg, pkgAst),
 		...typesNodeMatchingEngine(pkg, pkgAst),
 	];
 
