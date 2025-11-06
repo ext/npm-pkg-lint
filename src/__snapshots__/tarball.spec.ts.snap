@@ -172,6 +172,18 @@ exports[`should return error if package.json references missing file module 1`] 
 ]
 `;
 
+exports[`should return error if package.json references missing file types 1`] = `
+[
+  {
+    "column": 1,
+    "line": 1,
+    "message": "index.d.ts (pkg.types) is not present in tarball",
+    "ruleId": "no-missing-types",
+    "severity": 2,
+  },
+]
+`;
+
 exports[`should return error if package.json references missing file typings 1`] = `
 [
   {

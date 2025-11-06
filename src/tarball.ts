@@ -138,6 +138,9 @@ function* requiredFiles(pkg: PackageJson): Generator<RequiredFile> {
 			ruleId,
 		});
 	}
+	if (pkg.types) {
+		yield* yieldRequiredFiles(pkg.types, { field: "types", ruleId: "no-missing-types" });
+	}
 	if (pkg.typings) {
 		yield* yieldRequiredFiles(pkg.typings, { field: "typings", ruleId: "no-missing-typings" });
 	}

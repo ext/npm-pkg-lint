@@ -106,6 +106,7 @@ Verifies the presence of files specified in:
 - `browser`
 - `module`
 - `jsnext:main`,
+- `types`
 - `typings`
 - `bin`
 - `man`
