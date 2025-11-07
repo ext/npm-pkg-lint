@@ -1,5 +1,18 @@
 # npm-pkg-lint changelog
 
+## 4.3.0 (2025-11-07)
+
+### Features
+
+- new rule `conflicting-types-typings` ([becb6d2](https://github.com/ext/npm-pkg-lint/commit/becb6d26b358a0c0b6f04c6debfb58fb3f3e97d7))
+- new rule `prefer-types` ([bc86483](https://github.com/ext/npm-pkg-lint/commit/bc86483219732d69dffa5b9dabaac1a2c2b6fb63))
+- new rule `shadowed-types` ([b9d828d](https://github.com/ext/npm-pkg-lint/commit/b9d828db91b448c7f1deebdcb9dcd678585ba8c5))
+
+### Bug Fixes
+
+- **deps:** update dependency tar to v7.5.2 [security] ([c6dbc9b](https://github.com/ext/npm-pkg-lint/commit/c6dbc9bd6df9395905a61f1a479fdeb4b0498def))
+- validate pkg.types in addition to pkg.typings ([7f0d4d7](https://github.com/ext/npm-pkg-lint/commit/7f0d4d7dda10455683e68aa3892ee2009efadf72))
+
 ## 4.2.0 (2025-10-24)
 
 ### Features
