@@ -1,5 +1,11 @@
 # npm-pkg-lint changelog
 
+## 4.3.1 (2025-11-15)
+
+### Bug Fixes
+
+- `shadowed-types` now handles nested conditions ([6fa1db7](https://github.com/ext/npm-pkg-lint/commit/6fa1db7a7e1c2962731fb951738afc7b6f2b77cd))
+
 ## 4.3.0 (2025-11-07)
 
 ### Features
