@@ -7,20 +7,42 @@ import { jsonLocation } from "../utils";
 const ruleId = "shadowed-types";
 const severity = Severity.ERROR;
 
-function findDotTypes(exports: string | PackageJsonExports): string | null {
-	if (typeof exports === "string") {
-		return null;
+function walkConditions(conditions: PackageJsonExports | string | null): string[] {
+	if (!conditions || typeof conditions === "string") {
+		return [];
 	}
-	const dot = exports["."];
-	if (!dot || typeof dot === "string") {
-		return null;
-	}
-	const types = dot.types;
+
+	const types = conditions.types;
 	if (typeof types === "string") {
-		return types;
-	} else {
-		return null;
+		return [types];
 	}
+
+	return Object.values(conditions).reduce<string[]>((subpaths, it) => {
+		return [...subpaths, ...walkConditions(it)];
+	}, []);
+}
+
+/**
+ * Given the value of the "exports" field get all "types" conditions.
+ *
+ * @internal
+ */
+export function getTypesConditions(exports: PackageJsonExports | string | null): string[] {
+	if (exports === null || typeof exports === "string") {
+		return [];
+	}
+
+	const dot = exports["."];
+	if (dot) {
+		return walkConditions(dot);
+	}
+
+	const types = exports.types;
+	if (types && typeof types === "string") {
+		return [types];
+	}
+
+	return [];
 }
 
 /**
@@ -28,23 +50,21 @@ function findDotTypes(exports: string | PackageJsonExports): string | null {
  * an error if there is a mismatch.
  *
  * @param pkgAst - JSON syntax tree to get error location from.
- * @param subpath - The resolved value from exports ".".
+ * @param subpaths - The resolved value from exports ".".
  * @param field - Which field holds the value parameter.
  * @param value - The value of the "types" or "typings" field.
  */
 function* validateTypeSubpath(
 	pkgAst: DocumentNode,
-	subpath: string | null,
+	subpaths: string[],
 	field: "types" | "typings",
 	value: string,
 ): Generator<Message> {
-	/* `{types: "dist/foo.d.ts"}` - compare directly with subpath (which always contains the `./` prefix) */
-	if (value.startsWith("./") && subpath === value) {
-		return;
-	}
+	/* normalize types/typings value to always start with ./ as required by the exports field */
+	const normalizedValue = value.startsWith("./") ? value : `./${value}`;
 
-	/* `{types: "dist/foo.d.ts"}` - add `./` prefix before comparison */
-	if (subpath === `./${value}`) {
+	/* test if the types value matches one or more subpath export */
+	if (subpaths.some((it) => it === normalizedValue)) {
 		return;
 	}
 
@@ -71,13 +91,13 @@ export function* shadowedTypes(pkg: PackageJson, pkgAst: DocumentNode): Generato
 		return;
 	}
 
-	const subpath = findDotTypes(exports);
+	const subpaths = getTypesConditions(exports);
 
 	if (pkg.types) {
-		yield* validateTypeSubpath(pkgAst, subpath, "types", pkg.types);
+		yield* validateTypeSubpath(pkgAst, subpaths, "types", pkg.types);
 	}
 
 	if (pkg.typings) {
-		yield* validateTypeSubpath(pkgAst, subpath, "typings", pkg.typings);
+		yield* validateTypeSubpath(pkgAst, subpaths, "typings", pkg.typings);
 	}
 }
