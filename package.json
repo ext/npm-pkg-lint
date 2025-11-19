@@ -78,7 +78,7 @@
     "@html-validate/jest-config": "3.13.0",
     "@html-validate/prettier-config": "3.1.6",
     "@html-validate/release-scripts": "7.1.0",
-    "@tsconfig/node20": "20.1.7",
+    "@tsconfig/node20": "20.1.8",
     "@tsconfig/strictest": "2.0.8",
     "@types/argparse": "2.0.17",
     "@types/babel__code-frame": "7.0.6",
