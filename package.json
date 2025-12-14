@@ -14,6 +14,10 @@
     "type": "git",
     "url": "git+https://github.com/ext/npm-pkg-lint.git"
   },
+  "funding": {
+    "type": "individual",
+    "url": "https://github.com/sponsors/ext"
+  },
   "license": "MIT",
   "author": "David Sveningsson <ext@sidvind.com>",
   "type": "module",
