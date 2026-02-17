@@ -25,8 +25,8 @@ async function* getDeepDependencies(
 		/* handle npm: prefix */
 		if (version.startsWith("npm:")) {
 			const [newKey, newVersion] = version.slice("npm:".length).split("@", 2);
-			key = newKey; // eslint-disable-line sonarjs/updated-loop-counter -- technical debt
-			version = newVersion; // eslint-disable-line sonarjs/updated-loop-counter -- technical debt
+			key = newKey;
+			version = newVersion;
 		}
 
 		/* ignore this as this package is sometimes is present as version "*" which
