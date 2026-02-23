@@ -2,7 +2,7 @@ import { ValidationError } from "./validation-error";
 
 function isEmpty(value: unknown): boolean {
 	/* undefined, null and empty string is considered empty */
-	return typeof value === "undefined" || value === null || value === "";
+	return value === undefined || value === null || value === "";
 }
 
 export function nonempty(key: string, value: unknown): void {

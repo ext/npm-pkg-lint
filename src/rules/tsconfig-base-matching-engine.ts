@@ -50,7 +50,7 @@ export function* tsconfigBaseMatchingEngine(
 
 		/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- the string already passed when filtering */
 		const match = matchDependency.exec(first)!;
-		const baseVersion = parseInt(match[1], 10);
+		const baseVersion = Number.parseInt(match[1], 10);
 
 		if (baseVersion !== nodeVersion.major) {
 			const { line, column } = jsonLocation(pkgAst, "member", source, first);

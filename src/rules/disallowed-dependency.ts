@@ -65,6 +65,7 @@ const disallowedPrettier: RegExp[] = [
 	scopedPrefix("prettier-"),
 ];
 
+/* eslint-disable-next-line unicorn/prefer-set-has -- for consistency with other arrays */
 const allowedDependencies: string[] = [
 	"@babel/code-frame",
 	"@babel/polyfill",

@@ -109,7 +109,7 @@ function verifyDependencies(
 		}
 
 		/* skip @types/* if explicitly allowed by user */
-		if (options.allowTypesDependencies && /^@types\//.exec(dependency)) {
+		if (options.allowTypesDependencies && dependency.startsWith("@types/")) {
 			continue;
 		}
 
@@ -162,6 +162,7 @@ export async function verifyPackageJson(
 	pkg: PackageJson,
 	pkgAst: DocumentNode,
 	filePath: string,
+	/* eslint-disable-next-line unicorn/no-object-as-default-parameter -- technical debt, should destruct with defaults */
 	options: VerifyPackageJsonOptions = { allowedDependencies: new Set(), ignoreNodeVersion: false },
 ): Promise<Result[]> {
 	const { ignoreNodeVersion } = options;

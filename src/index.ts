@@ -137,7 +137,7 @@ async function run(): Promise<void> {
 	});
 
 	const args = parser.parse_args() as ParsedArgs;
-	const allowedDependencies = new Set(args.allow_dependency.map((it) => it.split(",")).flat());
+	const allowedDependencies = new Set(args.allow_dependency.flatMap((it) => it.split(",")));
 
 	if (args.cache) {
 		await setCacheDirecory(args.cache);
@@ -201,7 +201,4 @@ async function run(): Promise<void> {
 	process.exitCode = totalErrors > 0 ? 1 : 0;
 }
 
-run().catch((err: unknown) => {
-	console.error(err);
-	process.exitCode = 1;
-});
+await run();

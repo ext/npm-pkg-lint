@@ -55,7 +55,7 @@ export function* outdatedEngines(
 			break;
 		}
 
-		const expanded = version.replace(/[xX*]/g, "999");
+		const expanded = version.replaceAll(/[*Xx]/g, "999");
 		if (!semver.satisfies(expanded, range)) {
 			continue;
 		}
