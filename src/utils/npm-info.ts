@@ -42,6 +42,7 @@ export async function npmInfo(
 /* eslint-disable-next-line complexity -- technical debt */
 export async function npmInfo(
 	pkg: string,
+	/* eslint-disable-next-line unicorn/no-object-as-default-parameter -- technical debt, should destruct with defaults */
 	options: { ignoreUnpublished: boolean } = { ignoreUnpublished: false },
 ): Promise<(PackageJson & NpmInfo) | null> {
 	const { ignoreUnpublished } = options;

@@ -28,8 +28,7 @@ function isResultArray(value: Result[] | Generator<Message>): value is Result[] 
 export function codeframe(content: string, errors: Result[] | Generator<Message>): string {
 	if (isResultArray(errors)) {
 		return errors
-			.map((it) => it.messages.map((jt) => formatMessage(content, it, jt)))
-			.flat()
+			.flatMap((it) => it.messages.map((jt) => formatMessage(content, it, jt)))
 			.join("\n\n");
 	} else {
 		const messages = Array.from(errors);

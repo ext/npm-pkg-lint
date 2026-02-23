@@ -1,7 +1,7 @@
 import { ValidationError } from "./validation-error";
 
 export function validUrl(key: string, value: unknown): void {
-	if (typeof value === "string" && /^https:\/\/.+$/.exec(value)) {
+	if (typeof value === "string" && /^https:\/\/.+$/.test(value)) {
 		return;
 	} else if (value && typeof value === "object" && "url" in value) {
 		validUrl(`${key}.url`, value.url);
