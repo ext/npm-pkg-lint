@@ -33,6 +33,7 @@ export interface PackageJson {
 	module?: string;
 	"jsnext:main"?: string;
 	exports?: string | null | PackageJsonExports;
+	files?: string[];
 	types?: string;
 	typings?: string;
 	bin?: string | Record<string, string>;
