@@ -111,6 +111,14 @@ Verifies the presence of files specified in:
 - `bin`
 - `man`
 
+## `import` before `require` in `exports`
+
+Requires `import` and `module`, if either is present alongside `require`, to come before `require` in `exports`.
+
+**Why?** Some runtimes and bundlers evaluate conditions in order and stop at the first match.
+If `require` is listed before `import` (or `module`), ESM-capable consumers that support both may unexpectedly pick up the CJS build.
+`module` is treated as an alias for `import` as it serves the same purpose for bundlers such as webpack.
+
 ## `default` in `exports`
 
 Requires `default`, if present, to be the last condition in `exports`.
