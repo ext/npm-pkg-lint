@@ -111,6 +111,13 @@ Verifies the presence of files specified in:
 - `bin`
 - `man`
 
+## `exports` paths
+
+Requires all values in `exports` to start with `./`.
+
+**Why?** The Node.js specification requires export paths to be relative paths starting with `./`.
+Values not starting with `./` will be treated as package names by some runtimes and bundlers, which is almost certainly not the intent.
+
 ## `import` before `require` in `exports`
 
 Requires `import` and `module`, if either is present alongside `require`, to come before `require` in `exports`.
