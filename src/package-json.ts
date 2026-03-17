@@ -6,6 +6,7 @@ import { deprecatedDependency } from "./rules/deprecated-dependency";
 import { isDisallowedDependency } from "./rules/disallowed-dependency";
 import { exportsDefaultOrder } from "./rules/exports-default-order";
 import { exportsImportRequireOrder } from "./rules/exports-import-require-order";
+import { exportsPath } from "./rules/exports-path";
 import { exportsTypesOrder } from "./rules/exports-types-order";
 import { isObsoleteDependency } from "./rules/obsolete-dependency";
 import { outdatedEngines } from "./rules/outdated-engines";
@@ -175,6 +176,7 @@ export async function verifyPackageJson(
 		...(await verifyEngineConstraint(pkg)),
 		...exportsDefaultOrder(pkg, pkgAst),
 		...exportsImportRequireOrder(pkg, pkgAst),
+		...exportsPath(pkg, pkgAst),
 		...exportsTypesOrder(pkg, pkgAst),
 		...verifyFields(pkg, pkgAst, options),
 		...verifyDependencies(pkg, pkgAst, options),
