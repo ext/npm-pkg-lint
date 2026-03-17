@@ -37,6 +37,7 @@ type validator = (key: string, value: unknown) => void;
 
 const fields: Record<string, validator[]> = {
 	description: [present, typeString, nonempty],
+	files: [present, typeArray],
 	keywords: [present, typeArray, nonempty],
 	homepage: [present, typeString, validUrl],
 	bugs: [present, validUrl],

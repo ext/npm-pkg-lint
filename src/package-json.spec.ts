@@ -27,6 +27,7 @@ beforeEach(() => {
 		license: "UNLICENSED",
 		author: "Fred Flintstone <fred.flintstone@example.net>",
 		repository: { type: "git", url: "git+https://git.example.net/test-case.git" },
+		files: ["dist"],
 		engines: {
 			node: ">= 20",
 		},
@@ -58,12 +59,12 @@ it("should return error if dependency is disallowed", async () => {
 	const results = await verifyPackageJson(pkg, ast, "package.json");
 	expect(codeframe(content, results)).toMatchInlineSnapshot(`
 		"ERROR: "eslint" should be a devDependency (disallowed-dependency) at package.json
-		  18 |   },
-		  19 |   "dependencies": {
-		> 20 |     "eslint": "1.2.3"
+		  21 |   },
+		  22 |   "dependencies": {
+		> 23 |     "eslint": "1.2.3"
 		     |     ^
-		  21 |   }
-		  22 | }"
+		  24 |   }
+		  25 | }"
 	`);
 });
 
@@ -76,12 +77,12 @@ it("should return error if aliased dependency is disallowed", async () => {
 	const results = await verifyPackageJson(pkg, ast, "package.json");
 	expect(codeframe(content, results)).toMatchInlineSnapshot(`
 		"ERROR: "aliased" ("npm:eslint") should be a devDependency (disallowed-dependency) at package.json
-		  18 |   },
-		  19 |   "dependencies": {
-		> 20 |     "aliased": "npm:eslint@1.2.3"
+		  21 |   },
+		  22 |   "dependencies": {
+		> 23 |     "aliased": "npm:eslint@1.2.3"
 		     |     ^
-		  21 |   }
-		  22 | }"
+		  24 |   }
+		  25 | }"
 	`);
 });
 
@@ -94,12 +95,12 @@ it("should return error if dependency is obsolete", async () => {
 	const results = await verifyPackageJson(pkg, ast, "package.json");
 	expect(codeframe(content, results)).toMatchInlineSnapshot(`
 		"ERROR: "mkdirp" is obsolete and should no longer be used: use native "fs.mkdir(..., { recursive: true })" instead (obsolete-dependency) at package.json
-		  18 |   },
-		  19 |   "devDependencies": {
-		> 20 |     "mkdirp": "1.2.3"
+		  21 |   },
+		  22 |   "devDependencies": {
+		> 23 |     "mkdirp": "1.2.3"
 		     |     ^
-		  21 |   }
-		  22 | }"
+		  24 |   }
+		  25 | }"
 	`);
 });
 
@@ -134,12 +135,12 @@ it("should return engines.node supports eol version", async () => {
 	const results = await verifyPackageJson(pkg, ast, "package.json");
 	expect(codeframe(content, results)).toMatchInlineSnapshot(`
 		"ERROR: engines.node is satisfied by Node 8 (EOL since 2019-12-31) (outdated-engines) at package.json
-		  15 |   },
-		  16 |   "engines": {
-		> 17 |     "node": ">= 8"
+		  18 |   ],
+		  19 |   "engines": {
+		> 20 |     "node": ">= 8"
 		     |             ^
-		  18 |   }
-		  19 | }"
+		  21 |   }
+		  22 | }"
 	`);
 });
 
@@ -156,12 +157,12 @@ describe("@types", () => {
 		const results = await verifyPackageJson(pkg, ast, "package.json");
 		expect(codeframe(content, results)).toMatchInlineSnapshot(`
 			"ERROR: "@types/foobar" should be a devDependency (disallowed-dependency) at package.json
-			  18 |   },
-			  19 |   "dependencies": {
-			> 20 |     "@types/foobar": "1.2.3"
+			  21 |   },
+			  22 |   "dependencies": {
+			> 23 |     "@types/foobar": "1.2.3"
 			     |     ^
-			  21 |   }
-			  22 | }"
+			  24 |   }
+			  25 | }"
 		`);
 	});
 
@@ -540,9 +541,9 @@ describe("fields", () => {
 				  11 |   "author": "Fred Flintstone <fred.flintstone@example.net>",
 				> 12 |   "repository": "foobar",
 				     |                 ^
-				  13 |   "engines": {
-				  14 |     "node": ">= 20"
-				  15 |   }"
+				  13 |   "files": [
+				  14 |     "dist"
+				  15 |   ],"
 			`);
 		});
 
@@ -561,6 +562,48 @@ describe("fields", () => {
 				  14 |     "url": "http://example.net"
 				  15 |   },"
 			`);
+		});
+	});
+
+	describe("files", () => {
+		it("should return error if not set", async () => {
+			expect.assertions(1);
+			delete pkg.files;
+			const { content, ast } = generateAst(pkg);
+			const results = await verifyPackageJson(pkg, ast, "package.json");
+			expect(codeframe(content, results)).toMatchInlineSnapshot(`
+				"ERROR: "files" must be set (package-json-fields) at package.json
+				> 1 | {
+				    | ^
+				  2 |   "name": "mock-pkg",
+				  3 |   "version": "1.2.3",
+				  4 |   "description": "description","
+			`);
+		});
+
+		it("should return error if not array", async () => {
+			expect.assertions(1);
+			pkg.files = "dist/" as unknown as string[];
+			const { content, ast } = generateAst(pkg);
+			const results = await verifyPackageJson(pkg, ast, "package.json");
+			expect(codeframe(content, results)).toMatchInlineSnapshot(`
+				"ERROR: "files" must be array (package-json-fields) at package.json
+				  14 |     "url": "git+https://git.example.net/test-case.git"
+				  15 |   },
+				> 16 |   "files": "dist/",
+				     |            ^
+				  17 |   "engines": {
+				  18 |     "node": ">= 20"
+				  19 |   }"
+			`);
+		});
+
+		it("should not return error for empty array", async () => {
+			expect.assertions(1);
+			pkg.files = [];
+			const { ast } = generateAst(pkg);
+			const results = await verifyPackageJson(pkg, ast, "package.json");
+			expect(results).toHaveLength(0);
 		});
 	});
 });
