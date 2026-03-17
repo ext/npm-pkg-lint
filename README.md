@@ -111,6 +111,13 @@ Verifies the presence of files specified in:
 - `bin`
 - `man`
 
+## `default` in `exports`
+
+Requires `default`, if present, to be the last condition in `exports`.
+
+**Why?** The `default` condition is a catch-all fallback.
+If it is listed before more specific conditions (e.g. `require` or `import`) those conditions will never be reached by runtimes that support them.
+
 ## TypeScript `types` in `exports`
 
 Requires `types` to be the first condition in `exports`.
