@@ -1,4 +1,7 @@
 jest.unmock("tar");
+jest.mock("find-up", () => ({
+	findUp: () => Promise.resolve(undefined),
+}));
 
 import { promises as fs } from "node:fs";
 import * as path from "node:path";

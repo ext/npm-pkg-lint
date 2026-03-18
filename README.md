@@ -412,3 +412,17 @@ The following `package.json`:
 ```
 
 will yield an error becase `@tsconfig/node14` is for NodeJS v14 but the `engines.node` constraints the version to v12.
+
+## `package-lock.json` lockfile
+
+Requires `package-lock.json`, if present, to use lockfile version 3.
+
+**Why?** Lockfile version 3 (introduced with npm v7) includes the full dependency tree in a more compact and efficient format.
+Older lockfile versions (1 and 2) are either missing information or include redundant data that version 3 supersedes.
+Using version 3 ensures compatibility with modern npm tooling and avoids the ambiguity of the legacy formats.
+
+To upgrade an existing lockfile to version 3 run:
+
+```sh
+npm install --lockfile-version 3 --package-lock-only
+```
