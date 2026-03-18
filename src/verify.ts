@@ -1,5 +1,6 @@
 import { type DocumentNode } from "@humanwhocodes/momoa";
 import { type VerifyPackageJsonOptions, verifyPackageJson } from "./package-json";
+import { verifyPackageLock } from "./package-lock";
 import { type Result } from "./result";
 import { verifyShebang } from "./shebang";
 import { type TarballMeta, verifyTarball } from "./tarball";
@@ -17,6 +18,7 @@ export async function verify(
 	return [
 		...(await verifyTarball(pkg, tarball)),
 		...(await verifyPackageJson(pkg, pkgAst, pkgPath, options)),
+		...(await verifyPackageLock()),
 		...(await verifyShebang(pkg, tarball)),
 	];
 }
