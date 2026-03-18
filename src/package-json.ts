@@ -8,6 +8,7 @@ import { exportsDefaultOrder } from "./rules/exports-default-order";
 import { exportsImportRequireOrder } from "./rules/exports-import-require-order";
 import { exportsPath } from "./rules/exports-path";
 import { exportsTypesOrder } from "./rules/exports-types-order";
+import { noProtocolDependencies } from "./rules/no-protocol-dependencies";
 import { isObsoleteDependency } from "./rules/obsolete-dependency";
 import { outdatedEngines } from "./rules/outdated-engines";
 import { preferTypes } from "./rules/prefer-types";
@@ -181,6 +182,7 @@ export async function verifyPackageJson(
 		...exportsTypesOrder(pkg, pkgAst),
 		...verifyFields(pkg, pkgAst, options),
 		...verifyDependencies(pkg, pkgAst, options),
+		...noProtocolDependencies(pkg, pkgAst),
 		...outdatedEngines(pkg, pkgAst, ignoreNodeVersion),
 		...preferTypes(pkg, pkgAst),
 		...shadowedTypes(pkg, pkgAst),
