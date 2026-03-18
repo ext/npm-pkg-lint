@@ -5,12 +5,18 @@ import { type Result } from "./result";
 import { type PackageLock, type PackageLockVersion3 } from "./types";
 import { jsonLocation } from "./utils";
 
+const REGISTRY_URL = "https://registry.npmjs.org/";
+
 function isErrnoException(err: unknown): err is NodeJS.ErrnoException {
 	return err instanceof Error && "code" in err;
 }
 
 function isPackageLockVersion3(lockfile: PackageLock): lockfile is PackageLockVersion3 {
 	return lockfile.lockfileVersion === 3;
+}
+
+function isValidResolved(pkg: { resolved?: string }): boolean {
+	return pkg.resolved === undefined || pkg.resolved.startsWith(REGISTRY_URL);
 }
 
 async function readLockfile(lockfilePath: string): Promise<string | null> {
@@ -62,5 +68,30 @@ export async function verifyPackageLock(): Promise<Result[]> {
 		];
 	}
 
-	return [];
+	const { packages } = lockfile;
+	const results: Result[] = [];
+
+	for (const [name, pkg] of Object.entries(packages)) {
+		if (!isValidResolved(pkg)) {
+			const { line, column } = jsonLocation(ast, "value", "packages", name, "resolved");
+			results.push({
+				messages: [
+					{
+						ruleId: "package-lock-registry",
+						severity: 2,
+						message: `package "${name}" is resolved from "${String(pkg.resolved)}" instead of the npm registry`,
+						line,
+						column,
+					},
+				],
+				filePath: lockfilePath,
+				errorCount: 1,
+				warningCount: 0,
+				fixableErrorCount: 0,
+				fixableWarningCount: 0,
+			});
+		}
+	}
+
+	return results;
 }
