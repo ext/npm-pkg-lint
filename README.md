@@ -157,6 +157,23 @@ Requires only one of the two fields `types` and `typings` to be used, not both.
 
 **Why?** `typings` is an alias for `types` and if both are set it is unclear which is to be used (and could potentially be set to different values).
 
+## Protocol dependencies
+
+Disallows dependencies that resolve outside the registry across all dependency fields (`dependencies`, `devDependencies`, `peerDependencies`, `optionalDependencies`).
+
+**Why?** Protocol specifiers such as `file:`, `link:`, `github:` or `git+https:` reference local paths or remote git repositories instead of versioned registry packages.
+Published packages should only depend on registry packages so that consumers can reliably install the same code.
+
+Disallowed protocols:
+
+- `file:` - local filesystem path
+- `link:` - symlink
+- `github:` / `gitlab:` / `bitbucket:` - platform shorthand
+- `git:` / `git+https:` / `git+http:` / `git+ssh:` / `git+file:` - arbitrary git URL
+- `http:` / `https:` - direct URL tarball
+- `user/repo` - Github shorthand (without `github:` prefix)
+- `user@host:path` - git URL (e.g. `git@github.com:user/repo.git`)
+
 ## Disallowed dependencies
 
 Disallows certain packages from being included as `dependencies` (use `devDependencies` or `peerDependencies` instead).
