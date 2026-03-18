@@ -1,5 +1,15 @@
 # npm-pkg-lint changelog
 
+## 4.5.0 (2026-03-18)
+
+### Features
+
+- new rule `exports-default-order` ([aaa00ec](https://github.com/ext/npm-pkg-lint/commit/aaa00ec450477703b1d296e15bf82663bce2194b))
+- new rule `exports-import-require-order` ([490e0e6](https://github.com/ext/npm-pkg-lint/commit/490e0e665f8f570cbba92f2bf7fd6945b94f85c5))
+- new rule `exports-path` ([e76acc3](https://github.com/ext/npm-pkg-lint/commit/e76acc325296144c1b772828c25ca39dc8e3f676))
+- new rule `no-protocol-dependencies` ([0b31cd2](https://github.com/ext/npm-pkg-lint/commit/0b31cd24b7302324623cc2dc16a6a9b40352ee4c))
+- require the `files` field in `package.json` ([5585a35](https://github.com/ext/npm-pkg-lint/commit/5585a35d0b310f4d4cfc75a68f9cf91df4968d0b))
+
 ## 4.4.2 (2026-03-13)
 
 ### Bug Fixes
