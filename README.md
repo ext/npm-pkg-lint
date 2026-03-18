@@ -415,11 +415,17 @@ will yield an error becase `@tsconfig/node14` is for NodeJS v14 but the `engines
 
 ## `package-lock.json` lockfile
 
-Requires `package-lock.json`, if present, to use lockfile version 3.
+Requires `package-lock.json`, if present, to pass the following checks:
+
+- Lockfile version must be 3.
+- All packages must be resolved from `https://registry.npmjs.org/`.
 
 **Why?** Lockfile version 3 (introduced with npm v7) includes the full dependency tree in a more compact and efficient format.
 Older lockfile versions (1 and 2) are either missing information or include redundant data that version 3 supersedes.
 Using version 3 ensures compatibility with modern npm tooling and avoids the ambiguity of the legacy formats.
+
+**Why?** Packages resolved from private registries, git URLs, or local paths indicate non-standard dependencies that may not be reproducible in all environments.
+All published production dependencies should be resolvable from the public npm registry to ensure consumers can reliably install the same code.
 
 To upgrade an existing lockfile to version 3 run:
 

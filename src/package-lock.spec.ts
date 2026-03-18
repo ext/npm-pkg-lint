@@ -59,6 +59,80 @@ it("should return no errors when package-lock.json has lockfileVersion 3", async
 	expect(codeframe(content, results)).toMatchInlineSnapshot(`""`);
 });
 
+it("should return no errors when all packages are resolved from the npm registry", async () => {
+	expect.assertions(1);
+	const data = {
+		lockfileVersion: 3,
+		packages: {
+			"": {},
+			"node_modules/foo": { resolved: "https://registry.npmjs.org/foo/-/foo-1.0.0.tgz" },
+			"node_modules/bar": { resolved: "https://registry.npmjs.org/bar/-/bar-2.0.0.tgz" },
+		},
+	};
+	const content = JSON.stringify(data, null, 2);
+	mockReadFile.mockResolvedValue(content);
+	const results = await verifyPackageLock();
+	expect(results).toEqual([]);
+});
+
+it("should return error when a package is resolved from a non-npm registry", async () => {
+	expect.assertions(1);
+	const data = {
+		lockfileVersion: 3,
+		packages: {
+			"": {},
+			"node_modules/foo": { resolved: "https://my.private.registry/foo/-/foo-1.0.0.tgz" },
+		},
+	};
+	const content = JSON.stringify(data, null, 2);
+	mockReadFile.mockResolvedValue(content);
+	const results = await verifyPackageLock();
+	expect(codeframe(content, results)).toMatchInlineSnapshot(`
+		"ERROR: package "node_modules/foo" is resolved from "https://my.private.registry/foo/-/foo-1.0.0.tgz" instead of the npm registry (package-lock-registry) at /mock/package-lock.json
+		  4 |     "": {},
+		  5 |     "node_modules/foo": {
+		> 6 |       "resolved": "https://my.private.registry/foo/-/foo-1.0.0.tgz"
+		    |                   ^
+		  7 |     }
+		  8 |   }
+		  9 | }"
+	`);
+});
+
+it("should return one error per package resolved from a non-npm registry", async () => {
+	expect.assertions(1);
+	const data = {
+		lockfileVersion: 3,
+		packages: {
+			"": {},
+			"node_modules/foo": { resolved: "https://my.private.registry/foo/-/foo-1.0.0.tgz" },
+			"node_modules/bar": { resolved: "https://other.registry/bar/-/bar-2.0.0.tgz" },
+		},
+	};
+	const content = JSON.stringify(data, null, 2);
+	mockReadFile.mockResolvedValue(content);
+	const results = await verifyPackageLock();
+	expect(codeframe(content, results)).toMatchInlineSnapshot(`
+		"ERROR: package "node_modules/foo" is resolved from "https://my.private.registry/foo/-/foo-1.0.0.tgz" instead of the npm registry (package-lock-registry) at /mock/package-lock.json
+		  4 |     "": {},
+		  5 |     "node_modules/foo": {
+		> 6 |       "resolved": "https://my.private.registry/foo/-/foo-1.0.0.tgz"
+		    |                   ^
+		  7 |     },
+		  8 |     "node_modules/bar": {
+		  9 |       "resolved": "https://other.registry/bar/-/bar-2.0.0.tgz"
+
+		ERROR: package "node_modules/bar" is resolved from "https://other.registry/bar/-/bar-2.0.0.tgz" instead of the npm registry (package-lock-registry) at /mock/package-lock.json
+		   7 |     },
+		   8 |     "node_modules/bar": {
+		>  9 |       "resolved": "https://other.registry/bar/-/bar-2.0.0.tgz"
+		     |                   ^
+		  10 |     }
+		  11 |   }
+		  12 | }"
+	`);
+});
+
 it("should return no errors when package-lock.json does not exist", async () => {
 	expect.assertions(1);
 	const error = Object.assign(new Error("ENOENT"), { code: "ENOENT" });
