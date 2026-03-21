@@ -1,5 +1,11 @@
 # npm-pkg-lint changelog
 
+## 4.6.1 (2026-03-21)
+
+### Bug Fixes
+
+- ignore `resolved` for linked packages (typical monorepo setup) ([eada3a4](https://github.com/ext/npm-pkg-lint/commit/eada3a4f78b8e3d4c1d3c18a1e05510a68c53938))
+
 ## 4.6.0 (2026-03-21)
 
 ### Features
