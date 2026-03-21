@@ -4,6 +4,12 @@ import { type Result } from "../result";
 
 const prefix = ["", "WARNING", "ERROR"];
 
+const supportedFilenames = ["package.json", "package-lock.json"];
+
+function supportsCodeFrame(filePath: string): boolean {
+	return supportedFilenames.some((name) => filePath.endsWith(name));
+}
+
 function formatMessage(
 	content: string,
 	result: Pick<Result, "filePath">,
@@ -12,7 +18,7 @@ function formatMessage(
 	const preamble = `${prefix[message.severity]}: ${message.message} (${message.ruleId}) at ${
 		result.filePath
 	}`;
-	const formatted = result.filePath.endsWith("package.json")
+	const formatted = supportsCodeFrame(result.filePath)
 		? codeFrameColumns(content, { start: message, end: message }, { highlightCode: false })
 		: "";
 	return [preamble, formatted].join("\n");
