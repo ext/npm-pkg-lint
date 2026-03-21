@@ -1,5 +1,11 @@
 # npm-pkg-lint changelog
 
+## 4.5.3 (2026-03-21)
+
+### Bug Fixes
+
+- allow `file:` in devDependencies ([5c868e2](https://github.com/ext/npm-pkg-lint/commit/5c868e2a4c4d65bb37d52ec05da60c18f792d209))
+
 ## 4.5.2 (2026-03-21)
 
 ### Bug Fixes
