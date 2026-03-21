@@ -32,28 +32,6 @@ it("should report error for file: in dependencies", () => {
 	`);
 });
 
-it("should not report error for link: in devDependencies", () => {
-	expect.assertions(1);
-	pkg.devDependencies = { "my-lib": "link:../my-lib" };
-	const { content, ast } = generateAst(pkg);
-	expect(codeframe(content, noProtocolDependencies(pkg, ast))).toMatchInlineSnapshot(`""`);
-});
-
-it("should report error for file: in devDependencies", () => {
-	expect.assertions(1);
-	pkg.devDependencies = { "my-lib": "file:../my-lib" };
-	const { content, ast } = generateAst(pkg);
-	expect(codeframe(content, noProtocolDependencies(pkg, ast))).toMatchInlineSnapshot(`
-		"ERROR: "my-lib" uses the "file:" protocol specifier which is not allowed in published packages (no-protocol-dependencies) at package.json
-		  3 |   "version": "1.2.3",
-		  4 |   "devDependencies": {
-		> 5 |     "my-lib": "file:../my-lib"
-		    |     ^
-		  6 |   }
-		  7 | }"
-	`);
-});
-
 it("should report error for link: in dependencies", () => {
 	expect.assertions(1);
 	pkg.dependencies = { "my-lib": "link:../my-lib" };
@@ -67,6 +45,20 @@ it("should report error for link: in dependencies", () => {
 		  6 |   }
 		  7 | }"
 	`);
+});
+
+it("should not report error for file: in devDependencies", () => {
+	expect.assertions(1);
+	pkg.devDependencies = { "my-lib": "file:../my-lib" };
+	const { content, ast } = generateAst(pkg);
+	expect(codeframe(content, noProtocolDependencies(pkg, ast))).toMatchInlineSnapshot(`""`);
+});
+
+it("should not report error for link: in devDependencies", () => {
+	expect.assertions(1);
+	pkg.devDependencies = { "my-lib": "link:../my-lib" };
+	const { content, ast } = generateAst(pkg);
+	expect(codeframe(content, noProtocolDependencies(pkg, ast))).toMatchInlineSnapshot(`""`);
 });
 
 it("should report error for github: in peerDependencies", () => {
