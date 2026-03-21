@@ -22,7 +22,7 @@ const disallowed = [
 	"link:",
 ];
 
-const allowedInDev = new Set(["link:"]);
+const allowedInDev = new Set(["file:", "link:"]);
 
 const depFields = [
 	"dependencies",
