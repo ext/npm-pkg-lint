@@ -1,5 +1,12 @@
 # npm-pkg-lint changelog
 
+## 4.6.0 (2026-03-21)
+
+### Features
+
+- new rule `package-lock-registry` ([1c32ce8](https://github.com/ext/npm-pkg-lint/commit/1c32ce8462edc8e4ebe4992e9937b0406dfb0cad))
+- new rule `package-lock-version` ([889bc31](https://github.com/ext/npm-pkg-lint/commit/889bc3199a9a895c6003e0dd0eddb180325135e5))
+
 ## 4.5.3 (2026-03-21)
 
 ### Bug Fixes
