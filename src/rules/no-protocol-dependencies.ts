@@ -22,6 +22,8 @@ const disallowed = [
 	"link:",
 ];
 
+const allowedInDev = new Set(["link:"]);
+
 const depFields = [
 	"dependencies",
 	"devDependencies",
@@ -29,8 +31,11 @@ const depFields = [
 	"optionalDependencies",
 ] as const;
 
-function getProtocol(version: string): string | null {
+function getProtocol(version: string, field: (typeof depFields)[number]): string | null {
 	for (const protocol of disallowed) {
+		if (field === "devDependencies" && allowedInDev.has(protocol)) {
+			continue;
+		}
 		if (version.startsWith(protocol)) {
 			return protocol;
 		}
@@ -60,7 +65,7 @@ export function* noProtocolDependencies(
 			continue;
 		}
 		for (const [name, version] of Object.entries(deps)) {
-			const protocol = getProtocol(version);
+			const protocol = getProtocol(version, field);
 			if (protocol) {
 				const { line, column } = jsonLocation(pkgAst, "member", field, name);
 				yield {
