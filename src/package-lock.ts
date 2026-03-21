@@ -72,6 +72,9 @@ export async function verifyPackageLock(): Promise<Result[]> {
 	const results: Result[] = [];
 
 	for (const [name, pkg] of Object.entries(packages)) {
+		if (pkg.link) {
+			continue;
+		}
 		if (!isValidResolved(pkg)) {
 			const { line, column } = jsonLocation(ast, "value", "packages", name, "resolved");
 			results.push({

@@ -133,6 +133,21 @@ it("should return one error per package resolved from a non-npm registry", async
 	`);
 });
 
+it("should return no errors for packages with link: true", async () => {
+	expect.assertions(1);
+	const data = {
+		lockfileVersion: 3,
+		packages: {
+			"": {},
+			"node_modules/my-lib": { resolved: "packages/my-lib", link: true },
+		},
+	};
+	const content = JSON.stringify(data, null, 2);
+	mockReadFile.mockResolvedValue(content);
+	const results = await verifyPackageLock();
+	expect(results).toEqual([]);
+});
+
 it("should return no errors when package-lock.json does not exist", async () => {
 	expect.assertions(1);
 	const error = Object.assign(new Error("ENOENT"), { code: "ENOENT" });

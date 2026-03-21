@@ -9,4 +9,5 @@ export interface PackageLockVersion3 extends PackageLock {
 
 export interface PackageLockPackage {
 	resolved?: string;
+	link?: boolean;
 }
