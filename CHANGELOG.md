@@ -1,5 +1,11 @@
 # npm-pkg-lint changelog
 
+## 4.5.2 (2026-03-21)
+
+### Bug Fixes
+
+- allow `link:` in devDependencies ([d812f44](https://github.com/ext/npm-pkg-lint/commit/d812f44df1d57720b41982a6e1056202a70dd741))
+
 ## 4.5.1 (2026-03-21)
 
 ### Bug Fixes
