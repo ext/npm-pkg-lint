@@ -1,5 +1,11 @@
 # npm-pkg-lint changelog
 
+## 4.6.3 (2026-04-02)
+
+### Bug Fixes
+
+- **deps:** update dependency nano-spawn to v2.1.0 ([786bfaf](https://github.com/ext/npm-pkg-lint/commit/786bfaf18910a4518f25924dace54127f9bc545e))
+
 ## 4.6.2 (2026-03-25)
 
 ### Bug Fixes
