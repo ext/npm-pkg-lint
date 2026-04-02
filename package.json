@@ -67,7 +67,7 @@
     "@humanwhocodes/momoa": "3.3.10",
     "argparse": "2.0.1",
     "find-up": "8.0.0",
-    "nano-spawn": "2.0.0",
+    "nano-spawn": "2.1.0",
     "semver": "7.7.4",
     "tar": "7.5.13",
     "tmp": "0.2.5"
