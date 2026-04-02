@@ -2,11 +2,15 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": ["@tsconfig/node20", "@tsconfig/strictest"],
   "compilerOptions": {
+    /* required for ts-jest to work */
+    "ignoreDeprecations": "6.0",
+
     "rootDir": "./src",
     "outDir": "dist",
     "declaration": true,
     "noEmit": true,
     "sourceMap": true,
+    "types": ["node", "jest"],
 
     "module": "esnext",
     "moduleResolution": "bundler",

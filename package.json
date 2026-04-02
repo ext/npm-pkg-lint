@@ -96,7 +96,7 @@
     "jest": "30.3.0",
     "lint-staged": "16.4.0",
     "ts-jest": "29.4.9",
-    "typescript": "5.9.3"
+    "typescript": "6.0.2"
   },
   "engines": {
     "node": "^20.17 || >= 22.16"
