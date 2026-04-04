@@ -1,3 +1,4 @@
+import { describe, expect, it } from "@jest/globals";
 import { PackageJson } from "../types";
 import { isDisallowedDependency } from "./disallowed-dependency";
 

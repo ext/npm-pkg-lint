@@ -1,9 +1,10 @@
 import path from "node:path";
+import { beforeEach, expect, it, jest } from "@jest/globals";
 import { verifyPackageLock } from "./package-lock";
 import { codeframe } from "./utils/codeframe";
 
-const mockFindUp = jest.fn();
-const mockReadFile = jest.fn();
+const mockFindUp = jest.fn<(...args: unknown[]) => Promise<string | undefined>>();
+const mockReadFile = jest.fn<(...args: unknown[]) => Promise<string>>();
 
 jest.mock("find-up", () => ({
 	findUp: (...args: unknown[]) => mockFindUp(...args),

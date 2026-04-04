@@ -10,7 +10,7 @@
     "declaration": true,
     "noEmit": true,
     "sourceMap": true,
-    "types": ["node", "jest"],
+    "types": ["node"],
 
     "module": "esnext",
     "moduleResolution": "bundler",

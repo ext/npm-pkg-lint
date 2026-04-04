@@ -1,3 +1,4 @@
+import { expect, it } from "@jest/globals";
 import { nonempty } from "./non-empty";
 
 it("should not throw error when value is set", () => {

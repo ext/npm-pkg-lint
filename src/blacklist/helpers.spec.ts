@@ -1,3 +1,4 @@
+import { describe, expect, it } from "@jest/globals";
 import { directory, extension, filename, rcfile } from "./helpers";
 
 describe("directory()", () => {

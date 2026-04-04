@@ -15,6 +15,7 @@ jest.mock("./tarball", () => {
 	};
 });
 
+import { beforeEach, expect, it, jest } from "@jest/globals";
 import { verifyShebang } from "./shebang";
 import { PackageJson } from "./types";
 

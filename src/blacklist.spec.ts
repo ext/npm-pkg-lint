@@ -1,3 +1,4 @@
+import { describe, expect, it } from "@jest/globals";
 import { isBlacklisted, setupBlacklist } from "./blacklist";
 
 describe("should disallow unittests", () => {

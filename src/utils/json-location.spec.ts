@@ -1,5 +1,6 @@
 import { codeFrameColumns } from "@babel/code-frame";
 import { type DocumentNode, parse } from "@humanwhocodes/momoa";
+import { expect, it } from "@jest/globals";
 import { jsonLocation } from "./json-location";
 
 function createJson(json: unknown): { content: string; ast: DocumentNode } {

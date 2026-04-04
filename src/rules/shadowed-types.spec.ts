@@ -1,6 +1,7 @@
 /* eslint-disable jest/no-interpolation-in-snapshots -- easier to test both fields this way */
 
 import { type DocumentNode, parse } from "@humanwhocodes/momoa";
+import { describe, expect, it } from "@jest/globals";
 import { type PackageJson } from "../types";
 import { codeframe } from "../utils/codeframe";
 import { getTypesConditions, shadowedTypes } from "./shadowed-types";

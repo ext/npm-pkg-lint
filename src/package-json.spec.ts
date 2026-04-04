@@ -1,4 +1,5 @@
 import { type DocumentNode, parse } from "@humanwhocodes/momoa";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { verifyPackageJson } from "./package-json";
 import { PackageJson } from "./types";
 import { codeframe } from "./utils/codeframe";
