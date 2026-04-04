@@ -1,10 +1,11 @@
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import spawn from "nano-spawn";
 import { type ExecaError, type NpmInfoError, isNpmInfoError, npmInfo } from "./npm-info";
 
 jest.mock("nano-spawn");
 jest.mock("./persistent-cache");
 
-const mockSpawn = spawn as unknown as jest.Mock;
+const mockSpawn = spawn as unknown as jest.Mock<(cmd: string, args: string[]) => void>;
 
 function createExecaError(message: string, stdout: string | Record<string, unknown>): Error {
 	const error = new Error(message) as Error & ExecaError;

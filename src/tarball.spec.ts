@@ -2,6 +2,7 @@
 
 jest.mock("tar");
 
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { verifyTarball } from "./tarball";
 import { type PackageJson } from "./types";
 
@@ -70,7 +71,7 @@ describe("should return error if package.json references missing file", () => {
 		const pkg: PackageJson = {
 			name: "mock-pkg",
 			version: "1.2.3",
-			...template,
+			...(template as object),
 		};
 		const results = await verifyTarball(pkg, { filePath: "mock-pkg-1.2.3.tgz" });
 		expect(results).toHaveLength(1);
@@ -113,7 +114,7 @@ describe("should not return error if package.json references existing file", () 
 		const pkg: PackageJson = {
 			name: "mock-pkg",
 			version: "1.2.3",
-			...template,
+			...(template as object),
 		};
 		const results = await verifyTarball(pkg, { filePath: "mock-path" });
 		expect(results).toEqual([]);

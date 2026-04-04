@@ -1,3 +1,4 @@
+import { beforeEach, expect, it, jest } from "@jest/globals";
 import { PackageJson } from "../types";
 import * as npmInfoModule from "../utils/npm-info";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment -- exists in mock only

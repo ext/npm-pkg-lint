@@ -1,4 +1,5 @@
 import { type DocumentNode, parse } from "@humanwhocodes/momoa";
+import { expect, it } from "@jest/globals";
 import { type PackageJson } from "../types";
 import { codeframe } from "../utils/codeframe";
 import { preferTypes } from "./prefer-types";

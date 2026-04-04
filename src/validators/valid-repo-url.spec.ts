@@ -1,3 +1,4 @@
+import { expect, it } from "@jest/globals";
 import { validRepoUrl } from "./valid-repo-url";
 
 const key = "repository";

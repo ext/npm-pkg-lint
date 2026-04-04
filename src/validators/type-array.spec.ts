@@ -1,3 +1,4 @@
+import { expect, it } from "@jest/globals";
 import { typeArray } from "./type-array";
 
 it("should not throw error when type is array", () => {

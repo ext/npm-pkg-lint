@@ -1,3 +1,4 @@
+import { expect, it } from "@jest/globals";
 import { isBlacklisted } from "../blacklist";
 
 it("should disallow CON", () => {
