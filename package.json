@@ -80,7 +80,7 @@
     "@html-validate/eslint-config-typescript": "7.0.3",
     "@html-validate/eslint-config-typescript-typeinfo": "7.0.3",
     "@html-validate/jest-config": "3.16.0",
-    "@html-validate/prettier-config": "3.1.16",
+    "@html-validate/prettier-config": "3.1.17",
     "@html-validate/release-scripts": "7.1.19",
     "@jest/globals": "30.3.0",
     "@tsconfig/node20": "20.1.9",
