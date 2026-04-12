@@ -1,5 +1,11 @@
 # npm-pkg-lint changelog
 
+## 4.6.5 (2026-04-12)
+
+### Bug Fixes
+
+- **deps:** update dependency @html-validate/stylish to v5.2.0 ([bdd92f2](https://github.com/ext/npm-pkg-lint/commit/bdd92f2990c915206a8fc48f42f1d4dcc575c589))
+
 ## 4.6.4 (2026-04-05)
 
 ### Bug Fixes

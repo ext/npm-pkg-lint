@@ -1,6 +1,6 @@
 {
   "name": "npm-pkg-lint",
-  "version": "4.6.4",
+  "version": "4.6.5",
   "description": "Opinionated linter for NPM package tarball and package.json metadata",
   "keywords": [
     "lint",
