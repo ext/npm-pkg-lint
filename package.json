@@ -63,7 +63,7 @@
     ]
   },
   "dependencies": {
-    "@html-validate/stylish": "5.1.0",
+    "@html-validate/stylish": "5.2.0",
     "@humanwhocodes/momoa": "3.3.10",
     "argparse": "2.0.1",
     "find-up": "8.0.0",
@@ -99,7 +99,7 @@
     "typescript": "6.0.2"
   },
   "engines": {
-    "node": "^20.17 || >= 22.16"
+    "node": "^20.18 || >= 22.16"
   },
   "publishConfig": {
     "access": "public",
