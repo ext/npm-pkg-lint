@@ -46,11 +46,4 @@ export default [
 		ignores: ["cypress/**", "tests/e2e/**"],
 		...jestConfig,
 	},
-
-	{
-		name: "local",
-		rules: {
-			"sonarjs/no-clear-text-protocols": "off",
-		},
-	},
 ];

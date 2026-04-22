@@ -34,7 +34,7 @@ export async function getFileList(filename: string): Promise<string[]> {
 		onentry: (entry: ReadEntry) => entries.push(entry),
 	});
 	return entries.map((entry) => {
-		const filename = entry.path as unknown as string;
+		const filename = entry.path;
 		return normalize(filename);
 	});
 }
@@ -66,7 +66,7 @@ export async function getFileContent(
 			resolve(contents);
 		});
 		const rs = fs.createReadStream(tarball.filePath);
-		rs.pipe(t as unknown as NodeJS.WritableStream);
+		rs.pipe(t);
 	});
 }
 
