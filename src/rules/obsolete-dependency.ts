@@ -4,6 +4,7 @@ export interface ObsoleteDependency {
 }
 
 const obsolete: ObsoleteDependency[] = [
+	{ package: "array-includes", message: `use native "Array.includes(...)" instead` },
 	{ package: "make-dir", message: `use native "fs.mkdir(..., { recursive: true })" instead` },
 	{ package: "mkdirp", message: `use native "fs.mkdir(..., { recursive: true })" instead` },
 	{ package: "stable", message: `Array#sort is stable in all current implementations` },
