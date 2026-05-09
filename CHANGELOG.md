@@ -1,5 +1,11 @@
 # npm-pkg-lint changelog
 
+## 4.6.8 (2026-05-09)
+
+### Bug Fixes
+
+- add `array-includes` as an obsolete dependency ([ce90dce](https://github.com/ext/npm-pkg-lint/commit/ce90dce9cfd34af0f9050363b75eec2a62a9edb9))
+
 ## 4.6.7 (2026-05-09)
 
 ### Bug Fixes
