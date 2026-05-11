@@ -41,6 +41,8 @@ describe("should return error when unsupported version satisfies engines.node", 
 		${">= 17.x"}   | ${"Node 17"}
 		${">= 18.x"}   | ${"Node 18"}
 		${">= 19.x"}   | ${"Node 19"}
+		${">= 20.x"}   | ${"Node 20"}
+		${">= 21.x"}   | ${"Node 21"}
 	`("$description", ({ range, description }) => {
 		expect.assertions(1);
 		pkg.engines = {
@@ -68,6 +70,9 @@ describe("should allow supported version (including odd versions in-between)", (
 		range        | description
 		${">= 22.x"} | ${"Node 22"}
 		${">= 23.x"} | ${"Node 23"}
+		${">= 24.x"} | ${"Node 24"}
+		${">= 25.x"} | ${"Node 25"}
+		${">= 26.x"} | ${"Node 26"}
 	`("$description", ({ range }) => {
 		expect.assertions(1);
 		pkg.engines = {
