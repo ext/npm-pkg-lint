@@ -30,7 +30,7 @@ beforeEach(() => {
 		repository: { type: "git", url: "git+https://git.example.net/test-case.git" },
 		files: ["dist"],
 		engines: {
-			node: ">= 20",
+			node: ">= 22",
 		},
 	};
 	npmInfoMockDefault(pkg);
@@ -594,7 +594,7 @@ describe("fields", () => {
 				> 16 |   "files": "dist/",
 				     |            ^
 				  17 |   "engines": {
-				  18 |     "node": ">= 20"
+				  18 |     "node": ">= 22"
 				  19 |   }"
 			`);
 		});

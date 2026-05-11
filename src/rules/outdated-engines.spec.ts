@@ -66,8 +66,6 @@ describe("should return error when unsupported version satisfies engines.node", 
 describe("should allow supported version (including odd versions in-between)", () => {
 	it.each`
 		range        | description
-		${">= 20.x"} | ${"Node 20"}
-		${">= 21.x"} | ${"Node 21"}
 		${">= 22.x"} | ${"Node 22"}
 		${">= 23.x"} | ${"Node 23"}
 	`("$description", ({ range }) => {
@@ -128,7 +126,7 @@ it("should return error engines is missing", () => {
 it("should not return error when engines.node only supports active versions", () => {
 	expect.assertions(1);
 	pkg.engines = {
-		node: ">= 20",
+		node: ">= 22",
 	};
 	const { ast } = generateAst(pkg);
 	expect(Array.from(outdatedEngines(pkg, ast, false))).toEqual([]);
@@ -155,14 +153,14 @@ it("should ignore outdated node version when ignoreNodeVersion is specific major
 it("should yield error when ignoreNodeVersion does not match declared engines.node range", () => {
 	expect.assertions(1);
 	pkg.engines = {
-		node: ">= 20",
+		node: ">= 22",
 	};
 	const { content, ast } = generateAst(pkg);
 	expect(codeframe(content, outdatedEngines(pkg, ast, 18))).toMatchInlineSnapshot(`
-		"ERROR: --ignore-node-version=18 used but engines.node=">= 20" does not match v18.x or the version is not EOL yet (outdated-engines) at package.json
+		"ERROR: --ignore-node-version=18 used but engines.node=">= 22" does not match v18.x or the version is not EOL yet (outdated-engines) at package.json
 		  3 |   "version": "1.2.3",
 		  4 |   "engines": {
-		> 5 |     "node": ">= 20"
+		> 5 |     "node": ">= 22"
 		    |             ^
 		  6 |   }
 		  7 | }"
