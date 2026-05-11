@@ -1,5 +1,16 @@
 # npm-pkg-lint changelog
 
+## 5.0.0 (2026-05-11)
+
+### ⚠ BREAKING CHANGES
+
+- **deps:** NodeJS v22 or later is now required.
+
+### Features
+
+- **deps:** require nodejs v22 or later ([e18c6e8](https://github.com/ext/npm-pkg-lint/commit/e18c6e859b8fcd738e944c63577ca6b131551ca6))
+- **rules:** node v20 is eol and flagged by the `outdated-engines` rule ([f8cc236](https://github.com/ext/npm-pkg-lint/commit/f8cc23692810fc900439f651c0f140524c6441ad))
+
 ## 4.6.9 (2026-05-10)
 
 ### Bug Fixes
