@@ -1,5 +1,11 @@
 # npm-pkg-lint changelog
 
+## 5.1.3 (2026-05-29)
+
+### Bug Fixes
+
+- **deps:** update dependency tmp to v0.2.7 ([3ce12d7](https://github.com/ext/npm-pkg-lint/commit/3ce12d75ef8ea788cef5b647800e5c45d221396d))
+
 ## 5.1.2 (2026-05-27)
 
 ### Bug Fixes
