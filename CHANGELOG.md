@@ -1,5 +1,11 @@
 # npm-pkg-lint changelog
 
+## 5.1.5 (2026-06-05)
+
+### Bug Fixes
+
+- **deps:** update dependency semver to v7.8.2 ([aef3eb0](https://github.com/ext/npm-pkg-lint/commit/aef3eb08064645e55ed9bd2c39f37b0c5f4d2a74))
+
 ## 5.1.4 (2026-06-02)
 
 ### Bug Fixes
