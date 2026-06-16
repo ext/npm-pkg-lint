@@ -24,9 +24,11 @@ it("should throw error on invalid type", () => {
 
 it("should throw error when value is not https url", () => {
 	expect.assertions(2);
+	/* eslint-disable-next-line unicorn/prefer-https -- intentional for testing */
 	expect(() => validUrl("test", "http://example.net")).toThrow(
 		'"test" must be a valid url (https only)',
 	);
+	/* eslint-disable-next-line unicorn/prefer-https -- intentional for testing */
 	expect(() => validUrl("test", { url: "http://example.net" })).toThrow(
 		'"test.url" must be a valid url (https only)',
 	);

@@ -1,3 +1,5 @@
+/* eslint-disable unicorn/filename-case -- jest automock */
+
 const tar = jest.createMockFromModule("tar");
 let mockFilelist;
 
