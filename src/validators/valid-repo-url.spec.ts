@@ -115,6 +115,7 @@ it("should throw error if url is http (with git+ prefix)", () => {
 
 it("should throw error if url is http (without git+ prefix)", () => {
 	expect.assertions(1);
+	/* eslint-disable-next-line unicorn/prefer-https -- intentional for testing */
 	const repository = { type: "git", url: "http://example.net/foo/bar" };
 	expect(() => validRepoUrl(key, repository)).toThrowErrorMatchingInlineSnapshot(
 		`""repository.url" must use "git+https://" instead of "http://""`,

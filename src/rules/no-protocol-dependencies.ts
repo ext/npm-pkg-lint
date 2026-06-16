@@ -44,7 +44,7 @@ function getProtocol(version: string, field: (typeof depFields)[number]): string
 }
 
 /* eslint-disable-next-line security/detect-unsafe-regex -- not sure why this is deemed unsafe */
-const githubShorthandRe = /^[A-Za-z][\w-]*\/[\w.-]+(?:#.+)?$/;
+const githubShorthandRe = /^[A-Z][\w-]*\/[\w.-]+(?:#.+)?$/i;
 const gitUrlRe = /^[^@]+@[^:]+:.+/;
 
 function isGithubShorthand(version: string): boolean {

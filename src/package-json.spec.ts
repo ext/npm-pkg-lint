@@ -1,3 +1,5 @@
+/* eslint-disable unicorn/prefer-https -- intentional for testing */
+
 import { type DocumentNode, parse } from "@humanwhocodes/momoa";
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { verifyPackageJson } from "./package-json";
