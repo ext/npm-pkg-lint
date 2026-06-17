@@ -1,5 +1,3 @@
-/* eslint-disable unicorn/filename-case -- jest automock */
-
 import { type PackageJson } from "../../types";
 
 const mock = new Map<string, PackageJson>();
