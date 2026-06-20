@@ -66,7 +66,7 @@ const blacklist: RegExp[] = [
 	filename("Herebyfile.js"),
 	filename("Herebyfile.mjs"),
 
-	/* ci */
+	/* CI */
 	/^\.azure-.*$/,
 	directory(".circleci"),
 	directory(".github"),

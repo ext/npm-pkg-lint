@@ -185,9 +185,8 @@ async function run(): Promise<void> {
 		result.messages.sort((a, b) => {
 			if (a.line !== b.line) {
 				return a.line - b.line;
-			} else {
-				return a.column - b.column;
 			}
+			return a.column - b.column;
 		});
 	}
 

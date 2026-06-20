@@ -7,11 +7,11 @@ export function npmInfo(pkg: string): Promise<PackageJson> {
 	const mocked = mock.get(pkg);
 	if (mocked) {
 		return Promise.resolve(mocked);
-	} else if (defaultInfo) {
-		return Promise.resolve(defaultInfo);
-	} else {
-		throw new Error(`No mocked package data for ${pkg}`);
 	}
+	if (defaultInfo) {
+		return Promise.resolve(defaultInfo);
+	}
+	throw new Error(`No mocked package data for ${pkg}`);
 }
 
 export function npmInfoMockClear(): void {

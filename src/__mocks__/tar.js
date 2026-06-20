@@ -3,7 +3,7 @@ let mockFilelist;
 
 function list(options) {
 	for (const filename of mockFilelist) {
-		options.onentry({
+		options.onReadEntry({
 			path: filename,
 		});
 	}

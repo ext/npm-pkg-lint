@@ -26,7 +26,7 @@ export function isNpmInfoError(error: unknown): error is NpmInfoError {
 	return Boolean(error && error instanceof Error && "summary" in error);
 }
 
-function tryParse(maybeJson: string): { error: NpmInfoError } | null {
+function tryParse(maybeJson: string): null | { error: NpmInfoError } {
 	try {
 		return JSON.parse(maybeJson) as { error: NpmInfoError };
 	} catch {
