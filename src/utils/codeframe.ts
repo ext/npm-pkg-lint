@@ -36,10 +36,9 @@ export function codeframe(content: string, errors: Result[] | Generator<Message>
 		return errors
 			.flatMap((it) => it.messages.map((jt) => formatMessage(content, it, jt)))
 			.join("\n\n");
-	} else {
-		const messages = Array.from(errors);
-		return messages
-			.map((it) => formatMessage(content, { filePath: "package.json" }, it))
-			.join("\n\n");
 	}
+	const messages = Array.from(errors);
+	return messages
+		.map((it) => formatMessage(content, { filePath: "package.json" }, it))
+		.join("\n\n");
 }
