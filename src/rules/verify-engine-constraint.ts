@@ -21,7 +21,9 @@ async function* getDeepDependencies(
 	if (!pkgData) {
 		return;
 	}
-	for (let [key, version] of Object.entries(pkgData.dependencies ?? {})) {
+
+	const { dependencies = {} } = pkgData;
+	for (let [key, version] of Object.entries(dependencies)) {
 		/* handle npm: prefix */
 		if (version.startsWith("npm:")) {
 			const [newKey, newVersion] = version.slice("npm:".length).split("@", 2);

@@ -23,5 +23,6 @@ export function npmInfoMockAdd(pkg: string, pkgData: PackageJson): void {
 }
 
 export function npmInfoMockDefault(pkgData: PackageJson): void {
+	/* eslint-disable-next-line unicorn/no-top-level-assignment-in-function -- technical debt, should use explicit state variable */
 	defaultInfo = { ...pkgData };
 }

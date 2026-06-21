@@ -11,6 +11,7 @@ function list(options) {
 }
 
 function __setMockFiles(filelist) {
+	/* eslint-disable-next-line unicorn/no-top-level-assignment-in-function -- technical debt, should use explicit state variable */
 	mockFilelist = filelist.map((it) => `pkg-root/${it}`);
 }
 
