@@ -8,8 +8,19 @@ function createJson(json: unknown): { content: string; ast: DocumentNode } {
 	return { content, ast: parse(content) };
 }
 
+function getLocation(message: { line: number; column: number }): { line: number; column: number } {
+	return {
+		line: message.line,
+		column: message.column - 1,
+	};
+}
+
 function codeframe(content: string, location: { line: number; column: number }): string {
-	return codeFrameColumns(content, { start: location, end: location }, { highlightCode: false });
+	return codeFrameColumns(
+		content,
+		{ start: getLocation(location), end: getLocation(location) },
+		{ highlightCode: false },
+	);
 }
 
 it("should find the member in an object", () => {

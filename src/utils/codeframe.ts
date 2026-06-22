@@ -10,6 +10,13 @@ function supportsCodeFrame(filePath: string): boolean {
 	return supportedFilenames.some((name) => filePath.endsWith(name));
 }
 
+function getLocation(message: Message): { line: number; column: number } {
+	return {
+		line: message.line,
+		column: message.column - 1,
+	};
+}
+
 function formatMessage(
 	content: string,
 	result: Pick<Result, "filePath">,
@@ -19,7 +26,11 @@ function formatMessage(
 		result.filePath
 	}`;
 	const formatted = supportsCodeFrame(result.filePath)
-		? codeFrameColumns(content, { start: message, end: message }, { highlightCode: false })
+		? codeFrameColumns(
+				content,
+				{ start: getLocation(message), end: getLocation(message) },
+				{ highlightCode: false },
+			)
 		: "";
 	return [preamble, formatted].join("\n");
 }
