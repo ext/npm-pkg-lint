@@ -7,7 +7,7 @@ import typescriptConfig from "@html-validate/eslint-config-typescript";
 import typescriptTypeinfoConfig from "@html-validate/eslint-config-typescript-typeinfo";
 
 export default [
-	...defaultConfig,
+	...defaultConfig({ type: "module" }),
 
 	{
 		name: "@html-validate/eslint-config-typescript",
