@@ -20,17 +20,23 @@ function* validateOrder(
 
 	if (keys.includes("require")) {
 		for (const esm of ["import", "module"] as const) {
-			if (keys.includes(esm) && keys.indexOf(esm) > keys.indexOf("require")) {
-				const { line, column } = jsonLocation(pkgAst, "member", "exports", ...path, esm);
-				const property = path.map((it) => `["${it}"]`).join("");
-				yield {
-					ruleId,
-					severity,
-					message: `"${esm}" must come before "require" in "exports${property}"`,
-					line,
-					column,
-				};
+			if (!keys.includes(esm)) {
+				continue;
 			}
+
+			if (keys.indexOf(esm) <= keys.indexOf("require")) {
+				continue;
+			}
+
+			const { line, column } = jsonLocation(pkgAst, "member", "exports", ...path, esm);
+			const property = path.map((it) => `["${it}"]`).join("");
+			yield {
+				ruleId,
+				severity,
+				message: `"${esm}" must come before "require" in "exports${property}"`,
+				line,
+				column,
+			};
 		}
 	}
 
