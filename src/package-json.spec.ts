@@ -125,6 +125,24 @@ it("should return error if dependency is obsolete", async () => {
 	`);
 });
 
+it("should return error if aliased dependency is obsolete", async () => {
+	expect.assertions(1);
+	pkg.devDependencies = {
+		aliased: "npm:mkdirp@1.2.3",
+	};
+	const { content, ast } = generateAst(pkg);
+	const results = await verifyPackageJson(pkg, ast, "package.json");
+	expect(codeframe(content, results)).toMatchInlineSnapshot(`
+		"ERROR: "aliased" ("npm:mkdirp") is obsolete and should no longer be used: use native "fs.mkdir(..., { recursive: true })" instead (obsolete-dependency) at package.json
+		  21 |   },
+		  22 |   "devDependencies": {
+		> 23 |     "aliased": "npm:mkdirp@1.2.3"
+		     |     ^
+		  24 |   }
+		  25 | }"
+	`);
+});
+
 it("should not return error if dependency is allowed", async () => {
 	expect.assertions(1);
 	pkg.dependencies = {
