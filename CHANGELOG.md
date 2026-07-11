@@ -1,5 +1,13 @@
 # npm-pkg-lint changelog
 
+## 5.1.11 (2026-07-11)
+
+### Bug Fixes
+
+- fix `tsconfig-base-matching-engine` rule not being run ([f737677](https://github.com/ext/npm-pkg-lint/commit/f73767774c673ece04b171bcf1ad314e91fc3da0))
+- handle aliased `npm:` packages with scopes ([7ca06b6](https://github.com/ext/npm-pkg-lint/commit/7ca06b6cb43f7181e2eccc8ff3bb8bcca55dbf6a))
+- handle when obsolete packages are aliased ([c16681f](https://github.com/ext/npm-pkg-lint/commit/c16681f75578bf15ff44fd2686dcde3e85fb45ec))
+
 ## 5.1.10 (2026-06-29)
 
 ### Bug Fixes
