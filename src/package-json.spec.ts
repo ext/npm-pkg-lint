@@ -143,6 +143,24 @@ it("should return error if aliased dependency is obsolete", async () => {
 	`);
 });
 
+it("should return error if @tsconfig/node* does not match engines.node", async () => {
+	expect.assertions(1);
+	pkg.devDependencies = {
+		"@tsconfig/node14": "^14.1.2",
+	};
+	const { content, ast } = generateAst(pkg);
+	const results = await verifyPackageJson(pkg, ast, "package.json");
+	expect(codeframe(content, results)).toMatchInlineSnapshot(`
+		"ERROR: @tsconfig/node14 does not match engines.node v22 (tsconfig-base-matching-engine) at package.json
+		  21 |   },
+		  22 |   "devDependencies": {
+		> 23 |     "@tsconfig/node14": "^14.1.2"
+		     |     ^
+		  24 |   }
+		  25 | }"
+	`);
+});
+
 it("should not return error if dependency is allowed", async () => {
 	expect.assertions(1);
 	pkg.dependencies = {
