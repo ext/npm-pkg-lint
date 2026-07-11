@@ -13,6 +13,7 @@ import { isObsoleteDependency } from "./rules/obsolete-dependency";
 import { outdatedEngines } from "./rules/outdated-engines";
 import { preferTypes } from "./rules/prefer-types";
 import { shadowedTypes } from "./rules/shadowed-types";
+import { tsconfigBaseMatchingEngine } from "./rules/tsconfig-base-matching-engine";
 import { typesNodeMatchingEngine } from "./rules/types-node-matching-engine";
 import { verifyEngineConstraint } from "./rules/verify-engine-constraint";
 import { type PackageJson } from "./types";
@@ -183,6 +184,7 @@ export async function verifyPackageJson(
 		...outdatedEngines(pkg, pkgAst, ignoreNodeVersion),
 		...preferTypes(pkg, pkgAst),
 		...shadowedTypes(pkg, pkgAst),
+		...tsconfigBaseMatchingEngine(pkg, pkgAst),
 		...typesNodeMatchingEngine(pkg, pkgAst),
 	];
 
