@@ -89,6 +89,24 @@ it("should return error if aliased dependency is disallowed", async () => {
 	`);
 });
 
+it("should return error if aliased dependency (scoped) is disallowed", async () => {
+	expect.assertions(1);
+	pkg.dependencies = {
+		aliased: "npm:@types/node@1.2.3",
+	};
+	const { content, ast } = generateAst(pkg);
+	const results = await verifyPackageJson(pkg, ast, "package.json");
+	expect(codeframe(content, results)).toMatchInlineSnapshot(`
+		"ERROR: "aliased" ("npm:@types/node") should be a devDependency (disallowed-dependency) at package.json
+		  21 |   },
+		  22 |   "dependencies": {
+		> 23 |     "aliased": "npm:@types/node@1.2.3"
+		     |     ^
+		  24 |   }
+		  25 | }"
+	`);
+});
+
 it("should return error if dependency is obsolete", async () => {
 	expect.assertions(1);
 	pkg.devDependencies = {

@@ -1,5 +1,15 @@
 import { type PackageJson } from "../../types";
 
+export interface NpmInfoError {
+	code: string;
+	summary: string;
+	detail: string;
+}
+
+export function isNpmInfoError(error: unknown): error is NpmInfoError {
+	return Boolean(error && error instanceof Error && "summary" in error);
+}
+
 const mock = new Map<string, PackageJson>();
 let defaultInfo: PackageJson | null = null;
 

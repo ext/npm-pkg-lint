@@ -149,6 +149,20 @@ it("should handle npm: prefix", async () => {
 	]);
 });
 
+it("should skip npm: alias without a version specifier", async () => {
+	expect.assertions(2);
+	const pkg: PackageJson = {
+		name: "my-app",
+		version: "1.0.0",
+		dependencies: { spam: "npm:foo" },
+		engines: { node: ">= 10" },
+	};
+	const npmInfo = jest.spyOn(npmInfoModule, "npmInfo");
+	npmInfo.mockClear();
+	expect(await verifyEngineConstraint(pkg)).toEqual([]);
+	expect(npmInfo).not.toHaveBeenCalled();
+});
+
 it("should handle recursive dependencies", async () => {
 	expect.assertions(1);
 	const pkg: PackageJson = {
