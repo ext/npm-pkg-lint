@@ -126,32 +126,35 @@ function verifyDependencies(
 	}
 
 	function verifyObsolete(
-		dependency: string,
+		key: string,
+		version: string,
 		source: "dependencies" | "devDependencies" | "peerDependencies",
 	): void {
+		const { name: dependency } = normalizeDependency(key, version);
 		const obsolete = isObsoleteDependency(dependency);
 		if (obsolete) {
-			const { line, column } = jsonLocation(pkgAst, "member", source, dependency);
+			const { line, column } = jsonLocation(pkgAst, "member", source, key);
+			const name = key === dependency ? `"${dependency}"` : `"${key}" ("npm:${dependency}")`;
 			messages.push({
 				ruleId: "obsolete-dependency",
 				severity: 2,
-				message: `"${dependency}" is obsolete and should no longer be used: ${obsolete.message}`,
+				message: `${name} is obsolete and should no longer be used: ${obsolete.message}`,
 				line,
 				column,
 			});
 		}
 	}
 
-	for (const dependency of Object.keys(dependencies)) {
-		verifyObsolete(dependency, "dependencies");
+	for (const [key, version] of Object.entries(dependencies)) {
+		verifyObsolete(key, version, "dependencies");
 	}
 
-	for (const dependency of Object.keys(devDependencies)) {
-		verifyObsolete(dependency, "devDependencies");
+	for (const [key, version] of Object.entries(devDependencies)) {
+		verifyObsolete(key, version, "devDependencies");
 	}
 
-	for (const dependency of Object.keys(peerDependencies)) {
-		verifyObsolete(dependency, "peerDependencies");
+	for (const [key, version] of Object.entries(peerDependencies)) {
+		verifyObsolete(key, version, "peerDependencies");
 	}
 
 	return messages;
