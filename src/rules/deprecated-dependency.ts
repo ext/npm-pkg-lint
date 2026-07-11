@@ -3,12 +3,14 @@ import semver from "semver";
 import { type Message } from "../message";
 import { type VerifyPackageJsonOptions } from "../package-json";
 import { type PackageJson } from "../types";
-import { jsonLocation, npmInfo } from "../utils";
+import { jsonLocation, normalizeDependency, npmInfo } from "../utils";
 import { isNpmInfoError } from "../utils/npm-info";
 
 const ruleId = "no-deprecated-dependency";
 
 interface Dependency {
+	/** key from the dependency object, e.g. the alias for aliased dependencies */
+	key: string;
 	name: string;
 	version: string;
 	spec: string;
@@ -26,25 +28,26 @@ function createEntry(
 	}
 
 	/* handle npm: prefix */
-	if (version.startsWith("npm:")) {
-		const [newKey, newVersion] = version.slice("npm:".length).split("@", 2);
-		key = newKey;
-		version = newVersion;
+	const { name, version: normalizedVersion } = normalizeDependency(key, version);
+
+	if (normalizedVersion === "") {
+		return null;
 	}
 
 	/* ignore this as this package is sometimes is present as version "*" which
 	 * just yields way to many versions to handle causing MaxBuffer errors and
 	 * there is another rule to make sure the outermost @types/node package
 	 * matches the configured engines */
-	if (key === "@types/node") {
+	if (name === "@types/node") {
 		return null;
 	}
 
-	const minVersion = semver.minVersion(version);
+	const minVersion = semver.minVersion(normalizedVersion);
 	return {
-		name: key,
-		version,
-		spec: `${key}@${minVersion ? minVersion.version : version}`,
+		key,
+		name,
+		version: normalizedVersion,
+		spec: `${name}@${minVersion ? minVersion.version : normalizedVersion}`,
 		source,
 	};
 }
@@ -90,7 +93,7 @@ export async function deprecatedDependency(
 			if (!deprecated) {
 				continue;
 			}
-			const { line, column } = jsonLocation(pkgAst, "member", dependency.source, dependency.name);
+			const { line, column } = jsonLocation(pkgAst, "member", dependency.source, dependency.key);
 			messages.push({
 				ruleId,
 				severity: 2,
@@ -103,7 +106,7 @@ export async function deprecatedDependency(
 				if (dependency.source === "devDependencies") {
 					continue;
 				}
-				const { line, column } = jsonLocation(pkgAst, "member", dependency.source, dependency.name);
+				const { line, column } = jsonLocation(pkgAst, "member", dependency.source, dependency.key);
 				messages.push({
 					ruleId,
 					severity: 1,

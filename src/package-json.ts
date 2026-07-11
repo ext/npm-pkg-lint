@@ -16,7 +16,7 @@ import { shadowedTypes } from "./rules/shadowed-types";
 import { typesNodeMatchingEngine } from "./rules/types-node-matching-engine";
 import { verifyEngineConstraint } from "./rules/verify-engine-constraint";
 import { type PackageJson } from "./types";
-import { jsonLocation } from "./utils";
+import { jsonLocation, normalizeDependency } from "./utils";
 import {
 	ValidationError,
 	nonempty,
@@ -87,13 +87,7 @@ function verifyFields(
 }
 
 function getActualDependency(key: string, version: string): string {
-	/* handle npm: prefix */
-	if (version.startsWith("npm:")) {
-		const [name] = version.slice("npm:".length).split("@", 2);
-		return name;
-	}
-
-	return key;
+	return normalizeDependency(key, version).name;
 }
 
 /* eslint-disable-next-line complexity -- technical debt */

@@ -1,7 +1,7 @@
 import semver, { type SemVer } from "semver";
 import { type Message } from "../message";
 import { type PackageJson } from "../types";
-import { isNpmInfoError, npmInfo } from "../utils";
+import { isNpmInfoError, normalizeDependency, npmInfo } from "../utils";
 
 const ruleId = "invalid-engine-constraint";
 
@@ -25,10 +25,12 @@ async function* getDeepDependencies(
 	const { dependencies = {} } = pkgData;
 	for (let [key, version] of Object.entries(dependencies)) {
 		/* handle npm: prefix */
-		if (version.startsWith("npm:")) {
-			const [newKey, newVersion] = version.slice("npm:".length).split("@", 2);
-			key = newKey;
-			version = newVersion;
+		const normalized = normalizeDependency(key, version);
+		key = normalized.name;
+		version = normalized.version;
+
+		if (version === "") {
+			continue;
 		}
 
 		/* ignore this as this package is sometimes is present as version "*" which
