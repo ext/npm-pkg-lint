@@ -106,6 +106,7 @@ describe.each(["types", "typings"])("%s", (field) => {
 			[field]: "./foo.d.ts",
 		};
 		const { content, ast } = generateAst(pkg);
+		/* eslint-disable-next-line sonarjs/no-interpolation-in-inline-snapshots -- parameterized test */
 		expect(codeframe(content, shadowedTypes(pkg, ast))).toMatchInlineSnapshot(`
 			"ERROR: "${field}" cannot be resolved when respecting "exports" field (shadowed-types) at package.json
 			   8 |     }
@@ -129,6 +130,7 @@ describe.each(["types", "typings"])("%s", (field) => {
 			[field]: "./foo.d.ts",
 		};
 		const { content, ast } = generateAst(pkg);
+		/* eslint-disable-next-line sonarjs/no-interpolation-in-inline-snapshots -- parameterized test */
 		expect(codeframe(content, shadowedTypes(pkg, ast))).toMatchInlineSnapshot(`
 			"ERROR: "${field}" cannot be resolved when respecting "exports" field (shadowed-types) at package.json
 			   7 |     }
@@ -157,6 +159,7 @@ describe.each(["types", "typings"])("%s", (field) => {
 			[field]: "./foo.d.ts",
 		};
 		const { content, ast } = generateAst(pkg);
+		/* eslint-disable-next-line sonarjs/no-interpolation-in-inline-snapshots -- parameterized test */
 		expect(codeframe(content, shadowedTypes(pkg, ast))).toMatchInlineSnapshot(`
 			"ERROR: "${field}" cannot be resolved when respecting "exports" field (shadowed-types) at package.json
 			  12 |     }
@@ -178,6 +181,7 @@ describe.each(["types", "typings"])("%s", (field) => {
 			[field]: "./foo.d.ts",
 		};
 		const { content, ast } = generateAst(pkg);
+		/* eslint-disable-next-line sonarjs/no-interpolation-in-inline-snapshots -- parameterized test */
 		expect(codeframe(content, shadowedTypes(pkg, ast))).toMatchInlineSnapshot(`
 			"ERROR: "${field}" cannot be resolved when respecting "exports" field (shadowed-types) at package.json
 			  5 |     ".": "./dist/foo.js"
@@ -197,6 +201,7 @@ describe.each(["types", "typings"])("%s", (field) => {
 			[field]: "./foo.d.ts",
 		};
 		const { content, ast } = generateAst(pkg);
+		/* eslint-disable-next-line sonarjs/no-interpolation-in-inline-snapshots -- parameterized test */
 		expect(codeframe(content, shadowedTypes(pkg, ast))).toMatchInlineSnapshot(`
 			"ERROR: "${field}" cannot be resolved when respecting "exports" field (shadowed-types) at package.json
 			  3 |   "version": "1.2.3",
