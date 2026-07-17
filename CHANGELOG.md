@@ -1,5 +1,11 @@
 # npm-pkg-lint changelog
 
+## 5.2.0 (2026-07-17)
+
+### Features
+
+- **deps:** replace `argparse` dependency with native `parseArgs` ([d83d110](https://github.com/ext/npm-pkg-lint/commit/d83d11046985397fa945ca4f15b0c1778c289158))
+
 ## 5.1.12 (2026-07-15)
 
 ### Bug Fixes
