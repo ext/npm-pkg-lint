@@ -65,7 +65,7 @@
   "dependencies": {
     "@html-validate/stylish": "6.0.0",
     "@humanwhocodes/momoa": "3.3.10",
-    "argparse": "2.0.1",
+    "argparse": "3.0.0",
     "find-up": "8.0.0",
     "nano-spawn": "2.1.0",
     "semver": "7.8.5",
