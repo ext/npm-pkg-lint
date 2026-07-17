@@ -3,9 +3,9 @@
 import { createWriteStream, existsSync, promises as fs, readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { parseArgs } from "node:util";
 import { stylish } from "@html-validate/stylish";
 import { type DocumentNode, parse } from "@humanwhocodes/momoa";
-import { ArgumentParser } from "argparse";
 import { findUp } from "find-up";
 import tmp from "tmp";
 import { setupBlacklist } from "./blacklist";
@@ -20,14 +20,40 @@ const { version } = JSON.parse(readFileSync(pkgFilepath, "utf-8")) as { version:
 
 const PACKAGE_JSON = "package.json";
 
+const HELP_TEXT = `usage: index.js [-h] [-v] [-t TARBALL] [-p PKGFILE] [--cache CACHE]
+                [--allow-dependency DEPENDENCY] [--allow-types-dependencies]
+                [--ignore-missing-fields] [--ignore-node-version [MAJOR]]
+
+Opiniated linter for NPM package tarball and package.json metadata
+
+options:
+  -h, --help            show this help message and exit
+  -v, --version         show program's version number and exit
+  -t, --tarball TARBALL
+                        specify tarball location
+  -p, --pkgfile PKGFILE
+                        specify package.json location
+  --cache CACHE         specify cache directory
+  --allow-dependency DEPENDENCY
+                        explicitly allow given dependency (can be given
+                        multiple times or as a comma-separated list)
+  --allow-types-dependencies
+                        allow production dependencies to \`@types/*\`
+  --ignore-missing-fields
+                        ignore errors for missing fields (but still checks for
+                        empty and valid)
+  --ignore-node-version [MAJOR]
+                        ignore error for outdated node version (restricted to MAJOR version if given)
+`;
+
 interface ParsedArgs {
-	cache?: string;
-	pkgfile: string;
-	tarball?: string;
-	ignore_missing_fields?: boolean;
-	ignore_node_version: boolean | number;
-	allow_dependency: string[];
-	allow_types_dependencies?: boolean;
+	cache?: string | undefined;
+	pkgfile?: string | undefined;
+	tarball?: string | undefined;
+	ignoreMissingFields?: boolean | undefined;
+	ignoreNodeVersion: boolean | number;
+	allowDependency: string[];
+	allowTypesDependencies?: boolean | undefined;
 }
 
 interface GetPackageJsonResults {
@@ -104,40 +130,138 @@ async function getPackageJson(
 	return { pkg: undefined, pkgAst: undefined, pkgPath: undefined };
 }
 
+/**
+ * Extract `--ignore-node-version` optional parameter.
+ */
+function extractIgnoreNodeVersion(argv: readonly string[]): {
+	value: boolean | number;
+	rest: string[];
+} {
+	const FLAG = "--ignore-node-version";
+	const rest: string[] = [];
+	let value: boolean | number = false;
+
+	for (let i = 0; i < argv.length; i++) {
+		const arg = argv[i];
+
+		if (arg === FLAG) {
+			const next = argv[i + 1];
+			if (typeof next === "string" && !next.startsWith("-")) {
+				value = parseIgnoreNodeVersionValue(next);
+				i++;
+			} else {
+				value = true;
+			}
+			continue;
+		}
+
+		if (arg.startsWith(`${FLAG}=`)) {
+			value = parseIgnoreNodeVersionValue(arg.slice(FLAG.length + 1));
+			continue;
+		}
+
+		rest.push(arg);
+	}
+
+	return { value, rest };
+}
+
+function parseIgnoreNodeVersionValue(raw: string): number {
+	const parsed = Number(raw);
+	if (!Number.isSafeInteger(parsed)) {
+		throw new TypeError(`argument --ignore-node-version: invalid int value: '${raw}'`);
+	}
+	return parsed;
+}
+
+type CliResult = { action: "help" } | { action: "version" } | { action: "run"; args: ParsedArgs };
+
+function parseCliArgs(argv: readonly string[]): CliResult {
+	const { value: ignoreNodeVersion, rest } = extractIgnoreNodeVersion(argv);
+	const { values } = parseArgs({
+		args: rest,
+		options: {
+			help: { type: "boolean", short: "h" },
+			version: { type: "boolean", short: "v" },
+			tarball: { type: "string", short: "t" },
+			pkgfile: { type: "string", short: "p" },
+			cache: { type: "string" },
+			"allow-dependency": { type: "string", multiple: true, default: [] },
+			"allow-types-dependencies": { type: "boolean" },
+			"ignore-missing-fields": { type: "boolean" },
+		},
+		strict: true,
+	});
+
+	if (values.help) {
+		return { action: "help" };
+	}
+
+	if (values.version) {
+		return { action: "version" };
+	}
+
+	return {
+		action: "run",
+		args: {
+			cache: values.cache,
+			pkgfile: values.pkgfile,
+			tarball: values.tarball,
+			ignoreMissingFields: values["ignore-missing-fields"],
+			ignoreNodeVersion,
+			allowDependency: values["allow-dependency"],
+			allowTypesDependencies: values["allow-types-dependencies"],
+		},
+	};
+}
+
+async function loadPackage(
+	args: ParsedArgs,
+	regenerateReportName: boolean,
+): Promise<
+	{ pkg: PackageJson; pkgAst: DocumentNode; pkgPath: string; tarball: TarballMeta } | undefined
+> {
+	const { pkg, pkgAst, pkgPath } = await getPackageJson(args, regenerateReportName);
+
+	if (!pkg) {
+		console.error("Failed to locate package.json and no location was specificed with `--pkgfile'");
+		return undefined;
+	}
+
+	const tarball: TarballMeta = {
+		filePath: args.tarball ?? tarballLocation(pkg, pkgPath),
+		reportPath: regenerateReportName ? `${pkg.name}-${pkg.version}.tgz` : undefined,
+	};
+	if (!existsSync(tarball.filePath)) {
+		console.error(`"${tarball.filePath}" does not exist, did you forget to run \`npm pack'?`);
+		return undefined;
+	}
+
+	return { pkg, pkgAst, pkgPath, tarball };
+}
+
 async function run(): Promise<void> {
-	const parser = new ArgumentParser({
-		description: "Opiniated linter for NPM package tarball and package.json metadata",
-	});
+	let cli: CliResult;
+	try {
+		cli = parseCliArgs(process.argv.slice(2));
+	} catch (err) {
+		console.error(err instanceof Error ? err.message : String(err));
+		process.exitCode = 1;
+		return;
+	}
 
-	parser.add_argument("-v", "--version", { action: "version", version });
-	parser.add_argument("-t", "--tarball", { help: "specify tarball location" });
-	parser.add_argument("-p", "--pkgfile", { help: "specify package.json location" });
-	parser.add_argument("--cache", { help: "specify cache directory" });
-	parser.add_argument("--allow-dependency", {
-		action: "append",
-		default: [],
-		metavar: "DEPENDENCY",
-		help: "explicitly allow given dependency (can be given multiple times or as a comma-separated list)",
-	});
-	parser.add_argument("--allow-types-dependencies", {
-		action: "store_true",
-		help: "allow production dependencies to `@types/*`",
-	});
-	parser.add_argument("--ignore-missing-fields", {
-		action: "store_true",
-		help: "ignore errors for missing fields (but still checks for empty and valid)",
-	});
-	parser.add_argument("--ignore-node-version", {
-		nargs: "?",
-		metavar: "MAJOR",
-		type: "int",
-		default: false,
-		const: true,
-		help: "ignore error for outdated node version (restricted to MAJOR version if given)",
-	});
+	if (cli.action === "help") {
+		console.log(HELP_TEXT);
+		return;
+	}
 
-	const args = parser.parse_args() as ParsedArgs;
-	const allowedDependencies = new Set(args.allow_dependency.flatMap((it) => it.split(",")));
+	if (cli.action === "version") {
+		console.log(version);
+		return;
+	}
+
+	const { args } = cli;
+	const allowedDependencies = new Set(args.allowDependency.flatMap((it) => it.split(",")));
 
 	if (args.cache) {
 		await setCacheDirecory(args.cache);
@@ -152,31 +276,21 @@ async function run(): Promise<void> {
 		regenerateReportName = true;
 	}
 
-	const { pkg, pkgAst, pkgPath } = await getPackageJson(args, regenerateReportName);
-
-	if (!pkg) {
-		console.error("Failed to locate package.json and no location was specificed with `--pkgfile'");
+	const loaded = await loadPackage(args, regenerateReportName);
+	if (!loaded) {
 		process.exitCode = 1;
 		return;
 	}
 
-	const tarball: TarballMeta = {
-		filePath: args.tarball ?? tarballLocation(pkg, pkgPath),
-		reportPath: regenerateReportName ? `${pkg.name}-${pkg.version}.tgz` : undefined,
-	};
-	if (!existsSync(tarball.filePath)) {
-		console.error(`"${tarball.filePath}" does not exist, did you forget to run \`npm pack'?`);
-		process.exitCode = 1;
-		return;
-	}
+	const { pkg, pkgAst, pkgPath, tarball } = loaded;
 
 	setupBlacklist(pkg.name);
 
 	const options: VerifyOptions = {
 		allowedDependencies,
-		allowTypesDependencies: args.allow_types_dependencies,
-		ignoreMissingFields: args.ignore_missing_fields,
-		ignoreNodeVersion: args.ignore_node_version,
+		allowTypesDependencies: args.allowTypesDependencies,
+		ignoreMissingFields: args.ignoreMissingFields,
+		ignoreNodeVersion: args.ignoreNodeVersion,
 	};
 
 	const results = await verify(pkg, pkgAst, pkgPath, tarball, options);
