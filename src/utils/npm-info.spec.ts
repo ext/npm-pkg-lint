@@ -14,7 +14,7 @@ function createExecaError(message: string, stdout: string | Record<string, unkno
 }
 
 mockSpawn.mockImplementation((_, args: string[]) => {
-	const [name, version] = args.at(-1)!.split("@");
+	const [name, version] = args.at(-1)!.split("@", 2);
 
 	switch (name) {
 		case "exception":
