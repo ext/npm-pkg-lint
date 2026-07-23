@@ -94,7 +94,7 @@
     "husky": "9.1.7",
     "jest": "30.4.2",
     "lint-staged": "17.1.1",
-    "ts-jest": "29.4.11",
+    "ts-jest": "29.4.12",
     "typescript": "npm:@typescript/typescript6@6.0.2"
   },
   "engines": {
