@@ -1,7 +1,7 @@
 import { type DocumentNode, parse } from "@humanwhocodes/momoa";
 import { beforeEach, expect, it, jest } from "@jest/globals";
 import { type VerifyPackageJsonOptions } from "../package-json";
-import { PackageJson } from "../types";
+import { type PackageJson } from "../types";
 import * as npmInfoModule from "../utils/npm-info";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment -- exists in mock only
 // @ts-expect-error
@@ -20,6 +20,7 @@ function generateAst(pkg: PackageJson): DocumentNode {
 }
 
 beforeEach(() => {
+	/* eslint-disable-next-line @typescript-eslint/no-unsafe-call -- technical debt */
 	npmInfoMockClear();
 });
 
@@ -30,6 +31,7 @@ it("should return error if dependency is deprecated", async () => {
 		version: "1.0.0",
 		dependencies: { foo: "1.0.0" },
 	};
+	/* eslint-disable-next-line @typescript-eslint/no-unsafe-call -- technical debt */
 	npmInfoMockAdd("foo@1.0.0", {
 		name: "foo",
 		version: "1.0.0",
@@ -65,6 +67,7 @@ it("should not return error if dependency is not deprecated", async () => {
 		version: "1.0.0",
 		dependencies: { foo: "1.0.0" },
 	};
+	/* eslint-disable-next-line @typescript-eslint/no-unsafe-call -- technical debt */
 	npmInfoMockAdd("foo@1.0.0", { name: "foo", version: "1.0.0" });
 	const ast = generateAst(pkg);
 	expect(await deprecatedDependency(pkg, ast, options)).toEqual([]);
@@ -123,6 +126,7 @@ it("should return error if aliased dependency is deprecated", async () => {
 		version: "1.0.0",
 		dependencies: { aliased: "npm:foo@1.0.0" },
 	};
+	/* eslint-disable-next-line @typescript-eslint/no-unsafe-call -- technical debt */
 	npmInfoMockAdd("foo@1.0.0", {
 		name: "foo",
 		version: "1.0.0",
@@ -145,11 +149,13 @@ it("should check devDependencies and peerDependencies for deprecated packages", 
 		devDependencies: { foo: "1.0.0" },
 		peerDependencies: { bar: "1.0.0" },
 	};
+	/* eslint-disable-next-line @typescript-eslint/no-unsafe-call -- technical debt */
 	npmInfoMockAdd("foo@1.0.0", {
 		name: "foo",
 		version: "1.0.0",
 		deprecated: "no longer maintained",
 	});
+	/* eslint-disable-next-line @typescript-eslint/no-unsafe-call -- technical debt */
 	npmInfoMockAdd("bar@1.0.0", {
 		name: "bar",
 		version: "1.0.0",

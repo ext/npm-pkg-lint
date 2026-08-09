@@ -3,12 +3,12 @@ let mockContents: Record<string, Buffer>;
 jest.mock("./tarball", () => {
 	return {
 		getFileContent(_tarball: string, filenames: string[]): Promise<Record<string, Buffer>> {
-			const result = filenames.reduce(
+			const result = filenames.reduce<Record<string, Buffer>>(
 				(st: Record<string, Buffer>, filename: string) => {
 					st[filename] = mockContents[filename];
 					return st;
 				},
-				{} as Record<string, Buffer>,
+				{},
 			);
 			return Promise.resolve(result);
 		},
@@ -17,7 +17,7 @@ jest.mock("./tarball", () => {
 
 import { beforeEach, expect, it, jest } from "@jest/globals";
 import { verifyShebang } from "./shebang";
-import { PackageJson } from "./types";
+import { type PackageJson } from "./types";
 
 beforeEach(() => {
 	mockContents = {};

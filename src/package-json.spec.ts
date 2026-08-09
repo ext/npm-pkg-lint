@@ -3,7 +3,7 @@
 import { type DocumentNode, parse } from "@humanwhocodes/momoa";
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { verifyPackageJson } from "./package-json";
-import { PackageJson } from "./types";
+import { type PackageJson } from "./types";
 import { codeframe } from "./utils/codeframe";
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment -- it exists in the mock only
@@ -35,6 +35,7 @@ beforeEach(() => {
 			node: ">= 22",
 		},
 	};
+	/* eslint-disable-next-line @typescript-eslint/no-unsafe-call -- technical debt */
 	npmInfoMockDefault(pkg);
 });
 
