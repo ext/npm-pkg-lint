@@ -1,6 +1,6 @@
 import { type DocumentNode, parse } from "@humanwhocodes/momoa";
 import { beforeEach, expect, it } from "@jest/globals";
-import { PackageJson } from "../types";
+import { type PackageJson } from "../types";
 import { codeframe } from "../utils/codeframe";
 import { noProtocolDependencies } from "./no-protocol-dependencies";
 

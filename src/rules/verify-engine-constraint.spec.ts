@@ -1,5 +1,5 @@
 import { beforeEach, expect, it, jest } from "@jest/globals";
-import { PackageJson } from "../types";
+import { type PackageJson } from "../types";
 import * as npmInfoModule from "../utils/npm-info";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment -- exists in mock only
 // @ts-expect-error
@@ -9,6 +9,7 @@ import { verifyEngineConstraint } from "./verify-engine-constraint";
 jest.mock("../utils/npm-info");
 
 beforeEach(() => {
+	/* eslint-disable-next-line @typescript-eslint/no-unsafe-call -- technical debt */
 	npmInfoMockClear();
 });
 
@@ -20,6 +21,7 @@ it("should return error if direct dependency have mismatched constraint", async 
 		dependencies: { foo: "1.0.0" },
 		engines: { node: ">= 10" },
 	};
+	/* eslint-disable-next-line @typescript-eslint/no-unsafe-call -- technical debt */
 	npmInfoMockAdd("foo@1.0.0", { name: "foo", version: "1.0.0", engines: { node: ">= 12" } });
 	expect(await verifyEngineConstraint(pkg)).toEqual([
 		expect.objectContaining({
@@ -38,11 +40,13 @@ it("should return error if deep dependency have mismatched constraint", async ()
 		dependencies: { foo: "1.0.0" },
 		engines: { node: ">= 10" },
 	};
+	/* eslint-disable-next-line @typescript-eslint/no-unsafe-call -- technical debt */
 	npmInfoMockAdd("foo@1.0.0", {
 		name: "foo",
 		version: "1.0.0",
 		dependencies: { bar: "1.0.0" },
 	});
+	/* eslint-disable-next-line @typescript-eslint/no-unsafe-call -- technical debt */
 	npmInfoMockAdd("bar@1.0.0", { name: "bar", version: "1.0.0", engines: { node: ">= 12" } });
 	expect(await verifyEngineConstraint(pkg)).toEqual([
 		expect.objectContaining({
@@ -61,7 +65,9 @@ it("should not return error if dependency is missing engine constraints", async 
 		dependencies: { foo: "1.0.0", bar: "1.0.0" },
 		engines: { node: ">= 10" },
 	};
+	/* eslint-disable-next-line @typescript-eslint/no-unsafe-call -- technical debt */
 	npmInfoMockAdd("foo@1.0.0", { name: "foo", version: "1.0.0" });
+	/* eslint-disable-next-line @typescript-eslint/no-unsafe-call -- technical debt */
 	npmInfoMockAdd("bar@1.0.0", { name: "bar", version: "1.0.0", engines: {} });
 	expect(await verifyEngineConstraint(pkg)).toEqual([]);
 });
@@ -85,6 +91,7 @@ it("should not return error if package does not declare node constraint", async 
 			foo: "1.0.0",
 		},
 	};
+	/* eslint-disable-next-line @typescript-eslint/no-unsafe-call -- technical debt */
 	npmInfoMockAdd("foo@1.0.0", { name: "foo", version: "1.0.0", engines: { node: ">= 12" } });
 	expect(await verifyEngineConstraint(pkg)).toEqual([]);
 });
@@ -97,12 +104,14 @@ it("should not return error if all dependencies have matching constraints", asyn
 		dependencies: { foo: "1.0.0" },
 		engines: { node: ">= 12" },
 	};
+	/* eslint-disable-next-line @typescript-eslint/no-unsafe-call -- technical debt */
 	npmInfoMockAdd("foo@1.0.0", {
 		name: "foo",
 		version: "1.0.0",
 		dependencies: { bar: "1.0.0" },
 		engines: { node: ">= 12" },
 	});
+	/* eslint-disable-next-line @typescript-eslint/no-unsafe-call -- technical debt */
 	npmInfoMockAdd("bar@1.0.0", { name: "bar", version: "1.0.0", engines: { node: ">= 12" } });
 	expect(await verifyEngineConstraint(pkg)).toEqual([]);
 });
@@ -128,12 +137,14 @@ it("should handle npm: prefix", async () => {
 		dependencies: { spam: "npm:foo@^1.0.0" },
 		engines: { node: ">= 10" },
 	};
+	/* eslint-disable-next-line @typescript-eslint/no-unsafe-call -- technical debt */
 	npmInfoMockAdd("foo@1.0.0", {
 		name: "foo",
 		version: "1.0.0",
 		dependencies: { spam: "npm:bar@^1.0.0" },
 		engines: { node: ">= 12" },
 	});
+	/* eslint-disable-next-line @typescript-eslint/no-unsafe-call -- technical debt */
 	npmInfoMockAdd("bar@1.0.0", { name: "bar", version: "1.0.0", engines: { node: ">= 12" } });
 	expect(await verifyEngineConstraint(pkg)).toEqual([
 		expect.objectContaining({
@@ -173,7 +184,9 @@ it("should handle recursive dependencies", async () => {
 		},
 		engines: { node: ">= 20" },
 	};
+	/* eslint-disable-next-line @typescript-eslint/no-unsafe-call -- technical debt */
 	npmInfoMockAdd("foo@1.0.0", { name: "foo", version: "1.0.0", dependencies: { bar: "1.0.0" } });
+	/* eslint-disable-next-line @typescript-eslint/no-unsafe-call -- technical debt */
 	npmInfoMockAdd("bar@1.0.0", { name: "bar", version: "1.0.0", dependencies: { foo: "1.0.0" } });
 	expect(await verifyEngineConstraint(pkg)).toEqual([]);
 });

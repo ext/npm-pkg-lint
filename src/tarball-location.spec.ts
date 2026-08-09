@@ -1,6 +1,6 @@
 import { expect, it } from "@jest/globals";
 import { tarballLocation } from "./tarball-location";
-import { PackageJson } from "./types";
+import { type PackageJson } from "./types";
 
 it("should generate tarball filename based on package.json name and version", () => {
 	expect.assertions(1);

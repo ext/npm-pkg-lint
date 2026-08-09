@@ -7,11 +7,13 @@ import { verifyTarball } from "./tarball";
 import { type PackageJson } from "./types";
 
 beforeEach(() => {
+	/* eslint-disable-next-line @typescript-eslint/no-unsafe-call -- technical debt */
 	require("tar").__setMockFiles([]);
 });
 
 it("should return error if disallowed file is found", async () => {
 	expect.assertions(3);
+	/* eslint-disable-next-line @typescript-eslint/no-unsafe-call -- technical debt */
 	require("tar").__setMockFiles(["foo.spec.js"]);
 	const pkg: PackageJson = {
 		name: "mock-pkg",
@@ -35,6 +37,7 @@ it("should return error if disallowed file is found", async () => {
 
 it("should use reportPath if given", async () => {
 	expect.assertions(2);
+	/* eslint-disable-next-line @typescript-eslint/no-unsafe-call -- technical debt */
 	require("tar").__setMockFiles(["foo.spec.js"]);
 	const pkg: PackageJson = {
 		name: "mock-pkg",
@@ -67,6 +70,7 @@ describe("should return error if package.json references missing file", () => {
 		${"exports (nested)"}    | ${{ exports: { ".": { browser: { require: "./index.cjs" } } } }}
 	`("$field", async ({ template }) => {
 		expect.assertions(3);
+		/* eslint-disable-next-line @typescript-eslint/no-unsafe-call -- technical debt */
 		require("tar").__setMockFiles([]);
 		const pkg: PackageJson = {
 			name: "mock-pkg",
@@ -101,6 +105,7 @@ describe("should not return error if package.json references existing file", () 
 		${"exports (nested)"}    | ${{ exports: { ".": { browser: { require: "./index.cjs" } } } }}
 	`("$field", async ({ template }) => {
 		expect.assertions(1);
+		/* eslint-disable-next-line @typescript-eslint/no-unsafe-call -- technical debt */
 		require("tar").__setMockFiles([
 			"index.js",
 			"index.cjs",
@@ -123,6 +128,7 @@ describe("should not return error if package.json references existing file", () 
 
 it("should handle directories with index.js", async () => {
 	expect.assertions(1);
+	/* eslint-disable-next-line @typescript-eslint/no-unsafe-call -- technical debt */
 	require("tar").__setMockFiles(["dist/index.js"]);
 	const pkg: PackageJson = {
 		name: "mock-pkg",
@@ -135,6 +141,7 @@ it("should handle directories with index.js", async () => {
 
 it("should handle directories with index.js and trailing slash", async () => {
 	expect.assertions(1);
+	/* eslint-disable-next-line @typescript-eslint/no-unsafe-call -- technical debt */
 	require("tar").__setMockFiles(["dist/index.js"]);
 	const pkg: PackageJson = {
 		name: "mock-pkg",
@@ -147,6 +154,7 @@ it("should handle directories with index.js and trailing slash", async () => {
 
 it("should handle filenames without .js", async () => {
 	expect.assertions(1);
+	/* eslint-disable-next-line @typescript-eslint/no-unsafe-call -- technical debt */
 	require("tar").__setMockFiles(["index.js"]);
 	const pkg: PackageJson = {
 		name: "mock-pkg",
@@ -159,6 +167,7 @@ it("should handle filenames without .js", async () => {
 
 it("should handle leading ./", async () => {
 	expect.assertions(1);
+	/* eslint-disable-next-line @typescript-eslint/no-unsafe-call -- technical debt */
 	require("tar").__setMockFiles(["index.js"]);
 	const pkg: PackageJson = {
 		name: "mock-pkg",
@@ -171,6 +180,7 @@ it("should handle leading ./", async () => {
 
 it("should handle browser field containing false", async () => {
 	expect.assertions(1);
+	/* eslint-disable-next-line @typescript-eslint/no-unsafe-call -- technical debt */
 	require("tar").__setMockFiles(["index.js"]);
 	const pkg: PackageJson = {
 		name: "mock-pkg",
