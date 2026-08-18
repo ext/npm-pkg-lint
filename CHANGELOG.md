@@ -1,5 +1,11 @@
 # npm-pkg-lint changelog
 
+## 5.2.3 (2026-08-18)
+
+### Bug Fixes
+
+- fix `*.tsbuildinfo` regexp for disallowed files ([00a7ded](https://github.com/ext/npm-pkg-lint/commit/00a7ded3f3e77f15b69f695e300d49e5f31abf81))
+
 ## 5.2.2 (2026-07-25)
 
 ### Bug Fixes
