@@ -1,5 +1,9 @@
 import { directory, filename } from "./helpers";
 
-const regexp: RegExp[] = [directory(".tsbuildinfo"), filename("tsconfig.json")];
+const regexp: RegExp[] = [
+	directory(".tsbuildinfo"),
+	filename(".tsbuildinfo"),
+	filename("tsconfig.json"),
+];
 
 export default regexp;
