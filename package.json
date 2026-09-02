@@ -81,7 +81,7 @@
     "@html-validate/jest-config": "3.18.2",
     "@html-validate/prettier-config": "4.1.12",
     "@html-validate/release-scripts": "7.6.8",
-    "@jest/globals": "30.5.0",
+    "@jest/globals": "30.5.1",
     "@tsconfig/node22": "22.0.6",
     "@tsconfig/strictest": "2.0.8",
     "@types/babel__code-frame": "7.27.0",
@@ -92,7 +92,7 @@
     "esbuild": "0.28.2",
     "glob": "13.0.6",
     "husky": "9.1.7",
-    "jest": "30.5.0",
+    "jest": "30.5.1",
     "lint-staged": "17.4.1",
     "ts-jest": "29.4.12",
     "typescript": "npm:@typescript/typescript6@6.0.2"
