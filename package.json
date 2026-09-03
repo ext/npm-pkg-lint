@@ -64,7 +64,7 @@
   },
   "dependencies": {
     "@html-validate/stylish": "6.0.0",
-    "@humanwhocodes/momoa": "3.3.12",
+    "@humanwhocodes/momoa": "3.3.13",
     "find-up": "8.0.0",
     "nano-spawn": "2.1.0",
     "semver": "7.8.5",
