@@ -20,7 +20,8 @@ Core principles:
 ```
 usage: index.js [-h] [-v] [-t TARBALL] [-p PKGFILE] [--cache CACHE]
                 [--allow-dependency DEPENDENCY] [--allow-types-dependencies]
-                [--ignore-missing-fields]
+                [--allow-file FILE] [--ignore-missing-fields]
+                [--ignore-node-version [MAJOR]]
 
 Opiniated linter for NPM package tarball and package.json metadata
 
@@ -37,6 +38,9 @@ optional arguments:
                         multiple times or as a comma-separated list)
   --allow-types-dependencies
                         allow production dependencies to `@types/*`
+  --allow-file FILE     explicitly allow given filename or glob in tarball
+                        (can be given multiple times or as a comma-separated
+                        list)
   --ignore-missing-fields
                         ignore errors for missing fields (but still checks for
                         empty and valid)
@@ -71,13 +75,14 @@ This tool can be used directly with Github Actions:
 > You need to have `npm-pkg-lint` installed as a dependency in `package.json`.
 > This ensures you have control over which version of the tool is actually running.
 
-| Input&nbsp;parameter | Default   | Description                                                                                |
-| -------------------- | --------- | ------------------------------------------------------------------------------------------ |
-| allow-dependencies   | `-`       | Comma-separated list of dependencies to explicitly allow even if they would yield an error |
-| build                | `"build"` | Build command (executed with `npm run`). Set to `false` to disable build.                  |
-| folders              | `"."`     | Space-separated list of folder to run in.                                                  |
-| ignore-node-version  | -         | Ignore error for outdated node version (see --ignore-node-version CLI argument)            |
-| npm-pack             | `true`    | When enabled `npm pack` is run automatically                                               |
+| Input&nbsp;parameter | Default   | Description                                                                                                 |
+| -------------------- | --------- | ----------------------------------------------------------------------------------------------------------- |
+| allow-dependencies   | `-`       | Comma-separated list of dependencies to explicitly allow even if they would yield an error                  |
+| allow-files          | `-`       | Comma-separated list of filenames or globs to explicitly allow in tarball even if they would yield an error |
+| build                | `"build"` | Build command (executed with `npm run`). Set to `false` to disable build.                                   |
+| folders              | `"."`     | Space-separated list of folder to run in.                                                                   |
+| ignore-node-version  | -         | Ignore error for outdated node version (see --ignore-node-version CLI argument)                             |
+| npm-pack             | `true`    | When enabled `npm pack` is run automatically                                                                |
 
 ## Disallowed files
 
@@ -92,6 +97,12 @@ Disallows certain files from being included in the package tarball.
 - CI-related files (github actions, gitlab pipelines, etc)
 - Typescript configs (tsconfig)
 - Editor-related files
+
+If needed, `--allow-file` can be used to explicitly allow one or more files or globs in the tarball even if they would otherwise be disallowed.
+
+> [!TIP]
+> `--allow-file '**/*'` can be used to effectively disable this rule entirely.
+> Use `'**/*,**/.*'` if you also need to allow dotfiles (e.g. `.eslintrc.json`).
 
 ## Missing files
 

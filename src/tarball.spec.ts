@@ -19,7 +19,11 @@ it("should return error if disallowed file is found", async () => {
 		name: "mock-pkg",
 		version: "1.2.3",
 	};
-	const results = await verifyTarball(pkg, { filePath: "mock-pkg-1.2.3.tgz" });
+	const results = await verifyTarball(
+		pkg,
+		{ filePath: "mock-pkg-1.2.3.tgz" },
+		{ allowedFiles: [] },
+	);
 	expect(results).toHaveLength(1);
 	expect(results[0].filePath).toBe("mock-pkg-1.2.3.tgz");
 	expect(results[0].messages).toMatchInlineSnapshot(`
@@ -43,12 +47,77 @@ it("should use reportPath if given", async () => {
 		name: "mock-pkg",
 		version: "1.2.3",
 	};
-	const results = await verifyTarball(pkg, {
-		filePath: "mock-pkg-1.2.3.tgz",
-		reportPath: "other-path",
-	});
+	const results = await verifyTarball(
+		pkg,
+		{ filePath: "mock-pkg-1.2.3.tgz", reportPath: "other-path" },
+		{ allowedFiles: [] },
+	);
 	expect(results).toHaveLength(1);
 	expect(results[0].filePath).toBe("other-path");
+});
+
+it("should not report disallowed file if it matches --allow-file exactly", async () => {
+	expect.assertions(1);
+	/* eslint-disable-next-line @typescript-eslint/no-unsafe-call -- technical debt */
+	require("tar").__setMockFiles(["foo.spec.js"]);
+	const pkg: PackageJson = {
+		name: "mock-pkg",
+		version: "1.2.3",
+	};
+	const results = await verifyTarball(
+		pkg,
+		{ filePath: "mock-pkg-1.2.3.tgz" },
+		{ allowedFiles: ["foo.spec.js"] },
+	);
+	expect(results).toEqual([]);
+});
+
+it("should not report disallowed file if it matches --allow-file glob", async () => {
+	expect.assertions(1);
+	/* eslint-disable-next-line @typescript-eslint/no-unsafe-call -- technical debt */
+	require("tar").__setMockFiles(["foo.spec.js"]);
+	const pkg: PackageJson = {
+		name: "mock-pkg",
+		version: "1.2.3",
+	};
+	const results = await verifyTarball(
+		pkg,
+		{ filePath: "mock-pkg-1.2.3.tgz" },
+		{ allowedFiles: ["*.spec.js"] },
+	);
+	expect(results).toEqual([]);
+});
+
+it("should not report any disallowed files if --allow-file is set to '**/*,**/.*'", async () => {
+	expect.assertions(1);
+	/* eslint-disable-next-line @typescript-eslint/no-unsafe-call -- technical debt */
+	require("tar").__setMockFiles(["foo.spec.js", ".eslintrc.js"]);
+	const pkg: PackageJson = {
+		name: "mock-pkg",
+		version: "1.2.3",
+	};
+	const results = await verifyTarball(
+		pkg,
+		{ filePath: "mock-pkg-1.2.3.tgz" },
+		{ allowedFiles: ["**/*", "**/.*"] },
+	);
+	expect(results).toEqual([]);
+});
+
+it("should still report disallowed file if --allow-file does not match", async () => {
+	expect.assertions(1);
+	/* eslint-disable-next-line @typescript-eslint/no-unsafe-call -- technical debt */
+	require("tar").__setMockFiles(["foo.spec.js"]);
+	const pkg: PackageJson = {
+		name: "mock-pkg",
+		version: "1.2.3",
+	};
+	const results = await verifyTarball(
+		pkg,
+		{ filePath: "mock-pkg-1.2.3.tgz" },
+		{ allowedFiles: ["bar.spec.js"] },
+	);
+	expect(results).toHaveLength(1);
 });
 
 describe("should return error if package.json references missing file", () => {
@@ -77,7 +146,11 @@ describe("should return error if package.json references missing file", () => {
 			version: "1.2.3",
 			...(template as object),
 		};
-		const results = await verifyTarball(pkg, { filePath: "mock-pkg-1.2.3.tgz" });
+		const results = await verifyTarball(
+			pkg,
+			{ filePath: "mock-pkg-1.2.3.tgz" },
+			{ allowedFiles: [] },
+		);
 		expect(results).toHaveLength(1);
 		expect(results[0].filePath).toBe("mock-pkg-1.2.3.tgz");
 		expect(results[0].messages).toMatchSnapshot();
@@ -121,7 +194,7 @@ describe("should not return error if package.json references existing file", () 
 			version: "1.2.3",
 			...(template as object),
 		};
-		const results = await verifyTarball(pkg, { filePath: "mock-path" });
+		const results = await verifyTarball(pkg, { filePath: "mock-path" }, { allowedFiles: [] });
 		expect(results).toEqual([]);
 	});
 });
@@ -135,7 +208,7 @@ it("should handle directories with index.js", async () => {
 		version: "1.2.3",
 		main: "dist",
 	};
-	const results = await verifyTarball(pkg, { filePath: "mock-path" });
+	const results = await verifyTarball(pkg, { filePath: "mock-path" }, { allowedFiles: [] });
 	expect(results).toEqual([]);
 });
 
@@ -148,7 +221,7 @@ it("should handle directories with index.js and trailing slash", async () => {
 		version: "1.2.3",
 		main: "dist/",
 	};
-	const results = await verifyTarball(pkg, { filePath: "mock-path" });
+	const results = await verifyTarball(pkg, { filePath: "mock-path" }, { allowedFiles: [] });
 	expect(results).toEqual([]);
 });
 
@@ -161,7 +234,7 @@ it("should handle filenames without .js", async () => {
 		version: "1.2.3",
 		main: "index",
 	};
-	const results = await verifyTarball(pkg, { filePath: "mock-path" });
+	const results = await verifyTarball(pkg, { filePath: "mock-path" }, { allowedFiles: [] });
 	expect(results).toEqual([]);
 });
 
@@ -174,7 +247,7 @@ it("should handle leading ./", async () => {
 		version: "1.2.3",
 		main: "./index.js",
 	};
-	const results = await verifyTarball(pkg, { filePath: "mock-path" });
+	const results = await verifyTarball(pkg, { filePath: "mock-path" }, { allowedFiles: [] });
 	expect(results).toEqual([]);
 });
 
@@ -189,6 +262,6 @@ it("should handle browser field containing false", async () => {
 			foo: false,
 		},
 	};
-	const results = await verifyTarball(pkg, { filePath: "mock-path" });
+	const results = await verifyTarball(pkg, { filePath: "mock-path" }, { allowedFiles: [] });
 	expect(results).toEqual([]);
 });
