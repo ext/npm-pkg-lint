@@ -181,6 +181,7 @@ it("should not return error if explicitly allowed by user", async () => {
 	const { ast } = generateAst(pkg);
 	const results = await verifyPackageJson(pkg, ast, "package.json", {
 		allowedDependencies: new Set(["eslint"]),
+		allowedFiles: [],
 		ignoreNodeVersion: false,
 	});
 	expect(results).toHaveLength(0);
@@ -229,6 +230,7 @@ describe("@types", () => {
 		const { ast } = generateAst(pkg);
 		const results = await verifyPackageJson(pkg, ast, "package.json", {
 			allowedDependencies: new Set(),
+			allowedFiles: [],
 			allowTypesDependencies: true,
 			ignoreNodeVersion: false,
 		});
@@ -258,6 +260,7 @@ describe("present", () => {
 		const { ast } = generateAst(pkg);
 		const results = await verifyPackageJson(pkg, ast, "package.json", {
 			allowedDependencies: new Set(),
+			allowedFiles: [],
 			ignoreMissingFields: true,
 			ignoreNodeVersion: false,
 		});

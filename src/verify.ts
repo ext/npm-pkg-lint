@@ -16,7 +16,7 @@ export async function verify(
 	options: VerifyOptions,
 ): Promise<Result[]> {
 	return [
-		...(await verifyTarball(pkg, tarball)),
+		...(await verifyTarball(pkg, tarball, { allowedFiles: options.allowedFiles })),
 		...(await verifyPackageJson(pkg, pkgAst, pkgPath, options)),
 		...(await verifyPackageLock()),
 		...(await verifyShebang(pkg, tarball)),

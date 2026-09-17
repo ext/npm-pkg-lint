@@ -30,6 +30,8 @@ import {
 
 export interface VerifyPackageJsonOptions {
 	allowedDependencies: Set<string>;
+	/** List of filenames/globs explicitly allowed even if otherwise disallowed */
+	allowedFiles: string[];
 	allowTypesDependencies?: boolean | undefined;
 	ignoreMissingFields?: boolean | undefined;
 	ignoreNodeVersion: boolean | number;
@@ -166,7 +168,11 @@ export async function verifyPackageJson(
 	pkgAst: DocumentNode,
 	filePath: string,
 	/* eslint-disable-next-line unicorn/no-object-as-default-parameter -- technical debt, should destruct with defaults */
-	options: VerifyPackageJsonOptions = { allowedDependencies: new Set(), ignoreNodeVersion: false },
+	options: VerifyPackageJsonOptions = {
+		allowedDependencies: new Set(),
+		allowedFiles: [],
+		ignoreNodeVersion: false,
+	},
 ): Promise<Result[]> {
 	const { ignoreNodeVersion } = options;
 

@@ -98,7 +98,7 @@
     "typescript": "npm:@typescript/typescript6@6.0.2"
   },
   "engines": {
-    "node": "^22.16.0 || >= 24.0.0"
+    "node": "^22.20.0 || >= 24.8.0"
   },
   "publishConfig": {
     "access": "public",

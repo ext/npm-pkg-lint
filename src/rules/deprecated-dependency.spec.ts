@@ -12,6 +12,7 @@ jest.mock("../utils/npm-info");
 
 const options: VerifyPackageJsonOptions = {
 	allowedDependencies: new Set(),
+	allowedFiles: [],
 	ignoreNodeVersion: false,
 };
 
@@ -113,6 +114,7 @@ it("should not return error if dependency is explicitly allowed", async () => {
 	const ast = generateAst(pkg);
 	const allowedOptions: VerifyPackageJsonOptions = {
 		allowedDependencies: new Set(["foo"]),
+		allowedFiles: [],
 		ignoreNodeVersion: false,
 	};
 	expect(await deprecatedDependency(pkg, ast, allowedOptions)).toEqual([]);

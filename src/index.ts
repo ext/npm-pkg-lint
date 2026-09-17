@@ -22,7 +22,8 @@ const PACKAGE_JSON = "package.json";
 
 const HELP_TEXT = `usage: index.js [-h] [-v] [-t TARBALL] [-p PKGFILE] [--cache CACHE]
                 [--allow-dependency DEPENDENCY] [--allow-types-dependencies]
-                [--ignore-missing-fields] [--ignore-node-version [MAJOR]]
+                [--allow-file FILE] [--ignore-missing-fields]
+                [--ignore-node-version [MAJOR]]
 
 Opiniated linter for NPM package tarball and package.json metadata
 
@@ -39,6 +40,9 @@ options:
                         multiple times or as a comma-separated list)
   --allow-types-dependencies
                         allow production dependencies to \`@types/*\`
+  --allow-file FILE     explicitly allow given filename or glob in tarball
+                        (can be given multiple times or as a comma-separated
+                        list)
   --ignore-missing-fields
                         ignore errors for missing fields (but still checks for
                         empty and valid)
@@ -54,6 +58,7 @@ interface ParsedArgs {
 	ignoreNodeVersion: boolean | number;
 	allowDependency: string[];
 	allowTypesDependencies?: boolean | undefined;
+	allowFile: string[];
 }
 
 interface GetPackageJsonResults {
@@ -188,6 +193,7 @@ function parseCliArgs(argv: readonly string[]): CliResult {
 			cache: { type: "string" },
 			"allow-dependency": { type: "string", multiple: true, default: [] },
 			"allow-types-dependencies": { type: "boolean" },
+			"allow-file": { type: "string", multiple: true, default: [] },
 			"ignore-missing-fields": { type: "boolean" },
 		},
 		strict: true,
@@ -211,6 +217,7 @@ function parseCliArgs(argv: readonly string[]): CliResult {
 			ignoreNodeVersion,
 			allowDependency: values["allow-dependency"],
 			allowTypesDependencies: values["allow-types-dependencies"],
+			allowFile: values["allow-file"],
 		},
 	};
 }
@@ -262,6 +269,7 @@ async function run(): Promise<void> {
 
 	const { args } = cli;
 	const allowedDependencies = new Set(args.allowDependency.flatMap((it) => it.split(",")));
+	const allowedFiles = args.allowFile.flatMap((it) => it.split(","));
 
 	if (args.cache) {
 		await setCacheDirecory(args.cache);
@@ -289,6 +297,7 @@ async function run(): Promise<void> {
 	const options: VerifyOptions = {
 		allowedDependencies,
 		allowTypesDependencies: args.allowTypesDependencies,
+		allowedFiles,
 		ignoreMissingFields: args.ignoreMissingFields,
 		ignoreNodeVersion: args.ignoreNodeVersion,
 	};

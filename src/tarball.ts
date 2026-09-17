@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import { matchesGlob } from "node:path";
 import * as tar from "tar";
 import { type ReadEntry, Parser } from "tar";
 import { isBlacklisted } from "./blacklist";
@@ -12,6 +13,11 @@ export interface TarballMeta {
 
 	/** Path to use in report (default filePath) */
 	reportPath?: string | undefined;
+}
+
+export interface VerifyTarballOptions {
+	/** List of filenames/globs explicitly allowed even if otherwise disallowed */
+	allowedFiles: string[];
 }
 
 interface RequiredFile {
@@ -72,8 +78,17 @@ export async function getFileContent(
 	});
 }
 
-export function blacklistedFiles(filelist: string[]): string[] {
-	return filelist.filter(isBlacklisted);
+function isAllowedFile(filename: string, allowedFiles: readonly string[]): boolean {
+	return allowedFiles.some((pattern) => matchesGlob(filename, pattern));
+}
+
+export function blacklistedFiles(
+	filelist: string[],
+	allowedFiles: readonly string[] = [],
+): string[] {
+	return filelist.filter(
+		(filename) => isBlacklisted(filename) && !isAllowedFile(filename, allowedFiles),
+	);
 }
 
 function normalizeRequiredFiles(
@@ -179,12 +194,18 @@ function fileExists(filelist: string[], filename: string): boolean {
 /**
  * @param pkg - Parsed `package.json` data
  * @param tarball - Tarball paths
+ * @param options - Additional options, e.g. `allowedFiles`
  */
-export async function verifyTarball(pkg: PackageJson, tarball: TarballMeta): Promise<Result[]> {
+export async function verifyTarball(
+	pkg: PackageJson,
+	tarball: TarballMeta,
+	options: VerifyTarballOptions,
+): Promise<Result[]> {
 	const messages: Message[] = [];
 	const filelist = await getFileList(tarball.filePath);
 
-	for (const filename of blacklistedFiles(filelist)) {
+	const disallowedFiles = blacklistedFiles(filelist, options.allowedFiles);
+	for (const filename of disallowedFiles) {
 		messages.push({
 			ruleId: "no-disallowed-files",
 			severity: 2,
