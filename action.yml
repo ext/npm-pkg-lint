@@ -63,6 +63,10 @@ runs:
         ); done
     - name: npm-pkg-lint
       shell: bash
+      env:
+        ALLOW_DEPENDENCIES: ${{ inputs.allow-dependencies }}
+        ALLOW_FILES: ${{ inputs.allow-files }}
+        IGNORE_NODE_VERSION: ${{ inputs.ignore-node-version }}
       run: |
         for pkg in ${{ inputs.folders }}; do (
           set -e
@@ -72,7 +76,17 @@ runs:
             echo "::group::${name}"
             echo Running npm-pkg-lint on package ${name} in ${pkg}
           fi
-          npm exec npm-pkg-lint -- ${{ inputs.allow-dependencies && format('--allow-dependency={0}', inputs.allow-dependencies) || '' }} ${{ inputs.allow-files && format('--allow-file={0}', inputs.allow-files) || '' }} ${{ inputs.ignore-node-version && format('--ignore-node-version={0}', inputs.ignore-node-version) || '' }}
+          args=()
+          if [[ -n "${ALLOW_DEPENDENCIES}" ]]; then
+            args+=("--allow-dependency=${ALLOW_DEPENDENCIES}")
+          fi
+          if [[ -n "${ALLOW_FILES}" ]]; then
+            args+=("--allow-file=${ALLOW_FILES}")
+          fi
+          if [[ -n "${IGNORE_NODE_VERSION}" ]]; then
+            args+=("--ignore-node-version=${IGNORE_NODE_VERSION}")
+          fi
+          npm exec npm-pkg-lint -- "${args[@]}"
           if [[ "${pkg}" != "." ]]; then
             echo "::endgroup::"
           fi
