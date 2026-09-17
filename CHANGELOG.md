@@ -1,5 +1,11 @@
 # npm-pkg-lint changelog
 
+## 5.3.0 (2026-09-17)
+
+### Features
+
+- add `--allow-file` to explicitly allow files in tarball ([fc0fa0b](https://github.com/ext/npm-pkg-lint/commit/fc0fa0b15136151a2aaeeaa71623b43f32639724))
+
 ## 5.2.5 (2026-09-04)
 
 ### Bug Fixes
