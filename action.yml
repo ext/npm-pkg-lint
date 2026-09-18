@@ -51,13 +51,13 @@ runs:
       run: |
         for pkg in ${{ inputs.folders }}; do (
           set -e
-          if [[ "${pkg}" != "." ]]; then
+          if [[ "${{ inputs.folders }}" != "." ]]; then
             cd $pkg
             name=$(node -p 'require("./package.json").name')
             echo "::group::${name}"
           fi
           npm pack
-          if [[ "${pkg}" != "." ]]; then
+          if [[ "${{ inputs.folders }}" != "." ]]; then
             echo "::endgroup::"
           fi
         ); done
@@ -70,7 +70,7 @@ runs:
       run: |
         for pkg in ${{ inputs.folders }}; do (
           set -e
-          if [[ "${pkg}" != "." ]]; then
+          if [[ "${{ inputs.folders }}" != "." ]]; then
             cd $pkg
             name=$(node -p 'require("./package.json").name')
             echo "::group::${name}"
@@ -87,7 +87,7 @@ runs:
             args+=("--ignore-node-version=${IGNORE_NODE_VERSION}")
           fi
           npm exec npm-pkg-lint -- "${args[@]}"
-          if [[ "${pkg}" != "." ]]; then
+          if [[ "${{ inputs.folders }}" != "." ]]; then
             echo "::endgroup::"
           fi
         ); done
