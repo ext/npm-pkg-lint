@@ -75,25 +75,26 @@ export async function verifyPackageLock(): Promise<Result[]> {
 		if (pkg.link) {
 			continue;
 		}
-		if (!isValidResolved(pkg)) {
-			const { line, column } = jsonLocation(ast, "value", "packages", name, "resolved");
-			results.push({
-				messages: [
-					{
-						ruleId: "package-lock-registry",
-						severity: 2,
-						message: `package "${name}" is resolved from "${String(pkg.resolved)}" instead of the npm registry`,
-						line,
-						column,
-					},
-				],
-				filePath: lockfilePath,
-				errorCount: 1,
-				warningCount: 0,
-				fixableErrorCount: 0,
-				fixableWarningCount: 0,
-			});
+		if (isValidResolved(pkg)) {
+			continue;
 		}
+		const { line, column } = jsonLocation(ast, "value", "packages", name, "resolved");
+		results.push({
+			messages: [
+				{
+					ruleId: "package-lock-registry",
+					severity: 2,
+					message: `package "${name}" is resolved from "${String(pkg.resolved)}" instead of the npm registry`,
+					line,
+					column,
+				},
+			],
+			filePath: lockfilePath,
+			errorCount: 1,
+			warningCount: 0,
+			fixableErrorCount: 0,
+			fixableWarningCount: 0,
+		});
 	}
 
 	return results;

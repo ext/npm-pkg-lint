@@ -52,16 +52,18 @@ export function* tsconfigBaseMatchingEngine(
 		const match = matchDependency.exec(first)!;
 		const baseVersion = Number(match[1]);
 
-		if (baseVersion !== nodeVersion.major) {
-			const { line, column } = jsonLocation(pkgAst, "member", source, first);
-			const expectedVersion = `v${String(nodeVersion.major)}`;
-			yield {
-				ruleId,
-				severity,
-				message: `${first} does not match engines.node ${expectedVersion}`,
-				line,
-				column,
-			};
+		if (baseVersion === nodeVersion.major) {
+			continue;
 		}
+
+		const { line, column } = jsonLocation(pkgAst, "member", source, first);
+		const expectedVersion = `v${String(nodeVersion.major)}`;
+		yield {
+			ruleId,
+			severity,
+			message: `${first} does not match engines.node ${expectedVersion}`,
+			line,
+			column,
+		};
 	}
 }

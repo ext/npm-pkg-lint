@@ -27,11 +27,13 @@ export function nonempty(key: string, value: unknown): void {
 		return;
 	}
 
+	if (!value || typeof value !== "object") {
+		return;
+	}
+
 	/* object must have at least one one property set */
-	if (value && typeof value === "object") {
-		const values = Object.values(value);
-		if (values.length === 0) {
-			throw new ValidationError(nonempty.name, `"${key}" must not be empty`);
-		}
+	const values = Object.values(value);
+	if (values.length === 0) {
+		throw new ValidationError(nonempty.name, `"${key}" must not be empty`);
 	}
 }
