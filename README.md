@@ -68,7 +68,7 @@ This tool can be used directly with Github Actions:
 - name: Setup Node.js
   uses: actions/setup-node@v4
 - name: npm-pkg-lint
-  uses: ext/npm-pkg-lint@master
+  uses: ext/npm-pkg-lint@v5.3.0
 ```
 
 > [!IMPORTANT]
