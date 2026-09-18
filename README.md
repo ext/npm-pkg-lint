@@ -1,7 +1,7 @@
 # NPM Package linting
 
 [![Build](https://github.com/ext/npm-pkg-lint/workflows/Build/badge.svg)](https://github.com/ext/npm-pkg-lint/actions?query=workflow%3ABuild)
-[![Coverage Status](https://coveralls.io/repos/github/ext/npm-pkg-lint/badge.svg?branch=master)](https://coveralls.io/github/ext/npm-pkg-lint?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/ext/npm-pkg-lint/badge.svg?branch=main)](https://coveralls.io/github/ext/npm-pkg-lint?branch=main)
 
 Opinionated linter for NPM package tarball and `package.json` metadata.
 
