@@ -34,17 +34,19 @@ export function* typesNodeMatchingEngine(
 			continue;
 		}
 
-		if (typesVersion.major !== nodeVersion.major) {
-			const { line, column } = jsonLocation(pkgAst, "value", source, "@types/node");
-			const actualVersion = `v${String(typesVersion.major)}`;
-			const expectedVersion = `v${String(nodeVersion.major)}`;
-			yield {
-				ruleId,
-				severity,
-				message: `@types/node ${actualVersion} does not equal engines.node ${expectedVersion}`,
-				line,
-				column,
-			};
+		if (typesVersion.major === nodeVersion.major) {
+			continue;
 		}
+
+		const { line, column } = jsonLocation(pkgAst, "value", source, "@types/node");
+		const actualVersion = `v${String(typesVersion.major)}`;
+		const expectedVersion = `v${String(nodeVersion.major)}`;
+		yield {
+			ruleId,
+			severity,
+			message: `@types/node ${actualVersion} does not equal engines.node ${expectedVersion}`,
+			line,
+			column,
+		};
 	}
 }

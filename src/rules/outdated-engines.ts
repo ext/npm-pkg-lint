@@ -82,18 +82,20 @@ export function* outdatedEngines(
 		return;
 	}
 
+	if (typeof ignoreNodeVersion !== "number") {
+		return;
+	}
+
 	/* if we reached this far there was no error silenced by ignoreNodeVersion so
 	 * we yield a new error informing that the ignore is no longer needed */
-	if (typeof ignoreNodeVersion === "number") {
-		const option = String(ignoreNodeVersion);
-		const version = `v${String(ignoreNodeVersion)}.x`;
-		const message = `--ignore-node-version=${option} used but engines.node="${range}" does not match ${version} or the version is not EOL yet`;
-		yield {
-			ruleId,
-			severity,
-			message,
-			line,
-			column,
-		};
-	}
+	const option = String(ignoreNodeVersion);
+	const version = `v${String(ignoreNodeVersion)}.x`;
+	const message = `--ignore-node-version=${option} used but engines.node="${range}" does not match ${version} or the version is not EOL yet`;
+	yield {
+		ruleId,
+		severity,
+		message,
+		line,
+		column,
+	};
 }

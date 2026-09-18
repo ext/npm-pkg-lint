@@ -115,17 +115,19 @@ function verifyDependencies(
 			continue;
 		}
 
-		if (isDisallowedDependency(pkg, dependency)) {
-			const { line, column } = jsonLocation(pkgAst, "member", "dependencies", key);
-			const name = key === dependency ? `"${dependency}"` : `"${key}" ("npm:${dependency}")`;
-			messages.push({
-				ruleId: "disallowed-dependency",
-				severity: 2,
-				message: `${name} should be a devDependency`,
-				line,
-				column,
-			});
+		if (!isDisallowedDependency(pkg, dependency)) {
+			continue;
 		}
+
+		const { line, column } = jsonLocation(pkgAst, "member", "dependencies", key);
+		const name = key === dependency ? `"${dependency}"` : `"${key}" ("npm:${dependency}")`;
+		messages.push({
+			ruleId: "disallowed-dependency",
+			severity: 2,
+			message: `${name} should be a devDependency`,
+			line,
+			column,
+		});
 	}
 
 	function verifyObsolete(
@@ -135,17 +137,18 @@ function verifyDependencies(
 	): void {
 		const { name: dependency } = normalizeDependency(key, version);
 		const obsolete = isObsoleteDependency(dependency);
-		if (obsolete) {
-			const { line, column } = jsonLocation(pkgAst, "member", source, key);
-			const name = key === dependency ? `"${dependency}"` : `"${key}" ("npm:${dependency}")`;
-			messages.push({
-				ruleId: "obsolete-dependency",
-				severity: 2,
-				message: `${name} is obsolete and should no longer be used: ${obsolete.message}`,
-				line,
-				column,
-			});
+		if (!obsolete) {
+			return;
 		}
+		const { line, column } = jsonLocation(pkgAst, "member", source, key);
+		const name = key === dependency ? `"${dependency}"` : `"${key}" ("npm:${dependency}")`;
+		messages.push({
+			ruleId: "obsolete-dependency",
+			severity: 2,
+			message: `${name} is obsolete and should no longer be used: ${obsolete.message}`,
+			line,
+			column,
+		});
 	}
 
 	for (const [key, version] of Object.entries(dependencies)) {
