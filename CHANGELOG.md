@@ -1,5 +1,11 @@
 # npm-pkg-lint changelog
 
+## 5.3.1 (2026-09-18)
+
+### Bug Fixes
+
+- **github:** show npm package name when including monorepo root in addition to regular packages ([b9b9797](https://github.com/ext/npm-pkg-lint/commit/b9b97971a815a0dafde0cbe56f00a9057605ecae))
+
 ## 5.3.0 (2026-09-17)
 
 ### Features
