@@ -72,7 +72,7 @@
     "tmp": "0.2.7"
   },
   "devDependencies": {
-    "@babel/code-frame": "8.0.0",
+    "@babel/code-frame": "8.0.6",
     "@html-validate/commitlint-config": "4.3.3",
     "@html-validate/eslint-config": "9.20.0",
     "@html-validate/eslint-config-jest": "9.20.0",
