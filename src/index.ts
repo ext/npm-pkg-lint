@@ -313,6 +313,7 @@ async function run(): Promise<void> {
 		});
 	}
 
+	/* eslint-disable-next-line @typescript-eslint/no-unsafe-enum-assignment -- technical debt */
 	const output = stylish(results);
 	process.stdout.write(output);
 
