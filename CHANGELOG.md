@@ -1,5 +1,11 @@
 # npm-pkg-lint changelog
 
+## 5.4.0 (2026-10-03)
+
+### Features
+
+- support configuration file ([25a65ce](https://github.com/ext/npm-pkg-lint/commit/25a65ce1fd870d878b7bdcadf048cdb00f335809))
+
 ## 5.3.2 (2026-10-03)
 
 ### Bug Fixes
