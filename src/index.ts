@@ -9,6 +9,8 @@ import { type DocumentNode, parse } from "@humanwhocodes/momoa";
 import { findUp } from "find-up";
 import tmp from "tmp";
 import { setupBlacklist } from "./blacklist";
+import { loadConfig } from "./config/load-config";
+import { resolveOptions } from "./config/resolve-options";
 import { type Result } from "./result";
 import { type TarballMeta, getFileContent } from "./tarball";
 import { tarballLocation } from "./tarball-location";
@@ -22,7 +24,7 @@ const { version } = JSON.parse(readFileSync(pkgFilepath, "utf-8")) as { version:
 const PACKAGE_JSON = "package.json";
 
 const HELP_TEXT = `usage: index.js [-h] [-v] [-t TARBALL] [-p PKGFILE] [--cache CACHE]
-                [--allow-dependency DEPENDENCY] [--allow-types-dependencies]
+                [--config FILE] [--allow-dependency DEPENDENCY] [--allow-types-dependencies]
                 [--allow-file FILE] [--ignore-missing-fields]
                 [--ignore-node-version [MAJOR]]
 
@@ -36,6 +38,7 @@ options:
   -p, --pkgfile PKGFILE
                         specify package.json location
   --cache CACHE         specify cache directory
+  --config FILE         specify configuration file
   --allow-dependency DEPENDENCY
                         explicitly allow given dependency (can be given
                         multiple times or as a comma-separated list)
@@ -53,10 +56,11 @@ options:
 
 interface ParsedArgs {
 	cache?: string | undefined;
+	config?: string | undefined;
 	pkgfile?: string | undefined;
 	tarball?: string | undefined;
 	ignoreMissingFields?: boolean | undefined;
-	ignoreNodeVersion: boolean | number;
+	ignoreNodeVersion?: boolean | number | undefined;
 	allowDependency: string[];
 	allowTypesDependencies?: boolean | undefined;
 	allowFile: string[];
@@ -140,12 +144,12 @@ async function getPackageJson(
  * Extract `--ignore-node-version` optional parameter.
  */
 function extractIgnoreNodeVersion(argv: readonly string[]): {
-	value: boolean | number;
+	value: boolean | number | undefined;
 	rest: string[];
 } {
 	const FLAG = "--ignore-node-version";
 	const rest: string[] = [];
-	let value: boolean | number = false;
+	let value: boolean | number | undefined;
 
 	for (let i = 0; i < argv.length; i++) {
 		const arg = argv[i];
@@ -192,6 +196,7 @@ function parseCliArgs(argv: readonly string[]): CliResult {
 			tarball: { type: "string", short: "t" },
 			pkgfile: { type: "string", short: "p" },
 			cache: { type: "string" },
+			config: { type: "string" },
 			"allow-dependency": { type: "string", multiple: true, default: [] },
 			"allow-types-dependencies": { type: "boolean" },
 			"allow-file": { type: "string", multiple: true, default: [] },
@@ -212,6 +217,7 @@ function parseCliArgs(argv: readonly string[]): CliResult {
 		action: "run",
 		args: {
 			cache: values.cache,
+			config: values.config,
 			pkgfile: values.pkgfile,
 			tarball: values.tarball,
 			ignoreMissingFields: values["ignore-missing-fields"],
@@ -246,6 +252,16 @@ async function loadPackage(
 	}
 
 	return { pkg, pkgAst, pkgPath, tarball };
+}
+
+async function resolveVerifyOptions(args: ParsedArgs): Promise<VerifyOptions | undefined> {
+	try {
+		const loaded = await loadConfig({ cwd: process.cwd(), configFile: args.config });
+		return resolveOptions(args, loaded?.config);
+	} catch (err) {
+		console.error(err instanceof Error ? err.message : String(err));
+		return undefined;
+	}
 }
 
 function sortResults(results: Result[]): Result[] {
@@ -287,8 +303,12 @@ async function run(): Promise<void> {
 	}
 
 	const { args } = cli;
-	const allowedDependencies = new Set(args.allowDependency.flatMap((it) => it.split(",")));
-	const allowedFiles = args.allowFile.flatMap((it) => it.split(","));
+
+	const options = await resolveVerifyOptions(args);
+	if (!options) {
+		process.exitCode = 1;
+		return;
+	}
 
 	if (args.cache) {
 		await setCacheDirecory(args.cache);
@@ -312,14 +332,6 @@ async function run(): Promise<void> {
 	const { pkg, pkgAst, pkgPath, tarball } = loaded;
 
 	setupBlacklist(pkg.name);
-
-	const options: VerifyOptions = {
-		allowedDependencies,
-		allowTypesDependencies: args.allowTypesDependencies,
-		allowedFiles,
-		ignoreMissingFields: args.ignoreMissingFields,
-		ignoreNodeVersion: args.ignoreNodeVersion,
-	};
 
 	const results = await verify(pkg, pkgAst, pkgPath, tarball, options);
 	const sortedResults = sortResults(results);
