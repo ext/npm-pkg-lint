@@ -20,6 +20,10 @@ inputs:
     description: Build command (executed with `npm run`)
     required: false
     default: build
+  config:
+    description: Path to configuration file (see `--config` CLI argument), default is to search for `npm-pkg-lint.config.js` in each folder
+    required: false
+    default: ""
   folders:
     description: Space-separated list of folder to run in.
     required: false
@@ -66,8 +70,12 @@ runs:
       env:
         ALLOW_DEPENDENCIES: ${{ inputs.allow-dependencies }}
         ALLOW_FILES: ${{ inputs.allow-files }}
+        CONFIG: ${{ inputs.config }}
         IGNORE_NODE_VERSION: ${{ inputs.ignore-node-version }}
       run: |
+        if [[ -n "${CONFIG}" ]]; then
+          CONFIG=$(realpath "${CONFIG}")
+        fi
         for pkg in ${{ inputs.folders }}; do (
           set -e
           if [[ "${{ inputs.folders }}" != "." ]]; then
@@ -77,6 +85,9 @@ runs:
             echo Running npm-pkg-lint on package ${name} in ${pkg}
           fi
           args=()
+          if [[ -n "${CONFIG}" ]]; then
+            args+=("--config=${CONFIG}")
+          fi
           if [[ -n "${ALLOW_DEPENDENCIES}" ]]; then
             args+=("--allow-dependency=${ALLOW_DEPENDENCIES}")
           fi

@@ -19,7 +19,7 @@ Core principles:
 
 ```
 usage: index.js [-h] [-v] [-t TARBALL] [-p PKGFILE] [--cache CACHE]
-                [--allow-dependency DEPENDENCY] [--allow-types-dependencies]
+                [--config FILE] [--allow-dependency DEPENDENCY] [--allow-types-dependencies]
                 [--allow-file FILE] [--ignore-missing-fields]
                 [--ignore-node-version [MAJOR]]
 
@@ -33,6 +33,7 @@ optional arguments:
   -p PKGFILE, --pkgfile PKGFILE
                         specify package.json location
   --cache CACHE         specify cache directory
+  --config FILE         specify configuration file
   --allow-dependency DEPENDENCY
                         explicitly allow given dependency (can be given
                         multiple times or as a comma-separated list)
@@ -58,6 +59,44 @@ This can be used to quickly examine packages from https://www.npmjs.com/:
 
 > curl -s \$(npm view lodash dist.tarball) | npx npm-pkg-lint -t -
 
+## Configuration
+
+Options can be set in a configuration file instead of (or in addition to) command-line arguments.
+The configuration file is an ES module with the configuration as default export:
+
+```ts
+import { defineConfig } from "npm-pkg-lint/config";
+
+export default defineConfig({
+  allowTypesDependencies: true,
+  allowFiles: ["**/*.spec.ts"],
+});
+```
+
+The configuration can be stored in one of these locations:
+
+1. `npm-pkg-lint.config.{js,mjs,ts,mts}`
+2. `config/npm-pkg-lint.config.{js,mjs,ts,mts}`
+3. `.github/npm-pkg-lint.config.{js,mjs,ts,mts}`
+4. `.gitlab/npm-pkg-lint.config.{js,mjs,ts,mts}`
+
+It is an error if more than one configuration file is found.
+Use `--config` to specify the filename explicitly.
+
+> [!NOTE]
+> TypeScript configuration files (`.ts` and `.mts`) are loaded using Node.js native type stripping and requires a Node.js version supporting it.
+
+| Option                   | CLI argument                 | Type                  |
+| ------------------------ | ---------------------------- | --------------------- |
+| `allowDependencies`      | `--allow-dependency`         | `string[]`            |
+| `allowFiles`             | `--allow-file`               | `string[]`            |
+| `allowTypesDependencies` | `--allow-types-dependencies` | `boolean`             |
+| `ignoreMissingFields`    | `--ignore-missing-fields`    | `boolean`             |
+| `ignoreNodeVersion`      | `--ignore-node-version`      | `boolean` or `number` |
+
+If an option is set both on the command line and in the configuration file the command line takes precedence.
+For lists (`allowDependencies` and `allowFiles`) the command line replaces the list from the configuration file, they are not merged.
+
 ## Github Action
 
 This tool can be used directly with Github Actions:
@@ -80,6 +119,7 @@ This tool can be used directly with Github Actions:
 | allow-dependencies   | `-`       | Comma-separated list of dependencies to explicitly allow even if they would yield an error                  |
 | allow-files          | `-`       | Comma-separated list of filenames or globs to explicitly allow in tarball even if they would yield an error |
 | build                | `"build"` | Build command (executed with `npm run`). Set to `false` to disable build.                                   |
+| config               | `-`       | Path to configuration file (see `--config` CLI argument)                                                    |
 | folders              | `"."`     | Space-separated list of folder to run in.                                                                   |
 | ignore-node-version  | -         | Ignore error for outdated node version (see --ignore-node-version CLI argument)                             |
 | npm-pack             | `true`    | When enabled `npm pack` is run automatically                                                                |
