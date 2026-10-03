@@ -9,6 +9,7 @@ import { type DocumentNode, parse } from "@humanwhocodes/momoa";
 import { findUp } from "find-up";
 import tmp from "tmp";
 import { setupBlacklist } from "./blacklist";
+import { type Result } from "./result";
 import { type TarballMeta, getFileContent } from "./tarball";
 import { tarballLocation } from "./tarball-location";
 import { type PackageJson } from "./types";
@@ -247,6 +248,24 @@ async function loadPackage(
 	return { pkg, pkgAst, pkgPath, tarball };
 }
 
+function sortResults(results: Result[]): Result[] {
+	return results.map((result) => ({
+		...result,
+		messages: result.messages.toSorted((a, b) => {
+			if (a.line !== b.line) {
+				return a.line - b.line;
+			}
+			return a.column - b.column;
+		}),
+	}));
+}
+
+function countErrors(results: Result[]): number {
+	return results.reduce((sum, result) => {
+		return sum + result.errorCount;
+	}, 0);
+}
+
 async function run(): Promise<void> {
 	let cli: CliResult;
 	try {
@@ -303,24 +322,12 @@ async function run(): Promise<void> {
 	};
 
 	const results = await verify(pkg, pkgAst, pkgPath, tarball, options);
+	const sortedResults = sortResults(results);
 
-	for (const result of results) {
-		result.messages.sort((a, b) => {
-			if (a.line !== b.line) {
-				return a.line - b.line;
-			}
-			return a.column - b.column;
-		});
-	}
-
-	/* eslint-disable-next-line @typescript-eslint/no-unsafe-enum-assignment -- technical debt */
-	const output = stylish(results);
+	const output = stylish(sortedResults);
 	process.stdout.write(output);
 
-	const totalErrors = results.reduce((sum, result) => {
-		return sum + result.errorCount;
-	}, 0);
-
+	const totalErrors = countErrors(sortedResults);
 	process.exitCode = totalErrors > 0 ? 1 : 0;
 }
 
