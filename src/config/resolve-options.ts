@@ -12,6 +12,7 @@ export interface CliOptions {
 	readonly allowTypesDependencies?: boolean | undefined;
 	readonly ignoreMissingFields?: boolean | undefined;
 	readonly ignoreNodeVersion?: boolean | number | undefined;
+	readonly lockfileRegistry?: string | undefined;
 }
 
 function splitList(values: string[]): string[] {
@@ -35,5 +36,6 @@ export function resolveOptions(cli: CliOptions, config: UserConfig = {}): Verify
 		allowTypesDependencies: cli.allowTypesDependencies ?? config.allowTypesDependencies,
 		ignoreMissingFields: cli.ignoreMissingFields ?? config.ignoreMissingFields,
 		ignoreNodeVersion: cli.ignoreNodeVersion ?? config.ignoreNodeVersion ?? false,
+		lockfileRegistry: cli.lockfileRegistry ?? config.lockfileRegistry,
 	};
 }

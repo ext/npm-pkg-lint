@@ -16,6 +16,7 @@ it("should accept all options", () => {
 		allowTypesDependencies: true,
 		ignoreMissingFields: false,
 		ignoreNodeVersion: 18,
+		lockfileRegistry: "https://example.net/npm/",
 	};
 	expect(validateConfig(config, filePath)).toBe(config);
 });
@@ -52,6 +53,8 @@ it.each([
 	["ignoreMissingFields", 1],
 	["ignoreNodeVersion", "18"],
 	["ignoreNodeVersion", 1.5],
+	["lockfileRegistry", 1],
+	["lockfileRegistry", ["https://example.net/"]],
 ])("should throw if %s is %p", (key, value) => {
 	expect.assertions(1);
 	expect(() => validateConfig({ [key]: value }, filePath)).toThrow(`option "${key}" must be`);

@@ -5,7 +5,17 @@ import { type Result } from "./result";
 import { type PackageLock, type PackageLockVersion3 } from "./types";
 import { jsonLocation } from "./utils";
 
-const REGISTRY_URL = "https://registry.npmjs.org/";
+const DEFAULT_REGISTRY_URL = "https://registry.npmjs.org/";
+
+export interface VerifyPackageLockOptions {
+	/** Registry all packages must be resolved from (default: npm registry) */
+	lockfileRegistry?: string | undefined;
+}
+
+/* trailing slash ensures "https://example.net/npm" does not match "https://example.net/npmfoo/" */
+function normalizeRegistry(url: string): string {
+	return url.endsWith("/") ? url : `${url}/`;
+}
 
 function isErrnoException(err: unknown): err is NodeJS.ErrnoException {
 	return err instanceof Error && "code" in err;
@@ -15,8 +25,8 @@ function isPackageLockVersion3(lockfile: PackageLock): lockfile is PackageLockVe
 	return lockfile.lockfileVersion === 3;
 }
 
-function isValidResolved(pkg: { resolved?: string }): boolean {
-	return pkg.resolved === undefined || pkg.resolved.startsWith(REGISTRY_URL);
+function isValidResolved(pkg: { resolved?: string }, registry: string): boolean {
+	return pkg.resolved === undefined || pkg.resolved.startsWith(registry);
 }
 
 async function readLockfile(lockfilePath: string): Promise<string | null> {
@@ -32,7 +42,10 @@ async function readLockfile(lockfilePath: string): Promise<string | null> {
 	}
 }
 
-export async function verifyPackageLock(): Promise<Result[]> {
+export async function verifyPackageLock(options: VerifyPackageLockOptions = {}): Promise<Result[]> {
+	const registry = normalizeRegistry(options.lockfileRegistry ?? DEFAULT_REGISTRY_URL);
+	const expected =
+		registry === DEFAULT_REGISTRY_URL ? "the npm registry" : `the registry "${registry}"`;
 	const lockfilePath = await findUp("package-lock.json");
 	if (!lockfilePath) {
 		return [];
@@ -75,7 +88,7 @@ export async function verifyPackageLock(): Promise<Result[]> {
 		if (pkg.link) {
 			continue;
 		}
-		if (isValidResolved(pkg)) {
+		if (isValidResolved(pkg, registry)) {
 			continue;
 		}
 		const { line, column } = jsonLocation(ast, "value", "packages", name, "resolved");
@@ -84,7 +97,7 @@ export async function verifyPackageLock(): Promise<Result[]> {
 				{
 					ruleId: "package-lock-registry",
 					severity: 2,
-					message: `package "${name}" is resolved from "${String(pkg.resolved)}" instead of the npm registry`,
+					message: `package "${name}" is resolved from "${String(pkg.resolved)}" instead of ${expected}`,
 					line,
 					column,
 				},

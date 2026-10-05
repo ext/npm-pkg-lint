@@ -18,7 +18,7 @@ export async function verify(
 	return [
 		...(await verifyTarball(pkg, tarball, { allowedFiles: options.allowedFiles })),
 		...(await verifyPackageJson(pkg, pkgAst, pkgPath, options)),
-		...(await verifyPackageLock()),
+		...(await verifyPackageLock({ lockfileRegistry: options.lockfileRegistry })),
 		...(await verifyShebang(pkg, tarball)),
 	];
 }

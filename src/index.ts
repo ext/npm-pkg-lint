@@ -26,7 +26,7 @@ const PACKAGE_JSON = "package.json";
 const HELP_TEXT = `usage: index.js [-h] [-v] [-t TARBALL] [-p PKGFILE] [--cache CACHE]
                 [--config FILE] [--allow-dependency DEPENDENCY] [--allow-types-dependencies]
                 [--allow-file FILE] [--ignore-missing-fields]
-                [--ignore-node-version [MAJOR]]
+                [--ignore-node-version [MAJOR]] [--lockfile-registry URL]
 
 Opiniated linter for NPM package tarball and package.json metadata
 
@@ -52,6 +52,9 @@ options:
                         empty and valid)
   --ignore-node-version [MAJOR]
                         ignore error for outdated node version (restricted to MAJOR version if given)
+  --lockfile-registry URL
+                        registry all packages in package-lock.json must be resolved
+                        from (default: https://registry.npmjs.org/)
 `;
 
 interface ParsedArgs {
@@ -64,6 +67,7 @@ interface ParsedArgs {
 	allowDependency: string[];
 	allowTypesDependencies?: boolean | undefined;
 	allowFile: string[];
+	lockfileRegistry?: string | undefined;
 }
 
 interface GetPackageJsonResults {
@@ -201,6 +205,7 @@ function parseCliArgs(argv: readonly string[]): CliResult {
 			"allow-types-dependencies": { type: "boolean" },
 			"allow-file": { type: "string", multiple: true, default: [] },
 			"ignore-missing-fields": { type: "boolean" },
+			"lockfile-registry": { type: "string" },
 		},
 		strict: true,
 	});
@@ -225,6 +230,7 @@ function parseCliArgs(argv: readonly string[]): CliResult {
 			allowDependency: values["allow-dependency"],
 			allowTypesDependencies: values["allow-types-dependencies"],
 			allowFile: values["allow-file"],
+			lockfileRegistry: values["lockfile-registry"],
 		},
 	};
 }

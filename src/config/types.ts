@@ -18,4 +18,7 @@ export interface UserConfig {
 
 	/** Ignore error for outdated node version, optionally restricted to a major version */
 	readonly ignoreNodeVersion?: boolean | number;
+
+	/** Registry packages in `package-lock.json` must be resolved from */
+	readonly lockfileRegistry?: string;
 }
