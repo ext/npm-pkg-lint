@@ -32,6 +32,10 @@ inputs:
     description: Ignore error for outdated node version (see `--ignore-node-version` CLI argument)
     required: false
     default: ""
+  lockfile-registry:
+    description: Registry all packages in package-lock.json must be resolved from (see `--lockfile-registry` CLI argument)
+    required: false
+    default: ""
   npm-pack:
     description: When enabled `npm pack` is run automatically
     required: false
@@ -72,6 +76,7 @@ runs:
         ALLOW_FILES: ${{ inputs.allow-files }}
         CONFIG: ${{ inputs.config }}
         IGNORE_NODE_VERSION: ${{ inputs.ignore-node-version }}
+        LOCKFILE_REGISTRY: ${{ inputs.lockfile-registry }}
       run: |
         if [[ -n "${CONFIG}" ]]; then
           CONFIG=$(realpath "${CONFIG}")
@@ -96,6 +101,9 @@ runs:
           fi
           if [[ -n "${IGNORE_NODE_VERSION}" ]]; then
             args+=("--ignore-node-version=${IGNORE_NODE_VERSION}")
+          fi
+          if [[ -n "${LOCKFILE_REGISTRY}" ]]; then
+            args+=("--lockfile-registry=${LOCKFILE_REGISTRY}")
           fi
           npm exec npm-pkg-lint -- "${args[@]}"
           if [[ "${{ inputs.folders }}" != "." ]]; then
