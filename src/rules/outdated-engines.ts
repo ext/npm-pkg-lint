@@ -61,9 +61,7 @@ export function* outdatedEngines(
 		}
 
 		/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- parsing hardcoded values and covered by unit tests */
-		const parsed = semver.parse(expanded)!;
-
-		const { major, minor } = parsed;
+		const { major, minor } = semver.parse(expanded)!;
 		if (ignoreNodeVersion === major) {
 			return;
 		}
