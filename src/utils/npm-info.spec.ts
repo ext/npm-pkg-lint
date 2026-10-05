@@ -7,6 +7,7 @@ jest.mock("./persistent-cache");
 
 const mockSpawn = spawn as unknown as jest.Mock<(cmd: string, args: string[]) => void>;
 
+/* eslint-disable-next-line unicorn/no-unnecessary-parameters -- technical debt */
 function createExecaError(message: string, stdout: string | Record<string, unknown>): Error {
 	const error = new Error(message) as Error & ExecaError;
 	error.stdout = typeof stdout === "string" ? stdout : JSON.stringify(stdout);
