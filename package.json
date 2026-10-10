@@ -83,7 +83,7 @@
     "@html-validate/eslint-config-typescript-typeinfo": "9.22.2",
     "@html-validate/jest-config": "3.18.2",
     "@html-validate/prettier-config": "4.1.15",
-    "@html-validate/release-scripts": "7.6.12",
+    "@html-validate/release-scripts": "7.6.14",
     "@jest/globals": "30.5.2",
     "@tsconfig/node22": "22.0.6",
     "@tsconfig/strictest": "2.0.8",
