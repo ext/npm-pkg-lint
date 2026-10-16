@@ -35,6 +35,8 @@ export interface VerifyPackageJsonOptions {
 	allowTypesDependencies?: boolean | undefined;
 	ignoreMissingFields?: boolean | undefined;
 	ignoreNodeVersion: boolean | number;
+	/** Registry packages in `package-lock.json` must be resolved from */
+	lockfileRegistry?: string | undefined;
 }
 
 type validator = (key: string, value: unknown) => void;

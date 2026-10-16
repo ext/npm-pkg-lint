@@ -5,6 +5,7 @@ type Check = (value: unknown) => boolean;
 const isStringArray: Check = (value) =>
 	Array.isArray(value) && value.every((it) => typeof it === "string");
 const isBoolean: Check = (value) => typeof value === "boolean";
+const isString: Check = (value) => typeof value === "string";
 const isBooleanOrInteger: Check = (value) =>
 	typeof value === "boolean" || Number.isSafeInteger(value);
 
@@ -14,6 +15,7 @@ const schema: Record<keyof UserConfig, { check: Check; expected: string }> = {
 	allowTypesDependencies: { check: isBoolean, expected: "a boolean" },
 	ignoreMissingFields: { check: isBoolean, expected: "a boolean" },
 	ignoreNodeVersion: { check: isBooleanOrInteger, expected: "a boolean or an integer" },
+	lockfileRegistry: { check: isString, expected: "a string" },
 };
 
 /**

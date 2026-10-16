@@ -21,7 +21,7 @@ Core principles:
 usage: index.js [-h] [-v] [-t TARBALL] [-p PKGFILE] [--cache CACHE]
                 [--config FILE] [--allow-dependency DEPENDENCY] [--allow-types-dependencies]
                 [--allow-file FILE] [--ignore-missing-fields]
-                [--ignore-node-version [MAJOR]]
+                [--ignore-node-version [MAJOR]] [--lockfile-registry URL]
 
 Opiniated linter for NPM package tarball and package.json metadata
 
@@ -47,6 +47,9 @@ optional arguments:
                         empty and valid)
   --ignore-node-version [MAJOR]
                         ignore error for outdated node version (restricted to MAJOR version if given)
+  --lockfile-registry URL
+                        registry all packages in package-lock.json must be resolved
+                        from (default: https://registry.npmjs.org/)
 ```
 
 Use `--tarball` and `--pkgfile` to specify custom locations.
@@ -93,6 +96,7 @@ Use `--config` to specify the filename explicitly.
 | `allowTypesDependencies` | `--allow-types-dependencies` | `boolean`             |
 | `ignoreMissingFields`    | `--ignore-missing-fields`    | `boolean`             |
 | `ignoreNodeVersion`      | `--ignore-node-version`      | `boolean` or `number` |
+| `lockfileRegistry`       | `--lockfile-registry`        | `string`              |
 
 If an option is set both on the command line and in the configuration file the command line takes precedence.
 For lists (`allowDependencies` and `allowFiles`) the command line replaces the list from the configuration file, they are not merged.
@@ -122,6 +126,7 @@ This tool can be used directly with Github Actions:
 | config               | `-`       | Path to configuration file (see `--config` CLI argument)                                                    |
 | folders              | `"."`     | Space-separated list of folder to run in.                                                                   |
 | ignore-node-version  | -         | Ignore error for outdated node version (see --ignore-node-version CLI argument)                             |
+| lockfile-registry    | -         | Registry packages in `package-lock.json` must be resolved from (see `--lockfile-registry` CLI argument)     |
 | npm-pack             | `true`    | When enabled `npm pack` is run automatically                                                                |
 
 ## Disallowed files
@@ -469,7 +474,7 @@ will yield an error becase `@tsconfig/node14` is for NodeJS v14 but the `engines
 Requires `package-lock.json`, if present, to pass the following checks:
 
 - Lockfile version must be 3.
-- All packages must be resolved from `https://registry.npmjs.org/`.
+- All packages must be resolved from `https://registry.npmjs.org/` or the registry given by `--lockfile-registry`.
 
 **Why?** Lockfile version 3 (introduced with npm v7) includes the full dependency tree in a more compact and efficient format.
 Older lockfile versions (1 and 2) are either missing information or include redundant data that version 3 supersedes.

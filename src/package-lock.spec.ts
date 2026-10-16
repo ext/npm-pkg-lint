@@ -1,5 +1,5 @@
 import path from "node:path";
-import { beforeEach, expect, it, jest } from "@jest/globals";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { verifyPackageLock } from "./package-lock";
 import { codeframe } from "./utils/codeframe";
 
@@ -169,4 +169,69 @@ it("should return no errors when package.json cannot be found on disk", async ()
 	mockFindUp.mockResolvedValue(undefined);
 	const results = await verifyPackageLock();
 	expect(results).toEqual([]);
+});
+
+describe("lockfileRegistry", () => {
+	function lockfile(resolved: string): string {
+		const data = {
+			lockfileVersion: 3,
+			packages: { "": {}, "node_modules/foo": { resolved } },
+		};
+		return JSON.stringify(data, null, 2);
+	}
+
+	it("should accept packages resolved from custom registry", async () => {
+		expect.assertions(1);
+		mockReadFile.mockResolvedValue(lockfile("https://example.net/foo/-/foo-1.0.0.tgz"));
+		const results = await verifyPackageLock({ lockfileRegistry: "https://example.net/" });
+		expect(results).toEqual([]);
+	});
+
+	it("should accept packages resolved from registry with subpath", async () => {
+		expect.assertions(1);
+		mockReadFile.mockResolvedValue(lockfile("https://example.net/npm/foo/-/foo-1.0.0.tgz"));
+		const results = await verifyPackageLock({ lockfileRegistry: "https://example.net/npm/" });
+		expect(results).toEqual([]);
+	});
+
+	it("should accept registry without trailing slash", async () => {
+		expect.assertions(1);
+		mockReadFile.mockResolvedValue(lockfile("https://example.net/npm/foo/-/foo-1.0.0.tgz"));
+		const results = await verifyPackageLock({ lockfileRegistry: "https://example.net/npm" });
+		expect(results).toEqual([]);
+	});
+
+	it("should not match a sibling path sharing the registry prefix", async () => {
+		expect.assertions(1);
+		const content = lockfile("https://example.net/npmfoo/foo/-/foo-1.0.0.tgz");
+		mockReadFile.mockResolvedValue(content);
+		const results = await verifyPackageLock({ lockfileRegistry: "https://example.net/npm" });
+		expect(codeframe(content, results)).toMatchInlineSnapshot(`
+			"ERROR: package "node_modules/foo" is resolved from "https://example.net/npmfoo/foo/-/foo-1.0.0.tgz" instead of the registry "https://example.net/npm/" (package-lock-registry) at /mock/package-lock.json
+			  4 |     "": {},
+			  5 |     "node_modules/foo": {
+			> 6 |       "resolved": "https://example.net/npmfoo/foo/-/foo-1.0.0.tgz"
+			    |                   ^
+			  7 |     }
+			  8 |   }
+			  9 | }"
+		`);
+	});
+
+	it("should reject the npm registry when a custom registry is set", async () => {
+		expect.assertions(1);
+		const content = lockfile("https://registry.npmjs.org/foo/-/foo-1.0.0.tgz");
+		mockReadFile.mockResolvedValue(content);
+		const results = await verifyPackageLock({ lockfileRegistry: "https://example.net/npm/" });
+		expect(results.map((it) => it.messages[0].message)).toEqual([
+			'package "node_modules/foo" is resolved from "https://registry.npmjs.org/foo/-/foo-1.0.0.tgz" instead of the registry "https://example.net/npm/"',
+		]);
+	});
+
+	it("should use the npm registry when option is undefined", async () => {
+		expect.assertions(1);
+		mockReadFile.mockResolvedValue(lockfile("https://registry.npmjs.org/foo/-/foo-1.0.0.tgz"));
+		const results = await verifyPackageLock({ lockfileRegistry: undefined });
+		expect(results).toEqual([]);
+	});
 });

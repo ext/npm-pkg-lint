@@ -22,6 +22,7 @@ it("should use config when cli is not set", () => {
 		allowTypesDependencies: true,
 		ignoreMissingFields: true,
 		ignoreNodeVersion: 18,
+		lockfileRegistry: "https://config.example.net/",
 	});
 	expect(options).toEqual({
 		allowedDependencies: new Set(["foo"]),
@@ -29,6 +30,7 @@ it("should use config when cli is not set", () => {
 		allowTypesDependencies: true,
 		ignoreMissingFields: true,
 		ignoreNodeVersion: 18,
+		lockfileRegistry: "https://config.example.net/",
 	});
 });
 
@@ -41,6 +43,7 @@ it("should prefer cli over config", () => {
 			allowTypesDependencies: true,
 			ignoreMissingFields: true,
 			ignoreNodeVersion: 20,
+			lockfileRegistry: "https://cli.example.net/",
 		},
 		{
 			allowDependencies: ["config"],
@@ -48,6 +51,7 @@ it("should prefer cli over config", () => {
 			allowTypesDependencies: false,
 			ignoreMissingFields: false,
 			ignoreNodeVersion: 18,
+			lockfileRegistry: "https://config.example.net/",
 		},
 	);
 	expect(options).toEqual({
@@ -56,6 +60,7 @@ it("should prefer cli over config", () => {
 		allowTypesDependencies: true,
 		ignoreMissingFields: true,
 		ignoreNodeVersion: 20,
+		lockfileRegistry: "https://cli.example.net/",
 	});
 });
 
