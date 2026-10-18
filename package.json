@@ -50,6 +50,13 @@
     "pretest": "npm run prettier:check && npm run eslint",
     "test": "jest"
   },
+  "allowScripts": {
+    "@html-validate/commitlint-config": true,
+    "@parcel/watcher": false,
+    "esbuild": true,
+    "fsevents": false,
+    "unrs-resolver": true
+  },
   "commitlint": {
     "extends": "@html-validate"
   },
@@ -108,12 +115,5 @@
   "publishConfig": {
     "access": "public",
     "provenance": true
-  },
-  "allowScripts": {
-    "@html-validate/commitlint-config": true,
-    "@parcel/watcher": false,
-    "esbuild": true,
-    "fsevents": false,
-    "unrs-resolver": true
   }
 }
