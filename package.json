@@ -48,7 +48,7 @@
     "postpublish": "release-postpublish package.json",
     "self-test": "node bin/index.js",
     "pretest": "npm run prettier:check && npm run eslint",
-    "test": "jest"
+    "test": "vitest run"
   },
   "allowScripts": {
     "@html-validate/commitlint-config": true,
@@ -64,14 +64,6 @@
     "*.{ts,js,json,md}": "prettier --write"
   },
   "prettier": "@html-validate/prettier-config",
-  "jest": {
-    "preset": "@html-validate/jest-config",
-    "testPathIgnorePatterns": [
-      "/node_modules/",
-      "dist",
-      "tests/fixtures"
-    ]
-  },
   "dependencies": {
     "@html-validate/stylish": "6.1.0",
     "@humanwhocodes/momoa": "3.3.13",
@@ -85,13 +77,12 @@
     "@babel/code-frame": "8.0.6",
     "@html-validate/commitlint-config": "4.3.3",
     "@html-validate/eslint-config": "9.24.0",
-    "@html-validate/eslint-config-jest": "9.24.0",
     "@html-validate/eslint-config-typescript": "9.24.2",
     "@html-validate/eslint-config-typescript-typeinfo": "9.24.2",
-    "@html-validate/jest-config": "3.18.3",
+    "@html-validate/eslint-config-vitest": "9.24.0",
     "@html-validate/prettier-config": "4.1.17",
     "@html-validate/release-scripts": "7.6.17",
-    "@jest/globals": "30.5.2",
+    "@html-validate/vitest-config": "1.1.1",
     "@tsconfig/node22": "22.0.6",
     "@tsconfig/strictest": "2.0.8",
     "@types/babel__code-frame": "7.27.0",
@@ -103,11 +94,10 @@
     "esbuild": "0.28.2",
     "glob": "13.0.6",
     "husky": "9.1.7",
-    "jest": "30.5.2",
     "lint-staged": "17.6.0",
     "memfs": "4.80.0",
-    "ts-jest": "29.4.15",
-    "typescript": "npm:@typescript/typescript6@6.0.2"
+    "typescript": "npm:@typescript/typescript6@6.0.2",
+    "vitest": "5.0.5"
   },
   "engines": {
     "node": "^22.20.0 || >= 24.8.0"

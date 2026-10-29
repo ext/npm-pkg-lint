@@ -1,17 +1,17 @@
 import path from "node:path";
-import { beforeEach, expect, it, jest } from "@jest/globals";
+import { beforeEach, expect, it, vi } from "vitest";
 import { findConfigFile } from "./find-config";
 import { importConfig } from "./import-config";
 import { loadConfig } from "./load-config";
 
-jest.mock("./find-config");
-jest.mock("./import-config");
+vi.mock(import("./find-config"));
+vi.mock(import("./import-config"));
 
-const findConfigFileMock = jest.mocked(findConfigFile);
-const importConfigMock = jest.mocked(importConfig);
+const findConfigFileMock = vi.mocked(findConfigFile);
+const importConfigMock = vi.mocked(importConfig);
 
 beforeEach(() => {
-	jest.resetAllMocks();
+	vi.resetAllMocks();
 });
 
 it("should return undefined when no config is found", async () => {

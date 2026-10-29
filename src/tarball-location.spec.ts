@@ -1,4 +1,4 @@
-import { expect, it } from "@jest/globals";
+import { expect, it } from "vitest";
 import { tarballLocation } from "./tarball-location";
 import { type PackageJson } from "./types";
 

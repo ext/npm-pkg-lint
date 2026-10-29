@@ -1,4 +1,4 @@
-import { expect, it } from "@jest/globals";
+import { expect, it } from "vitest";
 import { validateConfig } from "./validate-config";
 
 const filePath = "/path/to/npm-pkg-lint.config.js";

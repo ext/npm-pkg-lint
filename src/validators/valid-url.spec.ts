@@ -1,4 +1,4 @@
-import { expect, it } from "@jest/globals";
+import { expect, it } from "vitest";
 import { validUrl } from "./valid-url";
 
 it("should not throw error on https string", () => {

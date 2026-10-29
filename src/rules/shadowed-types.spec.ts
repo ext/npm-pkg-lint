@@ -1,7 +1,5 @@
-/* eslint-disable jest/no-interpolation-in-snapshots -- easier to test both fields this way */
-
 import { type DocumentNode, parse } from "@humanwhocodes/momoa";
-import { describe, expect, it } from "@jest/globals";
+import { describe, expect, it } from "vitest";
 import { type PackageJson } from "../types";
 import { codeframe } from "../utils/codeframe";
 import { getTypesConditions, shadowedTypes } from "./shadowed-types";
@@ -91,8 +89,8 @@ describe("getTypesConditions()", () => {
 	});
 });
 
-describe.each(["types", "typings"])("%s", (field) => {
-	it(`should not allow ${field} field to be shadowed by exports with types condition`, () => {
+describe("types", () => {
+	it(`should not allow types field to be shadowed by exports with types condition`, () => {
 		expect.assertions(1);
 		const pkg: PackageJson = {
 			name: "mock-package",
@@ -103,21 +101,20 @@ describe.each(["types", "typings"])("%s", (field) => {
 					default: "./dist/foo.js",
 				},
 			},
-			[field]: "./foo.d.ts",
+			types: "./foo.d.ts",
 		};
 		const { content, ast } = generateAst(pkg);
-		/* eslint-disable-next-line sonarjs/no-interpolation-in-inline-snapshots -- parameterized test */
 		expect(codeframe(content, shadowedTypes(pkg, ast))).toMatchInlineSnapshot(`
-			"ERROR: "${field}" cannot be resolved when respecting "exports" field (shadowed-types) at package.json
+			"ERROR: "types" cannot be resolved when respecting "exports" field (shadowed-types) at package.json
 			   8 |     }
 			   9 |   },
-			> 10 |   "${field}": "./foo.d.ts"
+			> 10 |   "types": "./foo.d.ts"
 			     |   ^
 			  11 | }"
 		`);
 	});
 
-	it(`should not allow ${field} field to be shadowed by exports without types condition`, () => {
+	it(`should not allow types field to be shadowed by exports without types condition`, () => {
 		expect.assertions(1);
 		const pkg: PackageJson = {
 			name: "mock-package",
@@ -127,21 +124,20 @@ describe.each(["types", "typings"])("%s", (field) => {
 					default: "./dist/foo.js",
 				},
 			},
-			[field]: "./foo.d.ts",
+			types: "./foo.d.ts",
 		};
 		const { content, ast } = generateAst(pkg);
-		/* eslint-disable-next-line sonarjs/no-interpolation-in-inline-snapshots -- parameterized test */
 		expect(codeframe(content, shadowedTypes(pkg, ast))).toMatchInlineSnapshot(`
-			"ERROR: "${field}" cannot be resolved when respecting "exports" field (shadowed-types) at package.json
+			"ERROR: "types" cannot be resolved when respecting "exports" field (shadowed-types) at package.json
 			   7 |     }
 			   8 |   },
-			>  9 |   "${field}": "./foo.d.ts"
+			>  9 |   "types": "./foo.d.ts"
 			     |   ^
 			  10 | }"
 		`);
 	});
 
-	it(`should not allow ${field} field to be shadowed by nested exports without types condition`, () => {
+	it(`should not allow types field to be shadowed by nested exports without types condition`, () => {
 		expect.assertions(1);
 		const pkg: PackageJson = {
 			name: "mock-package",
@@ -156,21 +152,20 @@ describe.each(["types", "typings"])("%s", (field) => {
 					},
 				},
 			},
-			[field]: "./foo.d.ts",
+			types: "./foo.d.ts",
 		};
 		const { content, ast } = generateAst(pkg);
-		/* eslint-disable-next-line sonarjs/no-interpolation-in-inline-snapshots -- parameterized test */
 		expect(codeframe(content, shadowedTypes(pkg, ast))).toMatchInlineSnapshot(`
-			"ERROR: "${field}" cannot be resolved when respecting "exports" field (shadowed-types) at package.json
+			"ERROR: "types" cannot be resolved when respecting "exports" field (shadowed-types) at package.json
 			  12 |     }
 			  13 |   },
-			> 14 |   "${field}": "./foo.d.ts"
+			> 14 |   "types": "./foo.d.ts"
 			     |   ^
 			  15 | }"
 		`);
 	});
 
-	it(`should not allow ${field} field to be shadowed by exports subpath string`, () => {
+	it(`should not allow types field to be shadowed by exports subpath string`, () => {
 		expect.assertions(1);
 		const pkg: PackageJson = {
 			name: "mock-package",
@@ -178,41 +173,39 @@ describe.each(["types", "typings"])("%s", (field) => {
 			exports: {
 				".": "./dist/foo.js",
 			},
-			[field]: "./foo.d.ts",
+			types: "./foo.d.ts",
 		};
 		const { content, ast } = generateAst(pkg);
-		/* eslint-disable-next-line sonarjs/no-interpolation-in-inline-snapshots -- parameterized test */
 		expect(codeframe(content, shadowedTypes(pkg, ast))).toMatchInlineSnapshot(`
-			"ERROR: "${field}" cannot be resolved when respecting "exports" field (shadowed-types) at package.json
+			"ERROR: "types" cannot be resolved when respecting "exports" field (shadowed-types) at package.json
 			  5 |     ".": "./dist/foo.js"
 			  6 |   },
-			> 7 |   "${field}": "./foo.d.ts"
+			> 7 |   "types": "./foo.d.ts"
 			    |   ^
 			  8 | }"
 		`);
 	});
 
-	it(`should not allow ${field} field to be shadowed by exports string`, () => {
+	it(`should not allow types field to be shadowed by exports string`, () => {
 		expect.assertions(1);
 		const pkg: PackageJson = {
 			name: "mock-package",
 			version: "1.2.3",
 			exports: "./dist/foo.js",
-			[field]: "./foo.d.ts",
+			types: "./foo.d.ts",
 		};
 		const { content, ast } = generateAst(pkg);
-		/* eslint-disable-next-line sonarjs/no-interpolation-in-inline-snapshots -- parameterized test */
 		expect(codeframe(content, shadowedTypes(pkg, ast))).toMatchInlineSnapshot(`
-			"ERROR: "${field}" cannot be resolved when respecting "exports" field (shadowed-types) at package.json
+			"ERROR: "types" cannot be resolved when respecting "exports" field (shadowed-types) at package.json
 			  3 |   "version": "1.2.3",
 			  4 |   "exports": "./dist/foo.js",
-			> 5 |   "${field}": "./foo.d.ts"
+			> 5 |   "types": "./foo.d.ts"
 			    |   ^
 			  6 | }"
 		`);
 	});
 
-	it(`should allow ${field} field when matching exports (with dot slash)`, () => {
+	it(`should allow types field when matching exports (with dot slash)`, () => {
 		expect.assertions(1);
 		const pkg: PackageJson = {
 			name: "mock-package",
@@ -222,13 +215,13 @@ describe.each(["types", "typings"])("%s", (field) => {
 					types: "./dist/foo.d.ts",
 				},
 			},
-			[field]: "./dist/foo.d.ts",
+			types: "./dist/foo.d.ts",
 		};
 		const { content, ast } = generateAst(pkg);
 		expect(codeframe(content, shadowedTypes(pkg, ast))).toMatchInlineSnapshot(`""`);
 	});
 
-	it(`should allow ${field} field when one or more nested types condition exists`, () => {
+	it(`should allow types field when one or more nested types condition exists`, () => {
 		expect.assertions(1);
 		const pkg: PackageJson = {
 			name: "mock-package",
@@ -245,13 +238,13 @@ describe.each(["types", "typings"])("%s", (field) => {
 					},
 				},
 			},
-			[field]: "./dist/nodejs.d.ts",
+			types: "./dist/nodejs.d.ts",
 		};
 		const { content, ast } = generateAst(pkg);
 		expect(codeframe(content, shadowedTypes(pkg, ast))).toMatchInlineSnapshot(`""`);
 	});
 
-	it(`should allow ${field} field when matching exports (without dot slash)`, () => {
+	it(`should allow types field when matching exports (without dot slash)`, () => {
 		expect.assertions(1);
 		const pkg: PackageJson = {
 			name: "mock-package",
@@ -261,7 +254,7 @@ describe.each(["types", "typings"])("%s", (field) => {
 					types: "./dist/foo.d.ts",
 				},
 			},
-			[field]: "dist/foo.d.ts",
+			types: "dist/foo.d.ts",
 		};
 		const { content, ast } = generateAst(pkg);
 		expect(codeframe(content, shadowedTypes(pkg, ast))).toMatchInlineSnapshot(`""`);
@@ -272,13 +265,206 @@ describe.each(["types", "typings"])("%s", (field) => {
 		const pkg: PackageJson = {
 			name: "mock-package",
 			version: "1.2.3",
-			[field]: "dist/foo.d.ts",
+			types: "dist/foo.d.ts",
 		};
 		const { content, ast } = generateAst(pkg);
 		expect(codeframe(content, shadowedTypes(pkg, ast))).toMatchInlineSnapshot(`""`);
 	});
 
-	it(`should handle when ${field} is missing`, () => {
+	it(`should handle when types is missing`, () => {
+		expect.assertions(1);
+		const pkg: PackageJson = {
+			name: "mock-package",
+			version: "1.2.3",
+		};
+		const { content, ast } = generateAst(pkg);
+		expect(codeframe(content, shadowedTypes(pkg, ast))).toMatchInlineSnapshot(`""`);
+	});
+});
+
+describe("typings", () => {
+	it(`should not allow typings field to be shadowed by exports with types condition`, () => {
+		expect.assertions(1);
+		const pkg: PackageJson = {
+			name: "mock-package",
+			version: "1.2.3",
+			exports: {
+				".": {
+					types: "./dist/foo.d.ts",
+					default: "./dist/foo.js",
+				},
+			},
+			typings: "./foo.d.ts",
+		};
+		const { content, ast } = generateAst(pkg);
+		expect(codeframe(content, shadowedTypes(pkg, ast))).toMatchInlineSnapshot(`
+			"ERROR: "typings" cannot be resolved when respecting "exports" field (shadowed-types) at package.json
+			   8 |     }
+			   9 |   },
+			> 10 |   "typings": "./foo.d.ts"
+			     |   ^
+			  11 | }"
+		`);
+	});
+
+	it(`should not allow typings field to be shadowed by exports without types condition`, () => {
+		expect.assertions(1);
+		const pkg: PackageJson = {
+			name: "mock-package",
+			version: "1.2.3",
+			exports: {
+				".": {
+					default: "./dist/foo.js",
+				},
+			},
+			typings: "./foo.d.ts",
+		};
+		const { content, ast } = generateAst(pkg);
+		expect(codeframe(content, shadowedTypes(pkg, ast))).toMatchInlineSnapshot(`
+			"ERROR: "typings" cannot be resolved when respecting "exports" field (shadowed-types) at package.json
+			   7 |     }
+			   8 |   },
+			>  9 |   "typings": "./foo.d.ts"
+			     |   ^
+			  10 | }"
+		`);
+	});
+
+	it(`should not allow typings field to be shadowed by nested exports without types condition`, () => {
+		expect.assertions(1);
+		const pkg: PackageJson = {
+			name: "mock-package",
+			version: "1.2.3",
+			exports: {
+				".": {
+					browser: {
+						default: "./dist/browser.js",
+					},
+					node: {
+						default: "./dist/nodejs.js",
+					},
+				},
+			},
+			typings: "./foo.d.ts",
+		};
+		const { content, ast } = generateAst(pkg);
+		expect(codeframe(content, shadowedTypes(pkg, ast))).toMatchInlineSnapshot(`
+			"ERROR: "typings" cannot be resolved when respecting "exports" field (shadowed-types) at package.json
+			  12 |     }
+			  13 |   },
+			> 14 |   "typings": "./foo.d.ts"
+			     |   ^
+			  15 | }"
+		`);
+	});
+
+	it(`should not allow typings field to be shadowed by exports subpath string`, () => {
+		expect.assertions(1);
+		const pkg: PackageJson = {
+			name: "mock-package",
+			version: "1.2.3",
+			exports: {
+				".": "./dist/foo.js",
+			},
+			typings: "./foo.d.ts",
+		};
+		const { content, ast } = generateAst(pkg);
+		expect(codeframe(content, shadowedTypes(pkg, ast))).toMatchInlineSnapshot(`
+			"ERROR: "typings" cannot be resolved when respecting "exports" field (shadowed-types) at package.json
+			  5 |     ".": "./dist/foo.js"
+			  6 |   },
+			> 7 |   "typings": "./foo.d.ts"
+			    |   ^
+			  8 | }"
+		`);
+	});
+
+	it(`should not allow typings field to be shadowed by exports string`, () => {
+		expect.assertions(1);
+		const pkg: PackageJson = {
+			name: "mock-package",
+			version: "1.2.3",
+			exports: "./dist/foo.js",
+			typings: "./foo.d.ts",
+		};
+		const { content, ast } = generateAst(pkg);
+		expect(codeframe(content, shadowedTypes(pkg, ast))).toMatchInlineSnapshot(`
+			"ERROR: "typings" cannot be resolved when respecting "exports" field (shadowed-types) at package.json
+			  3 |   "version": "1.2.3",
+			  4 |   "exports": "./dist/foo.js",
+			> 5 |   "typings": "./foo.d.ts"
+			    |   ^
+			  6 | }"
+		`);
+	});
+
+	it(`should allow typings field when matching exports (with dot slash)`, () => {
+		expect.assertions(1);
+		const pkg: PackageJson = {
+			name: "mock-package",
+			version: "1.2.3",
+			exports: {
+				".": {
+					types: "./dist/foo.d.ts",
+				},
+			},
+			typings: "./dist/foo.d.ts",
+		};
+		const { content, ast } = generateAst(pkg);
+		expect(codeframe(content, shadowedTypes(pkg, ast))).toMatchInlineSnapshot(`""`);
+	});
+
+	it(`should allow typings field when one or more nested types condition exists`, () => {
+		expect.assertions(1);
+		const pkg: PackageJson = {
+			name: "mock-package",
+			version: "1.2.3",
+			exports: {
+				".": {
+					browser: {
+						types: "./dist/browser.d.ts",
+						default: "./dist/browser.js",
+					},
+					node: {
+						types: "./dist/nodejs.d.ts",
+						default: "./dist/nodejs.js",
+					},
+				},
+			},
+			typings: "./dist/nodejs.d.ts",
+		};
+		const { content, ast } = generateAst(pkg);
+		expect(codeframe(content, shadowedTypes(pkg, ast))).toMatchInlineSnapshot(`""`);
+	});
+
+	it(`should allow typings field when matching exports (without dot slash)`, () => {
+		expect.assertions(1);
+		const pkg: PackageJson = {
+			name: "mock-package",
+			version: "1.2.3",
+			exports: {
+				".": {
+					types: "./dist/foo.d.ts",
+				},
+			},
+			typings: "dist/foo.d.ts",
+		};
+		const { content, ast } = generateAst(pkg);
+		expect(codeframe(content, shadowedTypes(pkg, ast))).toMatchInlineSnapshot(`""`);
+	});
+
+	it(`should handle when exports is missing`, () => {
+		expect.assertions(1);
+		const pkg: PackageJson = {
+			name: "mock-package",
+			version: "1.2.3",
+			typings: "dist/foo.d.ts",
+		};
+		const { content, ast } = generateAst(pkg);
+		expect(codeframe(content, shadowedTypes(pkg, ast))).toMatchInlineSnapshot(`""`);
+	});
+
+	it(`should handle when typings is missing`, () => {
 		expect.assertions(1);
 		const pkg: PackageJson = {
 			name: "mock-package",

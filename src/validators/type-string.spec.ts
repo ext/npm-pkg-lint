@@ -1,4 +1,4 @@
-import { expect, it } from "@jest/globals";
+import { expect, it } from "vitest";
 import { typeString } from "./type-string";
 
 it("should not throw error when type is string", () => {

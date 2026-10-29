@@ -1,20 +1,19 @@
-jest.unmock("tar");
-jest.mock("find-up", () => ({
+vi.mock(import("find-up"), () => ({
 	findUp: () => Promise.resolve(undefined),
 }));
 
 import { promises as fs } from "node:fs";
 import * as path from "node:path";
 import { parse } from "@humanwhocodes/momoa";
-import { expect, it, jest } from "@jest/globals";
 import { globSync } from "glob";
 import spawn from "nano-spawn";
+import { expect, it, vi } from "vitest";
 import { type PackageJson } from "../src/types";
 import { codeframe } from "../src/utils/codeframe";
 import { verify } from "../src/verify";
 
-const ROOT_DIRECTORY = path.resolve(path.join(__dirname, ".."));
-const FIXTURE_DIRECTORY = path.join(__dirname, "fixtures");
+const ROOT_DIRECTORY = path.resolve(path.join(import.meta.dirname, ".."));
+const FIXTURE_DIRECTORY = path.join(import.meta.dirname, "fixtures");
 
 const fixtures = globSync("*", { cwd: FIXTURE_DIRECTORY });
 

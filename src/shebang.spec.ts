@@ -1,8 +1,8 @@
 let mockContents: Record<string, Buffer>;
 
-jest.mock("./tarball", () => {
+vi.mock(import("./tarball"), () => {
 	return {
-		getFileContent(_tarball: string, filenames: string[]): Promise<Record<string, Buffer>> {
+		getFileContent(_tarball, filenames) {
 			const result = filenames.reduce<Record<string, Buffer>>(
 				(st: Record<string, Buffer>, filename: string) => {
 					st[filename] = mockContents[filename];
@@ -15,7 +15,7 @@ jest.mock("./tarball", () => {
 	};
 });
 
-import { beforeEach, expect, it, jest } from "@jest/globals";
+import { beforeEach, expect, it, vi } from "vitest";
 import { verifyShebang } from "./shebang";
 import { type PackageJson } from "./types";
 
