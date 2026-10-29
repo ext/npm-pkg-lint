@@ -2,10 +2,9 @@ vi.mock(import("find-up"), () => ({
 	findUp: () => Promise.resolve(undefined),
 }));
 
-import { promises as fs } from "node:fs";
+import fs from "node:fs/promises";
 import * as path from "node:path";
 import { parse } from "@humanwhocodes/momoa";
-import { globSync } from "glob";
 import spawn from "nano-spawn";
 import { expect, it, vi } from "vitest";
 import { type PackageJson } from "../src/types";
@@ -15,7 +14,7 @@ import { verify } from "../src/verify";
 const ROOT_DIRECTORY = path.resolve(path.join(import.meta.dirname, ".."));
 const FIXTURE_DIRECTORY = path.join(import.meta.dirname, "fixtures");
 
-const fixtures = globSync("*", { cwd: FIXTURE_DIRECTORY });
+const fixtures = await Array.fromAsync(fs.glob("*", { cwd: FIXTURE_DIRECTORY }));
 
 async function npmPack(pkg: PackageJson, fixture: string): Promise<string> {
 	const dir = path.join(FIXTURE_DIRECTORY, fixture);

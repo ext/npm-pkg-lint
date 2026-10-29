@@ -92,7 +92,6 @@
     "@typescript/native": "npm:typescript@7.0.2",
     "dts-bundle-generator": "9.5.1",
     "esbuild": "0.28.2",
-    "glob": "13.0.6",
     "husky": "9.1.7",
     "lint-staged": "17.6.0",
     "memfs": "4.80.0",
