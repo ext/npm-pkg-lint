@@ -1,11 +1,12 @@
-import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import spawn from "nano-spawn";
+import { type Options, type Subprocess } from "nano-spawn";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { type ExecaError, type NpmInfoError, isNpmInfoError, npmInfo } from "./npm-info";
 
-jest.mock("nano-spawn");
-jest.mock("./persistent-cache");
+vi.mock(import("nano-spawn"));
+vi.mock(import("./persistent-cache"));
 
-const mockSpawn = spawn as unknown as jest.Mock<(cmd: string, args: string[]) => void>;
+const mockSpawn = vi.mocked(spawn);
 
 /* eslint-disable-next-line unicorn/no-unnecessary-parameters -- technical debt */
 function createExecaError(message: string, stdout: string | Record<string, unknown>): Error {
@@ -14,7 +15,11 @@ function createExecaError(message: string, stdout: string | Record<string, unkno
 	return error;
 }
 
-mockSpawn.mockImplementation((_, args: string[]) => {
+mockSpawn.mockImplementation((_, args: Options | string[] | undefined): Subprocess => {
+	if (!Array.isArray(args)) {
+		throw new TypeError("Invalid mock parameters");
+	}
+
 	const [name, version] = args.at(-1)!.split("@", 2);
 
 	switch (name) {
@@ -33,15 +38,20 @@ mockSpawn.mockImplementation((_, args: string[]) => {
 		case "unpublished-garbage":
 			throw createExecaError("mock error", "garbage non-json response");
 
-		default:
-			return {
-				stdout: JSON.stringify({ name, version }),
-			};
+		default: {
+			const stdout = JSON.stringify({ name, version });
+			const stderr = "";
+			return Promise.resolve({
+				stdout,
+				stderr,
+				output: stdout,
+			}) as ReturnType<typeof spawn>;
+		}
 	}
 });
 
 beforeEach(() => {
-	jest.clearAllMocks();
+	vi.clearAllMocks();
 });
 
 it("should fetch package info", async () => {

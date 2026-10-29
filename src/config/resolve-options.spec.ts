@@ -1,4 +1,4 @@
-import { describe, expect, it } from "@jest/globals";
+import { describe, expect, it } from "vitest";
 import { type CliOptions, resolveOptions } from "./resolve-options";
 
 const empty: CliOptions = { allowDependency: [], allowFile: [] };

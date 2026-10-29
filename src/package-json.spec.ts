@@ -1,7 +1,7 @@
 /* eslint-disable unicorn/prefer-https -- intentional for testing */
 
 import { type DocumentNode, parse } from "@humanwhocodes/momoa";
-import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { verifyPackageJson } from "./package-json";
 import { type PackageJson } from "./types";
 import { codeframe } from "./utils/codeframe";
@@ -10,7 +10,7 @@ import { codeframe } from "./utils/codeframe";
 // @ts-expect-error
 import { npmInfoMockDefault } from "./utils/npm-info";
 
-jest.mock("./utils/npm-info");
+vi.mock(import("./utils/npm-info"));
 
 let pkg: PackageJson & Required<Pick<PackageJson, "engines">>;
 

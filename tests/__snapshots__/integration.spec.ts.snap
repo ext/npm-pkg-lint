@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`disallowed-files 1`] = `
 "ERROR: my-lib.spec.js is not allowed in tarball (no-disallowed-files) at tests/fixtures/disallowed-files/disallowed-files-1.0.0.tgz

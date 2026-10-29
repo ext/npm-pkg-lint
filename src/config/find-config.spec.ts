@@ -1,10 +1,11 @@
+import type fsmodule from "node:fs";
 import path from "node:path";
-import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import memfs from "memfs";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { findConfigFile } from "./find-config";
 
-jest.mock("node:fs", () => {
-	return jest.requireActual<typeof memfs>("memfs").fs;
+vi.mock(import("node:fs"), () => {
+	return memfs.fs as unknown as typeof fsmodule;
 });
 
 const { vol } = memfs;
@@ -47,8 +48,8 @@ it("should throw when multiple files are found", () => {
 		cwd,
 	);
 	expect(() => findConfigFile(cwd)).toThrowErrorMatchingInlineSnapshot(`
-		"Multiple configuration files found, remove all but one or select one with \`--config\`:
+		[Error: Multiple configuration files found, remove all but one or select one with \`--config\`:
 		  - /project/npm-pkg-lint.config.js
-		  - /project/.github/npm-pkg-lint.config.mjs"
+		  - /project/.github/npm-pkg-lint.config.mjs]
 	`);
 });

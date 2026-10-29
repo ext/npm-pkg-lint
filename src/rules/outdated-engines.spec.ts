@@ -1,6 +1,6 @@
 import { Severity } from "@html-validate/stylish";
 import { type DocumentNode, parse } from "@humanwhocodes/momoa";
-import { beforeEach, describe, expect, it } from "@jest/globals";
+import { beforeEach, describe, expect, it } from "vitest";
 import { type PackageJson } from "../types";
 import { codeframe } from "../utils/codeframe";
 import { outdatedEngines } from "./outdated-engines";

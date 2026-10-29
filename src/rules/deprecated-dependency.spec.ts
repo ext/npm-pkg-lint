@@ -1,5 +1,5 @@
 import { type DocumentNode, parse } from "@humanwhocodes/momoa";
-import { beforeEach, expect, it, jest } from "@jest/globals";
+import { beforeEach, expect, it, vi } from "vitest";
 import { type VerifyPackageJsonOptions } from "../package-json";
 import { type PackageJson } from "../types";
 import * as npmInfoModule from "../utils/npm-info";
@@ -8,7 +8,7 @@ import * as npmInfoModule from "../utils/npm-info";
 import { npmInfoMockAdd, npmInfoMockClear } from "../utils/npm-info";
 import { deprecatedDependency } from "./deprecated-dependency";
 
-jest.mock("../utils/npm-info");
+vi.mock(import("../utils/npm-info"));
 
 const options: VerifyPackageJsonOptions = {
 	allowedDependencies: new Set(),
@@ -54,7 +54,7 @@ it("should skip npm: alias without a version specifier", async () => {
 		version: "1.0.0",
 		dependencies: { spam: "npm:foo" },
 	};
-	const npmInfo = jest.spyOn(npmInfoModule, "npmInfo");
+	const npmInfo = vi.spyOn(npmInfoModule, "npmInfo");
 	npmInfo.mockClear();
 	const ast = generateAst(pkg);
 	expect(await deprecatedDependency(pkg, ast, options)).toEqual([]);
@@ -81,7 +81,7 @@ it("should ignore packages with file: prefix", async () => {
 		version: "1.0.0",
 		dependencies: { foo: "file:../foo" },
 	};
-	const npmInfo = jest.spyOn(npmInfoModule, "npmInfo");
+	const npmInfo = vi.spyOn(npmInfoModule, "npmInfo");
 	npmInfo.mockClear();
 	const ast = generateAst(pkg);
 	expect(await deprecatedDependency(pkg, ast, options)).toEqual([]);
@@ -95,7 +95,7 @@ it("should ignore @types/node", async () => {
 		version: "1.0.0",
 		dependencies: { "@types/node": "*" },
 	};
-	const npmInfo = jest.spyOn(npmInfoModule, "npmInfo");
+	const npmInfo = vi.spyOn(npmInfoModule, "npmInfo");
 	npmInfo.mockClear();
 	const ast = generateAst(pkg);
 	expect(await deprecatedDependency(pkg, ast, options)).toEqual([]);
@@ -109,7 +109,7 @@ it("should not return error if dependency is explicitly allowed", async () => {
 		version: "1.0.0",
 		dependencies: { foo: "1.0.0" },
 	};
-	const npmInfo = jest.spyOn(npmInfoModule, "npmInfo");
+	const npmInfo = vi.spyOn(npmInfoModule, "npmInfo");
 	npmInfo.mockClear();
 	const ast = generateAst(pkg);
 	const allowedOptions: VerifyPackageJsonOptions = {
@@ -183,7 +183,7 @@ it("should return warning if a dependency is not published to the registry", asy
 		version: "1.0.0",
 		dependencies: { foo: "1.0.0" },
 	};
-	const npmInfo = jest.spyOn(npmInfoModule, "npmInfo");
+	const npmInfo = vi.spyOn(npmInfoModule, "npmInfo");
 	const error = Object.assign(new Error("not found"), {
 		code: "E404",
 		summary: "Not found",
@@ -207,7 +207,7 @@ it("should not return warning if a devDependency is not published to the registr
 		version: "1.0.0",
 		devDependencies: { foo: "1.0.0" },
 	};
-	const npmInfo = jest.spyOn(npmInfoModule, "npmInfo");
+	const npmInfo = vi.spyOn(npmInfoModule, "npmInfo");
 	const error = Object.assign(new Error("not found"), {
 		code: "E404",
 		summary: "Not found",

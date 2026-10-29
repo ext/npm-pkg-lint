@@ -1,5 +1,5 @@
 import { type DocumentNode, parse } from "@humanwhocodes/momoa";
-import { beforeEach, expect, it } from "@jest/globals";
+import { beforeEach, expect, it } from "vitest";
 import { type PackageJson } from "../types";
 import { codeframe } from "../utils/codeframe";
 import { exportsDefaultOrder } from "./exports-default-order";

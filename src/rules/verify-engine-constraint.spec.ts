@@ -1,4 +1,4 @@
-import { beforeEach, expect, it, jest } from "@jest/globals";
+import { beforeEach, expect, it, vi } from "vitest";
 import { type PackageJson } from "../types";
 import * as npmInfoModule from "../utils/npm-info";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment -- exists in mock only
@@ -6,7 +6,7 @@ import * as npmInfoModule from "../utils/npm-info";
 import { npmInfoMockAdd, npmInfoMockClear } from "../utils/npm-info";
 import { verifyEngineConstraint } from "./verify-engine-constraint";
 
-jest.mock("../utils/npm-info");
+vi.mock(import("../utils/npm-info"));
 
 beforeEach(() => {
 	/* eslint-disable-next-line @typescript-eslint/no-unsafe-call -- technical debt */
@@ -124,7 +124,7 @@ it("should ignore @types/node", async () => {
 		dependencies: { "@types/node": "*" },
 		engines: { node: ">= 10" },
 	};
-	const npmInfo = jest.spyOn(npmInfoModule, "npmInfo");
+	const npmInfo = vi.spyOn(npmInfoModule, "npmInfo");
 	await verifyEngineConstraint(pkg);
 	expect(npmInfo).not.toHaveBeenCalled();
 });
@@ -168,7 +168,7 @@ it("should skip npm: alias without a version specifier", async () => {
 		dependencies: { spam: "npm:foo" },
 		engines: { node: ">= 10" },
 	};
-	const npmInfo = jest.spyOn(npmInfoModule, "npmInfo");
+	const npmInfo = vi.spyOn(npmInfoModule, "npmInfo");
 	npmInfo.mockClear();
 	expect(await verifyEngineConstraint(pkg)).toEqual([]);
 	expect(npmInfo).not.toHaveBeenCalled();

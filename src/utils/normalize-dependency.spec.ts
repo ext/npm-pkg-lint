@@ -1,4 +1,4 @@
-import { expect, it } from "@jest/globals";
+import { expect, it } from "vitest";
 import { normalizeDependency } from "./normalize-dependency";
 
 it("should return the key and version unchanged for a regular dependency", () => {

@@ -1,4 +1,4 @@
-import { expect, it } from "@jest/globals";
+import { expect, it } from "vitest";
 import { isBlacklisted } from "../blacklist";
 
 it("should disallow .gitattributes", () => {

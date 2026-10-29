@@ -1,4 +1,4 @@
-import { expect, it } from "@jest/globals";
+import { expect, it } from "vitest";
 import { validRepoUrl } from "./valid-repo-url";
 
 const key = "repository";
@@ -36,7 +36,9 @@ it("should throw error field is null", () => {
 	const repository = "git+https://example.net/foo/bar";
 	expect(() => {
 		validRepoUrl(key, repository);
-	}).toThrowErrorMatchingInlineSnapshot(`""repository" must be an object with "type" and "url""`);
+	}).toThrowErrorMatchingInlineSnapshot(
+		`[ValidationError: "repository" must be an object with "type" and "url"]`,
+	);
 });
 
 it("should throw error field is not object", () => {
@@ -44,7 +46,9 @@ it("should throw error field is not object", () => {
 	const repository = "git+https://example.net/foo/bar";
 	expect(() => {
 		validRepoUrl(key, repository);
-	}).toThrowErrorMatchingInlineSnapshot(`""repository" must be an object with "type" and "url""`);
+	}).toThrowErrorMatchingInlineSnapshot(
+		`[ValidationError: "repository" must be an object with "type" and "url"]`,
+	);
 });
 
 it("should throw error if type is missing", () => {
@@ -52,7 +56,9 @@ it("should throw error if type is missing", () => {
 	const repository = { url: "git+https://example.net/foo/bar" };
 	expect(() => {
 		validRepoUrl(key, repository);
-	}).toThrowErrorMatchingInlineSnapshot(`""repository" is missing required "type" property"`);
+	}).toThrowErrorMatchingInlineSnapshot(
+		`[ValidationError: "repository" is missing required "type" property]`,
+	);
 });
 
 it("should throw error if type is not a string", () => {
@@ -60,7 +66,7 @@ it("should throw error if type is not a string", () => {
 	const repository = { type: 12, url: "git+https://example.net/foo/bar" };
 	expect(() => {
 		validRepoUrl(key, repository);
-	}).toThrowErrorMatchingInlineSnapshot(`""repository.type" must be a string"`);
+	}).toThrowErrorMatchingInlineSnapshot(`[ValidationError: "repository.type" must be a string]`);
 });
 
 it("should throw error if type is not a git", () => {
@@ -68,7 +74,7 @@ it("should throw error if type is not a git", () => {
 	const repository = { type: "svn", url: "git+https://example.net/foo/bar" };
 	expect(() => {
 		validRepoUrl(key, repository);
-	}).toThrowErrorMatchingInlineSnapshot(`""repository.type" must be "git""`);
+	}).toThrowErrorMatchingInlineSnapshot(`[ValidationError: "repository.type" must be "git"]`);
 });
 
 it("should throw error if url is missing", () => {
@@ -76,7 +82,9 @@ it("should throw error if url is missing", () => {
 	const repository = { type: "git" };
 	expect(() => {
 		validRepoUrl(key, repository);
-	}).toThrowErrorMatchingInlineSnapshot(`""repository" is missing required "url" property"`);
+	}).toThrowErrorMatchingInlineSnapshot(
+		`[ValidationError: "repository" is missing required "url" property]`,
+	);
 });
 
 it("should throw error if url is not a string", () => {
@@ -84,7 +92,7 @@ it("should throw error if url is not a string", () => {
 	const repository = { type: "git", url: 12 };
 	expect(() => {
 		validRepoUrl(key, repository);
-	}).toThrowErrorMatchingInlineSnapshot(`""repository.url" must be a string"`);
+	}).toThrowErrorMatchingInlineSnapshot(`[ValidationError: "repository.url" must be a string]`);
 });
 
 it("should throw error if url is empty string", () => {
@@ -92,7 +100,7 @@ it("should throw error if url is empty string", () => {
 	const repository = { type: "git", url: "" };
 	expect(() => {
 		validRepoUrl(key, repository);
-	}).toThrowErrorMatchingInlineSnapshot(`""repository.url" must not be empty"`);
+	}).toThrowErrorMatchingInlineSnapshot(`[ValidationError: "repository.url" must not be empty]`);
 });
 
 it("should throw error if url has leading or trailing whitespace", () => {
@@ -101,7 +109,7 @@ it("should throw error if url has leading or trailing whitespace", () => {
 	expect(() => {
 		validRepoUrl(key, repository);
 	}).toThrowErrorMatchingInlineSnapshot(
-		`""repository.url" must not have leading or trailing whitespace"`,
+		`[ValidationError: "repository.url" must not have leading or trailing whitespace]`,
 	);
 });
 
@@ -110,7 +118,7 @@ it("should throw error if url is missing hostname", () => {
 	const repository = { type: "git", url: "git+https://" };
 	expect(() => {
 		validRepoUrl(key, repository);
-	}).toThrowErrorMatchingInlineSnapshot(`""repository.url" be a valid url"`);
+	}).toThrowErrorMatchingInlineSnapshot(`[ValidationError: "repository.url" be a valid url]`);
 });
 
 it("should throw error if url is http (with git+ prefix)", () => {
@@ -119,7 +127,7 @@ it("should throw error if url is http (with git+ prefix)", () => {
 	expect(() => {
 		validRepoUrl(key, repository);
 	}).toThrowErrorMatchingInlineSnapshot(
-		`""repository.url" must use "git+https://" instead of "http://""`,
+		`[ValidationError: "repository.url" must use "git+https://" instead of "http://"]`,
 	);
 });
 
@@ -130,7 +138,7 @@ it("should throw error if url is http (without git+ prefix)", () => {
 	expect(() => {
 		validRepoUrl(key, repository);
 	}).toThrowErrorMatchingInlineSnapshot(
-		`""repository.url" must use "git+https://" instead of "http://""`,
+		`[ValidationError: "repository.url" must use "git+https://" instead of "http://"]`,
 	);
 });
 
@@ -139,7 +147,9 @@ it("should throw error if url is missing git+ prefix", () => {
 	const repository = { type: "git", url: "https://example.net/foo/bar" };
 	expect(() => {
 		validRepoUrl(key, repository);
-	}).toThrowErrorMatchingInlineSnapshot(`""repository.url" must use "git+https://" protocol"`);
+	}).toThrowErrorMatchingInlineSnapshot(
+		`[ValidationError: "repository.url" must use "git+https://" protocol]`,
+	);
 });
 
 it("should throw error if directory is not a string", () => {
@@ -151,7 +161,9 @@ it("should throw error if directory is not a string", () => {
 	};
 	expect(() => {
 		validRepoUrl(key, repository);
-	}).toThrowErrorMatchingInlineSnapshot(`""repository.directory" must be a string"`);
+	}).toThrowErrorMatchingInlineSnapshot(
+		`[ValidationError: "repository.directory" must be a string]`,
+	);
 });
 
 it("should throw error if directory is empty string", () => {
@@ -164,6 +176,6 @@ it("should throw error if directory is empty string", () => {
 	expect(() => {
 		validRepoUrl(key, repository);
 	}).toThrowErrorMatchingInlineSnapshot(
-		`""repository.directory" must be set to non-empty string or the property must be removed"`,
+		`[ValidationError: "repository.directory" must be set to non-empty string or the property must be removed]`,
 	);
 });

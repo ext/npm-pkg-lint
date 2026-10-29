@@ -1,19 +1,20 @@
+import type fspmodule from "node:fs/promises";
 import path from "node:path";
-import { beforeEach, expect, it, jest } from "@jest/globals";
+import { beforeEach, expect, it, vi } from "vitest";
 import { verifyPackageLock } from "./package-lock";
 import { codeframe } from "./utils/codeframe";
 
-const mockFindUp = jest.fn<(...args: unknown[]) => Promise<string | undefined>>();
-const mockReadFile = jest.fn<(...args: unknown[]) => Promise<string>>();
+const mockFindUp = vi.fn<(...args: unknown[]) => Promise<string | undefined>>();
+const mockReadFile = vi.fn<(...args: unknown[]) => Promise<string>>();
 
-jest.mock("find-up", () => ({
+vi.mock(import("find-up"), () => ({
 	findUp: (...args: unknown[]) => mockFindUp(...args),
 }));
 
-jest.mock("node:fs", () => ({
+vi.mock(import("node:fs"), () => ({
 	promises: {
 		readFile: (...args: unknown[]) => mockReadFile(...args),
-	},
+	} as typeof fspmodule,
 }));
 
 beforeEach(() => {

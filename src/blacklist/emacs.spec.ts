@@ -1,4 +1,4 @@
-import { expect, it } from "@jest/globals";
+import { expect, it } from "vitest";
 import { isBlacklisted } from "../blacklist";
 
 it.each(["#foo#", ".dir-locals.el", "dir/#foo#", "dir/.dir-locals.el", "dir/foo~", "foo~"])(

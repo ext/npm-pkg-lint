@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`should return error if package.json references missing file bin (multiple) 1`] = `
+exports[`should return error if package.json references missing file > bin (multiple) 1`] = `
 [
   {
     "column": 1,
@@ -19,7 +19,7 @@ exports[`should return error if package.json references missing file bin (multip
 ]
 `;
 
-exports[`should return error if package.json references missing file bin (single) 1`] = `
+exports[`should return error if package.json references missing file > bin (single) 1`] = `
 [
   {
     "column": 1,
@@ -31,7 +31,7 @@ exports[`should return error if package.json references missing file bin (single
 ]
 `;
 
-exports[`should return error if package.json references missing file browser 1`] = `
+exports[`should return error if package.json references missing file > browser 1`] = `
 [
   {
     "column": 1,
@@ -43,7 +43,7 @@ exports[`should return error if package.json references missing file browser 1`]
 ]
 `;
 
-exports[`should return error if package.json references missing file exports (condition) 1`] = `
+exports[`should return error if package.json references missing file > exports (condition) 1`] = `
 [
   {
     "column": 1,
@@ -62,7 +62,7 @@ exports[`should return error if package.json references missing file exports (co
 ]
 `;
 
-exports[`should return error if package.json references missing file exports (nested) 1`] = `
+exports[`should return error if package.json references missing file > exports (nested) 1`] = `
 [
   {
     "column": 1,
@@ -74,7 +74,7 @@ exports[`should return error if package.json references missing file exports (ne
 ]
 `;
 
-exports[`should return error if package.json references missing file exports (subpath) 1`] = `
+exports[`should return error if package.json references missing file > exports (subpath) 1`] = `
 [
   {
     "column": 1,
@@ -93,7 +93,7 @@ exports[`should return error if package.json references missing file exports (su
 ]
 `;
 
-exports[`should return error if package.json references missing file exports (sugar) 1`] = `
+exports[`should return error if package.json references missing file > exports (sugar) 1`] = `
 [
   {
     "column": 1,
@@ -105,7 +105,7 @@ exports[`should return error if package.json references missing file exports (su
 ]
 `;
 
-exports[`should return error if package.json references missing file jsnext:main 1`] = `
+exports[`should return error if package.json references missing file > jsnext:main 1`] = `
 [
   {
     "column": 1,
@@ -117,7 +117,7 @@ exports[`should return error if package.json references missing file jsnext:main
 ]
 `;
 
-exports[`should return error if package.json references missing file main 1`] = `
+exports[`should return error if package.json references missing file > main 1`] = `
 [
   {
     "column": 1,
@@ -129,7 +129,7 @@ exports[`should return error if package.json references missing file main 1`] = 
 ]
 `;
 
-exports[`should return error if package.json references missing file man (multiple) 1`] = `
+exports[`should return error if package.json references missing file > man (multiple) 1`] = `
 [
   {
     "column": 1,
@@ -148,7 +148,7 @@ exports[`should return error if package.json references missing file man (multip
 ]
 `;
 
-exports[`should return error if package.json references missing file man (single) 1`] = `
+exports[`should return error if package.json references missing file > man (single) 1`] = `
 [
   {
     "column": 1,
@@ -160,7 +160,7 @@ exports[`should return error if package.json references missing file man (single
 ]
 `;
 
-exports[`should return error if package.json references missing file module 1`] = `
+exports[`should return error if package.json references missing file > module 1`] = `
 [
   {
     "column": 1,
@@ -172,7 +172,7 @@ exports[`should return error if package.json references missing file module 1`] 
 ]
 `;
 
-exports[`should return error if package.json references missing file types 1`] = `
+exports[`should return error if package.json references missing file > types 1`] = `
 [
   {
     "column": 1,
@@ -184,7 +184,7 @@ exports[`should return error if package.json references missing file types 1`] =
 ]
 `;
 
-exports[`should return error if package.json references missing file typings 1`] = `
+exports[`should return error if package.json references missing file > typings 1`] = `
 [
   {
     "column": 1,
