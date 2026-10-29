@@ -2,7 +2,7 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": ["@tsconfig/node22", "@tsconfig/strictest"],
   "compilerOptions": {
-    "rootDir": "./src",
+    "rootDirs": ["src", "tests"],
     "outDir": "dist",
     "declaration": true,
     "noEmit": true,
@@ -19,6 +19,6 @@
     /* some of these could/should be fixed but it also creates lots of errors where it shouldn't */
     "noUncheckedIndexedAccess": false
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "tests/**/*.ts"],
   "exclude": ["node_modules"]
 }

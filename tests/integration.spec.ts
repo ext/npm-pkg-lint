@@ -35,6 +35,7 @@ it.each(fixtures)("%s", async (fixture) => {
 	const result = await verify(pkg, pkgAst, pkgPath, tarball, {
 		allowedDependencies: new Set(),
 		ignoreNodeVersion: false,
+		allowedFiles: [],
 	});
 	expect(codeframe(content, result)).toMatchSnapshot();
 });
