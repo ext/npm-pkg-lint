@@ -79,7 +79,7 @@
     "@html-validate/eslint-config": "9.24.7",
     "@html-validate/eslint-config-typescript": "9.24.2",
     "@html-validate/eslint-config-typescript-typeinfo": "9.24.2",
-    "@html-validate/eslint-config-vitest": "9.24.0",
+    "@html-validate/eslint-config-vitest": "9.24.8",
     "@html-validate/prettier-config": "4.1.17",
     "@html-validate/release-scripts": "7.6.17",
     "@html-validate/vitest-config": "1.1.1",
