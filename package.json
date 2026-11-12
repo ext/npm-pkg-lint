@@ -80,7 +80,7 @@
     "@html-validate/eslint-config-typescript": "9.24.13",
     "@html-validate/eslint-config-typescript-typeinfo": "9.24.13",
     "@html-validate/eslint-config-vitest": "9.24.8",
-    "@html-validate/prettier-config": "4.1.17",
+    "@html-validate/prettier-config": "4.1.18",
     "@html-validate/release-scripts": "7.6.17",
     "@html-validate/vitest-config": "1.1.1",
     "@tsconfig/node22": "22.0.6",
