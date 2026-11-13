@@ -84,7 +84,7 @@
     "@html-validate/release-scripts": "7.6.17",
     "@html-validate/vitest-config": "1.1.1",
     "@tsconfig/node22": "22.0.7",
-    "@tsconfig/strictest": "2.0.8",
+    "@tsconfig/strictest": "2.0.9",
     "@types/babel__code-frame": "7.27.0",
     "@types/node": "22.20.5",
     "@types/semver": "7.8.0",
