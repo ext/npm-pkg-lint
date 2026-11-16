@@ -68,7 +68,7 @@
     "@html-validate/stylish": "6.1.0",
     "@humanwhocodes/momoa": "3.3.13",
     "find-up": "8.0.0",
-    "nano-spawn": "2.1.0",
+    "nano-spawn": "3.0.0",
     "semver": "7.8.6",
     "tar": "7.5.23",
     "tmp": "0.2.7"
