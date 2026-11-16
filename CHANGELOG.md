@@ -1,5 +1,11 @@
 # npm-pkg-lint changelog
 
+## 5.5.0 (2026-11-16)
+
+### Features
+
+- **deps:** update dependency nano-spawn to v3 ([be80460](https://github.com/ext/npm-pkg-lint/commit/be8046099d22959a41e7a3eca046503eccad3061))
+
 ## 5.4.2 (2026-11-13)
 
 ### Bug Fixes
