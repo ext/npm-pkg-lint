@@ -12,6 +12,7 @@ vi.mocked(tar.list).mockImplementation((options) => {
 		return;
 	}
 	for (const filename of mockFilelist) {
+		/* eslint-disable-next-line @typescript-eslint/no-unsafe-class-instance-assignment -- technical debt */
 		onReadEntry({
 			path: filename,
 		} as ReadEntry);
