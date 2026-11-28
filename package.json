@@ -70,7 +70,7 @@
     "find-up": "8.0.0",
     "nano-spawn": "3.0.0",
     "semver": "7.8.6",
-    "tar": "7.5.23",
+    "tar": "7.5.24",
     "tmp": "0.2.7"
   },
   "devDependencies": {
